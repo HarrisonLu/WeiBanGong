@@ -7,17 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class ContactService {
 
     @Autowired
     private UserMapper userMapper;
 
-    @Transactional
     public void insertUser(UserInfo userInfo) {
         userMapper.insertUser(userInfo);
     }
 
-    @Transactional
     public UserInfo findUserByUsername(String userName) {
         return userMapper.findUserByUsername(userName);
     }

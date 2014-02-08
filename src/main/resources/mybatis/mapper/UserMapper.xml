@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-        
+
 <mapper namespace="com.springapp.mvc.contacts.dao.UserMapper">
+    <resultMap id="UserResult" type="UserInfo">
+        <id property="id" column="id"/>
+        <result property="chineseName" column="chinese_name"/>
+        <result property="englishName" column="english_name"/>
+        <result property="positionTitle" column="position_title"/>
+        <result property="weChatNum" column="wechat_num"/>
+        <result property="qqNum" column="qq_num"/>
+        <result property="phoneNum" column="phone_num"/>
+    </resultMap>
+
     <insert id="insertUser" parameterType="UserInfo">
         insert into t_user values(#{id},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum})
     </insert>
@@ -9,7 +19,7 @@
     <select id="findUserByUsername" parameterType="java.lang.String" resultType="UserInfo">
         select * from t_user where chineseName=#{value}
     </select>
-    
+
     <update id="updateUser" parameterType="UserInfo">
         update t_user set
         chineseName = #{chineseName},
