@@ -11,7 +11,6 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:annotation-config />
     <context:component-scan base-package="com.springapp.mvc.contacts.dao"/>
     <context:component-scan base-package="com.springapp.mvc.contacts.service"/>
 
@@ -26,7 +25,7 @@
     </bean>
 
     <!-- SqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath*:mybatis/mapper/*.xml"/>
