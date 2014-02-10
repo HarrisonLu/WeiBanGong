@@ -2,34 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springapp.mvc.contacts.dao.UserMapper">
-    <resultMap id="UserResult" type="UserInfo">
+    <resultMap id="UserResult" type="User">
         <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
         <result property="chineseName" column="chinese_name"/>
         <result property="englishName" column="english_name"/>
         <result property="positionTitle" column="position_title"/>
         <result property="weChatNum" column="wechat_num"/>
         <result property="qqNum" column="qq_num"/>
         <result property="phoneNum" column="phone_num"/>
+        <result property="createdTime" column="created_time"/>
     </resultMap>
 
-    <insert id="insertUser" parameterType="UserInfo">
-        insert into t_user values(#{id},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum})
+    <resultMap id="UserDepartmentResult" type="User" extends="UserResult">
+        <collection property="departments" ofType="Department" columnPrefix="dp_">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="createdTime" column="created_time"/>
+        </collection>
+    </resultMap>
+
+    <!--录入成员-->
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})
     </insert>
 
-    <select id="findUserByUsername" parameterType="java.lang.String" resultType="UserInfo">
-        select * from t_user where chineseName=#{value}
+    <insert id="insertDepartmentLink" parameterType="java.util.HashMap">
+        insert into t_user_department values(#{userId},#{departmentId})
+    </insert>
+
+
+    <select id="selectUserById" parameterType="int" resultMap="UserDepartmentResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+        where u.id=#{id}
     </select>
 
-    <update id="updateUser" parameterType="UserInfo">
+    <select id="selectUserByUsername" parameterType="java.lang.String" resultMap="UserResult">
+        select * from t_user where chinese_name=#{chineseName}
+    </select>
+
+    <select id="selectAllUser" resultMap="UserDepartmentResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+    </select>
+
+    <!--更新成员-->
+    <update id="updateUser" parameterType="User">
         update t_user set
-        chineseName = #{chineseName},
-        englishName = #{englishName},
-        positionTitle = #{positionTitle},
-        weChatNum = #{weChatNum},
-        qqNum = #{qqNum},
-        phoneNum = #{phoneNum}
-        where
-        id = #{id}
+        email = #{email},
+        password = #{password},
+        chinese_name = #{chineseName},
+        english_name = #{englishName},
+        position_title = #{positionTitle},
+        wechat_num = #{weChatNum},
+        qq_num = #{qqNum},
+        phone_num = #{phoneNum}
+        where id = #{id}
     </update>
+
+    <!--删除成员-->
+    <delete id="deleteUser" parameterType="int">
+        delete from t_user where id = #{id}
+    </delete>
+
 </mapper>
 

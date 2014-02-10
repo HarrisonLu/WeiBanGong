@@ -21,9 +21,10 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/index/contact/create">通讯录</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
+                <li><a href="/index/contact/create">项目管理</a></li>
+                <li><a href="/index/contact/create">客户管理</a></li>
+                <li><a href="/index/contact/create">审批流</a></li>
+                <li><a href="/index/contact/userlist">通讯录</a></li>
             </ul>
         </div>
     </div>

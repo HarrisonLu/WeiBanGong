@@ -2,19 +2,22 @@ package com.springapp.mvc.contacts.domain;
 
 import com.springapp.mvc.common.BaseDomain;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Department extends BaseDomain {
 
-    private int id;
+    private Integer id;
     private String name;
-    private List employeeIdList;
+    private Date createdTime;
+    private List<User> users = new ArrayList<User>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -26,11 +29,19 @@ public class Department extends BaseDomain {
         this.name = name;
     }
 
-    public List getEmployeeIdList() {
-        return employeeIdList;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setEmployeeIdList(List employeeIdList) {
-        this.employeeIdList = employeeIdList;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
