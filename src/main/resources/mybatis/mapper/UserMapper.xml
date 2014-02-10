@@ -2,34 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springapp.mvc.contacts.dao.UserMapper">
-    <resultMap id="UserResult" type="UserInfo">
+    <resultMap id="UserResult" type="User">
         <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
         <result property="chineseName" column="chinese_name"/>
         <result property="englishName" column="english_name"/>
         <result property="positionTitle" column="position_title"/>
         <result property="weChatNum" column="wechat_num"/>
         <result property="qqNum" column="qq_num"/>
         <result property="phoneNum" column="phone_num"/>
+        <result property="createdTime" column="created_time"/>
     </resultMap>
 
-    <insert id="insertUser" parameterType="UserInfo">
-        insert into t_user values(#{id},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum})
+    <!--录入成员-->
+    <insert id="insertUser" parameterType="User">
+        insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})
     </insert>
 
-    <select id="findUserByUsername" parameterType="java.lang.String" resultType="UserInfo">
-        select * from t_user where chineseName=#{value}
-    </select>
+    <!--删除成员-->
+    <delete id="deleteUser" parameterType="User">
+        delete from t_user where id = #{id}
+    </delete>
 
-    <update id="updateUser" parameterType="UserInfo">
+    <!--更新成员-->
+    <update id="updateUser" parameterType="User">
         update t_user set
-        chineseName = #{chineseName},
-        englishName = #{englishName},
-        positionTitle = #{positionTitle},
-        weChatNum = #{weChatNum},
-        qqNum = #{qqNum},
-        phoneNum = #{phoneNum}
+        email = #{email},
+        password = #{password},
+        chinese_name = #{chineseName},
+        english_name = #{englishName},
+        position_title = #{positionTitle},
+        wechat_num = #{weChatNum},
+        qq_num = #{qqNum},
+        phone_num = #{phoneNum}
         where
         id = #{id}
     </update>
+
+    <!--根据chineseName找User-->
+    <select id="findUserByChineseName" parameterType="java.lang.String" resultType="User">
+        select * from t_user where chinese_name = #{chineseName}
+    </select>
+
+    <!--根据englishName找User-->
+    <select id="findUserByEnglishName" parameterType="java.lang.String" resultType="User">
+        select * from t_user where english_name = #{englishName}
+    </select>
+
+    <!--插入部门-->
+    <insert id="insertDepartment" parameterType="Department">
+        insert into t_department values(#{id}, #{name}, #{createdTime})
+    </insert>
+
+    <!--删除部门-->
+    <delete id="deleteDepartment" parameterType="Department">
+        delete from t_department where id = #{id}
+    </delete>
+
+    <!--修改部门-->
+    <update id="updateDepartment" parameterType="Department">
+        update t_department set
+        name = #{name}
+        where id = #{id}
+    </update>
+
+    <!--根据name找user-->
+    <select id="findDepartmentByName" parameterType="Department" resultType="Department">
+        select * from t_department where name = #{name}
+    </select>
+
 </mapper>
 
