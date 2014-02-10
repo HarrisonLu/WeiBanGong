@@ -5,8 +5,8 @@ import com.springapp.mvc.common.BaseDomain;
 public class WechatGroup extends BaseDomain {
 
     private int id;
-    private String EnglishName;
-    private String ChineseName;
+    private String englishName;
+    private String chineseName;
 
     public int getId() {
         return id;
@@ -17,18 +17,18 @@ public class WechatGroup extends BaseDomain {
     }
 
     public String getEnglishName() {
-        return EnglishName;
+        return englishName;
     }
 
     public void setEnglishName(String englishName) {
-        EnglishName = englishName;
+        this.englishName = englishName;
     }
 
     public String getChineseName() {
-        return ChineseName;
+        return chineseName;
     }
 
     public void setChineseName(String chineseName) {
-        ChineseName = chineseName;
+        this.chineseName = chineseName;
     }
 }
