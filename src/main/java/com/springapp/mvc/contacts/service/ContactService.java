@@ -18,7 +18,6 @@ public class ContactService {
         userMapper.insertUser(user);
     }
 
-
     public User findUserByChineseName(String chineseName) {
         return userMapper.findUserByChineseName(chineseName);
     }

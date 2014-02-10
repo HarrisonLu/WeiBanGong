@@ -1,5 +1,6 @@
 package com.springapp.mvc.contacts.service;
 
+import com.springapp.mvc.contacts.dao.DepartmentMapper;
 import com.springapp.mvc.contacts.dao.UserMapper;
 import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
@@ -24,8 +25,8 @@ public class ContactsOperateService {
     }
 
     //删除成员
-    public void deleteUser(User user) {
-        userMapper.deleteUser(user);
+    public void deleteUser(int id) {
+        userMapper.deleteUser(id);
     }
 
     //更新成员
@@ -33,19 +34,22 @@ public class ContactsOperateService {
         userMapper.updateUser(user);
     }
 
+    @Autowired
+    private DepartmentMapper departmentMapper;
+
     //增加部门
     public void addDepartment(Department department) {
-        userMapper.insertDepartment(department);
+        departmentMapper.insertDepartment(department);
     }
 
     //删除部门
-    public void deleteDepartment(Department department) {
-        userMapper.deleteDepartment(department);
+    public void deleteDepartment(int id) {
+        departmentMapper.deleteDepartment(id);
     }
 
     //更新部门
     public void updateDepartment(Department department) {
-        userMapper.updateDepartment(department);
+        departmentMapper.updateDepartment(department);
     }
 
 }

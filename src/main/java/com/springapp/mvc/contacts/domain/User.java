@@ -3,6 +3,8 @@ package com.springapp.mvc.contacts.domain;
 import com.springapp.mvc.common.BaseDomain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class User extends BaseDomain {
@@ -16,9 +18,8 @@ public class User extends BaseDomain {
     private String weChatNum;
     private String qqNum;
     private String phoneNum;
-    private Timestamp createdTime;
-    private FrequentContacts frequentContacts;
-    private List weChatGroupIdList;
+    private Date createdTime;
+    private List<Department> departments = new ArrayList<Department>();
 
     public int getId() {
         return id;
@@ -92,27 +93,19 @@ public class User extends BaseDomain {
         this.phoneNum = phoneNum;
     }
 
-    public Timestamp getCreatedTime() {
+    public Date getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Timestamp createdTime) {
+    public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
 
-    public FrequentContacts getFrequentContacts() {
-        return frequentContacts;
+    public List<Department> getDepartments() {
+        return departments;
     }
 
-    public void setFrequentContacts(FrequentContacts frequentContacts) {
-        this.frequentContacts = frequentContacts;
-    }
-
-    public List getWeChatGroupIdList() {
-        return weChatGroupIdList;
-    }
-
-    public void setWeChatGroupIdList(List weChatGroupIdList) {
-        this.weChatGroupIdList = weChatGroupIdList;
+    public void setDepartments(List<Department> departments) {
+        this.departments = departments;
     }
 }

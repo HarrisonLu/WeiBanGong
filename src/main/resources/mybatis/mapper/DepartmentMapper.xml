@@ -44,4 +44,8 @@
         delete from t_department where id = #{id}
     </delete>
 
+    <select id="findDepartmentByName" parameterType="java.lang.String" resultMap="DepartmentResult">
+        select * from t_department where name=#{name}
+    </select>
+
 </mapper>

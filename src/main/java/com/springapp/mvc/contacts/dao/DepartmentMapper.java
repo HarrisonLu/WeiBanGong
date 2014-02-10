@@ -8,13 +8,18 @@ import java.util.List;
 @Repository
 public interface DepartmentMapper {
 
-    public Department selectDepartmentById(int id);
-
-    public List<Department> selectAllDepartment();
-
+    //插入部门
     public void insertDepartment(Department department);
 
+    public Department selectDepartmentById(int id);
+    public List<Department> selectAllDepartment();
+
+    //修改部门
     public void updateDepartment(Department department);
 
+    //删除部门
     public void deleteDepartment(int id);
+
+    public Department findDepartmentByName(String name);
+
 }

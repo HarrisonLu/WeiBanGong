@@ -14,18 +14,43 @@
         <result property="phoneNum" column="phone_num"/>
         <result property="createdTime" column="created_time"/>
     </resultMap>
+    
+    <resultMap id="UserDepartmentResult" type="User" extends="UserResult">
+        <collection property="departments" ofType="Department" columnPrefix="dp_">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="createdTime" column="created_time"/>
+        </collection>
+    </resultMap>
 
-    <!--录入成员-->
-    <insert id="insertUser" parameterType="User">
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})
     </insert>
 
-    <!--删除成员-->
-    <delete id="deleteUser" parameterType="User">
-        delete from t_user where id = #{id}
-    </delete>
+    <select id="selectUserById" parameterType="int" resultMap="UserDepartmentResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+        where id=#{id}
+    </select>
 
-    <!--更新成员-->
+    <select id="selectAllUser" resultMap="UserDepartmentResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+    </select>
+
+    <select id="findUserByChineseName" parameterType="java.lang.String" resultType="User">
+        select * from t_user where chinese_name = #{chineseName}
+    </select>
+
+    <select id="findUserByEnglishName" parameterType="java.lang.String" resultType="User">
+        select * from t_user where english_name = #{englishName}
+    </select>
+
+
     <update id="updateUser" parameterType="User">
         update t_user set
         email = #{email},
@@ -40,37 +65,10 @@
         id = #{id}
     </update>
 
-    <!--根据chineseName找User-->
-    <select id="findUserByChineseName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where chinese_name = #{chineseName}
-    </select>
-
-    <!--根据englishName找User-->
-    <select id="findUserByEnglishName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where english_name = #{englishName}
-    </select>
-
-    <!--插入部门-->
-    <insert id="insertDepartment" parameterType="Department">
-        insert into t_department values(#{id}, #{name}, #{createdTime})
-    </insert>
-
-    <!--删除部门-->
-    <delete id="deleteDepartment" parameterType="Department">
-        delete from t_department where id = #{id}
+    <delete id="deleteUser" parameterType="User">
+        delete from t_user where id = #{id}
     </delete>
 
-    <!--修改部门-->
-    <update id="updateDepartment" parameterType="Department">
-        update t_department set
-        name = #{name}
-        where id = #{id}
-    </update>
-
-    <!--根据name找user-->
-    <select id="findDepartmentByName" parameterType="Department" resultType="Department">
-        select * from t_department where name = #{name}
-    </select>
 
 </mapper>
 

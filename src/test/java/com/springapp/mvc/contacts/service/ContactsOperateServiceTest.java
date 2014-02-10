@@ -1,5 +1,6 @@
 package com.springapp.mvc.contacts.service;
 
+import com.springapp.mvc.contacts.dao.DepartmentMapper;
 import com.springapp.mvc.contacts.dao.UserMapper;
 import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
@@ -21,6 +22,9 @@ public class ContactsOperateServiceTest {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     @Autowired
     private ContactsOperateService contactsOperateService;
@@ -47,7 +51,7 @@ public class ContactsOperateServiceTest {
         assertEquals(user1.getPassword(), "12345678_abcd");
         assertEquals(user1.getEmail(), "luhuang@qq.com");
 
-        contactsOperateService.deleteUser(user);
+        contactsOperateService.deleteUser(1);
     }
 
     //删除成员
@@ -66,9 +70,8 @@ public class ContactsOperateServiceTest {
         contactsOperateService.addUser(user);
 
         assertNotNull(userMapper.findUserByEnglishName("luhuang"));
-        contactsOperateService.deleteUser(user);
+        contactsOperateService.deleteUser(1);
         assertNull(userMapper.findUserByEnglishName("luhuang"));
-
     }
 
     //更新成员信息
@@ -99,7 +102,7 @@ public class ContactsOperateServiceTest {
         User user_1 = userMapper.findUserByEnglishName("fenjin");
         assertEquals("shifenjin@qq.com", user_1.getEmail());
 
-        contactsOperateService.deleteUser(user_1);
+        contactsOperateService.deleteUser(1);
 
     }
 
@@ -110,14 +113,14 @@ public class ContactsOperateServiceTest {
         department.setId(1);
         department.setName("Technology");
 
-        assertNull(userMapper.findDepartmentByName("Technology"));
+        assertNull(departmentMapper.findDepartmentByName("Technology"));
         contactsOperateService.addDepartment(department);
-        assertNotNull(userMapper.findDepartmentByName("Technology"));
+        assertNotNull(departmentMapper.findDepartmentByName("Technology"));
 
-        Department department_1 = userMapper.findDepartmentByName("Technology");
+        Department department_1 = departmentMapper.findDepartmentByName("Technology");
         assertEquals("Technology", department_1.getName());
 
-        contactsOperateService.deleteDepartment(department_1);
+        contactsOperateService.deleteDepartment(1);
 
     }
 
@@ -129,9 +132,9 @@ public class ContactsOperateServiceTest {
         department.setName("Technology");
         contactsOperateService.addDepartment(department);
 
-        assertNotNull(userMapper.findDepartmentByName("Technology"));
-        contactsOperateService.deleteDepartment(department);
-        assertNull(userMapper.findDepartmentByName("Technology"));
+        assertNotNull(departmentMapper.findDepartmentByName("Technology"));
+        contactsOperateService.deleteDepartment(1);
+        assertNull(departmentMapper.findDepartmentByName("Technology"));
     }
 
     //更新部门
@@ -145,9 +148,9 @@ public class ContactsOperateServiceTest {
         department.setName("Sales");
         contactsOperateService.updateDepartment(department);
 
-        Department department_1 = userMapper.findDepartmentByName("Sales");
+        Department department_1 = departmentMapper.findDepartmentByName("Sales");
         assertEquals(1, department_1.getId());
 
-        contactsOperateService.deleteDepartment(department_1);
+        contactsOperateService.deleteDepartment(1);
     }
 }

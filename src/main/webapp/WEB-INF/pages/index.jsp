@@ -1,11 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-
-<head>
-    <jsp:include page="template/header.jsp"/>
-</head>
-
 <body>
+<jsp:include page="template/header.jsp"/>
 
 <div class="container">
     <div class="panel-group" id="accordion">

@@ -6,7 +6,7 @@ import org.junit.Test;
 /**
  * Created by Lion on 14-2-9.
  */
-public class userMapperTest {
+public class UserMapperTest {
 
     @Test
     public void testInsertUser(User user) {
