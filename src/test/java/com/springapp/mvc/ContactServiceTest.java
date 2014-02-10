@@ -1,6 +1,6 @@
 package com.springapp.mvc;
 
-import com.springapp.mvc.contacts.domain.UserInfo;
+import com.springapp.mvc.contacts.domain.User;
 import com.springapp.mvc.contacts.service.ContactService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,11 +17,11 @@ public class ContactServiceTest {
 
     @Test
     public void testInsertUser() {
-        UserInfo userInfo = new UserInfo();
-        userInfo.setChineseName("11111");
-        userInfo.setEnglishName("22222");
-        System.out.println(userInfo.getChineseName());
-        contactService.insertUser(userInfo);
+        User user = new User();
+        user.setChineseName("卢煌");
+        user.setEnglishName("luhuang");
+        System.out.println(user.getChineseName());
+        contactService.insertUser(user);
     }
 
 }
