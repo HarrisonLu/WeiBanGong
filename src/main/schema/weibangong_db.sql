@@ -46,6 +46,6 @@ create table t_wechat_group
 
 create table t_user_frequentcontacts
 (
-  user_id                   int(10)       unsigned    not null,
+  user_id                 int(10)       unsigned    not null,
   frequentcontacts_id     int(10)       unsigned    not null
 )engine=INNODB default charset=utf8;
