@@ -31,24 +31,21 @@
         insert into t_user_department values(#{user_id}, #{department_id})
     </insert>
 
-    <select id="selectUserById" parameterType="int" resultMap="UserDepartmentResult">
-        select u.id,u.email,u.chinese_name,d.name as dp_name
-        from t_user u
-        left outer join t_user_department ud on u.id=ud.user_id
-        left outer join t_department d on ud.department_id=d.id
-        where u.id=#{id}
-    </select>
+    <insert id="insertUserFrequentContactsLink" parameterType="java.util.HashMap">
+        insert into t_user_frequentcontacts values (#{user_id}, #{frequentcontacts_id})
+    </insert>
 
-    <select id="selectUserByName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where english_name = #{englishName}
-    </select>
+    <delete id="deleteUser" parameterType="int">
+        delete from t_user where id = #{id}
+    </delete>
 
-    <select id="selectAllUser" resultMap="UserDepartmentResult">
-        select u.id,u.email,u.chinese_name,d.name as dp_name
-        from t_user u
-        left outer join t_user_department ud on u.id=ud.user_id
-        left outer join t_department d on ud.department_id=d.id
-    </select>
+    <delete id="deleteUserDepartmentLink" parameterType="java.util.HashMap">
+        delete from t_user_department where user_id = #{user_id} and department_id = #{department_id}
+    </delete>
+
+    <delete id="deleteUserFrequentContactsLink" parameterType="java.util.HashMap">
+        delete from t_user_frequentcontacts where user_id = #{user_id} and frequentcontacts_id = #{frequentcontacts_id}
+    </delete>
 
     <update id="updateUser" parameterType="User">
         update t_user set
@@ -64,10 +61,35 @@
         id = #{id}
     </update>
 
-    <delete id="deleteUser" parameterType="User">
-        delete from t_user where id = #{id}
-    </delete>
+    <select id="selectUserById" parameterType="int" resultMap="UserDepartmentResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+        where u.id=#{id}
+    </select>
 
+    <select id="selectUserByEnglishName" parameterType="java.lang.String" resultType="User">
+        select * from t_user where english_name = #{englishName}
+    </select>
+
+    <resultMap id="frequentContactsResult" type="User">
+        <collection property="departments">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="createdTime" column="created_time"/>
+        </collection>
+    </resultMap>
+    <select id="selectFrequentContactsByUser" resultMap="frequentContactsResult" >
+
+    </select>
+
+    <select id="selectAllUser" resultMap="UserDepartmentResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+    </select>
 
 </mapper>
 
