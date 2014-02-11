@@ -9,17 +9,22 @@ import java.util.List;
 @Repository
 public interface UserMapper {
 
-    //插入User
+    // 插入User
     public void insertUser(User user);
 
-    public User selectUserById(int id);
-    public User selectUserByName(String name);
-    public List<User> selectAllUser();
-
-    //修改User
+    // 修改User
     public void updateUser(User user);
 
-    //删除User
+    // 删除User
     void deleteUser(int id);
+
+    // 根据id搜索User
+    public User selectUserById(int id);
+
+    // 根据名字搜索User
+    public User selectUserByName(String name);
+
+    // 搜索所有User
+    public List<User> selectAllUser();
 
 }

@@ -21,29 +21,17 @@ public class ContactsOperateService {
     @Autowired
     private UserMapper userMapper;
 
-    //录入成员
+    // 录入成员
     public void insertUser(User user) {
         userMapper.insertUser(user);
     }
 
-    public User selectUserById(int id) {
-        return userMapper.selectUserById(id);
-    }
-
-    public User selectUserByName(String name) {
-        return userMapper.selectUserByName(name);
-    }
-
-    public List<User> selectAllUser() {
-        return userMapper.selectAllUser();
-    }
-
-    //更新成员
+    // 更新成员
     public void updateUserInfo(User user) {
         userMapper.updateUser(user);
     }
 
-    //删除成员
+    // 删除成员
     public void deleteUser(int id) {
         userMapper.deleteUser(id);
     }
@@ -51,17 +39,17 @@ public class ContactsOperateService {
     @Autowired
     private DepartmentMapper departmentMapper;
 
-    //增加部门
-    public void addDepartment(Department department) {
+    // 增加部门
+    public void insertDepartment(Department department) {
         departmentMapper.insertDepartment(department);
     }
 
-    //更新部门
+    // 更新部门
     public void updateDepartment(Department department) {
         departmentMapper.updateDepartment(department);
     }
 
-    //删除部门
+    // 删除部门
     public void deleteDepartment(int id) {
         departmentMapper.deleteDepartment(id);
     }

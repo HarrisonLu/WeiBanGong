@@ -36,14 +36,12 @@
         select * from t_department
     </select>
 
-    <!--修改部门-->
     <update id="updateDepartment" parameterType="Department">
         update t_department set
         name = #{name}
         where id = #{id}
     </update>
 
-    <!--删除部门-->
     <delete id="deleteDepartment" parameterType="int">
         delete from t_department where id = #{id}
     </delete>

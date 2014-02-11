@@ -124,7 +124,7 @@ public class ContactsOperateServiceTest {
         department.setName("Technology");
 
         assertNull(departmentMapper.selectDepartmentByName("Technology"));
-        contactsOperateService.addDepartment(department);
+        contactsOperateService.insertDepartment(department);
         assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
 
         Department department_1 = departmentMapper.selectDepartmentByName("Technology");
@@ -140,7 +140,7 @@ public class ContactsOperateServiceTest {
         Department department = new Department();
         department.setId(1);
         department.setName("Technology");
-        contactsOperateService.addDepartment(department);
+        contactsOperateService.insertDepartment(department);
 
         assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
         contactsOperateService.deleteDepartment(1);
@@ -153,7 +153,7 @@ public class ContactsOperateServiceTest {
         Department department = new Department();
         department.setId(1);
         department.setName("Technology");
-        contactsOperateService.addDepartment(department);
+        contactsOperateService.insertDepartment(department);
 
         department.setName("Sales");
         contactsOperateService.updateDepartment(department);
