@@ -17,7 +17,7 @@ public interface UserMapper {
     public void insertUserDepartmentLink(HashMap<String, Integer> map);
 
     //插入user和frequentContacts关联
-    void insertUserIdFrequentContactsId(int userId, int frequentContactsId);
+//    void insertUserIdFrequentContactsId(int userId, int frequentContactsId);
 
     // 修改User
     public void updateUser(User user);
