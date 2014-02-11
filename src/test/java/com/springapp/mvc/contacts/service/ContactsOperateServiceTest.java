@@ -38,11 +38,9 @@ public class ContactsOperateServiceTest {
         testData = new TestData();
     }
 
-    // 普通用户操作 相关测试
-    // 常用联系人操作 相关测试
     // 增加常用联系人测试
     @Test
-    public void insetFrequentContactsTest(){
+    public void insertFrequentContactsTest(){
 
         HashMap<String, Integer> map = new HashMap<String, Integer>();
         map.put("user_id", testData.getUser_1().getId());
@@ -69,7 +67,7 @@ public class ContactsOperateServiceTest {
 
     // 增加部门测试
     @Test
-    public void TestAddDepartment() {
+    public void addDepartmentTest() {
         assertNull(departmentMapper.selectDepartmentByName("Technology"));
         contactsOperateService.insertDepartment(testData.getDepartment_1());
         assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
@@ -82,7 +80,7 @@ public class ContactsOperateServiceTest {
 
     // 删除部门测试
     @Test
-    public void TestDeleteDepartment() {
+    public void deleteDepartmentTest() {
         contactsOperateService.insertDepartment(testData.getDepartment_1());
 
         assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
@@ -92,7 +90,7 @@ public class ContactsOperateServiceTest {
 
     // 更新部门测试
     @Test
-    public void TestUpdateDepartment() {
+    public void updateDepartmentTest() {
         contactsOperateService.insertDepartment(testData.getDepartment_1());
 
         testData.getDepartment_1().setName("Sales");
@@ -106,7 +104,7 @@ public class ContactsOperateServiceTest {
 
     // 录入成员测试
     @Test
-    public void testInsertUser() {
+    public void insertUserTest() {
         assertNull(userMapper.selectUserByEnglishName("luhuang"));
         contactsOperateService.insertUser(testData.getUser_1());
         assertNotNull(userMapper.selectUserByEnglishName("luhuang"));
@@ -116,7 +114,7 @@ public class ContactsOperateServiceTest {
 
     // 删除成员测试
     @Test
-    public void testDeleteUser() {
+    public void deleteUserTest() {
         contactsOperateService.insertUser(testData.getUser_1());
 
         assertNotNull(userMapper.selectUserByEnglishName("luhuang"));
@@ -126,7 +124,7 @@ public class ContactsOperateServiceTest {
 
     // 更新成员信息测试
     @Test
-    public void testUpdateUserInfo() {
+    public void updateUserInfoTest() {
         contactsOperateService.insertUser(testData.getUser_1());
 
         testData.getUser_1().setPassword("12345678_dbca");
