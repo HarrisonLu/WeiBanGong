@@ -32,139 +32,132 @@ public class ContactsOperateServiceTest {
     @Autowired
     private ContactsOperateService contactsOperateService;
 
-    private TestData testData;
+    //录入成员
+    @Test
+    public void testInsertUser() {
+        User user = new User();
+        user.setPassword("12345678_abcd");
+        user.setChineseName("卢煌");
+        user.setEnglishName("luhuang");
+        user.setEmail("luhuang@qq.com");
+        user.setPositionTitle("newHand");
+        user.setWeChatNum("88886666444");
+        user.setQqNum("1212121212");
+        user.setPhoneNum("13888888888");
 
-    public ContactsOperateServiceTest(){
-        testData = new TestData();
+        assertNull(userMapper.selectUserByName("luhuang"));
+        contactsOperateService.insertUser(user);
+        assertNotNull(userMapper.selectUserByName("luhuang"));
+
+        User user1 = userMapper.selectUserByName("luhuang");
+        assertEquals(user1.getPassword(), "12345678_abcd");
+        assertEquals(user1.getEmail(), "luhuang@qq.com");
     }
 
-    // 普通用户操作 相关测试
-        // 常用联系人操作 相关测试
-            // 增加常用联系人测试
-            @Test
-            public void insetFrequentContactsTest(){
-
+    @Test
+    public void testInsertUserDepartmentLink() {
         HashMap<String, Integer> map = new HashMap<String, Integer>();
-        map.put("user_id", testData.getUser_1().getId());
-        map.put("frequentcontacts_id", testData.getUser_2().getId());
-
-        contactsOperateService.insertUser(testData.getUser_1());
-        contactsOperateService.insertUser(testData.getUser_2());
-
-        contactsOperateService.addFrequentContacts(map);
-        //assertEquals(1, contactsOperateService.getFrequentContacts(1).size());
-        contactsOperateService.deleteFrequentContacts(map);
-
-        contactsOperateService.deleteUser(testData.getUser_1().getId());
-        contactsOperateService.deleteUser(testData.getUser_2().getId());
+        map.put("user_id", 1);
+        map.put("department_id", 1);
+        contactsOperateService.insertUserDepartmentLink(map);
     }
 
-            //删除常用联系人测试
-            @Test
-            public void deleteFrequentContactsTest(){
+    //删除成员
+    @Test
+    public void testDeleteUser() {
+        User user = new User();
+        user.setId(1);
+        user.setPassword("12345678_abcd");
+        user.setChineseName("卢煌");
+        user.setEnglishName("luhuang");
+        user.setEmail("luhuang@qq.com");
+        user.setPositionTitle("newHand");
+        user.setWeChatNum("88886666444");
+        user.setQqNum("1212121212");
+        user.setPhoneNum("13888888888");
+        contactsOperateService.insertUser(user);
 
-            }
+        assertNotNull(userMapper.selectUserByName("luhuang"));
+        contactsOperateService.deleteUser(1);
+        assertNull(userMapper.selectUserByName("luhuang"));
+    }
 
-            //根据用户ID查找frequentContacts测试
+    //更新成员信息
+    @Test
+    public void TestUpdateUserInfo() {
+        User user = new User();
+        user.setId(1);
+        user.setPassword("12345678_abcd");
+        user.setChineseName("卢煌");
+        user.setEnglishName("luhuang");
+        user.setEmail("luhuang@qq.com");
+        user.setPositionTitle("newHand");
+        user.setWeChatNum("88886666444");
+        user.setQqNum("1212121212");
+        user.setPhoneNum("13888888888");
+        contactsOperateService.insertUser(user);
 
+        user.setPassword("12345678_dbca");
+        user.setChineseName("奋进");
+        user.setEnglishName("fenjin");
+        user.setEmail("shifenjin@qq.com");
+        user.setPositionTitle("engineer");
+        user.setWeChatNum("fenjiang");
+        user.setQqNum("170843737");
+        user.setPhoneNum("13999999999");
+        contactsOperateService.updateUserInfo(user);
 
-    // 管理员操作 相关测试
-        // 修改部门 相关测试
-            // 增加部门测试
-            @Test
-            public void TestAddDepartment() {
+        User user_1 = userMapper.selectUserByName("fenjin");
+        assertEquals("shifenjin@qq.com", user_1.getEmail());
+
+        contactsOperateService.deleteUser(1);
+
+    }
+
+    //增加部门
+    @Test
+    public void TestAddDepartment() {
+        Department department = new Department();
+        department.setId(1);
+        department.setName("Technology");
+
         assertNull(departmentMapper.selectDepartmentByName("Technology"));
-        contactsOperateService.insertDepartment(testData.getDepartment_1());
+        contactsOperateService.insertDepartment(department);
         assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
 
         Department department_1 = departmentMapper.selectDepartmentByName("Technology");
         assertEquals("Technology", department_1.getName());
 
-        contactsOperateService.deleteDepartment(testData.getDepartment_1().getId());
+        contactsOperateService.deleteDepartment(1);
     }
 
-            // 删除部门测试
-            @Test
-            public void TestDeleteDepartment() {
-                contactsOperateService.insertDepartment(testData.getDepartment_1());
+    //删除部门
+    @Test
+    public void TestDeleteDepartment() {
+        Department department = new Department();
+        department.setId(1);
+        department.setName("Technology");
+        contactsOperateService.insertDepartment(department);
 
-                assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
-                contactsOperateService.deleteDepartment(testData.getDepartment_1().getId());
-                assertNull(departmentMapper.selectDepartmentByName("Technology"));
-            }
+        assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
+        contactsOperateService.deleteDepartment(1);
+        assertNull(departmentMapper.selectDepartmentByName("Technology"));
+    }
 
-            // 更新部门测试
-            @Test
-            public void TestUpdateDepartment() {
-                contactsOperateService.insertDepartment(testData.getDepartment_1());
+    //更新部门
+    @Test
+    public void TestUpdateDepartment() {
+        Department department = new Department();
+        department.setId(1);
+        department.setName("Technology");
+        contactsOperateService.insertDepartment(department);
 
-                testData.getDepartment_1().setName("Sales");
-                contactsOperateService.updateDepartment(testData.getDepartment_1());
+        department.setName("Sales");
+        contactsOperateService.updateDepartment(department);
 
-                Department department_1 = departmentMapper.selectDepartmentByName("Sales");
-                assertEquals(testData.getDepartment_1().getId(), department_1.getId());
+        Department department_1 = departmentMapper.selectDepartmentByName("Sales");
+        assertEquals(1, department_1.getId());
 
-                contactsOperateService.deleteDepartment(testData.getDepartment_1().getId());
-            }
-
-        // 修改成员 相关测试
-            // 录入成员测试
-            @Test
-            public void testInsertUser() {
-                assertNull(userMapper.selectUserByEnglishName("luhuang"));
-                contactsOperateService.insertUser(testData.getUser_1());
-                assertNotNull(userMapper.selectUserByEnglishName("luhuang"));
-
-                contactsOperateService.deleteUser(testData.getUser_1().getId());
-            }
-
-            // 删除成员测试
-            @Test
-            public void testDeleteUser() {
-                contactsOperateService.insertUser(testData.getUser_1());
-
-                assertNotNull(userMapper.selectUserByEnglishName("luhuang"));
-                contactsOperateService.deleteUser(testData.getUser_1().getId());
-                assertNull(userMapper.selectUserByEnglishName("luhuang"));
-            }
-
-            // 更新成员信息测试
-            @Test
-            public void testUpdateUserInfo() {
-                contactsOperateService.insertUser(testData.getUser_1());
-
-                testData.getUser_1().setPassword("12345678_dbca");
-                testData.getUser_1().setChineseName("烧猪");
-                testData.getUser_1().setEnglishName("shaozhu");
-                testData.getUser_1().setEmail("shaozhu@qq.com");
-                testData.getUser_1().setPositionTitle("shadiao");
-                testData.getUser_1().setWeChatNum("shaozhulalala");
-                testData.getUser_1().setQqNum("434343434");
-                testData.getUser_1().setPhoneNum("13999993399");
-                contactsOperateService.updateUserInfo(testData.getUser_1());
-
-                User user_1 = userMapper.selectUserByEnglishName("shaozhu");
-                assertEquals("shaozhu@qq.com", user_1.getEmail());
-
-                contactsOperateService.deleteUser(testData.getUser_1().getId());
-            }
-
-        // 修改成员与部门关联 相关测试
-            // 插入User和Department关联测试
-            @Test
-            public void insertUserDepartmentLinkTest() {
-            contactsOperateService.insertUser(testData.getUser_1());
-            contactsOperateService.insertDepartment(testData.getDepartment_1());
-
-            HashMap<String, Integer> map = new HashMap<String, Integer>();
-            map.put("user_id", testData.getUser_1().getId());
-            map.put("department_id", testData.getDepartment_1().getId());
-            contactsOperateService.insertUserDepartmentLink(map);
-            contactsOperateService.deleteUserDepartmentLink(map);
-
-            contactsOperateService.deleteUser(testData.getUser_1().getId());
-            contactsOperateService.deleteDepartment(testData.getDepartment_1().getId());
-        }
-            // 删除User和Department关联测试
-
+        contactsOperateService.deleteDepartment(1);
+    }
 }
