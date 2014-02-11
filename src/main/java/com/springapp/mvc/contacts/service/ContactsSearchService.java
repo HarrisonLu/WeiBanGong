@@ -25,7 +25,7 @@ public class ContactsSearchService {
     }
 
     public User selectUserByName(String name) {
-        return userMapper.selectUserByEnglishName(name);
+        return userMapper.selectUserByName(name);
     }
 
     public List<User> selectAllUser() {
