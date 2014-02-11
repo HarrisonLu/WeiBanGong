@@ -1,5 +1,6 @@
 package com.springapp.mvc.contacts.web.controller;
 
+import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
 import com.springapp.mvc.contacts.service.ContactsOperateService;
 import com.springapp.mvc.contacts.service.ContactsSearchService;
@@ -50,8 +51,14 @@ public class MainController {
     @RequestMapping(value = "/contact/userlist", method = RequestMethod.GET)
     public ModelAndView showUserList() {
         List<User> users = contactsSearchService.selectAllUser();
-        return new ModelAndView("/contact/userlist", "userlist", users);
+        for (User user : users) {
+            System.out.print(user.getEmail() + ", " + user.getEnglishName());
+            for (Department department : user.getDepartments()) {
+                System.out.print(" " + department.getName());
+            }
+            System.out.println();
+        }
+        return new ModelAndView("/contact/userlist", "users", users);
     }
-
 
 }
