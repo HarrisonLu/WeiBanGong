@@ -12,13 +12,8 @@ public interface UserMapper {
     //插入User
     public void insertUser(User user);
 
-    //根据chineseName找user
-    public User findUserByChineseName(String chineseName);
-
-    //根据englishName找user
-    public User findUserByEnglishName(String englishName);
-
-    public List<User> selectUserById(int id);
+    public User selectUserById(int id);
+    public User selectUserByName(String name);
     public List<User> selectAllUser();
 
     //修改User

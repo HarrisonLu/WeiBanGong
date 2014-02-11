@@ -1,7 +1,6 @@
 package com.springapp.mvc.contacts.web.controller;
 
-import com.springapp.mvc.contacts.domain.User;
-import com.springapp.mvc.contacts.service.ContactService;
+import com.springapp.mvc.contacts.service.ContactsOperateService;
 import com.springapp.mvc.contacts.web.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MainController {
 
     @Autowired
-    private ContactService contactService;
+    private ContactsOperateService contactsOperateService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
@@ -33,10 +32,10 @@ public class MainController {
 
     @RequestMapping(value = "/contact/create", method = RequestMethod.POST)
     public String createContactByPost(HttpServletRequest request, UserCommand userCommand) {
-        System.out.println(userCommand.getName());
-        User user = new User();
-        user.setChineseName(userCommand.getName());
-        contactService.insertUser(user);
+//        System.out.println(userCommand.getName());
+//        User user = new User();
+//        user.setChineseName(userCommand.getName());
+//        contactService.insertUser(user);
         return "index";
     }
 

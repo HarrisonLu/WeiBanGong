@@ -28,6 +28,10 @@
         where d.id=#{id}
     </select>
 
+    <select id="selectDepartmentByName" parameterType="java.lang.String" resultMap="DepartmentResult">
+        select * from t_department where name=#{name}
+    </select>
+
     <select id="selectAllDepartment" resultMap="DepartmentResult">
         select * from t_department
     </select>
@@ -43,9 +47,5 @@
     <delete id="deleteDepartment" parameterType="int">
         delete from t_department where id = #{id}
     </delete>
-
-    <select id="findDepartmentByName" parameterType="java.lang.String" resultMap="DepartmentResult">
-        select * from t_department where name=#{name}
-    </select>
 
 </mapper>

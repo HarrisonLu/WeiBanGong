@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -33,25 +35,33 @@ public class ContactsOperateServiceTest {
     @Test
     public void testInsertUser() {
         User user = new User();
-        user.setId(1);
         user.setPassword("12345678_abcd");
         user.setChineseName("卢煌");
         user.setEnglishName("luhuang");
-        user.setEmail("luhuang@qq.com");
+        user.setEmail("luhuang12@qq.com");
         user.setPositionTitle("newHand");
         user.setWeChatNum("88886666444");
         user.setQqNum("1212121212");
         user.setPhoneNum("13888888888");
 
-        assertNull(userMapper.findUserByEnglishName("luhuang"));
-        contactsOperateService.addUser(user);
-        assertNotNull(userMapper.findUserByEnglishName("luhuang"));
+        assertNull(userMapper.selectUserByName("luhuang"));
+        contactsOperateService.insertUser(user);
+        assertNotNull(userMapper.selectUserByName("luhuang"));
 
-        User user1 = userMapper.findUserByEnglishName("luhuang");
+        User user1 = userMapper.selectUserByName("luhuang");
         assertEquals(user1.getPassword(), "12345678_abcd");
         assertEquals(user1.getEmail(), "luhuang@qq.com");
+    }
 
-        contactsOperateService.deleteUser(1);
+    @Test
+    public void testSelectAllUser() {
+        List<User> users = contactsOperateService.selectAllUser();
+        for (User user : users) {
+            assertNotNull(user.getEmail());
+            for (Department department : user.getDepartments()) {
+                assertNotNull(department.getName());
+            }
+        }
     }
 
     //删除成员
@@ -67,11 +77,11 @@ public class ContactsOperateServiceTest {
         user.setWeChatNum("88886666444");
         user.setQqNum("1212121212");
         user.setPhoneNum("13888888888");
-        contactsOperateService.addUser(user);
+        contactsOperateService.insertUser(user);
 
-        assertNotNull(userMapper.findUserByEnglishName("luhuang"));
+        assertNotNull(userMapper.selectUserByName("luhuang"));
         contactsOperateService.deleteUser(1);
-        assertNull(userMapper.findUserByEnglishName("luhuang"));
+        assertNull(userMapper.selectUserByName("luhuang"));
     }
 
     //更新成员信息
@@ -87,7 +97,7 @@ public class ContactsOperateServiceTest {
         user.setWeChatNum("88886666444");
         user.setQqNum("1212121212");
         user.setPhoneNum("13888888888");
-        contactsOperateService.addUser(user);
+        contactsOperateService.insertUser(user);
 
         user.setPassword("12345678_dbca");
         user.setChineseName("奋进");
@@ -99,7 +109,7 @@ public class ContactsOperateServiceTest {
         user.setPhoneNum("13999999999");
         contactsOperateService.updateUserInfo(user);
 
-        User user_1 = userMapper.findUserByEnglishName("fenjin");
+        User user_1 = userMapper.selectUserByName("fenjin");
         assertEquals("shifenjin@qq.com", user_1.getEmail());
 
         contactsOperateService.deleteUser(1);
@@ -113,11 +123,11 @@ public class ContactsOperateServiceTest {
         department.setId(1);
         department.setName("Technology");
 
-        assertNull(departmentMapper.findDepartmentByName("Technology"));
+        assertNull(departmentMapper.selectDepartmentByName("Technology"));
         contactsOperateService.addDepartment(department);
-        assertNotNull(departmentMapper.findDepartmentByName("Technology"));
+        assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
 
-        Department department_1 = departmentMapper.findDepartmentByName("Technology");
+        Department department_1 = departmentMapper.selectDepartmentByName("Technology");
         assertEquals("Technology", department_1.getName());
 
         contactsOperateService.deleteDepartment(1);
@@ -132,9 +142,9 @@ public class ContactsOperateServiceTest {
         department.setName("Technology");
         contactsOperateService.addDepartment(department);
 
-        assertNotNull(departmentMapper.findDepartmentByName("Technology"));
+        assertNotNull(departmentMapper.selectDepartmentByName("Technology"));
         contactsOperateService.deleteDepartment(1);
-        assertNull(departmentMapper.findDepartmentByName("Technology"));
+        assertNull(departmentMapper.selectDepartmentByName("Technology"));
     }
 
     //更新部门
@@ -148,7 +158,7 @@ public class ContactsOperateServiceTest {
         department.setName("Sales");
         contactsOperateService.updateDepartment(department);
 
-        Department department_1 = departmentMapper.findDepartmentByName("Sales");
+        Department department_1 = departmentMapper.selectDepartmentByName("Sales");
         assertEquals(1, department_1.getId());
 
         contactsOperateService.deleteDepartment(1);

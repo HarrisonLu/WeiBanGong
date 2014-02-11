@@ -35,21 +35,16 @@
         where id=#{id}
     </select>
 
+    <select id="selectUserByName" parameterType="java.lang.String" resultType="User">
+        select * from t_user where english_name = #{englishName}
+    </select>
+
     <select id="selectAllUser" resultMap="UserDepartmentResult">
         select u.id,u.email,u.chinese_name,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id
         left outer join t_department d on ud.department_id=d.id
     </select>
-
-    <select id="findUserByChineseName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where chinese_name = #{chineseName}
-    </select>
-
-    <select id="findUserByEnglishName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where english_name = #{englishName}
-    </select>
-
 
     <update id="updateUser" parameterType="User">
         update t_user set

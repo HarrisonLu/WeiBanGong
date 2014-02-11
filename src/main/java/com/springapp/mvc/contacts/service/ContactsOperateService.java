@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Lion on 14-2-8.
  */
@@ -20,18 +22,30 @@ public class ContactsOperateService {
     private UserMapper userMapper;
 
     //录入成员
-    public void addUser(User user) {
+    public void insertUser(User user) {
         userMapper.insertUser(user);
     }
 
-    //删除成员
-    public void deleteUser(int id) {
-        userMapper.deleteUser(id);
+    public User selectUserById(int id) {
+        return userMapper.selectUserById(id);
+    }
+
+    public User selectUserByName(String name) {
+        return userMapper.selectUserByName(name);
+    }
+
+    public List<User> selectAllUser() {
+        return userMapper.selectAllUser();
     }
 
     //更新成员
     public void updateUserInfo(User user) {
         userMapper.updateUser(user);
+    }
+
+    //删除成员
+    public void deleteUser(int id) {
+        userMapper.deleteUser(id);
     }
 
     @Autowired
@@ -42,14 +56,14 @@ public class ContactsOperateService {
         departmentMapper.insertDepartment(department);
     }
 
-    //删除部门
-    public void deleteDepartment(int id) {
-        departmentMapper.deleteDepartment(id);
-    }
-
     //更新部门
     public void updateDepartment(Department department) {
         departmentMapper.updateDepartment(department);
+    }
+
+    //删除部门
+    public void deleteDepartment(int id) {
+        departmentMapper.deleteDepartment(id);
     }
 
 }
