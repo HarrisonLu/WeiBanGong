@@ -27,12 +27,16 @@
         insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})
     </insert>
 
+    <insert id="insertUserDepartmentLink" parameterType="java.util.HashMap">
+        insert into t_user_department values(#{user_id}, #{department_id})
+    </insert>
+
     <select id="selectUserById" parameterType="int" resultMap="UserDepartmentResult">
         select u.id,u.email,u.chinese_name,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id
         left outer join t_department d on ud.department_id=d.id
-        where id=#{id}
+        where u.id=#{id}
     </select>
 
     <select id="selectUserByName" parameterType="java.lang.String" resultType="User">

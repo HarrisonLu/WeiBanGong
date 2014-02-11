@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,6 +25,10 @@ public class ContactsOperateService {
     // 录入成员
     public void insertUser(User user) {
         userMapper.insertUser(user);
+    }
+
+    public void insertUserDepartmentLink(HashMap<String, Integer> map) {
+        userMapper.insertUserDepartmentLink(map);
     }
 
     // 更新成员

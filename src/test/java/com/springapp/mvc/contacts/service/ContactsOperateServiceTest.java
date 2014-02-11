@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -38,7 +39,7 @@ public class ContactsOperateServiceTest {
         user.setPassword("12345678_abcd");
         user.setChineseName("卢煌");
         user.setEnglishName("luhuang");
-        user.setEmail("luhuang12@qq.com");
+        user.setEmail("luhuang@qq.com");
         user.setPositionTitle("newHand");
         user.setWeChatNum("88886666444");
         user.setQqNum("1212121212");
@@ -54,14 +55,11 @@ public class ContactsOperateServiceTest {
     }
 
     @Test
-    public void testSelectAllUser() {
-        List<User> users = contactsOperateService.selectAllUser();
-        for (User user : users) {
-            assertNotNull(user.getEmail());
-            for (Department department : user.getDepartments()) {
-                assertNotNull(department.getName());
-            }
-        }
+    public void testInsertUserDepartmentLink() {
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        map.put("user_id", 1);
+        map.put("department_id", 1);
+        contactsOperateService.insertUserDepartmentLink(map);
     }
 
     //删除成员
@@ -131,7 +129,6 @@ public class ContactsOperateServiceTest {
         assertEquals("Technology", department_1.getName());
 
         contactsOperateService.deleteDepartment(1);
-
     }
 
     //删除部门

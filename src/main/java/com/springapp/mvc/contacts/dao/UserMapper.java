@@ -4,6 +4,7 @@ import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -11,6 +12,9 @@ public interface UserMapper {
 
     // 插入User
     public void insertUser(User user);
+
+    // 插入UserDepartmentLink
+    public void insertUserDepartmentLink(HashMap<String, Integer> map);
 
     // 修改User
     public void updateUser(User user);

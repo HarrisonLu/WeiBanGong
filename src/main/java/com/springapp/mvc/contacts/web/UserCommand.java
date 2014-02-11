@@ -3,8 +3,8 @@ package com.springapp.mvc.contacts.web;
 public class UserCommand {
 
     private String name;
-    private String department;
     private String email;
+    private String department;
 
     public String getName() {
         return name;
@@ -12,6 +12,14 @@ public class UserCommand {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDepartment() {
@@ -22,11 +30,4 @@ public class UserCommand {
         this.department = department;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

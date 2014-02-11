@@ -15,17 +15,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="inputDepartment" class="col-sm-4 control-label">部门</label>
-
-            <div class="col-sm-6">
-                <input name="department" type="text" class="form-control" id="inputDepartment" placeholder="" required>
-            </div>
-        </div>
-        <div class="form-group">
             <label for="inputEmail" class="col-sm-4 control-label">邮箱</label>
 
             <div class="col-sm-6">
                 <input name="email" type="text" class="form-control" id="inputEmail" placeholder="" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputDepartment" class="col-sm-4 control-label">部门</label>
+
+            <div class="col-sm-6">
+                <input name="department" type="text" class="form-control" id="inputDepartment" placeholder="" required>
             </div>
         </div>
         <div class="form-group">
