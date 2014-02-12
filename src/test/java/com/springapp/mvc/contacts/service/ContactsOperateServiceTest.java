@@ -57,13 +57,29 @@ public class ContactsOperateServiceTest {
         contactsOperateService.deleteUser(testData.getUser_2().getId());
     }
 
-    //删除常用联系人测试
+    // 删除常用联系人测试
     @Test
     public void deleteFrequentContactsTest(){
 
     }
 
-    //根据用户ID查找frequentContacts测试
+    // 根据 用户id 找 常用联系人测试
+    @Test
+    public void getFrequentContacts(){
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        map.put("user_id", testData.getUser_1().getId());
+        map.put("frequentcontacts_id", testData.getUser_2().getId());
+
+        contactsOperateService.insertUser(testData.getUser_1());
+        contactsOperateService.insertUser(testData.getUser_2());
+
+        contactsOperateService.addFrequentContacts(map);
+        assertEquals(1, contactsOperateService.getFrequentContacts(1).size());
+        contactsOperateService.deleteFrequentContacts(map);
+
+        contactsOperateService.deleteUser(testData.getUser_1().getId());
+        contactsOperateService.deleteUser(testData.getUser_2().getId());
+    }
 
     // 增加部门测试
     @Test

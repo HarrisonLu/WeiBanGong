@@ -33,11 +33,11 @@ public interface UserMapper {
     // 根据id搜索User
     public User selectUserById(int id);
 
-    // 根据名字搜索User
+    // 根据英文名搜索User
     public User selectUserByEnglishName(String name);
 
-    // 根据userId找frequentContacts
-    public List<User> selectFrequentContactsByUser(int id);
+    // 根据 用户id 找 常用联系人id列表
+    public List<Integer> selectFrequentContactsIdByUserId(int userId);
 
     // 搜索所有User
     public List<User> selectAllUser();

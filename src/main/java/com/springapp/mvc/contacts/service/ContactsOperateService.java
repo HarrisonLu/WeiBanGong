@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,8 +33,14 @@ public class ContactsOperateService {
         userMapper.deleteUserFrequentContactsLink(map);
     }
     // 根据userId找frequentContacts
-    public List<User> getFrequentContacts(int id){
-        return null;
+    public List<User> getFrequentContacts(int userId){
+        List<Integer> frequentContactsIdList = userMapper.selectFrequentContactsIdByUserId(userId);
+        List<User> frequentContactsList = new ArrayList<User>();
+        for (int id : frequentContactsIdList){
+            User frequentContacts = userMapper.selectUserById(id);
+            frequentContactsList.add(frequentContacts);
+        }
+        return frequentContactsList;
     }
 
     @Autowired

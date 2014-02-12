@@ -73,15 +73,8 @@
         select * from t_user where english_name = #{englishName}
     </select>
 
-    <resultMap id="frequentContactsResult" type="User">
-        <collection property="departments">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
-            <result property="createdTime" column="created_time"/>
-        </collection>
-    </resultMap>
-    <select id="selectFrequentContactsByUser" resultMap="frequentContactsResult" >
-
+    <select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">
+        select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}
     </select>
 
     <select id="selectAllUser" resultMap="UserDepartmentResult">
