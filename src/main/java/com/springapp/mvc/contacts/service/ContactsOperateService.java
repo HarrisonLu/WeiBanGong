@@ -32,6 +32,7 @@ public class ContactsOperateService {
     public void deleteFrequentContacts(HashMap<String, Integer> map){
         userMapper.deleteUserFrequentContactsLink(map);
     }
+
     // 根据userId找frequentContacts
     public List<User> getFrequentContacts(int userId){
         List<Integer> frequentContactsIdList = userMapper.selectFrequentContactsIdByUserId(userId);

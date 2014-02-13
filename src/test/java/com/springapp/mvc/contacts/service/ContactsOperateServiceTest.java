@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -124,6 +123,8 @@ public class ContactsOperateServiceTest {
         assertNull(userMapper.selectUserByEnglishName("luhuang"));
         contactsOperateService.insertUser(testData.getUser_1());
         assertNotNull(userMapper.selectUserByEnglishName("luhuang"));
+
+        testData.printUserInfo(userMapper.selectUserByEnglishName("luhuang"));
 
         contactsOperateService.deleteUser(testData.getUser_1().getId());
     }

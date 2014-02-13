@@ -70,7 +70,11 @@
     </select>
 
     <select id="selectUserByEnglishName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where english_name = #{englishName}
+        select * from t_user where english_name = #{englishName};
+    </select>
+
+    <select id="fuzzySelectUserByEnglishString" parameterType="java.lang.String" resultType="User">
+        select * from t_user where english_name like #{englishStr}"%";
     </select>
 
     <select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">
