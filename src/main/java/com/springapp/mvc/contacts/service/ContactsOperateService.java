@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Lion on 14-2-8.
@@ -24,12 +24,12 @@ public class ContactsOperateService {
     private UserMapper userMapper;
 
     // 增加常用联系人
-    public void addFrequentContacts(HashMap<String, Integer> map){
+    public void addFrequentContacts(Map<String, Integer> map){
         userMapper.insertUserFrequentContactsLink(map);
     }
 
     // 删除常用联系人
-    public void deleteFrequentContacts(HashMap<String, Integer> map){
+    public void deleteFrequentContacts(Map<String, Integer> map){
         userMapper.deleteUserFrequentContactsLink(map);
     }
     // 根据userId找frequentContacts
@@ -37,6 +37,8 @@ public class ContactsOperateService {
         List<Integer> frequentContactsIdList = userMapper.selectFrequentContactsIdByUserId(userId);
         List<User> frequentContactsList = new ArrayList<User>();
         for (int id : frequentContactsIdList){
+            User user = new User();
+            user.setId(id);
             User frequentContacts = userMapper.selectUserById(id);
             frequentContactsList.add(frequentContacts);
         }
@@ -77,11 +79,11 @@ public class ContactsOperateService {
     }
 
     // 插入User和Department关联
-    public void insertUserDepartmentLink(HashMap<String, Integer> map) {
+    public void insertUserDepartmentLink(Map<String, Integer> map) {
         userMapper.insertUserDepartmentLink(map);
     }
     // 删除User和Department关联
-    public void deleteUserDepartmentLink(HashMap<String, Integer> map)
+    public void deleteUserDepartmentLink(Map<String, Integer> map)
     {
         userMapper.deleteUserDepartmentLink(map);
     }
