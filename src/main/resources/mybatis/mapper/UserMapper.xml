@@ -13,9 +13,6 @@
         <result property="qqNum" column="qq_num"/>
         <result property="phoneNum" column="phone_num"/>
         <result property="createdTime" column="created_time"/>
-    </resultMap>
-    
-    <resultMap id="UserDepartmentResult" type="User" extends="UserResult">
         <collection property="departments" ofType="Department" columnPrefix="dp_">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
@@ -61,7 +58,7 @@
         id = #{id}
     </update>
 
-    <select id="selectUserById" parameterType="int" resultMap="UserDepartmentResult">
+    <select id="selectUserById" parameterType="int" resultMap="UserResult">
         select u.id,u.email,u.chinese_name,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id
@@ -69,19 +66,26 @@
         where u.id=#{id}
     </select>
 
-    <select id="selectUserByEnglishName" parameterType="java.lang.String" resultType="User">
-        select * from t_user where english_name = #{englishName};
+    <select id="selectUserByName" parameterType="User" resultMap="UserResult">
+        select u.id,u.email,u.chinese_name,d.name as dp_name
+        from t_user u
+        left outer join t_user_department ud on u.id=ud.user_id
+        left outer join t_department d on ud.department_id=d.id
+        <where>
+            <if test="chineseName != 0">u.chinese_name=#{chineseName}</if>
+            <if test="englishName != 0">u.english_name=#{englishName}</if>
+        </where>
     </select>
 
     <select id="fuzzySelectUserByEnglishString" parameterType="java.lang.String" resultType="User">
         select * from t_user where english_name like #{englishStr}"%";
     </select>
-
+    
     <select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">
         select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}
     </select>
 
-    <select id="selectAllUser" resultMap="UserDepartmentResult">
+    <select id="selectAllUser" resultMap="UserResult">
         select u.id,u.email,u.chinese_name,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id

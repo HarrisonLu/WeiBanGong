@@ -30,7 +30,7 @@ public interface UserMapper {
     // 删除user和frequentContacts关联
     public void deleteUserFrequentContactsLink(HashMap<String, Integer> map);
 
-    // 根据id搜索User
+    // 根据用户id搜索user
     public User selectUserById(int id);
 
     // 根据englishName找user
