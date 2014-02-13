@@ -33,8 +33,8 @@ public interface UserMapper {
     // 根据用户id搜索user
     public User selectUserById(int id);
 
-    // 根据englishName找user
-    public User selectUserByEnglishName(String englishName);
+    // 根据name找user
+    public User selectUserByName(String name);
 
     // 根据英文字符串模糊搜索User列表
     public List<User> fuzzySelectUserByEnglishString(String englishStr);
