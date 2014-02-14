@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,16 @@ public class ContactsSearchService {
 
     public List<User> selectAllUser() {
         return userMapper.selectAllUser();
+    }
+
+    public List<User> selectFrequentContacts(int userId){
+        List<Integer> frequentContactsIdList = userMapper.selectFrequentContactsIdByUserId(userId);
+        List<User> frequentContactsList = new ArrayList<User>();
+        for (int id : frequentContactsIdList){
+            User frequentContacts = userMapper.selectUserById(id);
+            frequentContactsList.add(frequentContacts);
+        }
+        return frequentContactsList;
     }
 
     @Autowired

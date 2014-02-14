@@ -32,7 +32,7 @@
         insert into t_user_frequentcontacts values (#{user_id}, #{frequentcontacts_id})
     </insert>
 
-    <delete id="deleteUser" parameterType="int">
+    <delete id="deleteUser" parameterType="java.lang.Integer">
         delete from t_user where id = #{id}
     </delete>
 
@@ -58,8 +58,9 @@
         id = #{id}
     </update>
 
-    <select id="selectUserById" parameterType="int" resultMap="UserResult">
-        select u.id,u.email,u.chinese_name,d.name as dp_name
+    <select id="selectUserById" parameterType="java.lang.Integer" resultMap="UserResult">
+        select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,
+        d.id as dp_id,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id
         left outer join t_department d on ud.department_id=d.id
@@ -67,7 +68,8 @@
     </select>
 
     <select id="selectUserByName" parameterType="User" resultMap="UserResult">
-        select u.id,u.email,u.chinese_name,d.name as dp_name
+        select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,
+        d.id as dp_id,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id
         left outer join t_department d on ud.department_id=d.id
@@ -86,13 +88,11 @@
     </select>
 
     <select id="selectAllUser" resultMap="UserResult">
-        select u.id,u.email,u.chinese_name,d.name as dp_name
+        select u.id,u.email,u.chinese_name,u.english_name,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id
         left outer join t_department d on ud.department_id=d.id
     </select>
-
-    <!--<insert id="insertTest" parameterType=""-->
 
 </mapper>
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface UserMapper {
@@ -14,10 +15,10 @@ public interface UserMapper {
     public void insertUser(User user);
 
     // 插入User和Department关联
-    public void insertUserDepartmentLink(HashMap<String, Integer> map);
+    public void insertUserDepartmentLink(Map<String, Integer> map);
 
     // 插入User和FrequentContacts关联
-    public void insertUserFrequentContactsLink(HashMap<String, Integer> map);
+    public void insertUserFrequentContactsLink(Map<String, Integer> map);
 
     // 修改User
     public void updateUser(User user);
@@ -26,10 +27,10 @@ public interface UserMapper {
     public void deleteUser(int id);
 
     // 删除User和Department关联
-    public void deleteUserDepartmentLink(HashMap<String, Integer> map);
+    public void deleteUserDepartmentLink(Map<String, Integer> map);
 
     // 删除user和frequentContacts关联
-    public void deleteUserFrequentContactsLink(HashMap<String, Integer> map);
+    public void deleteUserFrequentContactsLink(Map<String, Integer> map);
 
     // 根据用户id搜索user
     public User selectUserById(int id);

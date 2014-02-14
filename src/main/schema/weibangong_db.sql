@@ -4,7 +4,9 @@ use weibangong_db;
 
 drop table if exists t_user;
 drop table if exists t_department;
+drop table if exists t_user_department;
 drop table if exists t_wechat_group;
+drop table if exists t_user_frequentcontacts;
 
 create table t_user
 (
@@ -39,13 +41,13 @@ create table t_user_department
 
 create table t_wechat_group
 (
-  id              int(10)       unsigned    not null   auto_increment   primary key,
+  id              int(10)       not null   auto_increment   primary key,
   chinese_name    varchar(30)   not null,
   english_name    varchar(30)
 )engine=INNODB default charset=utf8;
 
 create table t_user_frequentcontacts
 (
-  user_id                 int(10)       unsigned    not null,
-  frequentcontacts_id     int(10)       unsigned    not null
+  user_id                 int(10)       default   null,
+  frequentcontacts_id     int(10)       default   null
 )engine=INNODB default charset=utf8;
