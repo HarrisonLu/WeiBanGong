@@ -25,8 +25,9 @@ public class ContactsSearchService {
         return userMapper.selectUserById(id);
     }
 
-    public List<User> selectUserByName(User user) {
-        return userMapper.selectUserByName(user);
+    // 根据字符串模糊搜索User列表
+    public List<User> fuzzySelectUserByString(String str) {
+        return userMapper.fuzzySelectUserByEnglishString(str);
     }
 
     public List<User> selectAllUser() {
