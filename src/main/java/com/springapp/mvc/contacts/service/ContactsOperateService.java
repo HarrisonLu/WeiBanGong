@@ -83,6 +83,7 @@ public class ContactsOperateService {
     public void insertUserDepartmentLink(HashMap<String, Integer> map) {
         userMapper.insertUserDepartmentLink(map);
     }
+
     // 删除User和Department关联
     public void deleteUserDepartmentLink(HashMap<String, Integer> map)
     {

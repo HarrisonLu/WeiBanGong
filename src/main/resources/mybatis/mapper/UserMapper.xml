@@ -92,5 +92,7 @@
         left outer join t_department d on ud.department_id=d.id
     </select>
 
+    <!--<insert id="insertTest" parameterType=""-->
+
 </mapper>
 

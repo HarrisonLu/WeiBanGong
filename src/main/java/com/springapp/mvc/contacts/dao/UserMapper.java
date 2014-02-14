@@ -1,5 +1,6 @@
 package com.springapp.mvc.contacts.dao;
 
+import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
 import org.springframework.stereotype.Repository;
 
@@ -45,4 +46,6 @@ public interface UserMapper {
     // 搜索所有User
     public List<User> selectAllUser();
 
+    // 测试加入
+//    public void insertTest(Department department);
 }

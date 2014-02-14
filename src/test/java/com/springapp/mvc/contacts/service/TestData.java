@@ -77,7 +77,7 @@ public class TestData {
     }
     public void initDepartment_1(){
         department_1.setId(1);
-        department_1.setName("Technology");
+        department_1.setName("技术部");
     }
 
     public User getUser_1() {
