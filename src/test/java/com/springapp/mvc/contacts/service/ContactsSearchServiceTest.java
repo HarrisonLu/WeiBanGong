@@ -10,14 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by Lion on 14-2-9.
+ * Created by Lion on 14-2-14.
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +27,7 @@ public class ContactsSearchServiceTest {
 
     @Autowired
     private DepartmentMapper departmentMapper;
+    private ContactsOperateService contactsOperateService;
 
     @Autowired
     private ContactsSearchService contactsSearchService;
@@ -69,5 +68,41 @@ public class ContactsSearchServiceTest {
         for (User user : users) {
             System.out.println(user.getEmail());
         }
+    }
+
+    private TestData testData;
+
+    public ContactsSearchServiceTest(){
+        testData = new TestData();
+    }
+
+    // 根据成员名字模糊搜索 测试
+    @Test
+    public void searchUserByNameTest(){
+        contactsOperateService.insertUser(testData.getUser_1());
+        contactsOperateService.insertUser(testData.getUser_2());
+        contactsOperateService.insertUser(testData.getUser_3());
+
+        List<User> userList;
+        userList = contactsSearchService.fuzzySelectUserByString(testData.fuzzyStr_lu);
+        assertEquals(1, userList.size());
+//        testData.printUserInfo(userList.get(0));
+//        assertEquals(testData.getUser_1().getId(), userList.get(0).getId());
+//        assertEquals(testData.getUser_1().getEnglishName(),userList.get(0).getEnglishName());
+
+//        userList = contactsSearchService.fuzzySelectUserByString(testData.fuzzyStr_fe);
+//        assertEquals(1, userList.size());
+//        assertEquals(testData.getUser_2().getEnglishName(),userList.get(0).getEnglishName());
+//
+//        userList = contactsSearchService.fuzzySelectUserByString(testData.fuzzyStr_s);
+//        assertEquals(1, userList.size());
+//        assertEquals(testData.getUser_3().getEnglishName(),userList.get(0).getEnglishName());
+//
+//        userList = contactsSearchService.fuzzySelectUserByString(testData.fuzzyStr_lalala);
+//        assertEquals(0, userList.size());
+
+        contactsOperateService.deleteUser(testData.getUser_1().getId());
+        contactsOperateService.deleteUser(testData.getUser_2().getId());
+        contactsOperateService.deleteUser(testData.getUser_3().getId());
     }
 }

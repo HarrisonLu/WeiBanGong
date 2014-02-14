@@ -24,12 +24,12 @@ public class ContactsOperateService {
     private UserMapper userMapper;
 
     // 增加常用联系人
-    public void insertFrequentContacts(Map<String, Integer> map){
+    public void addFrequentContacts(Map<String, Integer> map){
         userMapper.insertUserFrequentContactsLink(map);
     }
 
     // 删除常用联系人
-    public void deleteFrequentContacts(Map<String, Integer> map){
+    public void deleteFrequentContacts(Map<String, Integer> map) {
         userMapper.deleteUserFrequentContactsLink(map);
     }
 
