@@ -24,25 +24,13 @@ public class ContactsOperateService {
     private UserMapper userMapper;
 
     // 增加常用联系人
-    public void addFrequentContacts(Map<String, Integer> map){
+    public void insertFrequentContacts(Map<String, Integer> map){
         userMapper.insertUserFrequentContactsLink(map);
     }
 
     // 删除常用联系人
     public void deleteFrequentContacts(Map<String, Integer> map){
         userMapper.deleteUserFrequentContactsLink(map);
-    }
-    // 根据userId找frequentContacts
-    public List<User> getFrequentContacts(int userId){
-        List<Integer> frequentContactsIdList = userMapper.selectFrequentContactsIdByUserId(userId);
-        List<User> frequentContactsList = new ArrayList<User>();
-        for (int id : frequentContactsIdList){
-            User user = new User();
-            user.setId(id);
-            User frequentContacts = userMapper.selectUserById(id);
-            frequentContactsList.add(frequentContacts);
-        }
-        return frequentContactsList;
     }
 
     @Autowired
@@ -82,6 +70,7 @@ public class ContactsOperateService {
     public void insertUserDepartmentLink(Map<String, Integer> map) {
         userMapper.insertUserDepartmentLink(map);
     }
+
     // 删除User和Department关联
     public void deleteUserDepartmentLink(Map<String, Integer> map)
     {

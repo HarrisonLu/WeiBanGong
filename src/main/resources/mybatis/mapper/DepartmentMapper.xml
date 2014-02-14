@@ -6,13 +6,10 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="createdTime" column="created_time"/>
-    </resultMap>
-
-    <resultMap id="DepartmentUserResult" type="Department" extends="DepartmentResult">
         <collection property="users" ofType="User" columnPrefix="user_">
             <id property="id" column="id"/>
-            <result property="email" column="email"/>
             <result property="chineseName" column="chinese_name"/>
+            <result property="englishName" column="english_name"/>
         </collection>
     </resultMap>
 
@@ -20,8 +17,9 @@
          insert into t_department values(#{id},#{name},#{createdTime})
     </insert>
 
-    <select id="selectDepartmentById" parameterType="int" resultMap="DepartmentUserResult">
-        select d.id,d.name,u.email as user_email,u.chinese_name as user_chinese_name
+    <select id="selectDepartmentById" parameterType="java.lang.Integer" resultMap="DepartmentResult">
+        select d.id,d.name,
+        u.id as user_id,u.chinese_name as user_chinese_name,u.english_name as user_english_name
         from t_department d
         left outer join t_user_department ud on d.id=ud.department_id
         left outer join t_user u on ud.user_id=u.id
@@ -42,7 +40,7 @@
         where id = #{id}
     </update>
 
-    <delete id="deleteDepartment" parameterType="int">
+    <delete id="deleteDepartment" parameterType="java.lang.Integer">
         delete from t_department where id = #{id}
     </delete>
 

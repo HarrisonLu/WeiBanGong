@@ -1,5 +1,22 @@
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+    padding-top: 10px;
+}
+
+.row .col-xs-4{
+    padding-top: 30px;
+    text-align: center;
+    width: auto;
+}
+
+.panel-group {
+    padding-top: 10px;
+}
+
+.panel-heading {
+    text-align: center;
+}
+
+.page-header {
+    background-color: #E8E8E8;
+    text-align: center;
 }
