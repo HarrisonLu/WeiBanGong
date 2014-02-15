@@ -2,27 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springapp.mvc.contacts.dao.UserMapper">
-    <resultMap id="UserResult" type="User">
+
+    <resultMap id="User" type="User">
         <id property="id" column="id"/>
-        <result property="email" column="email"/>
         <result property="password" column="password"/>
         <result property="chineseName" column="chinese_name"/>
+        <result property="chineseNamePinyin" column="chinese_name_pinyin"/>
         <result property="englishName" column="english_name"/>
-        <result property="positionTitle" column="position_title"/>
-        <result property="weChatNum" column="wechat_num"/>
+        <result property="email" column="email"/>
+        <result property="status" column="status"/>
+        <result property="position" column="position"/>
+        <result property="positionLevel" column="position_level"/>
+        <result property="wechatNum" column="wechat_num"/>
         <result property="qqNum" column="qq_num"/>
-        <result property="phoneNum" column="phone_num"/>
-        <result property="createdTime" column="created_time"/>
-        <collection property="departments" ofType="Department" columnPrefix="dp_">
-            <id property="id" column="id"/>
-            <result property="name" column="name"/>
-            <result property="createdTime" column="created_time"/>
-        </collection>
+        <result property="telephoneNum" column="telephone_num"/>
+        <result property="mobilePhoneNum" column="mobile_phone_num"/>
     </resultMap>
 
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})
     </insert>
+
+    <select id="selectUserById" parameterType="int" resultMap="User">
+        select * from t_user where id = #{id}
+    </select>
+
+    <select id="fuzzySelectUserListByEnglishString" parameterType="java.lang.String" resultMap="User">
+        select * from t_user where english_name like #{englishStr}"%" or chinese_name_pinyin like #{englishStr}"%";
+    </select>
 
     <insert id="insertUserDepartmentLink" parameterType="java.util.HashMap">
         insert into t_user_department values(#{user_id}, #{department_id})
@@ -58,15 +65,6 @@
         id = #{id}
     </update>
 
-    <select id="selectUserById" parameterType="java.lang.Integer" resultMap="UserResult">
-        select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,
-        d.id as dp_id,d.name as dp_name
-        from t_user u
-        left outer join t_user_department ud on u.id=ud.user_id
-        left outer join t_department d on ud.department_id=d.id
-        where u.id=#{id}
-    </select>
-
     <select id="selectUserByName" parameterType="User" resultMap="UserResult">
         select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,
         d.id as dp_id,d.name as dp_name
@@ -79,9 +77,7 @@
         </where>
     </select>
 
-    <select id="fuzzySelectUserByEnglishString" parameterType="java.lang.String" resultType="User">
-        select * from t_user where english_name like #{englishStr}"%";
-    </select>
+
     
     <select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">
         select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}

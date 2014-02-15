@@ -11,42 +11,25 @@ import java.util.Map;
 @Repository
 public interface UserMapper {
 
-    // 插入User
+    // 插入 成员
     public void insertUser(User user);
 
-    // 插入User和Department关联
-    public void insertUserDepartmentLink(Map<String, Integer> map);
-
-    // 插入User和FrequentContacts关联
-    public void insertUserFrequentContactsLink(Map<String, Integer> map);
-
-    // 修改User
+    // 修改 成员
     public void updateUser(User user);
 
-    // 删除User
-    public void deleteUser(int id);
+    // 删除 成员
+    public void deleteUserbyId(int id);
 
-    // 删除User和Department关联
-    public void deleteUserDepartmentLink(Map<String, Integer> map);
+    // 根据 成员id 找 成员
+    public User selectUserById(int userId);
 
-    // 删除user和frequentContacts关联
-    public void deleteUserFrequentContactsLink(Map<String, Integer> map);
+    // 根据 中文名称 找 用户
+    // 根据 英文名称 找 用户
 
-    // 根据用户id搜索user
-    public User selectUserById(int id);
+    // 根据 英文字符串 模糊搜索 用户列表
+    public List<User> fuzzySelectUserListByEnglishString(String englishStr);
 
-    // 根据name找user
-    public User selectUserByName(String name);
-
-    // 根据英文字符串模糊搜索User列表
-    public List<User> fuzzySelectUserByEnglishString(String englishStr);
-
-    // 根据 用户id 找 常用联系人id列表
-    public List<Integer> selectFrequentContactsIdByUserId(int userId);
-
-    // 搜索所有User
+    // 找出 所有 User
     public List<User> selectAllUser();
 
-    // 测试加入
-//    public void insertTest(Department department);
 }

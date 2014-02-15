@@ -1,5 +1,6 @@
 package com.springapp.mvc.contacts.service;
 
+import com.springapp.mvc.contacts.TestData;
 import com.springapp.mvc.contacts.dao.DepartmentMapper;
 import com.springapp.mvc.contacts.dao.UserMapper;
 import com.springapp.mvc.contacts.domain.Department;
@@ -11,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

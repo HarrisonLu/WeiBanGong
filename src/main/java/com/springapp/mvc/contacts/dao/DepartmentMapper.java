@@ -8,22 +8,16 @@ import java.util.List;
 @Repository
 public interface DepartmentMapper {
 
-    // 插入部门
+    // 插入 部门
     public void insertDepartment(Department department);
 
-    // 修改部门
+    // 修改 部门
     public void updateDepartment(Department department);
 
-    // 删除部门
-    public void deleteDepartment(int id);
+    // 删除 部门
+    public void deleteDepartmentById(int departmentId);
 
-    // 根据id搜索部门
-    public Department selectDepartmentById(int id);
-
-    // 根据名字搜索部门
-    public Department selectDepartmentByName(String name);
-
-    // 搜索所有部门
-    public List<Department> selectAllDepartment();
+    // 根据 部门名称 找 部门
+    public Department selectDepartmentByName(String departmentName);
 
 }

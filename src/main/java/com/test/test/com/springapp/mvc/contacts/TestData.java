@@ -1,4 +1,4 @@
-package com.springapp.mvc.contacts.service;
+package com.springapp.mvc.contacts;
 
 import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;

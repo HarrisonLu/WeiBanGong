@@ -2,16 +2,16 @@ package com.springapp.mvc.contacts.domain;
 
 import com.springapp.mvc.common.BaseDomain;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+public class Group extends BaseDomain {
 
-public class Department extends BaseDomain {
-
+    // id
     private int id;
 
+    // 组名
     private String name;
+
+    // 所属部门id
+    private int departmentId;
 
     public int getId() {
         return id;
@@ -27,6 +27,14 @@ public class Department extends BaseDomain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
 }
