@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pinyin4j-2.5.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../project/微办公/技术资料/汉语转拼音 外库/pinyin4j-2.5.0/lib/pinyin4j-2.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
