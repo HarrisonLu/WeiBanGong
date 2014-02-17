@@ -3,7 +3,7 @@ package com.springapp.mvc.contacts.web.controller;
 import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
 import com.springapp.mvc.contacts.service.ContactsOperateService;
-import com.springapp.mvc.contacts.service.ContactsSearchService;
+import com.springapp.mvc.contacts.service.ContactsService;
 import com.springapp.mvc.contacts.web.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class MainController {
     private ContactsOperateService contactsOperateService;
 
     @Autowired
-    private ContactsSearchService contactsSearchService;
+    private ContactsService contactsService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
@@ -50,8 +50,8 @@ public class MainController {
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ModelAndView showContactsIndex() throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
-        List<User> users = contactsSearchService.selectAllUser();
-        List<Department> departments = contactsSearchService.selectAllDepartment();
+        List<User> users = contactsService.selectAllUser();
+        List<Department> departments = contactsService.selectAllDepartment();
         modelAndView.addObject("users", users);
         modelAndView.addObject("departments", departments);
         return modelAndView;
@@ -60,7 +60,7 @@ public class MainController {
     @RequestMapping(value = "/contacts/user/{userId}", method = RequestMethod.GET)
     public ModelAndView showContactsUserDetail(@PathVariable int userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
-        User user = contactsSearchService.selectUserById(userId);
+        User user = contactsService.selectUserById(userId);
         modelAndView.addObject("user", user);
         return modelAndView;
     }
@@ -68,7 +68,7 @@ public class MainController {
     @RequestMapping(value = "/contacts/department/{departmentId}", method = RequestMethod.GET)
     public ModelAndView showContactsDepartment(@PathVariable int departmentId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_department");
-        Department department = contactsSearchService.selectDepartmentById(departmentId);
+        Department department = contactsService.selectDepartmentById(departmentId);
         modelAndView.addObject("department", department);
         return modelAndView;
     }

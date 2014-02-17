@@ -24,56 +24,56 @@ public class ContactsOperateService {
     private UserMapper userMapper;
 
     // 增加常用联系人
-//    public void addFrequentContacts(Map<String, Integer> map){
-//        userMapper.insertUserFrequentContactsLink(map);
-//    }
+    public void addFrequentContacts(Map<String, Integer> map){
+     //   userMapper.insertUserFrequentContactsLink(map);
+    }
 
     // 删除常用联系人
-//    public void deleteFrequentContacts(Map<String, Integer> map) {
-//        userMapper.deleteUserFrequentContactsLink(map);
-//    }
+    public void deleteFrequentContacts(Map<String, Integer> map) {
+      //  userMapper.deleteUserFrequentContactsLink(map);
+    }
 
     @Autowired
     private DepartmentMapper departmentMapper;
 
     // 录入成员
-//    public void insertUser(User user) {
-//        userMapper.insertUser(user);
-//    }
+    public void insertUser(User user) {
+        userMapper.insertUser(user);
+    }
 
     // 更新成员
-//    public void updateUserInfo(User user) {
-//        userMapper.updateUser(user);
-//    }
+    public void updateUserInfo(User user) {
+        userMapper.updateUser(user);
+    }
 
     // 删除成员
-//    public void deleteUser(int id) {
-//        userMapper.deleteUser(id);
-//    }
+    public void deleteUser(int id) {
+      //  userMapper.deleteUser(id);
+    }
 
     // 增加部门
-//    public void insertDepartment(Department department) {
-//        departmentMapper.insertDepartment(department);
-//    }
+    public void insertDepartment(Department department) {
+        departmentMapper.insertDepartment(department);
+    }
 
     // 更新部门
-//    public void updateDepartment(Department department) {
-//        departmentMapper.updateDepartment(department);
-//    }
+    public void updateDepartment(Department department) {
+        departmentMapper.updateDepartment(department);
+    }
 
     // 删除部门
-//    public void deleteDepartment(int id) {
-//        departmentMapper.deleteDepartment(id);
-//    }
+    public void deleteDepartment(int id) {
+      //  departmentMapper.deleteDepartment(id);
+    }
 
     // 插入User和Department关联
-//    public void insertUserDepartmentLink(Map<String, Integer> map) {
-//        userMapper.insertUserDepartmentLink(map);
-//    }
+    public void insertUserDepartmentLink(Map<String, Integer> map) {
+      //  userMapper.insertUserDepartmentLink(map);
+    }
 
     // 删除User和Department关联
-//    public void deleteUserDepartmentLink(Map<String, Integer> map)
-//    {
-//        userMapper.deleteUserDepartmentLink(map);
-//    }
+    public void deleteUserDepartmentLink(Map<String, Integer> map)
+    {
+       // userMapper.deleteUserDepartmentLink(map);
+    }
 }

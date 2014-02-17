@@ -2,22 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springapp.mvc.contacts.dao.DepartmentMapper">
-    <resultMap id="DepartmentResult" type="Department">
+    <resultMap id="Department" type="Department">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <result property="createdTime" column="created_time"/>
-        <collection property="users" ofType="User" columnPrefix="user_">
-            <id property="id" column="id"/>
-            <result property="chineseName" column="chinese_name"/>
-            <result property="englishName" column="english_name"/>
-        </collection>
     </resultMap>
 
     <insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
          insert into t_department values(#{id},#{name},#{createdTime})
     </insert>
 
-    <select id="selectDepartmentById" parameterType="java.lang.Integer" resultMap="DepartmentResult">
+    <select id="selectDepartmentById" parameterType="java.lang.Integer" resultMap="Department">
         select d.id,d.name,
         u.id as user_id,u.chinese_name as user_chinese_name,u.english_name as user_english_name
         from t_department d
@@ -26,11 +20,11 @@
         where d.id=#{id}
     </select>
 
-    <select id="selectDepartmentByName" parameterType="java.lang.String" resultMap="DepartmentResult">
+    <select id="selectDepartmentByName" parameterType="java.lang.String" resultMap="Department">
         select * from t_department where name=#{name}
     </select>
 
-    <select id="selectAllDepartment" resultMap="DepartmentResult">
+    <select id="selectAllDepartment" resultMap="Department">
         select * from t_department
     </select>
 

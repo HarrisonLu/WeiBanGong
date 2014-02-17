@@ -65,7 +65,7 @@
         id = #{id}
     </update>
 
-    <select id="selectUserByName" parameterType="User" resultMap="UserResult">
+    <select id="selectUserByName" parameterType="User" resultMap="User">
         select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,
         d.id as dp_id,d.name as dp_name
         from t_user u
@@ -83,7 +83,7 @@
         select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}
     </select>
 
-    <select id="selectAllUser" resultMap="UserResult">
+    <select id="selectAllUser" resultMap="User">
         select u.id,u.email,u.chinese_name,u.english_name,d.name as dp_name
         from t_user u
         left outer join t_user_department ud on u.id=ud.user_id

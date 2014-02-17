@@ -20,4 +20,6 @@ public interface DepartmentMapper {
     // 根据 部门名称 找 部门
     public Department selectDepartmentByName(String departmentName);
 
+    // 得到所有部门
+    public List<Department> selectAllDepartment();
 }
