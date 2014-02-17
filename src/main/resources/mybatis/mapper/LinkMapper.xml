@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-        
+
 <mapper namespace="com.springapp.mvc.contacts.dao.LinkMapper">
 
-    <insert id="insertUserIdCollectedContactsIdLink" parameterType="map" >
+    <insert id="insertUserIdCollectedContactsIdLink" parameterType="map">
         insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
     </insert>
 
@@ -14,5 +14,5 @@
     <select id="selectCollectedContactsIdListByUserId" parameterType="int" resultType="java.lang.Integer">
         select collectedcontacts_id from t_user_collectedcontacts where user_id = #{userId}
     </select>
-    
+
 </mapper>

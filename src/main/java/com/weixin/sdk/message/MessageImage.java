@@ -2,14 +2,14 @@ package com.weixin.sdk.message;
 
 public class MessageImage extends Message {
 
-	protected String picUrl;
+    protected String picUrl;
 
-	public String getPicUrl() {
-		return picUrl;
-	}
+    public String getPicUrl() {
+        return picUrl;
+    }
 
-	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
-	}
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
 
 }

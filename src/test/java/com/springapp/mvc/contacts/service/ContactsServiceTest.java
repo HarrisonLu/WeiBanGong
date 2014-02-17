@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class ContactsServiceTest extends TestCase{
+public class ContactsServiceTest extends TestCase {
 
     @Autowired
     private ContactsService contactsService;
@@ -25,8 +25,8 @@ public class ContactsServiceTest extends TestCase{
 
     @Test
     public void fuzzySelectUserByStringTest() throws Exception {
-        List<User> userList =  contactsService.fuzzySelectUserByString("luhuan");
-        for (User user : userList){
+        List<User> userList = contactsService.fuzzySelectUserByString("luhuan");
+        for (User user : userList) {
             //printTest.printUserInfo(user);
         }
     }
@@ -34,7 +34,7 @@ public class ContactsServiceTest extends TestCase{
     @Test
     public void searchCollectedContactsListByUserIdTest() throws Exception {
         List<User> collectedContactsList = contactsService.searchCollectedContactsListByUserId(1);
-        for (User user : collectedContactsList){
+        for (User user : collectedContactsList) {
             //printTest.printUserInfo(user);
         }
     }

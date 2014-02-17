@@ -35,10 +35,10 @@ public class ContactsService {
     }
 
     // 根据 用户id 找 收藏联系人列表
-    public List<User> searchCollectedContactsListByUserId(int userId){
+    public List<User> searchCollectedContactsListByUserId(int userId) {
         List<Integer> collectedContactsIdList = linkMapper.selectCollectedContactsIdListByUserId(userId);
         List<User> collectedContactsList = new ArrayList<User>();
-        for (int id : collectedContactsIdList){
+        for (int id : collectedContactsIdList) {
             User collectedContacts = userMapper.selectUserById(id);
             collectedContactsList.add(collectedContacts);
         }
@@ -46,12 +46,12 @@ public class ContactsService {
     }
 
     // 根据 成员id 找 部门联系人列表
-    public List<User> searchDepartmentContactsListByUserId(int userId){
+    public List<User> searchDepartmentContactsListByUserId(int userId) {
         return null;
     }
 
     // 根据 成员id和联系人id 增加收藏联系人
-    public void insertCollectedContacts(int userId, int collectedContactsId){
+    public void insertCollectedContacts(int userId, int collectedContactsId) {
         HashMap<String, Integer> userId_collectedContactsId = new HashMap<String, Integer>();
         userId_collectedContactsId.put("user_id", userId);
         userId_collectedContactsId.put("collectedcontacts_id", collectedContactsId);
@@ -59,48 +59,47 @@ public class ContactsService {
     }
 
     // 根据 成员id和联系人id 删除收藏联系人
-    public void deleteCollectedContacts(int userId, int collectedContactsId){
-        HashMap<String, Integer> userId_collectedContactsId = new HashMap<String, Integer>();
+    public void deleteCollectedContacts(int userId, int collectedContactsId) {
+        Map<String, Integer> userId_collectedContactsId = new HashMap<String, Integer>();
         userId_collectedContactsId.put("user_id", userId);
         userId_collectedContactsId.put("collectedcontacts_id", collectedContactsId);
         linkMapper.deleteUserIdCollectedContactsIdLink(userId_collectedContactsId);
     }
+
     // 判断 成员和联系人 是否为 收藏联系人关系
-    public boolean isCollectedContacts(int userId, int collectedContactsId){
+    public boolean isCollectedContacts(int userId, int collectedContactsId) {
         return false;
     }
 
     // 得到 所有部门
-    public List<Department> selectAllDepartment(){
+    public List<Department> selectAllDepartment() {
         return departmentMapper.selectAllDepartment();
     }
 
     // 更新 成员信息
-    public void updateUserInfo(User user){
+    public void updateUserInfo(User user) {
 
     }
 
     // 根据 成员id 找 部门列表
-    public List<Department> searchDepartmentListByUserId(int userId){
+    public List<Department> searchDepartmentListByUserId(int userId) {
         return null;
     }
 
     // 根据 部门id 找 组列表
-    public List<Group> serchGroupListByDepartmentId(int departmentId){
+    public List<Group> serchGroupListByDepartmentId(int departmentId) {
         return null;
     }
 
     // 根据 部门id 找 部门成员列表
-    public List<User> searchUserListByDepartmentId(int DepartmentId){
+    public List<User> searchUserListByDepartmentId(int DepartmentId) {
         return null;
     }
 
     // 根据 组id 找 部门成员列表
-    public List<User> searchUserListByGroupId(int GroupId){
+    public List<User> searchUserListByGroupId(int GroupId) {
         return null;
     }
-
-
 
 
     //待删

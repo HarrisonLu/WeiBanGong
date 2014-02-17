@@ -4,32 +4,32 @@ import java.util.List;
 
 public class MessageResultNews extends Message {
 
-	protected int funcFlag;
-	protected int count;
-	protected List<ItemArticle> articleItems;
+    protected int funcFlag;
+    protected int count;
+    protected List<ItemArticle> articleItems;
 
-	public int getFuncFlag() {
-		return funcFlag;
-	}
+    public int getFuncFlag() {
+        return funcFlag;
+    }
 
-	public void setFuncFlag(int funcFlag) {
-		this.funcFlag = funcFlag;
-	}
+    public void setFuncFlag(int funcFlag) {
+        this.funcFlag = funcFlag;
+    }
 
-	public int getCount() {
-		return count;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public List<ItemArticle> getArticleItems() {
-		return articleItems;
-	}
+    public List<ItemArticle> getArticleItems() {
+        return articleItems;
+    }
 
-	public void setArticleItems(List<ItemArticle> articleItems) {
-		this.articleItems = articleItems;
-	}
+    public void setArticleItems(List<ItemArticle> articleItems) {
+        this.articleItems = articleItems;
+    }
 
 }

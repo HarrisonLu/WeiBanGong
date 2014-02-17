@@ -18,6 +18,7 @@
                 <a href="#">
                     <img class="media-object" data-src="holder.js/60x60" alt="">
                 </a>
+
                 <div class="media-body">
                     项目管理
                 </div>
@@ -28,6 +29,7 @@
                 <a href="#">
                     <img class="media-object" data-src="holder.js/60x60" alt="">
                 </a>
+
                 <div class="media-body">
                     客户管理
                 </div>
@@ -36,6 +38,7 @@
         <div class="col-xs-4">
             <div class="media">
                 <a href="#"><img class="media-object" data-src="holder.js/60x60" alt=""></a>
+
                 <div class="media-body">
                     审批流
                 </div>
@@ -49,6 +52,7 @@
                 <a href="/contacts">
                     <img class="media-object" data-src="holder.js/60x60" alt="">
                 </a>
+
                 <div class="media-body">
                     通讯录
                 </div>
@@ -59,6 +63,7 @@
                 <a href="#">
                     <img class="media-object" data-src="holder.js/60x60" alt="">
                 </a>
+
                 <div class="media-body">
                     帮助
                 </div>
@@ -69,6 +74,7 @@
                 <a href="#">
                     <img class="media-object" data-src="holder.js/60x60" alt="">
                 </a>
+
                 <div class="media-body">
                     反馈
                 </div>
@@ -83,6 +89,7 @@
                 <a href="#">
                     <img class="media-object" data-src="holder.js/60x60" alt="">
                 </a>
+
                 <div class="media-body">
                     共享平台
                 </div>

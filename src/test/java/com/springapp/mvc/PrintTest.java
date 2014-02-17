@@ -7,7 +7,7 @@ import com.springapp.mvc.contacts.domain.User;
  */
 public class PrintTest {
 
-    public void printUserInfo(User user){
+    public void printUserInfo(User user) {
         System.out.print(user.getId() + "  ");
         System.out.print(user.getPassword() + "  ");
         System.out.print(user.getChineseName() + "  ");

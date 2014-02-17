@@ -18,6 +18,7 @@
         <a class="pull-left" href="#">
             <img class="media-object" data-src="holder.js/60x60" alt="">
         </a>
+
         <div class="media-body">
             <p class="media-heading"><c:out value="${user.englishName}"/> (<c:out value="${user.chineseName}"/>)</p>
             <c:forEach items="${user.departments}" var="department">

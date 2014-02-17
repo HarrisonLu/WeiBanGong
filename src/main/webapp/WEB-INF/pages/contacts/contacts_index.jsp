@@ -36,7 +36,8 @@
             <div id="collapseOne" class="panel-collapse collapse in">
                 <c:forEach items="${users}" var="user">
                     <a href="/contacts/user/${user.id}" class="list-group-item">
-                        <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out value="${user.chineseName}"/>)</h4>
+                        <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
+                                value="${user.chineseName}"/>)</h4>
                         <c:forEach items="${user.departments}" var="department">
                             <p class="list-group-item-text"><c:out value="${department.name}"/></p>
                         </c:forEach>

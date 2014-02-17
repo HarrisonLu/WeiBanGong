@@ -14,24 +14,24 @@ import java.util.Map;
 public interface LinkMapper {
 
     // 插入 成员id 和 收藏联系人id 关联
-    public void insertUserIdCollectedContactsIdLink(HashMap<String, Integer> userId_collectedContactsId);
+    public void insertUserIdCollectedContactsIdLink(Map<String, Integer> map);
 
     // 删除 成员id 和 收藏联系人id 关联
-    public void deleteUserIdCollectedContactsIdLink(HashMap<String, Integer> userId_collectedContactsId);
+    public void deleteUserIdCollectedContactsIdLink(Map<String, Integer> map);
 
     // 根据 成员id 找 收藏联系人id列表
     public List<Integer> selectCollectedContactsIdListByUserId(int userId);
 
     // 插入 成员id 和 部门id 关联
-    public void insertUserIdDepartmentIdLink(HashMap<String, Integer> userId_departmentId);
+    public void insertUserIdDepartmentIdLink(Map<String, Integer> map);
 
     // 删除 成员id 和 部门id 关联
-    public void deleteUserIdDepartmentIdLink(HashMap<String, Integer> userId_departmentId);
+    public void deleteUserIdDepartmentIdLink(Map<String, Integer> map);
 
     // 插入 成员id 和 组id 关联
-    public void insertUserIdGroupIdLink(HashMap<String, Integer> userId_groupId);
+    public void insertUserIdGroupIdLink(Map<String, Integer> map);
 
     // 删除 成员id 和 组id 关联
-    public void deleteUserIdGroupIdLink(HashMap<String, Integer> userId_groupId);
+    public void deleteUserIdGroupIdLink(Map<String, Integer> map);
 
 }

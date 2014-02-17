@@ -78,7 +78,6 @@
     </select>
 
 
-    
     <select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">
         select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}
     </select>

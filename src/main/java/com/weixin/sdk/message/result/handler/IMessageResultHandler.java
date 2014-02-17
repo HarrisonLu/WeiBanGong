@@ -4,6 +4,6 @@ import com.weixin.sdk.message.Message;
 
 public interface IMessageResultHandler {
 
-	public String getMessageResult(Message message);
+    public String getMessageResult(Message message);
 
 }

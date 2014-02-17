@@ -24,13 +24,13 @@ public class ContactsOperateService {
     private UserMapper userMapper;
 
     // 增加常用联系人
-    public void addFrequentContacts(Map<String, Integer> map){
-     //   userMapper.insertUserFrequentContactsLink(map);
+    public void addFrequentContacts(Map<String, Integer> map) {
+        //   userMapper.insertUserFrequentContactsLink(map);
     }
 
     // 删除常用联系人
     public void deleteFrequentContacts(Map<String, Integer> map) {
-      //  userMapper.deleteUserFrequentContactsLink(map);
+        //  userMapper.deleteUserFrequentContactsLink(map);
     }
 
     @Autowired
@@ -48,7 +48,7 @@ public class ContactsOperateService {
 
     // 删除成员
     public void deleteUser(int id) {
-      //  userMapper.deleteUser(id);
+        //  userMapper.deleteUser(id);
     }
 
     // 增加部门
@@ -63,17 +63,16 @@ public class ContactsOperateService {
 
     // 删除部门
     public void deleteDepartment(int id) {
-      //  departmentMapper.deleteDepartment(id);
+        //  departmentMapper.deleteDepartment(id);
     }
 
     // 插入User和Department关联
     public void insertUserDepartmentLink(Map<String, Integer> map) {
-      //  userMapper.insertUserDepartmentLink(map);
+        //  userMapper.insertUserDepartmentLink(map);
     }
 
     // 删除User和Department关联
-    public void deleteUserDepartmentLink(Map<String, Integer> map)
-    {
-       // userMapper.deleteUserDepartmentLink(map);
+    public void deleteUserDepartmentLink(Map<String, Integer> map) {
+        // userMapper.deleteUserDepartmentLink(map);
     }
 }

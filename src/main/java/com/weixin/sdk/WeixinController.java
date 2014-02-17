@@ -24,7 +24,7 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/")
-public class WeixinController implements IMessage{
+public class WeixinController implements IMessage {
 
     private static final String TOKEN = "wbg";
 
@@ -35,7 +35,9 @@ public class WeixinController implements IMessage{
     private MessageResultHandlerHelper messageResultHandler;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody String valid(HttpServletRequest request) {
+    public
+    @ResponseBody
+    String valid(HttpServletRequest request) {
         String signature = request.getParameter("signature");
         String echostr = request.getParameter("echostr");
         String timestamp = request.getParameter("timestamp");
@@ -49,7 +51,9 @@ public class WeixinController implements IMessage{
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public @ResponseBody String processMsg(HttpServletRequest request) throws Exception {
+    public
+    @ResponseBody
+    String processMsg(HttpServletRequest request) throws Exception {
         String signature = request.getParameter("signature");
         String timestamp = request.getParameter("timestamp");
         String nonce = request.getParameter("nonce");
@@ -94,7 +98,7 @@ public class WeixinController implements IMessage{
     }
 
     public boolean checkSignature(String signature, String timestamp, String nonce) {
-        String[] dataStr = new String[] { TOKEN, timestamp, nonce };
+        String[] dataStr = new String[]{TOKEN, timestamp, nonce};
         Arrays.sort(dataStr);
         String data = dataStr[0] + dataStr[1] + dataStr[2];
         String flag = DigestUtils.sha1Hex(data);
