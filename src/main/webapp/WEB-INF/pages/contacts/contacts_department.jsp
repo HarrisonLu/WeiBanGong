@@ -14,14 +14,16 @@
         <a href="/contacts" class="btn btn-default navbar-btn" role="button">主页</a>
     </nav>
 
-    <c:forEach items="${department.users}" var="user">
-        <a href="/contacts/user/${user.id}" class="list-group-item">
-            <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
-                    value="${user.chineseName}"/>)</h4>
+    <div class="list-group">
+        <c:forEach items="${department.users}" var="user">
+            <a href="/contacts/user/${user.id}" class="list-group-item">
+                <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
+                        value="${user.chineseName}"/>)</h4>
 
-            <p class="list-group-item-text"><c:out value="${department.name}"/></p>
-        </a>
-    </c:forEach>
+                <p class="list-group-item-text"><c:out value="${department.name}"/></p>
+            </a>
+        </c:forEach>
+    </div>
 
 </div>
 

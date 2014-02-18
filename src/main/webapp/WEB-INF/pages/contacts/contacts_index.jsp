@@ -16,7 +16,7 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>返回
             </a>
         </span>
-        <input type="text" class="form-control" placeholder="输入中英文名搜索">
+        <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
         <span class="input-group-btn">
             <a class="btn btn-default" href="#" role="button">
                 <span class="glyphicon glyphicon-search"></span>搜索
@@ -38,8 +38,8 @@
                     <a href="/contacts/user/${user.id}" class="list-group-item">
                         <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
                                 value="${user.chineseName}"/>)</h4>
-                        <c:forEach items="${user.departments}" var="department">
-                            <p class="list-group-item-text"><c:out value="${department.name}"/></p>
+                        <c:forEach items="${user.groupList}" var="group">
+                            <p class="list-group-item-text"><c:out value="${group.name}"/></p>
                         </c:forEach>
                     </a>
                 </c:forEach>
@@ -63,6 +63,22 @@
         </div>
     </div>
 </div>
+
+<script src="http://v2.bootcss.com/assets/js/bootstrap-typeahead.js"></script>
+<script>
+    $(document).ready(function($) {
+        $.fn.typeahead.Constructor.prototype.blur = function() {
+            var that = this;
+            setTimeout(function() {that.hide()}, 250);
+        };
+
+        $('#contacts_search').typeahead({
+            source:function(query, process) {
+                return ["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"];
+            }
+        })
+    })
+</script>
 
 </body>
 </html>
