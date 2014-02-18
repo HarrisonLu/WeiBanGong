@@ -29,9 +29,9 @@
             <h4 class="panel-title">联系方式</h4>
         </div>
         <ul class="list-group">
-            <li class="list-group-item">微信号：<c:out value="${user.weChatNum}"/></li>
-            <li class="list-group-item">座机：<c:out value="${user.phoneNum}"/></li>
-            <li class="list-group-item">手机：<c:out value="${user.phoneNum}"/></li>
+            <li class="list-group-item">微信号：<c:out value="${user.wechatNum}"/></li>
+            <li class="list-group-item">座机：<c:out value="${user.telephoneNum}"/></li>
+            <li class="list-group-item">手机：<c:out value="${user.mobilePhoneNum}"/></li>
             <li class="list-group-item">QQ号：<c:out value="${user.qqNum}"/></li>
             <li class="list-group-item">邮箱：<c:out value="${user.email}"/></li>
         </ul>

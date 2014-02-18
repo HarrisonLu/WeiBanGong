@@ -51,7 +51,7 @@ public class MainController {
     public ModelAndView showContactsIndex() throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
         List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
-        List<Department> departments = contactsService.selectAllDepartment();
+        List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
         modelAndView.addObject("users", users);
         modelAndView.addObject("departments", departments);
         return modelAndView;
@@ -60,7 +60,7 @@ public class MainController {
     @RequestMapping(value = "/contacts/user/{userId}", method = RequestMethod.GET)
     public ModelAndView showContactsUserDetail(@PathVariable int userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
-        User user = contactsService.selectUserById(userId);
+        User user = contactsService.selectUserDetailsById(userId);
         modelAndView.addObject("user", user);
         return modelAndView;
     }
