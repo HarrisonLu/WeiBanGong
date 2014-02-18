@@ -20,12 +20,8 @@
         where d.id=#{id}
     </select>
 
-    <select id="selectDepartmentByName" parameterType="java.lang.String" resultMap="Department">
-        select * from t_department where name=#{name}
-    </select>
-
-    <select id="selectAllDepartment" resultMap="Department">
-        select * from t_department
+    <select id="selectAllDepartmentBaseInfo" resultMap="Department">
+        select d.id, d.name from t_department d
     </select>
 
     <update id="updateDepartment" parameterType="Department">

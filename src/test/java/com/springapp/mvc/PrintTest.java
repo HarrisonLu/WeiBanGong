@@ -23,12 +23,27 @@ public class PrintTest {
         System.out.print(user.getQqNum() + "  ");
         System.out.print(user.getTelephoneNum() + "  ");
         System.out.print(user.getMobilePhoneNum() + "  ");
-        for (Department department : user.getDepartmentList()){
-            System.out.print(department.getName() + "  ");
-        }
+        if (user.getDepartmentList() != null)
+            for (Department department : user.getDepartmentList()){
+                System.out.print(department.getName() + "  ");
+            }
+        if (user.getGroupList() != null)
         for (Group group : user.getGroupList()){
             System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
         }
+        System.out.println();
+    }
+    public void printDepartmentInfo(Department department){
+        System.out.print(department.getId() + "  ");
+        System.out.print(department.getName() + "  ");
+        if (department.getUserList() != null)
+            for (User user : department.getUserList()){
+                System.out.print(department.getName() + "  ");
+            }
+        if (department.getGroupList() != null)
+            for (Group group : department.getGroupList()){
+                System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
+            }
         System.out.println();
     }
 

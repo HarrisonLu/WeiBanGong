@@ -51,7 +51,7 @@ public class MainController {
     public ModelAndView showContactsIndex() throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
         List<User> users = contactsService.selectAllUser();
-        List<Department> departments = contactsService.selectAllDepartment();
+        List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
         modelAndView.addObject("users", users);
         modelAndView.addObject("departments", departments);
         return modelAndView;

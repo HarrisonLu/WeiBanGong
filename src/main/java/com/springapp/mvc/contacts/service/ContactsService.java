@@ -65,9 +65,9 @@ public class ContactsService {
         return false;
     }
 
-    // 得到 所有部门
-    public List<Department> selectAllDepartment() {
-        return departmentMapper.selectAllDepartment();
+    // 得到 所有部门基本信息
+    public List<Department> selectAllDepartmentBaseInfo() {
+        return departmentMapper.selectAllDepartmentBaseInfo();
     }
 
     // 根据 成员id 找 成员详细信息

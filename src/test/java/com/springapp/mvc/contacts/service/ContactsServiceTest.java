@@ -2,6 +2,7 @@ package com.springapp.mvc.contacts.service;
 
 import com.springapp.mvc.BaseTest;
 import com.springapp.mvc.PrintTest;
+import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,14 +46,22 @@ public class ContactsServiceTest extends BaseTest {
     }
 
     @Test
-    public void deleteCollectedContacts() throws Exception {
+    public void deleteCollectedContactsTest() throws Exception {
         //contactsService.deleteCollectedContacts(1, 3);
     }
 
     @Test
+    public void selectAllDepartmentBaseInfoTest() throws Exception{
+        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
+        for (Department department : departmentList){
+            printTest.printDepartmentInfo(department);
+        }
+    }
+
+    @Test
     public void selectUserDetailsByIdTest() throws Exception {
-        User user = contactsService.selectUserDetailsById(1);
-        printTest.printUserInfo(user);
+//        User user = contactsService.selectUserDetailsById(1);
+//        printTest.printUserInfo(user);
     }
 
 }
