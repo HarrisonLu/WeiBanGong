@@ -1,14 +1,12 @@
-body {
+.container {
     padding-top: 10px;
 }
 
-.row .col-xs-4 {
+.row {
     padding-top: 30px;
-    text-align: center;
-    width: auto;
 }
 
-.panel-group {
+.panel-group{
     padding-top: 10px;
 }
 

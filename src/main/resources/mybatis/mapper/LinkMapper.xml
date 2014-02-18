@@ -36,7 +36,7 @@
         delete from t_user_collectedcontacts where user_id = #{user_id} and collectedcontacts_id = #{collectedcontacts_id}
     </delete>
 
-    <select id="selectCollectedContactsBaseInfoListByUserId" parameterType="User" resultMap="UserResultMap">
+    <select id="selectCollectedContactsBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
         select collectedcontacts.id, collectedcontacts.chinese_name, collectedcontacts.english_name,
                 d.id as departmentId, d.name as departmentName,
                 g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup

@@ -107,7 +107,7 @@ public class ContactsService {
     }
 
     public User selectUserById(int userId) {
-        return null;
+        return userMapper.selectUserDetailsById(userId);
     }
 
     public List<User> selectAllUser() {
