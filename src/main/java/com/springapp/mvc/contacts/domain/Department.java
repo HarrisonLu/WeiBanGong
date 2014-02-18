@@ -9,9 +9,17 @@ import java.util.List;
 
 public class Department extends BaseDomain {
 
+    // id
     private int id;
 
+    // 部门名
     private String name;
+
+    // 组列表
+    private List<Group> groupList;
+
+    // 成员列表
+    private List<User> userList;
 
     public int getId() {
         return id;
@@ -29,4 +37,19 @@ public class Department extends BaseDomain {
         this.name = name;
     }
 
+    public List<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<Group> groupList) {
+        this.groupList = groupList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 }

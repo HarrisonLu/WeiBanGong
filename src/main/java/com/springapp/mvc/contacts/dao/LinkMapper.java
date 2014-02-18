@@ -1,5 +1,6 @@
 package com.springapp.mvc.contacts.dao;
 
+import com.springapp.mvc.contacts.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -19,8 +20,8 @@ public interface LinkMapper {
     // 删除 成员id 和 收藏联系人id 关联
     public void deleteUserIdCollectedContactsIdLink(Map<String, Integer> map);
 
-    // 根据 成员id 找 收藏联系人id列表
-    public List<Integer> selectCollectedContactsIdListByUserId(int userId);
+    // 根据 成员id 找 收藏联系人基本资料列表
+    public List<User> selectCollectedContactsBaseInfoListByUserId(int userId);
 
     // 插入 成员id 和 部门id 关联
     public void insertUserIdDepartmentIdLink(Map<String, Integer> map);

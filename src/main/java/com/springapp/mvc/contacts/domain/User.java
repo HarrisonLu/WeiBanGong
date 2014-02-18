@@ -2,6 +2,8 @@ package com.springapp.mvc.contacts.domain;
 
 import com.springapp.mvc.common.BaseDomain;
 
+import java.util.List;
+
 public class User extends BaseDomain {
 
     // id
@@ -42,6 +44,12 @@ public class User extends BaseDomain {
 
     // 手机号码
     private String mobilePhoneNum;
+
+    // 部门列表
+    private List<Department> departmentList;
+
+    // 组列表
+    private List<Group> groupList;
 
     public int getId() {
         return id;
@@ -147,5 +155,20 @@ public class User extends BaseDomain {
         this.mobilePhoneNum = mobilePhoneNum;
     }
 
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public void setDepartmentList(List<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
+
+    public List<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<Group> groupList) {
+        this.groupList = groupList;
+    }
 }
 

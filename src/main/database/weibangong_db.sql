@@ -41,7 +41,7 @@ create table t_department
 create table t_group
 (
   id    int(10)    not null,
-  name    varchar(30)    not null    unique,
+  name    varchar(30)    not null,
   department_id    int(10)    not null,
   created_time    timestamp    default    current_timestamp,
 

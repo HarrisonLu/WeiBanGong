@@ -1,5 +1,7 @@
 package com.springapp.mvc;
 
+import com.springapp.mvc.contacts.domain.Department;
+import com.springapp.mvc.contacts.domain.Group;
 import com.springapp.mvc.contacts.domain.User;
 
 /**
@@ -21,6 +23,12 @@ public class PrintTest {
         System.out.print(user.getQqNum() + "  ");
         System.out.print(user.getTelephoneNum() + "  ");
         System.out.print(user.getMobilePhoneNum() + "  ");
+        for (Department department : user.getDepartmentList()){
+            System.out.print(department.getName() + "  ");
+        }
+        for (Group group : user.getGroupList()){
+            System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
+        }
         System.out.println();
     }
 

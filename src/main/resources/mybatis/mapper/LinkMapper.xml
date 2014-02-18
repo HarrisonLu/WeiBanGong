@@ -3,6 +3,31 @@
 
 <mapper namespace="com.springapp.mvc.contacts.dao.LinkMapper">
 
+    <resultMap id="UserResultMap" type="User">
+        <id property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="chineseName" column="chinese_name"/>
+        <result property="chineseNamePinyin" column="chinese_name_pinyin"/>
+        <result property="englishName" column="english_name"/>
+        <result property="email" column="email"/>
+        <result property="status" column="status"/>
+        <result property="position" column="position"/>
+        <result property="positionLevel" column="position_level"/>
+        <result property="wechatNum" column="wechat_num"/>
+        <result property="qqNum" column="qq_num"/>
+        <result property="telephoneNum" column="telephone_num"/>
+        <result property="mobilePhoneNum" column="mobile_phone_num"/>
+        <collection property="departmentList" ofType="Department">
+            <id property="id" column="departmentId"/>
+            <result property="name" column="departmentName"/>
+        </collection>
+        <collection property="groupList" ofType="Group">
+            <id property="id" column="groupId"/>
+            <result property="name" column="groupName"/>
+            <result property="departmentName" column="departmentNameOfGroup"/>
+        </collection>
+    </resultMap>
+
     <insert id="insertUserIdCollectedContactsIdLink" parameterType="map">
         insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
     </insert>
@@ -11,8 +36,19 @@
         delete from t_user_collectedcontacts where user_id = #{user_id} and collectedcontacts_id = #{collectedcontacts_id}
     </delete>
 
-    <select id="selectCollectedContactsIdListByUserId" parameterType="int" resultType="java.lang.Integer">
-        select collectedcontacts_id from t_user_collectedcontacts where user_id = #{userId}
+    <select id="selectCollectedContactsBaseInfoListByUserId" parameterType="User" resultMap="UserResultMap">
+        select collectedcontacts.id, collectedcontacts.chinese_name, collectedcontacts.english_name,
+                d.id as departmentId, d.name as departmentName,
+                g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
+        from t_user u
+              left join t_user_collectedcontacts uc on u.id = uc.user_id
+              left join t_user collectedcontacts on uc.collectedcontacts_id = collectedcontacts.id
+              left join t_user_department ud on collectedcontacts.id = ud.user_id
+              left join t_department d on ud.department_id = d.id
+              left join t_user_group ug on collectedcontacts.id = ug.user_id
+              left join t_group g on ug.group_id = g.id
+              left join t_department d_of_g on g.department_id = d_of_g.id
+        where u.id = #{userId}
     </select>
 
 </mapper>

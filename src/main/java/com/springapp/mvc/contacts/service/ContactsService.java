@@ -29,20 +29,14 @@ public class ContactsService {
     @Autowired
     private LinkMapper linkMapper;
 
-    // 根据 字符串 模糊搜索 用户列表
-    public List<User> fuzzySelectUserByString(String str) {
-        return userMapper.fuzzySelectUserListByEnglishString(str);
+    // 根据 英文字符串 模糊搜索 成员基本信息列表
+    public List<User> fuzzySelectUserBaseInfoListByEnglishString(String englishStr){
+        return userMapper.fuzzySelectUserBaseInfoListByEnglishString(englishStr);
     }
 
-    // 根据 用户id 找 收藏联系人列表
-    public List<User> searchCollectedContactsListByUserId(int userId) {
-        List<Integer> collectedContactsIdList = linkMapper.selectCollectedContactsIdListByUserId(userId);
-        List<User> collectedContactsList = new ArrayList<User>();
-        for (int id : collectedContactsIdList) {
-            User collectedContacts = userMapper.selectUserById(id);
-            collectedContactsList.add(collectedContacts);
-        }
-        return collectedContactsList;
+    // 根据 成员id 找 收藏联系人基本资料列表
+    public List<User> selectCollectedContactsBaseInfoListByUserId(int userId){
+        return linkMapper.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
     // 根据 成员id 找 部门联系人列表

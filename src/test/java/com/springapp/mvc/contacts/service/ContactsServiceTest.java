@@ -1,8 +1,8 @@
 package com.springapp.mvc.contacts.service;
 
+import com.springapp.mvc.BaseTest;
 import com.springapp.mvc.PrintTest;
 import com.springapp.mvc.contacts.domain.User;
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class ContactsServiceTest extends TestCase {
+public class ContactsServiceTest extends BaseTest {
 
     @Autowired
     private ContactsService contactsService;
@@ -24,19 +24,19 @@ public class ContactsServiceTest extends TestCase {
     private PrintTest printTest = new PrintTest();
 
     @Test
-    public void fuzzySelectUserByStringTest() throws Exception {
-        List<User> userList = contactsService.fuzzySelectUserByString("luhuan");
-        for (User user : userList) {
-            //printTest.printUserInfo(user);
-        }
+    public void fuzzySelectUserBaseInfoListByEnglishStringTest() throws Exception {
+//        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByEnglishString("l");
+//        for (User user : userList) {
+//            printTest.printUserInfo(user);
+//        }
     }
 
     @Test
-    public void searchCollectedContactsListByUserIdTest() throws Exception {
-        List<User> collectedContactsList = contactsService.searchCollectedContactsListByUserId(1);
-        for (User user : collectedContactsList) {
-            //printTest.printUserInfo(user);
-        }
+    public void selectCollectedContactsBaseInfoListByUserIdTest() throws Exception {
+//        List<User> collectedContactsList = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
+//        for (User user : collectedContactsList) {
+//            printTest.printUserInfo(user);
+//        }
     }
 
     @Test

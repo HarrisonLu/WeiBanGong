@@ -3,7 +3,7 @@
 
 <mapper namespace="com.springapp.mvc.contacts.dao.UserMapper">
 
-    <resultMap id="User" type="User">
+    <resultMap id="UserResultMap" type="User">
         <id property="id" column="id"/>
         <result property="password" column="password"/>
         <result property="chineseName" column="chinese_name"/>
@@ -17,77 +17,117 @@
         <result property="qqNum" column="qq_num"/>
         <result property="telephoneNum" column="telephone_num"/>
         <result property="mobilePhoneNum" column="mobile_phone_num"/>
+        <collection property="departmentList" ofType="Department">
+            <id property="id" column="departmentId"/>
+            <result property="name" column="departmentName"/>
+        </collection>
+        <collection property="groupList" ofType="Group">
+            <id property="id" column="groupId"/>
+            <result property="name" column="groupName"/>
+            <result property="departmentName" column="departmentNameOfGroup"/>
+        </collection>
     </resultMap>
 
-    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})
-    </insert>
+    <!--<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
+        <!--insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})-->
+    <!--</insert>-->
 
-    <select id="selectUserById" parameterType="int" resultMap="User">
-        select * from t_user where id = #{id}
-    </select>
-
-    <select id="fuzzySelectUserListByEnglishString" parameterType="java.lang.String" resultMap="User">
-        select * from t_user where english_name like #{englishStr}"%" or chinese_name_pinyin like #{englishStr}"%";
-    </select>
-
-    <insert id="insertUserDepartmentLink" parameterType="java.util.HashMap">
-        insert into t_user_department values(#{user_id}, #{department_id})
-    </insert>
-
-    <insert id="insertUserFrequentContactsLink" parameterType="java.util.HashMap">
-        insert into t_user_frequentcontacts values (#{user_id}, #{frequentcontacts_id})
-    </insert>
-
-    <delete id="deleteUser" parameterType="java.lang.Integer">
-        delete from t_user where id = #{id}
-    </delete>
-
-    <delete id="deleteUserDepartmentLink" parameterType="java.util.HashMap">
-        delete from t_user_department where user_id = #{user_id} and department_id = #{department_id}
-    </delete>
-
-    <delete id="deleteUserFrequentContactsLink" parameterType="java.util.HashMap">
-        delete from t_user_frequentcontacts where user_id = #{user_id} and frequentcontacts_id = #{frequentcontacts_id}
-    </delete>
-
-    <update id="updateUser" parameterType="User">
-        update t_user set
-        email = #{email},
-        password = #{password},
-        chinese_name = #{chineseName},
-        english_name = #{englishName},
-        position_title = #{positionTitle},
-        wechat_num = #{weChatNum},
-        qq_num = #{qqNum},
-        phone_num = #{phoneNum}
-        where
-        id = #{id}
-    </update>
-
-    <select id="selectUserByName" parameterType="User" resultMap="User">
-        select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,
-        d.id as dp_id,d.name as dp_name
+    <select id="selectUserBaseInfoById" parameterType="int" resultMap="UserResultMap">
+        select u.id, u.chinese_name, u.english_name,
+                d.id as departmentId, d.name as departmentName,
+                g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
         from t_user u
-        left outer join t_user_department ud on u.id=ud.user_id
-        left outer join t_department d on ud.department_id=d.id
-        <where>
-            <if test="chineseName != 0">u.chinese_name=#{chineseName}</if>
-            <if test="englishName != 0">u.english_name=#{englishName}</if>
-        </where>
+              left join t_user_department ud on u.id = ud.user_id
+              left join t_department d on ud.department_id = d.id
+              left join t_user_group ug on u.id = ug.user_id
+              left join t_group g on ug.group_id = g.id
+              left join t_department d_of_g on g.department_id = d_of_g.id
+        where u.id = #{userId}
     </select>
 
-
-    <select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">
-        select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}
-    </select>
-
-    <select id="selectAllUser" resultMap="User">
-        select u.id,u.email,u.chinese_name,u.english_name,d.name as dp_name
+    <select id="selectUserDetailsById" parameterType="int" resultMap="UserResultMap">
+        select u.*,
+                d.id as departmentId, d.name as departmentName,
+                g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
         from t_user u
-        left outer join t_user_department ud on u.id=ud.user_id
-        left outer join t_department d on ud.department_id=d.id
+              left join t_user_department ud on u.id = ud.user_id
+              left join t_department d on ud.department_id = d.id
+              left join t_user_group ug on u.id = ug.user_id
+              left join t_group g on ug.group_id = g.id
+              left join t_department d_of_g on g.department_id = d_of_g.id
+        where u.id = #{userId}
     </select>
+
+    <select id="fuzzySelectUserBaseInfoListByEnglishString" parameterType="java.lang.String" resultMap="UserResultMap">
+        select u.id, u.chinese_name, u.english_name,
+                d.id as departmentId, d.name as departmentName,
+                g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
+        from t_user u
+              left join t_user_department ud on u.id = ud.user_id
+              left join t_department d on ud.department_id = d.id
+              left join t_user_group ug on u.id = ug.user_id
+              left join t_group g on ug.group_id = g.id
+              left join t_department d_of_g on g.department_id = d_of_g.id
+        where english_name like #{englishStr}"%" or chinese_name_pinyin like #{englishStr}"%";
+    </select>
+
+    <!--<insert id="insertUserDepartmentLink" parameterType="java.util.HashMap">-->
+        <!--insert into t_user_department values(#{user_id}, #{department_id})-->
+    <!--</insert>-->
+
+    <!--<insert id="insertUserFrequentContactsLink" parameterType="java.util.HashMap">-->
+        <!--insert into t_user_frequentcontacts values (#{user_id}, #{frequentcontacts_id})-->
+    <!--</insert>-->
+
+    <!--<delete id="deleteUser" parameterType="java.lang.Integer">-->
+        <!--delete from t_user where id = #{id}-->
+    <!--</delete>-->
+
+    <!--<delete id="deleteUserDepartmentLink" parameterType="java.util.HashMap">-->
+        <!--delete from t_user_department where user_id = #{user_id} and department_id = #{department_id}-->
+    <!--</delete>-->
+
+    <!--<delete id="deleteUserFrequentContactsLink" parameterType="java.util.HashMap">-->
+        <!--delete from t_user_frequentcontacts where user_id = #{user_id} and frequentcontacts_id = #{frequentcontacts_id}-->
+    <!--</delete>-->
+
+    <!--<update id="updateUser" parameterType="User">-->
+        <!--update t_user set-->
+        <!--email = #{email},-->
+        <!--password = #{password},-->
+        <!--chinese_name = #{chineseName},-->
+        <!--english_name = #{englishName},-->
+        <!--position_title = #{positionTitle},-->
+        <!--wechat_num = #{weChatNum},-->
+        <!--qq_num = #{qqNum},-->
+        <!--phone_num = #{phoneNum}-->
+        <!--where-->
+        <!--id = #{id}-->
+    <!--</update>-->
+
+    <!--<select id="selectUserByName" parameterType="User" resultMap="User">-->
+        <!--select u.id,u.email,u.chinese_name,u.english_name,u.wechat_num,u.qq_num,u.phone_num,-->
+        <!--d.id as dp_id,d.name as dp_name-->
+        <!--from t_user u-->
+        <!--left outer join t_user_department ud on u.id=ud.user_id-->
+        <!--left outer join t_department d on ud.department_id=d.id-->
+        <!--<where>-->
+            <!--<if test="chineseName != 0">u.chinese_name=#{chineseName}</if>-->
+            <!--<if test="englishName != 0">u.english_name=#{englishName}</if>-->
+        <!--</where>-->
+    <!--</select>-->
+
+
+    <!--<select id="selectFrequentContactsIdByUserId" parameterType="int" resultType="Integer">-->
+        <!--select frequentcontacts_id from t_user_frequentcontacts where user_id = #{userId}-->
+    <!--</select>-->
+
+    <!--<select id="selectAllUser" resultMap="User">-->
+        <!--select u.id,u.email,u.chinese_name,u.english_name,d.name as dp_name-->
+        <!--from t_user u-->
+        <!--left outer join t_user_department ud on u.id=ud.user_id-->
+        <!--left outer join t_department d on ud.department_id=d.id-->
+    <!--</select>-->
 
 </mapper>
 
