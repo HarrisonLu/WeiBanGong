@@ -48,4 +48,11 @@ public class ContactsServiceTest extends BaseTest {
     public void deleteCollectedContacts() throws Exception {
         //contactsService.deleteCollectedContacts(1, 3);
     }
+
+    @Test
+    public void selectUserDetailsByIdTest() throws Exception {
+        User user = contactsService.selectUserDetailsById(1);
+        printTest.printUserInfo(user);
+    }
+
 }

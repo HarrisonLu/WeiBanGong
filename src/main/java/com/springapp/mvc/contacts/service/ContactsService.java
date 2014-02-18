@@ -70,6 +70,11 @@ public class ContactsService {
         return departmentMapper.selectAllDepartment();
     }
 
+    // 根据 成员id 找 成员详细信息
+    public User selectUserDetailsById(int userId){
+        return userMapper.selectUserDetailsById(userId);
+    }
+
     // 更新 成员信息
     public void updateUserInfo(User user) {
 
