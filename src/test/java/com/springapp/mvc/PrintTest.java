@@ -10,6 +10,7 @@ import com.springapp.mvc.contacts.domain.User;
 public class PrintTest {
 
     public void printUserInfo(User user) {
+        System.out.print("成员信息：");
         System.out.print(user.getId() + "  ");
         System.out.print(user.getPassword() + "  ");
         System.out.print(user.getChineseName() + "  ");
@@ -23,27 +24,70 @@ public class PrintTest {
         System.out.print(user.getQqNum() + "  ");
         System.out.print(user.getTelephoneNum() + "  ");
         System.out.print(user.getMobilePhoneNum() + "  ");
-        if (user.getDepartmentList() != null)
+        System.out.println();
+
+        if (user.getDepartmentList() != null){
+            System.out.print("所属部门：");
             for (Department department : user.getDepartmentList()){
                 System.out.print(department.getName() + "  ");
             }
-        if (user.getGroupList() != null)
-        for (Group group : user.getGroupList()){
-            System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
         }
+        System.out.println();
+
+        if (user.getGroupList() != null){
+            System.out.print("所属组：");
+            for (Group group : user.getGroupList()){
+                System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
+            }
+        }
+        System.out.println();
+
         System.out.println();
     }
     public void printDepartmentInfo(Department department){
+        System.out.print("部门信息：");
         System.out.print(department.getId() + "  ");
         System.out.print(department.getName() + "  ");
-        if (department.getUserList() != null)
+        System.out.println();
+
+        if (department.getUserList() != null){
+            System.out.print("部门成员：");
             for (User user : department.getUserList()){
-                System.out.print(department.getName() + "  ");
+                System.out.print(user.getChineseName() + " ");
+                System.out.print(user.getEnglishName() + " ");
+                System.out.print("  ");
             }
-        if (department.getGroupList() != null)
+        }
+        System.out.println();
+
+        if (department.getGroupList() != null){
+            System.out.print("部门组：");
             for (Group group : department.getGroupList()){
-                System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
+                System.out.print(group.getName() + "  ");
             }
+        }
+        System.out.println();
+
+        System.out.println();
+    }
+
+    public void printGroupInfo(Group group){
+        System.out.print("组信息：");
+        System.out.print(group.getId() + "  ");
+        System.out.print(group.getName() + "  ");
+        System.out.print(group.getDepartmentName() + "  ");
+        System.out.println();
+
+        if (group.getUserList() != null){
+            System.out.print("组成员：");
+            for (User user : group.getUserList()){
+                System.out.print(user.getChineseName() + " ");
+                System.out.print(user.getEnglishName() + " ");
+                System.out.print("  ");
+            }
+        }
+        System.out.println();
+
         System.out.println();
     }
 

@@ -1,6 +1,7 @@
 package com.springapp.mvc.contacts.service;
 
 import com.springapp.mvc.contacts.dao.DepartmentMapper;
+import com.springapp.mvc.contacts.dao.GroupMapper;
 import com.springapp.mvc.contacts.dao.LinkMapper;
 import com.springapp.mvc.contacts.dao.UserMapper;
 import com.springapp.mvc.contacts.domain.Department;
@@ -27,6 +28,8 @@ public class ContactsService {
     @Autowired
     private DepartmentMapper departmentMapper;
     @Autowired
+    private GroupMapper groupMapper;
+    @Autowired
     private LinkMapper linkMapper;
 
     // 根据 英文字符串 模糊搜索 成员基本信息列表
@@ -39,7 +42,7 @@ public class ContactsService {
         return linkMapper.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
-    // 根据 成员id 找 部门联系人列表
+    /// 根据 成员id 找 部门联系人列表
     public List<User> searchDepartmentContactsListByUserId(int userId) {
         return null;
     }
@@ -60,7 +63,7 @@ public class ContactsService {
         linkMapper.deleteUserIdCollectedContactsIdLink(userId_collectedContactsId);
     }
 
-    // 判断 成员和联系人 是否为 收藏联系人关系
+    /// 判断 成员和联系人 是否为 收藏联系人关系
     public boolean isCollectedContacts(int userId, int collectedContactsId) {
         return false;
     }
@@ -75,33 +78,33 @@ public class ContactsService {
         return userMapper.selectUserDetailsById(userId);
     }
 
-    // 更新 成员信息
+    /// 更新 成员信息
     public void updateUserInfo(User user) {
 
     }
 
-    // 根据 成员id 找 部门列表
+    /// 根据 成员id 找 部门列表
     public List<Department> searchDepartmentListByUserId(int userId) {
         return null;
     }
 
-    // 根据 部门id 找 组列表
-    public List<Group> serchGroupListByDepartmentId(int departmentId) {
-        return null;
+    // 根据 部门id 找 部门详细信息
+    public Department selectDepartmentDetailsByDepartmentId(int departmentId){
+        return departmentMapper.selectDepartmentDetailsByDepartmentId(departmentId);
     }
 
-    // 根据 部门id 找 部门成员列表
-    public List<User> searchUserListByDepartmentId(int DepartmentId) {
-        return null;
+    // 根据 组id 找 组详细信息
+    public Group selectGroupDetailsByGroupId(int groupId) {
+        return groupMapper.selectGroupDetailsByGroupId(groupId);
     }
 
-    // 根据 组id 找 部门成员列表
+    /// 根据 组id 找 部门成员列表
     public List<User> searchUserListByGroupId(int GroupId) {
         return null;
     }
 
 
-    //待删
+    ///待删
     public Department selectDepartmentById(int departmentId) {
         return null;
     }

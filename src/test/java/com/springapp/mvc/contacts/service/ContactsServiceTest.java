@@ -3,6 +3,7 @@ package com.springapp.mvc.contacts.service;
 import com.springapp.mvc.BaseTest;
 import com.springapp.mvc.PrintTest;
 import com.springapp.mvc.contacts.domain.Department;
+import com.springapp.mvc.contacts.domain.Group;
 import com.springapp.mvc.contacts.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,16 +53,32 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void selectAllDepartmentBaseInfoTest() throws Exception{
-        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
-        for (Department department : departmentList){
-            printTest.printDepartmentInfo(department);
-        }
+//        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
+//        for (Department department : departmentList){
+//            printTest.printDepartmentInfo(department);
+//        }
     }
 
     @Test
     public void selectUserDetailsByIdTest() throws Exception {
-//        User user = contactsService.selectUserDetailsById(1);
-//        printTest.printUserInfo(user);
+        User user = contactsService.selectUserDetailsById(1);
+        printTest.printUserInfo(user);
+    }
+
+    @Test
+    public void selectDepartmentDetailsByDepartmentIdTest() throws Exception{
+        Department department = contactsService.selectDepartmentDetailsByDepartmentId(1);
+        System.out.println("User number: " + department.getUserList().size());
+        System.out.println("Group number: " + department.getGroupList().size());
+        printTest.printDepartmentInfo(department);
+    }
+
+    @Test
+    public void selectGroupDetailsByGroupIdTest() throws Exception{
+        Group group = contactsService.selectGroupDetailsByGroupId(1);
+        System.out.println("User number: " + group.getUserList().size());
+        printTest.printGroupInfo(group);
+
     }
 
 }
