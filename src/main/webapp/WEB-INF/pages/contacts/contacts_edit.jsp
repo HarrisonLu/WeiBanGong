@@ -14,7 +14,7 @@
             <a href="/contacts" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
         </div>
         <div class="col-xs-8">
-            <h4>名片详情</h4>
+            <h4>个人信息编辑</h4>
         </div>
         <div class="col-xs-2">
             <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
@@ -38,13 +38,38 @@
         <div class="panel-heading">
             <h4 class="panel-title">联系方式</h4>
         </div>
-        <ul class="list-group">
-            <li class="list-group-item">微信号：<c:out value="${user.wechatNum}"/></li>
-            <li class="list-group-item">座机：<c:out value="${user.telephoneNum}"/></li>
-            <li class="list-group-item">手机：<c:out value="${user.mobilePhoneNum}"/></li>
-            <li class="list-group-item">QQ号：<c:out value="${user.qqNum}"/></li>
-            <li class="list-group-item">邮箱：<c:out value="${user.email}"/></li>
-        </ul>
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-xs-1 control-label">微信号</label>
+                <div class="col-sm-11">
+                    <p class="form-control-static"><c:out value="${user.wechatNum}"/></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-1 control-label">座机</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control" id="input2" placeholder="<c:out value="${user.telephoneNum}"/>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-1 control-label">手机</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control" id="input3" placeholder="<c:out value="${user.mobilePhoneNum}"/>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-1 control-label">QQ号</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control" id="input4" placeholder="<c:out value="${user.qqNum}"/>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-1 control-label">邮箱</label>
+                <div class="col-sm-11">
+                    <input type="text" class="form-control" id="input5" placeholder="<c:out value="${user.email}"/>">
+                </div>
+            </div>
+        </form>
     </div>
 
     <div class="panel panel-primary">

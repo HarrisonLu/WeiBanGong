@@ -6,15 +6,10 @@
     padding-top: 30px;
 }
 
-.panel-group{
-    padding-top: 10px;
+.panel-group {
+    padding-top: 15px;
 }
 
 .panel-heading {
-    text-align: center;
-}
-
-.page-header {
-    background-color: #E8E8E8;
     text-align: center;
 }

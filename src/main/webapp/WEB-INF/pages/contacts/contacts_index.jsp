@@ -25,7 +25,7 @@
     </div>
 
     <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseOne">
@@ -34,18 +34,25 @@
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
+                <a href="/contacts/user/${myself.id}" class="list-group-item">
+                    <h4 class="list-group-item-heading"><c:out value="${myself.englishName}"/> (<c:out
+                            value="${myself.chineseName}"/>)</h4>
+                    <c:forEach items="${myself.groupList}" var="group">
+                        <p class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                    </c:forEach>
+                </a>
                 <c:forEach items="${users}" var="user">
                     <a href="/contacts/user/${user.id}" class="list-group-item">
                         <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
                                 value="${user.chineseName}"/>)</h4>
                         <c:forEach items="${user.groupList}" var="group">
-                            <p class="list-group-item-text"><c:out value="${group.name}"/></p>
+                            <p class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
                         </c:forEach>
                     </a>
                 </c:forEach>
             </div>
         </div>
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" href="#collapseTwo">
@@ -64,7 +71,7 @@
     </div>
 </div>
 
-<script src="http://v2.bootcss.com/assets/js/bootstrap-typeahead.js"></script>
+<script src="${pageContext.request.contextPath}/static_resources/js/bootstrap-typeahead.js"></script>
 <script>
     $(document).ready(function($) {
         $.fn.typeahead.Constructor.prototype.blur = function() {
