@@ -16,11 +16,6 @@
 </div>
 
 <div class="container">
-    <%--<ul class="nav nav-pills">--%>
-    <%--<li><a href="#" data-toggle="tab">动态<span class="badge">3</span></a></li>--%>
-    <%--<li class="active"><a href="#" data-toggle="tab">办公</a></li>--%>
-    <%--</ul>--%>
-
     <div class="row">
         <div class="col-xs-4">
             <div align="center" class="media">

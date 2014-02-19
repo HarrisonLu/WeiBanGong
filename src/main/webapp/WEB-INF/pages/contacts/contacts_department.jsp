@@ -3,31 +3,38 @@
 <html>
 <head>
     <title>通讯录</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static_resources/css/contacts.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="../template/header.jsp"/>
 
 <div class="container">
-    <nav class="navbar navbar-default" role="navigation">
-        <a href="/contacts" class="btn btn-default navbar-btn" role="button">返回</a>
-        <a href="/contacts" class="btn btn-default navbar-btn" role="button">主页</a>
-    </nav>
-
-    <div class="list-group">
-        <c:forEach items="${department.userList}" var="user">
-            <a href="/contacts/user/${user.id}" class="list-group-item">
-                <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
-                        value="${user.chineseName}"/>)</h4>
-            </a>
-        </c:forEach>
-        <c:forEach items="${department.groupList}" var="group">
-            <a href="/contacts/group/${group.id}" class="list-group-item">
-                <p class="list-group-item-text"><c:out value="${group.name}"/></p>
-            </a>
-        </c:forEach>
+    <div class="row">
+        <div class="col-xs-2">
+            <a href="/contacts" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
+        </div>
+        <div class="col-xs-8">
+            <h4><c:out value="${department.name}"/></h4>
+        </div>
+        <div class="col-xs-2">
+            <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+        </div>
     </div>
+</div>
 
+<div class="list-group">
+    <c:forEach items="${department.userList}" var="user">
+        <a href="/contacts/user/${user.id}" class="list-group-item">
+            <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
+                    value="${user.chineseName}"/>)</h4>
+            <p class="list-group-item-text"><c:out value="${department.name}"/></p>
+        </a>
+    </c:forEach>
+    <c:forEach items="${department.groupList}" var="group">
+        <a href="/contacts/group/${group.id}" class="list-group-item">
+            <p class="list-group-item-text"><c:out value="${group.name}"/></p>
+        </a>
+    </c:forEach>
 </div>
 
 </body>

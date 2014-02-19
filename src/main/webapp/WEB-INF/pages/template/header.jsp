@@ -7,8 +7,8 @@
 </head>
 
 <body>
-<script src="http://cdn.bootcss.com/holder/2.0/holder.min.js"></script>
-<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/static_resources/js/holder.min.js"></script>
+<script src="${pageContext.request.contextPath}/static_resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

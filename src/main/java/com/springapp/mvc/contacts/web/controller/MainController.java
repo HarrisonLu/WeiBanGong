@@ -8,6 +8,7 @@ import com.springapp.mvc.contacts.service.ContactsService;
 import com.springapp.mvc.contacts.web.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,19 +53,31 @@ public class MainController {
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
-    public ModelAndView showContactsIndex() throws Exception {
+    public ModelAndView showContactsIndex(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
-        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
+        int userId = 1;
+        session.setAttribute("user_id", userId);
+        User myself = contactsService.selectUserDetailsById((Integer)session.getAttribute("user_id"));
+        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId((Integer)session.getAttribute("user_id"));
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
+        modelAndView.addObject("myself", myself);
         modelAndView.addObject("users", users);
         modelAndView.addObject("departments", departments);
         return modelAndView;
     }
 
     @RequestMapping(value = "/contacts/user/{userId}", method = RequestMethod.GET)
-    public ModelAndView showContactsUserDetail(@PathVariable int userId) throws Exception {
+    public ModelAndView showContactsUserDetail(@PathVariable int userId, HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
         User user = contactsService.selectUserDetailsById(userId);
+        modelAndView.addObject("user", user);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/contacts/user/edit", method = RequestMethod.GET)
+    public ModelAndView showContactsEdit(HttpSession session) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_edit");
+        User user = contactsService.selectUserDetailsById((Integer)session.getAttribute("user_id"));
         modelAndView.addObject("user", user);
         return modelAndView;
     }
@@ -90,9 +104,6 @@ public class MainController {
         String query = request.getParameter("query");
         System.out.println(query);
         List<User> users = contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
-        for (User user : users) {
-            System.out.println(user.getEnglishName());
-        }
         return users;
     }
 }
