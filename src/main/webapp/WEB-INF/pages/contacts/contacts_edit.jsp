@@ -17,7 +17,7 @@
             <h4>个人信息编辑</h4>
         </div>
         <div class="col-xs-2">
-            <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+            <button type="submit" class="btn btn-primary navbar-btn pull-right">保存</button>
         </div>
     </div>
 

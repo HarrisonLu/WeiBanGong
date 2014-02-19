@@ -53,10 +53,12 @@ public class MainController {
     }
 
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
-    public ModelAndView showContactsIndex() throws Exception {
+    public ModelAndView showContactsIndex(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
-        User myself = contactsService.selectUserDetailsById(1);
-        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
+        int userId = 1;
+        session.setAttribute("user_id", userId);
+        User myself = contactsService.selectUserDetailsById((Integer)session.getAttribute("user_id"));
+        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId((Integer)session.getAttribute("user_id"));
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
         modelAndView.addObject("myself", myself);
         modelAndView.addObject("users", users);
@@ -75,7 +77,7 @@ public class MainController {
     @RequestMapping(value = "/contacts/user/edit", method = RequestMethod.GET)
     public ModelAndView showContactsEdit(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_edit");
-        User user = contactsService.selectUserDetailsById(1);
+        User user = contactsService.selectUserDetailsById((Integer)session.getAttribute("user_id"));
         modelAndView.addObject("user", user);
         return modelAndView;
     }

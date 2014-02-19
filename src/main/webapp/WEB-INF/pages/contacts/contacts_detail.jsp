@@ -17,7 +17,12 @@
             <h4>名片详情</h4>
         </div>
         <div class="col-xs-2">
-            <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+            <c:if test="${user.id==1}">
+                <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
+            </c:if>
+            <c:if test="${user.id!=1}">
+                <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+            </c:if>
         </div>
     </div>
 
