@@ -74,7 +74,10 @@
 
         $('#contacts_search').typeahead({
             source:function(query, process) {
-                return ["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"];
+                var parameter = {query: query};
+                $.post('/contacts/search', parameter, function (data) {
+                    process(data);
+                });
             }
         })
     })

@@ -15,15 +15,10 @@
     </nav>
 
     <div class="list-group">
-        <c:forEach items="${department.userList}" var="user">
+        <c:forEach items="${group.userList}" var="user">
             <a href="/contacts/user/${user.id}" class="list-group-item">
                 <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
                         value="${user.chineseName}"/>)</h4>
-            </a>
-        </c:forEach>
-        <c:forEach items="${department.groupList}" var="group">
-            <a href="/contacts/group/${group.id}" class="list-group-item">
-                <p class="list-group-item-text"><c:out value="${group.name}"/></p>
             </a>
         </c:forEach>
     </div>

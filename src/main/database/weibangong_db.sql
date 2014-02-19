@@ -2,12 +2,12 @@ drop database if exists weibangong_db;
 create database weibangong_db character set utf8 collate utf8_general_ci;
 use weibangong_db;
 
-drop table if exists t_user;
-drop table if exists t_department;
-drop table if exists t_group;
 drop table if exists t_user_group;
 drop table if exists t_user_department;
 drop table if exists t_user_collectedcontacts;
+drop table if exists t_user;
+drop table if exists t_department;
+drop table if exists t_group;
 
 create table t_user
 (
