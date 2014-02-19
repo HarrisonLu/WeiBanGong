@@ -40,32 +40,32 @@
         </div>
         <form class="form-horizontal" role="form">
             <div class="form-group">
-                <label class="col-xs-1 control-label">微信号</label>
-                <div class="col-sm-11">
+                <label align="center" class="col-xs-3 control-label">微信号</label>
+                <div class="col-xs-9">
                     <p class="form-control-static"><c:out value="${user.wechatNum}"/></p>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-1 control-label">座机</label>
-                <div class="col-sm-11">
+                <label align="center" class="col-xs-3 control-label">座机</label>
+                <div class="col-xs-9">
                     <input type="text" class="form-control" id="input2" placeholder="<c:out value="${user.telephoneNum}"/>">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-1 control-label">手机</label>
-                <div class="col-sm-11">
+                <label align="center" class="col-xs-3 control-label">手机</label>
+                <div class="col-xs-9">
                     <input type="text" class="form-control" id="input3" placeholder="<c:out value="${user.mobilePhoneNum}"/>">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-1 control-label">QQ号</label>
-                <div class="col-sm-11">
+                <label align="center" class="col-xs-3 control-label">QQ号</label>
+                <div class="col-xs-9">
                     <input type="text" class="form-control" id="input4" placeholder="<c:out value="${user.qqNum}"/>">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-xs-1 control-label">邮箱</label>
-                <div class="col-sm-11">
+                <label align="center" class="col-xs-3 control-label">邮箱</label>
+                <div class="col-xs-9">
                     <input type="text" class="form-control" id="input5" placeholder="<c:out value="${user.email}"/>">
                 </div>
             </div>
