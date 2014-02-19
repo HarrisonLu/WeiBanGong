@@ -27,10 +27,11 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void fuzzySelectUserBaseInfoListByEnglishStringTest() throws Exception {
-//        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByEnglishString("l");
-//        for (User user : userList) {
-//            printTest.printUserInfo(user);
-//        }
+        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByEnglishString("l");
+        System.out.println(userList.size());
+        for (User user : userList) {
+            printTest.printUserInfo(user);
+        }
     }
 
     @Test
@@ -67,17 +68,17 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void selectDepartmentDetailsByDepartmentIdTest() throws Exception{
-        Department department = contactsService.selectDepartmentDetailsByDepartmentId(1);
-        System.out.println("User number: " + department.getUserList().size());
-        System.out.println("Group number: " + department.getGroupList().size());
-        printTest.printDepartmentInfo(department);
+//        Department department = contactsService.selectDepartmentDetailsByDepartmentId(1);
+//        System.out.println("User number: " + department.getUserList().size());
+//        System.out.println("Group number: " + department.getGroupList().size());
+//        printTest.printDepartmentInfo(department);
     }
 
     @Test
     public void selectGroupDetailsByGroupIdTest() throws Exception{
-        Group group = contactsService.selectGroupDetailsByGroupId(1);
-        System.out.println("User number: " + group.getUserList().size());
-        printTest.printGroupInfo(group);
+//        Group group = contactsService.selectGroupDetailsByGroupId(1);
+//        System.out.println("User number: " + group.getUserList().size());
+//        printTest.printGroupInfo(group);
 
     }
 
