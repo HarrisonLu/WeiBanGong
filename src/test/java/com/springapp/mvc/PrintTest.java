@@ -11,6 +11,31 @@ public class PrintTest {
 
     public void printUserInfo(User user) {
         System.out.print("成员信息：");
+        System.out.print(user.getChineseName() + "  ");
+        System.out.print(user.getEnglishName() + "  ");
+
+        System.out.println();
+
+        if (user.getDepartmentList() != null){
+            System.out.print("所属部门：");
+            for (Department department : user.getDepartmentList()){
+                System.out.print(department.getName() + "  ");
+            }
+        }
+        System.out.println();
+
+        if (user.getGroupList() != null){
+            System.out.print("所属组：");
+            for (Group group : user.getGroupList()){
+                System.out.print(group.getDepartmentName() + " - " + group.getName() + "  ");
+            }
+        }
+        System.out.println();
+
+        System.out.println();
+    }
+    public void printUserDetails(User user){
+        System.out.print("成员信息：");
         System.out.print(user.getId() + "  ");
         System.out.print(user.getPassword() + "  ");
         System.out.print(user.getChineseName() + "  ");
@@ -70,7 +95,6 @@ public class PrintTest {
 
         System.out.println();
     }
-
     public void printGroupInfo(Group group){
         System.out.print("组信息：");
         System.out.print(group.getId() + "  ");

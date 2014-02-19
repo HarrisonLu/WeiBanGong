@@ -36,49 +36,73 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void selectCollectedContactsBaseInfoListByUserIdTest() throws Exception {
-//        List<User> collectedContactsList = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
-//        for (User user : collectedContactsList) {
-//            printTest.printUserInfo(user);
-//        }
+        List<User> collectedContactsList = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
+        for (User user : collectedContactsList) {
+            printTest.printUserInfo(user);
+        }
+    }
+
+    @Test
+    public void searchGroupUserBaseInfoListByUserId() throws Exception{
+        List<User> userList = contactsService.searchGroupUserBaseInfoListByUserId(3);
+        for (User user : userList){
+            printTest.printUserInfo(user);
+        }
     }
 
     @Test
     public void insertCollectedContactsTest() throws Exception {
-        //contactsService.insertCollectedContacts(2, 3);
+        contactsService.insertCollectedContacts(2, 3);
     }
 
     @Test
     public void deleteCollectedContactsTest() throws Exception {
-        //contactsService.deleteCollectedContacts(1, 3);
+        contactsService.deleteCollectedContacts(2, 3);
+    }
+
+    @Test
+    public void isCollectedContactsTest() throws Exception{
+        System.out.println(contactsService.isCollectedContacts(2, 1));
     }
 
     @Test
     public void selectAllDepartmentBaseInfoTest() throws Exception{
-//        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
-//        for (Department department : departmentList){
-//            printTest.printDepartmentInfo(department);
-//        }
+        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
+        for (Department department : departmentList){
+            printTest.printDepartmentInfo(department);
+        }
     }
 
     @Test
     public void selectUserDetailsByIdTest() throws Exception {
         User user = contactsService.selectUserDetailsById(1);
-        printTest.printUserInfo(user);
+        printTest.printUserDetails(user);
+    }
+
+    @Test
+    public void updateUserInfoTest() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setTelephoneNum("88886666");
+        user.setMobilePhoneNum("13430325317");
+        user.setQqNum("623360317");
+        user.setEmail("luhuang@qq.com");
+        contactsService.updateUserInfo(user);
     }
 
     @Test
     public void selectDepartmentDetailsByDepartmentIdTest() throws Exception{
-//        Department department = contactsService.selectDepartmentDetailsByDepartmentId(1);
-//        System.out.println("User number: " + department.getUserList().size());
-//        System.out.println("Group number: " + department.getGroupList().size());
-//        printTest.printDepartmentInfo(department);
+        Department department = contactsService.selectDepartmentDetailsByDepartmentId(1);
+        System.out.println("User number: " + department.getUserList().size());
+        System.out.println("Group number: " + department.getGroupList().size());
+        printTest.printDepartmentInfo(department);
     }
 
     @Test
     public void selectGroupDetailsByGroupIdTest() throws Exception{
-//        Group group = contactsService.selectGroupDetailsByGroupId(1);
-//        System.out.println("User number: " + group.getUserList().size());
-//        printTest.printGroupInfo(group);
+        Group group = contactsService.selectGroupDetailsByGroupId(1);
+        System.out.println("User number: " + group.getUserList().size());
+        printTest.printGroupInfo(group);
 
     }
 

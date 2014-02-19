@@ -32,6 +32,15 @@
         <!--insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})-->
     <!--</insert>-->
 
+    <update id="updateUserInfo" parameterType="User">
+        update t_user
+        set email = #{email},
+             qq_num = #{qqNum},
+             telephone_num = #{telephoneNum},
+             mobile_phone_num = #{mobilePhoneNum}
+        where id = #{id}
+    </update>
+
     <select id="selectUserBaseInfoById" parameterType="int" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name,
                 d.id as departmentId, d.name as departmentName,
@@ -71,6 +80,12 @@
         where english_name like "%"#{englishStr}"%" or chinese_name_pinyin like "%"#{englishStr}"%";
     </select>
 
+    <select id="isCollectedContacts" parameterType="map" resultType="int">
+            select  count(*)
+            from t_user_collectedcontacts
+            where user_id = #{user_id} And collectedcontacts_id = #{collectedcontacts_id}
+    </select>
+
     <!--<insert id="insertUserDepartmentLink" parameterType="java.util.HashMap">-->
         <!--insert into t_user_department values(#{user_id}, #{department_id})-->
     <!--</insert>-->
@@ -81,14 +96,6 @@
 
     <!--<delete id="deleteUser" parameterType="java.lang.Integer">-->
         <!--delete from t_user where id = #{id}-->
-    <!--</delete>-->
-
-    <!--<delete id="deleteUserDepartmentLink" parameterType="java.util.HashMap">-->
-        <!--delete from t_user_department where user_id = #{user_id} and department_id = #{department_id}-->
-    <!--</delete>-->
-
-    <!--<delete id="deleteUserFrequentContactsLink" parameterType="java.util.HashMap">-->
-        <!--delete from t_user_frequentcontacts where user_id = #{user_id} and frequentcontacts_id = #{frequentcontacts_id}-->
     <!--</delete>-->
 
     <!--<update id="updateUser" parameterType="User">-->

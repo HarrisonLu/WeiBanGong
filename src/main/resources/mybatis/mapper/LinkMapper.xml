@@ -51,4 +51,18 @@
         where u.id = #{userId}
     </select>
 
+    <select id="searchGroupUserBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
+        select group_u.id, group_u.chinese_name, group_u.english_name,
+                g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
+        from t_user u
+            left join t_user_group ug on u.id = ug.user_id
+            left join t_user_group ug_1 on ug.group_id = ug_1.group_id
+            left join t_user group_u on ug_1.user_id = group_u.id
+
+            left join t_user_group ug_2 on group_u.id = ug_2.user_id
+            left join t_group g on ug_2.group_id = g.id
+            left join t_department d_of_g on g.department_id = d_of_g.id
+        where u.id = #{userId}
+    </select>
+    
 </mapper>

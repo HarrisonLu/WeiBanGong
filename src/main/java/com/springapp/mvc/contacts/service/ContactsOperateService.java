@@ -43,7 +43,7 @@ public class ContactsOperateService {
 
     // 更新成员
     public void updateUserInfo(User user) {
-        userMapper.updateUser(user);
+        userMapper.updateUserInfo(user);
     }
 
     // 删除成员
