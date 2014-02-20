@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,16 +63,11 @@ public class ContactsService {
     }
 
     /// 判断 成员和联系人 是否为 收藏联系人关系
-    public boolean isCollectedContacts(int userId, int collectedContactsId) {
+    public Boolean isCollectedContacts(int userId, int collectedContactsId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("user_id", userId);
         map.put("collectedcontacts_id", collectedContactsId);
-
-        int count = userMapper.isCollectedContacts(map);
-        if (count == 0)
-            return false;
-        else
-            return true;
+        return userMapper.isCollectedContacts(map);
     }
 
     // 得到 所有部门基本信息
