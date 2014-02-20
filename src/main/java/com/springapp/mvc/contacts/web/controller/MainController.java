@@ -3,17 +3,11 @@ package com.springapp.mvc.contacts.web.controller;
 import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.Group;
 import com.springapp.mvc.contacts.domain.User;
-import com.springapp.mvc.contacts.service.ContactsOperateService;
 import com.springapp.mvc.contacts.service.ContactsService;
-import com.springapp.mvc.contacts.web.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +20,6 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    private ContactsOperateService contactsOperateService;
-
-    @Autowired
     private ContactsService contactsService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -37,28 +28,13 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping(value = "/contacts/create", method = RequestMethod.GET)
-    public void createContact() {
-    }
-
-    @RequestMapping(value = "/contacts/create", method = RequestMethod.POST)
-    public String createContactByPost(HttpServletRequest request, UserCommand userCommand) {
-        System.out.println(userCommand.getName());
-        User user = new User();
-        user.setChineseName(userCommand.getName());
-        user.setEmail(userCommand.getEmail());
-        user.setPassword("123456");
-        contactsOperateService.insertUser(user);
-        return "index";
-    }
-
     @RequestMapping(value = "/contacts", method = RequestMethod.GET)
     public ModelAndView showContactsIndex(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
         int userId = 1;
         session.setAttribute("user_id", userId);
-        User myself = contactsService.selectUserDetailsById((Integer)session.getAttribute("user_id"));
-        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId((Integer)session.getAttribute("user_id"));
+        User myself = contactsService.selectUserDetailsById((Integer) session.getAttribute("user_id"));
+        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId((Integer) session.getAttribute("user_id"));
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
         modelAndView.addObject("myself", myself);
         modelAndView.addObject("users", users);
@@ -77,7 +53,7 @@ public class MainController {
     @RequestMapping(value = "/contacts/user/edit", method = RequestMethod.GET)
     public ModelAndView showContactsEdit(HttpSession session) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_edit");
-        User user = contactsService.selectUserDetailsById((Integer)session.getAttribute("user_id"));
+        User user = contactsService.selectUserDetailsById((Integer) session.getAttribute("user_id"));
         modelAndView.addObject("user", user);
         return modelAndView;
     }
@@ -99,11 +75,14 @@ public class MainController {
     }
 
     @RequestMapping(value = "/contacts/search", method = RequestMethod.POST)
-    public @ResponseBody
-    Object searchContacts(HttpServletRequest request) throws Exception {
-        String query = request.getParameter("query");
-        System.out.println(query);
+    public
+    @ResponseBody
+    Object searchContacts(@RequestParam String query) throws Exception {
         List<User> users = contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
-        return users;
+        List<String> results = new ArrayList<String>();
+        for (User user : users) {
+            results.add(user.getEnglishName());
+        }
+        return results;
     }
 }

@@ -72,23 +72,7 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/static_resources/js/bootstrap-typeahead.js"></script>
-<script>
-    $(document).ready(function($) {
-        $.fn.typeahead.Constructor.prototype.blur = function() {
-            var that = this;
-            setTimeout(function() {that.hide()}, 250);
-        };
-
-        $('#contacts_search').typeahead({
-            source:function(query, process) {
-                var parameter = {query: query};
-                $.post('/contacts/search', parameter, function (data) {
-                    process(data);
-                });
-            }
-        })
-    })
-</script>
+<script src="${pageContext.request.contextPath}/static_resources/js/typeahead.js"></script>
 
 </body>
 </html>
