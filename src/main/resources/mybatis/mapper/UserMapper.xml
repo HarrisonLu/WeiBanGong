@@ -80,7 +80,7 @@
         where english_name like "%"#{englishStr}"%" or chinese_name_pinyin like "%"#{englishStr}"%";
     </select>
 
-    <select id="isCollectedContacts" parameterType="map" resultType="int">
+    <select id="isCollectedContacts" parameterType="map" resultType="java.lang.Boolean">
             select  count(*)
             from t_user_collectedcontacts
             where user_id = #{user_id} And collectedcontacts_id = #{collectedcontacts_id}

@@ -1,10 +1,8 @@
 package com.springapp.mvc.contacts.dao;
 
-import com.springapp.mvc.contacts.domain.Department;
 import com.springapp.mvc.contacts.domain.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,5 +31,5 @@ public interface UserMapper {
     public List<User> selectAllUser();
 
     // 判断 成员和联系人 是否为 收藏联系人关系
-    public int isCollectedContacts(Map<String, Integer> map);
+    public Boolean isCollectedContacts(Map<String, Integer> map);
 }
