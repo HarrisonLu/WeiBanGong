@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class MainController {
     }
 
     @RequestMapping(value = "/contacts/user/{userId}", method = RequestMethod.GET)
-    public ModelAndView showContactsUserDetail(@PathVariable int userId, HttpSession session) throws Exception {
+    public ModelAndView showContactsUserDetail(@PathVariable int userId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
         User user = contactsService.selectUserDetailsById(userId);
         modelAndView.addObject("user", user);
@@ -82,6 +81,7 @@ public class MainController {
         List<String> results = new ArrayList<String>();
         for (User user : users) {
             results.add(user.getEnglishName());
+            results.add(user.getChineseNamePinyin());
         }
         return results;
     }
