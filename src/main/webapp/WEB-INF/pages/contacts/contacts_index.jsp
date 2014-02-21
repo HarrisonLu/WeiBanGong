@@ -113,7 +113,7 @@
                     return u.id == id;
                 });
                 self.location='/contacts/user/' + id;
-                return user.englishName + ' - ' + user.chineseName;
+                return user.englishName + '（' + user.chineseName + '）';
             }
 
         })
