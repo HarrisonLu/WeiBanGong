@@ -11,6 +11,12 @@ $(document).ready(function($) {
                 console.log(data);
                 process(data);
             });
+        },
+
+        updater: function(item) {
+            window.navigate("/contacts/")
+            return item;
         }
+
     })
 })

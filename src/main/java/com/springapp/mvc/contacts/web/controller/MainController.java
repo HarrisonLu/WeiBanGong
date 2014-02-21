@@ -81,8 +81,7 @@ public class MainController {
         List<String> results = new ArrayList<String>();
         for (User user : users) {
             results.add(user.getEnglishName());
-            results.add(user.getChineseNamePinyin());
         }
-        return results;
+        return users;
     }
 }
