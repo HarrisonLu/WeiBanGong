@@ -48,7 +48,7 @@ public class ContactsService {
 
     // 根据 成员id和联系人id 增加收藏联系人
     public void insertCollectedContacts(int userId, int collectedContactsId) {
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("user_id", userId);
         map.put("collectedcontacts_id", collectedContactsId);
         linkMapper.insertUserIdCollectedContactsIdLink(map);
