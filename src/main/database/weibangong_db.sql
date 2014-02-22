@@ -11,7 +11,7 @@ drop table if exists t_group;
 
 create table t_user
 (
-  id    int(10)    not null,
+  id    int(10)    not null    auto_increment,
   password    varchar(30)    not null,
   chinese_name    varchar(30)    not null,
 	chinese_name_pinyin     varchar(30)    not null,
@@ -31,7 +31,7 @@ create table t_user
 
 create table t_department
 (
-  id    int(10)    not null,
+  id    int(10)    not null    auto_increment,
   name    varchar(30)    not null    unique,
   created_time    timestamp    default    current_timestamp,
 
@@ -40,7 +40,7 @@ create table t_department
 
 create table t_group
 (
-  id    int(10)    not null,
+  id    int(10)    not null    auto_increment,
   name    varchar(30)    not null,
   department_id    int(10)    not null,
   created_time    timestamp    default    current_timestamp,
