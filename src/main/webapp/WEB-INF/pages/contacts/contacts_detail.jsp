@@ -14,14 +14,19 @@
             <a href="/contacts" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
         </div>
         <div class="col-xs-8">
-            <h4>名片详情</h4>
+            <c:if test="${user.id == sessionScope.user_id}">
+                <h4>我的名片</h4>
+            </c:if>
+            <c:if test="${user.id != sessionScope.user_id}">
+                <h4>名片详情</h4>
+            </c:if>
         </div>
         <div class="col-xs-2">
             <c:choose>
-                <c:when test="${user.id==1}">
+                <c:when test="${user.id == sessionScope.user_id}">
                     <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
                 </c:when>
-                <c:when test="${user.id!=1}">
+                <c:when test="${user.id != sessionScope.user_id}">
                     <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
                 </c:when>
             </c:choose>
@@ -31,7 +36,20 @@
     <div class="media well">
         <a class="pull-left" href="#"><img class="media-object" data-src="holder.js/60x60" alt=""></a>
         <div class="media-body">
-            <p><c:out value="${user.englishName}"/> (<c:out value="${user.chineseName}"/>)</p>
+            <p><c:out value="${user.englishName}"/> (<c:out value="${user.chineseName}"/>)
+                <c:if test="${user.id != sessionScope.user_id}">
+                    <c:if test="${isCollected}">
+                        <a href="/contacts/user/link/delete/${user.id}">
+                            <span class="glyphicon glyphicon glyphicon-star pull-right" style="font-size:30px;"></span>
+                        </a>
+                    </c:if>
+                    <c:if test="${!isCollected}">
+                        <a href="/contacts/user/link/insert/${user.id}">
+                            <span class="glyphicon glyphicon glyphicon-star-empty pull-right" style="font-size:30px;"></span>
+                        </a>
+                    </c:if>
+                </c:if>
+            </p>
             <p><c:out value="${user.status}"/></p>
             <c:forEach items="${user.groupList}" var="group">
                 <p>部门：<c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
@@ -39,6 +57,7 @@
             <p>职位：<c:out value="${user.position}"/></p>
             <p>职级：<c:out value="${user.positionLevel}"/></p>
         </div>
+
     </div>
 
     <div class="panel panel-primary">

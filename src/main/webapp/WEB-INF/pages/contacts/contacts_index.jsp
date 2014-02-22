@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>通讯录</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/static_resources/css/contacts.css" rel="stylesheet">
 </head>
 
 <body>
@@ -12,16 +12,11 @@
 <div class="container">
     <div class="input-group">
         <span class="input-group-btn">
-            <a class="btn btn-default" href="/index" role="button">
+            <a class="btn btn-primary" href="/index" role="button">
                 <span class="glyphicon glyphicon-chevron-left"></span>返回
             </a>
         </span>
         <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
-        <span class="input-group-btn">
-            <a class="btn btn-default" href="#" role="button">
-                <span class="glyphicon glyphicon-search"></span>搜索
-            </a>
-        </span>
     </div>
 
     <div class="panel-group" id="accordion">
@@ -35,21 +30,28 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
                 <a href="/contacts/user/${myself.id}" class="list-group-item">
-                    <h4 class="list-group-item-heading"><c:out value="${myself.englishName}"/> (<c:out
+                    <img class="pull-left" data-src="holder.js/44x44" alt="">
+                    <h4 id="user_heading" class="list-group-item-heading"><c:out value="${myself.englishName}"/> (<c:out
                             value="${myself.chineseName}"/>)</h4>
                     <c:forEach items="${myself.groupList}" var="group">
-                        <p class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                        <p id="user_text" class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
                     </c:forEach>
                 </a>
+
                 <c:forEach items="${users}" var="user">
                     <a href="/contacts/user/${user.id}" class="list-group-item">
-                        <h4 class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
+                        <img class="pull-left" data-src="holder.js/44x44" alt="">
+                        <h4 id="user_heading" class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
                                 value="${user.chineseName}"/>)</h4>
                         <c:forEach items="${user.groupList}" var="group">
-                            <p class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                            <p id="user_text" class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
                         </c:forEach>
+                        <c:if test="${user.groupList.size() == 0}">
+                            <p id="user_text" class="list-group-item-text">暂无分组</p>
+                        </c:if>
                     </a>
                 </c:forEach>
+
             </div>
         </div>
         <div class="panel panel-primary">
@@ -63,7 +65,7 @@
             <div id="collapseTwo" class="panel-collapse collapse in">
                 <c:forEach items="${departments}" var="department">
                     <a href="/contacts/department/${department.id}" class="list-group-item">
-                        <p class="list-group-item-text"><c:out value="${department.name}"/></p>
+                        <p id="department_text" class="list-group-item-text"><c:out value="${department.name}"/></p>
                     </a>
                 </c:forEach>
             </div>
@@ -74,8 +76,7 @@
 <script src="${pageContext.request.contextPath}/static_resources/js/bootstrap-typeahead.js"></script>
 <script src="${pageContext.request.contextPath}/static_resources/js/underscore.js"></script>
 <script type="text/javascript">
-
-    $(document).ready(function($) {
+    $(document).ready(function() {
         var users;
         $('#contacts_search').typeahead({
             source:function(query, process) {
@@ -86,7 +87,6 @@
                         return user.id + "";
                     });
                     process(results);
-                    console.log(results);
                 });
             },
 
@@ -98,14 +98,16 @@
                 var user = _.find(users, function(u) {
                     return u.id == id;
                 });
-                var lighterItem = user.englishName + '（' + user.chineseName + '）';
+                var item = user.englishName + '（' + user.chineseName + '）';
                 var groups = user.groupList;
                 if (groups != null && groups.length>0) {
                     for (var i=0;i<groups.length;++i) {
-                        lighterItem += '<p>' + groups[i].departmentName + ' - ' + groups[i].name + '</p>'
+                        item += '<p>' + groups[i].departmentName + ' - ' + groups[i].name + '</p>'
                     }
+                } else {
+                    item += '<p>暂无分组<p/>'
                 }
-                return lighterItem;
+                return item;
             },
 
             updater: function(id) {

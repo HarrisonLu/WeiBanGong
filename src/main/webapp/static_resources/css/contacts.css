@@ -7,6 +7,23 @@
     padding-top: 4px;
 }
 
+.input-group {
+    padding-top: 10px;
+}
+
+.panel-group {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
 .panel-heading {
     text-align: center;
+}
+
+#user_heading {
+    padding-left: 50px;
+}
+
+#user_text {
+    padding-left: 50px;
 }
