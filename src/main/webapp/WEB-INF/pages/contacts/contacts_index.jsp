@@ -72,7 +72,53 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/static_resources/js/bootstrap-typeahead.js"></script>
-<script src="${pageContext.request.contextPath}/static_resources/js/typeahead.js"></script>
+<script src="${pageContext.request.contextPath}/static_resources/js/underscore.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function($) {
+        var users;
+        $('#contacts_search').typeahead({
+            source:function(query, process) {
+                var parameter = {query: query};
+                $.post('/contacts/search', parameter, function (data) {
+                    users = data;
+                    var results = _.map(data, function(user) {
+                        return user.id + "";
+                    });
+                    process(results);
+                    console.log(results);
+                });
+            },
+
+            matcher: function(item) {
+                return true;
+            },
+
+            highlighter: function(id) {
+                var user = _.find(users, function(u) {
+                    return u.id == id;
+                });
+                var lighterItem = user.englishName + '（' + user.chineseName + '）';
+                var groups = user.groupList;
+                if (groups != null && groups.length>0) {
+                    for (var i=0;i<groups.length;++i) {
+                        lighterItem += '<p>' + groups[i].departmentName + ' - ' + groups[i].name + '</p>'
+                    }
+                }
+                return lighterItem;
+            },
+
+            updater: function(id) {
+                var user = _.find(users, function(u) {
+                    return u.id == id;
+                });
+                self.location='/contacts/user/' + id;
+                return user.englishName + '（' + user.chineseName + '）';
+            }
+
+        })
+    })
+</script>
 
 </body>
 </html>

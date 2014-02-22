@@ -77,12 +77,6 @@ public class MainController {
     public
     @ResponseBody
     Object searchContacts(@RequestParam String query) throws Exception {
-        List<User> users = contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
-        List<String> results = new ArrayList<String>();
-        for (User user : users) {
-            results.add(user.getEnglishName());
-            results.add(user.getChineseNamePinyin());
-        }
-        return results;
+        return contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
     }
 }
