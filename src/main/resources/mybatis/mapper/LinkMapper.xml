@@ -49,6 +49,7 @@
               left join t_group g on ug.group_id = g.id
               left join t_department d_of_g on g.department_id = d_of_g.id
         where u.id = #{userId}
+        order by collectedcontacts.english_name
     </select>
 
     <select id="searchGroupUserBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
@@ -63,6 +64,7 @@
             left join t_group g on ug_2.group_id = g.id
             left join t_department d_of_g on g.department_id = d_of_g.id
         where u.id = #{userId}
+        order by group_u.english_name
     </select>
     
 </mapper>
