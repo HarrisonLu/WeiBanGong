@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-2">
-            <a href="/contacts" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
+            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
         <div class="col-xs-8">
             <h4><c:out value="${group.name}"/></h4>
@@ -31,6 +31,9 @@
             <p id="user_text" class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
         </a>
     </c:forEach>
+    <c:if test="${group.userList.size() == 0}">
+        <p class="list-group-item">暂无分组成员</p>
+    </c:if>
 </div>
 
 </body>

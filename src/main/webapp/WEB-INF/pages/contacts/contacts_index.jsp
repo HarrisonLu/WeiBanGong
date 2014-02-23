@@ -12,7 +12,7 @@
 <div class="container">
     <div class="input-group">
         <span class="input-group-btn">
-            <a class="btn btn-primary" href="/index" role="button">
+            <a class="btn btn-primary" role="button" onclick="history.go(-1)">
                 <span class="glyphicon glyphicon-chevron-left"></span>返回
             </a>
         </span>
@@ -29,29 +29,31 @@
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
-                <a href="/contacts/user/${myself.id}" class="list-group-item">
-                    <img class="pull-left" data-src="holder.js/44x44" alt="">
-                    <h4 id="user_heading" class="list-group-item-heading"><c:out value="${myself.englishName}"/> (<c:out
-                            value="${myself.chineseName}"/>)</h4>
-                    <c:forEach items="${myself.groupList}" var="group">
-                        <p id="user_text" class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
-                    </c:forEach>
-                </a>
-
-                <c:forEach items="${users}" var="user">
-                    <a href="/contacts/user/${user.id}" class="list-group-item">
+                <c:if test="${myself!=null}">
+                    <a href="/contacts/user/${myself.id}" class="list-group-item">
                         <img class="pull-left" data-src="holder.js/44x44" alt="">
-                        <h4 id="user_heading" class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
-                                value="${user.chineseName}"/>)</h4>
-                        <c:forEach items="${user.groupList}" var="group">
+                        <h4 id="user_heading" class="list-group-item-heading"><c:out value="${myself.englishName}"/> (<c:out
+                                value="${myself.chineseName}"/>)</h4>
+                        <c:forEach items="${myself.groupList}" var="group">
                             <p id="user_text" class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
                         </c:forEach>
-                        <c:if test="${user.groupList.size() == 0}">
-                            <p id="user_text" class="list-group-item-text">暂无分组</p>
-                        </c:if>
                     </a>
-                </c:forEach>
-
+                </c:if>
+                <c:if test="${users!=null}">
+                    <c:forEach items="${users}" var="user">
+                        <a href="/contacts/user/${user.id}" class="list-group-item">
+                            <img class="pull-left" data-src="holder.js/44x44" alt="">
+                            <h4 id="user_heading" class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
+                                    value="${user.chineseName}"/>)</h4>
+                            <c:forEach items="${user.groupList}" var="group">
+                                <p id="user_text" class="list-group-item-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                            </c:forEach>
+                            <c:if test="${user.groupList.size() == 0}">
+                                <p id="user_text" class="list-group-item-text">暂无分组</p>
+                            </c:if>
+                        </a>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
         <div class="panel panel-primary">
@@ -68,6 +70,9 @@
                         <p id="department_text" class="list-group-item-text"><c:out value="${department.name}"/></p>
                     </a>
                 </c:forEach>
+                <c:if test="${departments.size() == 0}">
+                    <p class="list-group-item">暂无分组</p>
+                </c:if>
             </div>
         </div>
     </div>

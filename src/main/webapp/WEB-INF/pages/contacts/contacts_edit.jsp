@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-2">
-            <a href="/contacts" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
+            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
         <div class="col-xs-8">
             <h4>个人信息编辑</h4>
@@ -49,25 +49,25 @@
                 <div class="form-group">
                     <label class="col-xs-3 control-label">座机</label>
                     <div class="col-xs-9">
-                        <input type="text" class="form-control" name="telephoneNum" placeholder="<c:out value="${user.telephoneNum}"/>">
+                        <input type="text" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 control-label">手机</label>
                     <div class="col-xs-9">
-                        <input type="text" class="form-control" name="mobilePhoneNum" placeholder="<c:out value="${user.mobilePhoneNum}"/>">
+                        <input type="text" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 control-label">QQ号</label>
                     <div class="col-xs-9">
-                        <input type="text" class="form-control" name="qqNum" placeholder="<c:out value="${user.qqNum}"/>">
+                        <input type="text" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-3 control-label">邮箱</label>
                     <div class="col-xs-9">
-                        <input type="text" class="form-control" name="email" placeholder="<c:out value="${user.email}"/>">
+                        <input type="text" class="form-control" name="email" value="<c:out value="${user.email}"/>">
                     </div>
                 </div>
             </form>
