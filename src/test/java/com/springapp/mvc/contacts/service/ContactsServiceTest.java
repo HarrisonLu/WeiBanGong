@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void fuzzySelectUserBaseInfoListByEnglishStringTest() throws Exception {
-        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByEnglishString("l");
+        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByEnglishString("d");
         System.out.println(userList.size());
         for (User user : userList) {
             printTest.printUserInfo(user);
@@ -37,6 +38,7 @@ public class ContactsServiceTest extends BaseTest {
     @Test
     public void selectCollectedContactsBaseInfoListByUserIdTest() throws Exception {
         List<User> collectedContactsList = contactsService.selectCollectedContactsBaseInfoListByUserId(1);
+        System.out.println("收藏联系人数量：" + collectedContactsList.size());
         for (User user : collectedContactsList) {
             printTest.printUserInfo(user);
         }
@@ -45,6 +47,7 @@ public class ContactsServiceTest extends BaseTest {
     @Test
     public void searchGroupUserBaseInfoListByUserId() throws Exception{
         List<User> userList = contactsService.searchGroupUserBaseInfoListByUserId(3);
+        System.out.println("组联系人数量：" + userList.size());
         for (User user : userList){
             printTest.printUserInfo(user);
         }

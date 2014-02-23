@@ -40,25 +40,25 @@
         select collectedcontacts.id, collectedcontacts.chinese_name, collectedcontacts.english_name,
                 d.id as departmentId, d.name as departmentName,
                 g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
-        from t_user u
-              left join t_user_collectedcontacts uc on u.id = uc.user_id
-              left join t_user collectedcontacts on uc.collectedcontacts_id = collectedcontacts.id
+        from t_user collectedcontacts
+              left join t_user_collectedcontacts uc on uc.collectedcontacts_id = collectedcontacts.id
+              left join t_user u on u.id = uc.user_id
               left join t_user_department ud on collectedcontacts.id = ud.user_id
               left join t_department d on ud.department_id = d.id
               left join t_user_group ug on collectedcontacts.id = ug.user_id
               left join t_group g on ug.group_id = g.id
               left join t_department d_of_g on g.department_id = d_of_g.id
         where u.id = #{userId}
-        order by collectedcontacts.english_name
+--         order by collectedcontacts.english_name
     </select>
 
     <select id="searchGroupUserBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
         select group_u.id, group_u.chinese_name, group_u.english_name,
                 g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
-        from t_user u
-            left join t_user_group ug on u.id = ug.user_id
-            left join t_user_group ug_1 on ug.group_id = ug_1.group_id
-            left join t_user group_u on ug_1.user_id = group_u.id
+        from t_user group_u
+            left join t_user_group ug_1 on ug_1.user_id = group_u.id
+            left join t_user_group ug on ug.group_id = ug_1.group_id
+            left join t_user u on u.id = ug.user_id
 
             left join t_user_group ug_2 on group_u.id = ug_2.user_id
             left join t_group g on ug_2.group_id = g.id
