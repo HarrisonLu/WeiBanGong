@@ -83,6 +83,9 @@
                     <c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/>
                 </a>
             </c:forEach>
+            <c:if test="${user.groupList.size() == 0}">
+                <p class="list-group-item">暂无分组</p>
+            </c:if>
         </div>
     </div>
 

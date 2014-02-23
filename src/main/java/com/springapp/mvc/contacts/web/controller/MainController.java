@@ -21,6 +21,10 @@ public class MainController {
     @Autowired
     private ContactsService contactsService;
 
+    private boolean isSessionExpired(HttpServletRequest request) {
+        return request.getSession() == null || request.getSession().getAttribute("user_id") == null;
+    }
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         model.addAttribute("message", "Hello world!");
@@ -32,8 +36,8 @@ public class MainController {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
         int userId = 1;
         request.getSession().setAttribute("user_id", userId);
-        User myself = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute("user_id"));
-        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId((Integer) request.getSession().getAttribute("user_id"));
+        User myself = contactsService.selectUserDetailsById(userId);
+        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
         modelAndView.addObject("myself", myself);
         modelAndView.addObject("users", users);
@@ -43,47 +47,67 @@ public class MainController {
 
     @RequestMapping(value = "/contacts/user/{userId}", method = RequestMethod.GET)
     public ModelAndView showContactsUserDetail(HttpServletRequest request, @PathVariable int userId) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
-        User user = contactsService.selectUserDetailsById(userId);
-        boolean isCollected = contactsService.isCollectedContacts((Integer) request.getSession().getAttribute("user_id"), userId);
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("isCollected", isCollected);
-        return modelAndView;
+        if (isSessionExpired(request)) {
+            return new ModelAndView("redirect:/contacts");
+        } else {
+            ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
+            User user = contactsService.selectUserDetailsById(userId);
+            boolean isCollected = contactsService.isCollectedContacts((Integer) request.getSession().getAttribute("user_id"), userId);
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("isCollected", isCollected);
+            return modelAndView;
+        }
     }
 
     @RequestMapping(value = "/contacts/user/edit", method = RequestMethod.GET)
     public ModelAndView showContactsEdit(HttpServletRequest request) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_edit");
-        User user = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute("user_id"));
-        modelAndView.addObject("user", user);
-        return modelAndView;
+        if (isSessionExpired(request)) {
+            return new ModelAndView("redirect:/contacts");
+        } else {
+            ModelAndView modelAndView = new ModelAndView("/contacts/contacts_edit");
+            User user = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute("user_id"));
+            modelAndView.addObject("user", user);
+            return modelAndView;
+        }
     }
 
     @RequestMapping(value = "/contacts/user/save", method = RequestMethod.POST)
     public String saveContacts(HttpServletRequest request, UserCommand userCommand) throws Exception {
-        int userId = (Integer)request.getSession().getAttribute("user_id");
-        User user = new User();
-        user.setId(userId);
-        user.setTelephoneNum(userCommand.getTelephoneNum());
-        user.setMobilePhoneNum(userCommand.getMobilePhoneNum());
-        user.setQqNum(userCommand.getQqNum());
-        user.setEmail(userCommand.getEmail());
-        contactsService.updateUserInfo(user);
-        return "redirect:/contacts/user/" + userId;
+        if (isSessionExpired(request)) {
+            return "redirect:/contacts";
+        } else {
+            int userId = (Integer)request.getSession().getAttribute("user_id");
+            User user = new User();
+            user.setId(userId);
+            user.setTelephoneNum(userCommand.getTelephoneNum());
+            user.setMobilePhoneNum(userCommand.getMobilePhoneNum());
+            user.setQqNum(userCommand.getQqNum());
+            user.setEmail(userCommand.getEmail());
+            contactsService.updateUserInfo(user);
+            return "redirect:/contacts/user/" + userId;
+        }
     }
 
     @RequestMapping(value = "/contacts/user/link/insert/{collectedId}", method = RequestMethod.GET)
     public String addCollectedContacts(HttpServletRequest request, @PathVariable int collectedId) throws Exception {
-        int userId = (Integer)request.getSession().getAttribute("user_id");
-        contactsService.insertCollectedContacts(userId, collectedId);
-        return "redirect:/contacts/user/" + collectedId;
+        if (isSessionExpired(request)) {
+            return "redirect:/contacts";
+        } else {
+            int userId = (Integer)request.getSession().getAttribute("user_id");
+            contactsService.insertCollectedContacts(userId, collectedId);
+            return "redirect:/contacts/user/" + collectedId;
+        }
     }
 
     @RequestMapping(value = "/contacts/user/link/delete/{collectedId}", method = RequestMethod.GET)
     public String removeCollectedContacts(HttpServletRequest request, @PathVariable int collectedId) throws Exception {
-        int userId = (Integer)request.getSession().getAttribute("user_id");
-        contactsService.deleteCollectedContacts(userId, collectedId);
-        return "redirect:/contacts/user/" + collectedId;
+        if (isSessionExpired(request)) {
+            return "redirect:/contacts";
+        } else {
+            int userId = (Integer)request.getSession().getAttribute("user_id");
+            contactsService.deleteCollectedContacts(userId, collectedId);
+            return "redirect:/contacts/user/" + collectedId;
+        }
     }
 
     @RequestMapping(value = "/contacts/department/{departmentId}", method = RequestMethod.GET)
