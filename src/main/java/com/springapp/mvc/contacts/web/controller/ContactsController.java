@@ -1,8 +1,8 @@
 package com.springapp.mvc.contacts.web.controller;
 
-import com.springapp.mvc.contacts.domain.Department;
-import com.springapp.mvc.contacts.domain.Group;
-import com.springapp.mvc.contacts.domain.User;
+import com.springapp.mvc.domain.contacts.Department;
+import com.springapp.mvc.domain.contacts.Group;
+import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.contacts.service.ContactsService;
 import com.springapp.mvc.contacts.web.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -124,7 +123,7 @@ public class ContactsController {
     public
     @ResponseBody
     Object searchContacts(@RequestParam String query) throws Exception {
-        return contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
+        return contactsService.fuzzySelectUserBaseInfoListByString(query);
     }
 
 }

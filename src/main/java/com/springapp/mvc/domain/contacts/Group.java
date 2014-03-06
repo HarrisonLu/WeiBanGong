@@ -1,6 +1,6 @@
-package com.springapp.mvc.contacts.domain;
+package com.springapp.mvc.domain.contacts;
 
-import com.springapp.mvc.common.BaseDomain;
+import com.springapp.mvc.domain.BaseDomain;
 
 import java.util.List;
 

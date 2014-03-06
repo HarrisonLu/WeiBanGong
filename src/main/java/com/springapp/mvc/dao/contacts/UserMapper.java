@@ -1,6 +1,6 @@
-package com.springapp.mvc.contacts.dao;
+package com.springapp.mvc.dao.contacts;
 
-import com.springapp.mvc.contacts.domain.User;
+import com.springapp.mvc.domain.contacts.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

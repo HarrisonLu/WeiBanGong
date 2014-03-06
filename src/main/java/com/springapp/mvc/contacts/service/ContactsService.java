@@ -1,12 +1,12 @@
 package com.springapp.mvc.contacts.service;
 
-import com.springapp.mvc.contacts.dao.DepartmentMapper;
-import com.springapp.mvc.contacts.dao.GroupMapper;
-import com.springapp.mvc.contacts.dao.LinkMapper;
-import com.springapp.mvc.contacts.dao.UserMapper;
-import com.springapp.mvc.contacts.domain.Department;
-import com.springapp.mvc.contacts.domain.Group;
-import com.springapp.mvc.contacts.domain.User;
+import com.springapp.mvc.dao.contacts.DepartmentMapper;
+import com.springapp.mvc.dao.contacts.GroupMapper;
+import com.springapp.mvc.dao.LinkMapper;
+import com.springapp.mvc.dao.contacts.UserMapper;
+import com.springapp.mvc.domain.contacts.Department;
+import com.springapp.mvc.domain.contacts.Group;
+import com.springapp.mvc.domain.contacts.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

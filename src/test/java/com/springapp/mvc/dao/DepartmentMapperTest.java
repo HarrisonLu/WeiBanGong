@@ -1,7 +1,8 @@
-package com.springapp.mvc.contacts.dao;
+package com.springapp.mvc.dao;
 
 import com.springapp.mvc.BaseTest;
-import com.springapp.mvc.contacts.domain.Department;
+import com.springapp.mvc.domain.contacts.Department;
+import com.springapp.mvc.dao.contacts.DepartmentMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

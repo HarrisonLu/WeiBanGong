@@ -1,9 +1,8 @@
-package com.springapp.mvc.contacts.dao;
+package com.springapp.mvc.dao;
 
-import com.springapp.mvc.contacts.domain.User;
+import com.springapp.mvc.domain.contacts.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,4 +36,13 @@ public interface LinkMapper {
 
     // 根据 成员id 找 所在组成员基本信息列表
     public List<User> searchGroupUserBaseInfoListByUserId(int userId);
+
+    // 插入 成员-客户共享关系
+    public void insertUserSharedCustomerLink(Map<String, Integer> map);
+
+    // 删除 成员-客户共享关系
+    public void deleteUserSharedCustomerLink(Map<String, Integer> map);
+
+    // 根据 项目id 找 成员id列表
+    public List<User> selectUserIdByProjectId(int projectId);
 }

@@ -1,4 +1,4 @@
-package com.springapp.mvc.common;
+package com.springapp.mvc.domain;
 
 import java.io.Serializable;
 
