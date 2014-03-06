@@ -32,8 +32,8 @@ public class ContactsService {
     private LinkMapper linkMapper;
 
     // 根据 字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByString(String englishStr){
-        return userMapper.fuzzySelectUserBaseInfoListByString(englishStr);
+    public List<User> fuzzySelectUserBaseInfoListByString(String str){
+        return userMapper.fuzzySelectUserBaseInfoListByString(str);
     }
 
     // 根据 成员id 找 收藏联系人基本资料列表

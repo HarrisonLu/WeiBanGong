@@ -77,9 +77,9 @@
               left join t_user_group ug on u.id = ug.user_id
               left join t_group g on ug.group_id = g.id
               left join t_department d_of_g on g.department_id = d_of_g.id
-        where english_name like "%"#{englishStr}"%"
-               or chinese_name_pinyin like "%"#{englishStr}"%"
-               or chinese_name like "%"#{englishStr}"%" ;
+        where english_name like "%"#{str}"%"
+               or chinese_name_pinyin like "%"#{str}"%"
+               or chinese_name like "%"#{str}"%" ;
     </select>
 
     <select id="isCollectedContacts" parameterType="map" resultType="java.lang.Boolean">
