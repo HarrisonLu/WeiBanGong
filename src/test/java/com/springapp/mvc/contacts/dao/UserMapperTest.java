@@ -39,7 +39,7 @@ public class UserMapperTest extends BaseTest{
 
     @Test
     public void fuzzySelectUserListByEnglishStringTest() throws Exception{
-        List<User> userList = userMapper.fuzzySelectUserBaseInfoListByEnglishString("l");
+        List<User> userList = userMapper.fuzzySelectUserBaseInfoListByString("l");
         System.out.println(userList.size());
         for (User user : userList){
             printTest.printUserInfo(user);
