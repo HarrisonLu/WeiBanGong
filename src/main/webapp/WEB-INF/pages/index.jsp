@@ -25,7 +25,7 @@
         </div>
         <div class="col-xs-4">
             <div align="center" class="media">
-                <a href="#"><img class="media-object" data-src="holder.js/60x60" alt=""></a>
+                <a href="/customer"><img class="media-object" data-src="holder.js/60x60" alt=""></a>
                 <div class="media-body">客户管理</div>
             </div>
         </div>

@@ -18,6 +18,12 @@
 
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
+                <!--<ref bean="mappingJacksonHttpMessageConverter" />-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />-->
+
     <!-- LocalDataSource -->
     <bean id="localDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${local.jdbc.driverClassName}"/>

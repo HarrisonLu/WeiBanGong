@@ -26,10 +26,10 @@
     <c:if test="${department.userList!=null}">
         <c:forEach items="${department.userList}" var="user">
             <a href="/contacts/user/${user.id}" class="list-group-item">
-                <img class="pull-left" data-src="holder.js/44x44" alt="">
-                <h4 id="user_heading" class="list-group-item-heading"><c:out value="${user.englishName}"/> (<c:out
+                <img class="pull-left" src="/static_resources/images/head.png">
+                <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                         value="${user.chineseName}"/>)</h4>
-                <p id="user_text" class="list-group-item-text"><c:out value="${department.name}"/></p>
+                <p class="list-group-item-text head-pic-text"><c:out value="${department.name}"/></p>
             </a>
         </c:forEach>
     </c:if>
