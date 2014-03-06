@@ -124,7 +124,7 @@ public class ContactsController {
     public
     @ResponseBody
     Object searchContacts(@RequestParam String query) throws Exception {
-        return contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
+        return contactsService.fuzzySelectUserBaseInfoListByString(query);
     }
 
 }
