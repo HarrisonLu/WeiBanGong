@@ -25,7 +25,7 @@ public interface UserMapper {
     public User selectUserDetailsById(int userId);
 
     // 根据 英文字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByEnglishString(String englishStr);
+    public List<User> fuzzySelectUserBaseInfoListByString(String englishStr);
 
     // 找出 所有 User
     public List<User> selectAllUser();

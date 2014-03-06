@@ -130,6 +130,6 @@ public class MainController {
     public
     @ResponseBody
     Object searchContacts(@RequestParam String query) throws Exception {
-        return contactsService.fuzzySelectUserBaseInfoListByEnglishString(query);
+        return contactsService.fuzzySelectUserBaseInfoListByString(query);
     }
 }
