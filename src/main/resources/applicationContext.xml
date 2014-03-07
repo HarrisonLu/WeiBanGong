@@ -11,17 +11,12 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="com.springapp.mvc"/>
-
     <context:annotation-config/>
 
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:component-scan base-package="com.springapp.mvc"/>
+    <context:component-scan base-package="com.weixin.sdk"/>
 
-                <!--<ref bean="mappingJacksonHttpMessageConverter" />-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
-    <!--<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!-- LocalDataSource -->
     <bean id="localDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
