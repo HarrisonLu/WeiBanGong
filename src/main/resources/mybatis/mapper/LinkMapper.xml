@@ -27,6 +27,10 @@
             <result property="departmentName" column="departmentNameOfGroup"/>
         </collection>
     </resultMap>
+    <resultMap id="ProjectResultMap" type="Project">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
 
     <insert id="insertUserIdCollectedContactsIdLink" parameterType="map">
         insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
@@ -66,5 +70,12 @@
         where u.id = #{userId}
         order by group_u.english_name
     </select>
-    
+
+    <select id="selectProjectIdByTaskId" parameterType="int" resultType="int">
+        select  t.project_id
+        from t_task t
+        where t.id = #{taskId}
+    </select>
+
+
 </mapper>

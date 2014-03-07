@@ -88,6 +88,7 @@ create table t_project
 (
   id    int(10)    not null    auto_increment,
   name    varchar(30)    not null,
+  name_pinyin     varchar(30)    not null,
   create_time    timestamp    not null    default     current_timestamp,
 
   primary key(id)
@@ -97,6 +98,7 @@ create table t_task
 (
   id    int(10)    not null    auto_increment,
   name    varchar(30)    not null,
+  name_pinyin     varchar(30)    not null,
   project_id    int(10)    not null,
   create_time    timestamp    not null    default     current_timestamp,
 
@@ -116,6 +118,7 @@ create table t_customer
 (
   id    int(10)    not null    auto_increment,
   chinese_name    varchar(30)    not null,
+  chinese_name_pinyin     varchar(30)    not null,
   english_name    varchar(30),
   gender    varchar(2)    not null,
   phone_num    varchar(20),

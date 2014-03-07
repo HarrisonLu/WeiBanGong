@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.customer.CustomerMapper">
+    <resultMap id="CustomerResultMap" type="Customer">
+        <id property="id" column="id"/>
+        <result property="chineseName" column="chinese_name"/>
+        <result property="chineseNamePinyin" column="chinese_name_pinyin"/>
+        <result property="englishName" column="english_name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone_num"/>
+        <result property="wechatNum" column="wechat_num"/>
+        <result property="qqNum" column="qq_num"/>
+        <result property="email" column="email"/>
+        <result property="officeAddress" column="office_address"/>
+        <result property="houseAddress" column="house_address"/>
+        <result property="customerValue" column="customer_value"/>
+        <result property="projectName" column="project_name"/>
+        <result property="taskName" column="task_name"/>
+        <result property="discussStageName" column="discuss_stage_name"/>
+    </resultMap>
+
+    <select id="selectCustomerDetails" parameterType="int" resultMap="CustomerResultMap">
+        select c.*, p.name as project_name, t.name as task_name, d.name as discuss_stage_name
+        from t_customer c
+              left join t_project p on c.project_id = p.id
+              left join t_task t on c.task_id = t.id
+              left join t_discuss_stage d on c.discuss_stage_id = d.id
+        where c.id = #{customerId}
+    </select>
+
+    <select id="updateCustomerInfo" parameterType="Customer">
+        update t_customer
+        set chinese_name = #{chineseName},
+             english_name = #{englishName},
+             gender = #{gender},
+             phone_num = #{phone},
+             wechat_num = #{wechatNum},
+             qq_num = #{qqNum},
+             email = #{email},
+             office_address = #{officeAddress},
+             house_address = #{houseAddress},
+             customer_value = #{customerValue}
+        where id = #{id}
+    </select>
+
+    <select id="selectMyCustomerList" parameterType="int" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name, p.name as project_name, t.name as task_name
+        from t_customer c
+              left join t_project p on c.project_id = p.id
+              left join t_task t on c.task_id = t.id
+        where c.created_user_id = #{userId}
+    </select>
+
+    <select id="selectSharedCustomerList" parameterType="int" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name, p.name as project_name, t.name as task_name
+        from t_customer c
+              left join t_customer_user cu on cu.customer_id = c.id
+
+              left join t_project p on c.project_id = p.id
+              left join t_task t on c.task_id = t.id
+        where cu.user_id = #{userId}
+    </select>
+
+    <select id="fuzzySelectCustomerList" parameterType="Map" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name, p.name as project_name, t.name as task_name
+        from t_customer c
+              left join t_customer_user cu on cu.customer_id = c.id
+
+              left join t_project p on c.project_id = p.id
+              left join t_task t on c.task_id = t.id
+        where (c.created_user_id = #{userId} or cu.user_id = #{userId})
+               and (english_name like "%"#{str}"%" or chinese_name_pinyin like "%"#{str}"%" or chinese_name like "%"#{str}"%") ;
+    </select>
+
+</mapper>

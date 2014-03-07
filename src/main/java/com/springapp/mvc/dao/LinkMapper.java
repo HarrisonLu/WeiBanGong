@@ -1,6 +1,8 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.domain.contacts.User;
+import com.springapp.mvc.domain.customer.Comment;
+import com.springapp.mvc.domain.project.Task;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,6 +45,21 @@ public interface LinkMapper {
     // 删除 成员-客户共享关系
     public void deleteUserSharedCustomerLink(Map<String, Integer> map);
 
+    // 根据 客户id 和 项目id 找 非项目成员的成员基本资料列表
+    public List<User> selectOtherSharedUserList(Map<String, Integer> map);
+
     // 根据 项目id 找 成员id列表
     public List<User> selectUserIdByProjectId(int projectId);
+
+    // 根据 项目id 和 用户id 判断 用户是否为项目成员
+    public boolean isProjectMember(Map<String, Integer> map);
+
+    // 根据 任务id 找 项目id
+    public int selectProjectIdByTaskId(int taskId);
+
+    // 根据 字符串 和 项目id 模糊搜索 任务基本资料列表
+    public List<Task> fuzzySelectTaskBaseInfoList(Map<String, String> map);
+
+    // 根据 客户id 找 评论列表
+    public List<Comment> selectCommentListByCustomerId(int customerId);
 }
