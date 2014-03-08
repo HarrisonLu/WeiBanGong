@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class Project {
     private int id;
     private String name;
-    private Timestamp time;
+    private Timestamp createTime;
 
     public int getId() {
         return id;
@@ -26,11 +26,11 @@ public class Project {
         this.name = name;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getCreateTime() {
+        return createTime;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setCreateTime(Timestamp time) {
+        this.createTime = time;
     }
 }

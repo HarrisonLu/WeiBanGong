@@ -9,7 +9,7 @@ public class Task {
     private int id;
     private String name;
     private String projectName;
-    private Timestamp time;
+    private Timestamp createTime;
 
     public int getId() {
         return id;
@@ -35,11 +35,11 @@ public class Task {
         this.projectName = projectName;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public Timestamp getCreateTime() {
+        return createTime;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
+    public void setCreateTime(Timestamp time) {
+        this.createTime = time;
     }
 }

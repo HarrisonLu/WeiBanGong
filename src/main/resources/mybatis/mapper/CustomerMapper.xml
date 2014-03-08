@@ -62,6 +62,16 @@
         where cu.user_id = #{userId}
     </select>
 
+    <select id="selectCustomerListByDiscussStage" parameterType="Map" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name, p.name as project_name, t.name as task_name
+        from t_customer c
+              left join t_customer_user cu on cu.customer_id = c.id
+
+              left join t_project p on c.project_id = p.id
+              left join t_task t on c.task_id = t.id
+        where c.discuss_stage_id = #{discussStageId} and (c.created_user_id = #{userId} or cu.user_id = #{userId})
+    </select>
+
     <select id="fuzzySelectCustomerList" parameterType="Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, p.name as project_name, t.name as task_name
         from t_customer c
