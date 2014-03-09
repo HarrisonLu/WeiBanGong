@@ -38,7 +38,15 @@
         <result property="projectName" column="project_name_of_task"/>
         <result property="createTime" column="task_create_time"/>
     </resultMap>
-
+    <resultMap id="CommentResultMap" type="Comment">
+        <id property="id" column="id"/>
+        <result property="details" column="comment_details"/>
+        <result property="time" column="comment_Time"/>
+        <result property="userId" column="comment_user_id"/>
+        <result property="userChineseName" column="comment_user_chinese_name"/>
+        <result property="userEnglishName" column="comment_user_english_name"/>
+        <result property="customerId" column="comment_customer_id"/>
+    </resultMap>
     <insert id="insertUserIdCollectedContactsIdLink" parameterType="map">
         insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
     </insert>
@@ -97,6 +105,14 @@
         from t_task t
         left join t_project p on p.id = t.project_id
         where p.id = #{projectId} and t.name like "%"#{str}"%"
+    </select>
+
+    <select id="selectCommentListByCustomerId" parameterType="int" resultMap="CommentResultMap">
+        select c.id, c.create_time as comment_Time, c.details as comment_details,
+                u.chinese_name as comment_user_chinese_name, u.english_name as comment_user_english_name
+        from t_comment c
+        left join t_user u on c.id = u.id
+        where c.customer_id = #{customerId}
     </select>
 
 </mapper>

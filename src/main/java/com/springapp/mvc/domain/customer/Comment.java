@@ -9,8 +9,10 @@ public class Comment {
     private int id;
     private String details;
     private Timestamp time;
+    private int userId;
     private String userChineseName;
     private String userEnglishName;
+    private int customerId;
 
     public int getId() {
         return id;
@@ -36,6 +38,14 @@ public class Comment {
         this.time = time;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public String getUserChineseName() {
         return userChineseName;
     }
@@ -50,5 +60,13 @@ public class Comment {
 
     public void setUserEnglishName(String userEnglishName) {
         this.userEnglishName = userEnglishName;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }
