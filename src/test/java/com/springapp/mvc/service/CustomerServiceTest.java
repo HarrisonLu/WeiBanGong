@@ -156,11 +156,17 @@ public class CustomerServiceTest extends BaseTest{
         Customer customer = customerService.selectCustomerDetails(5);
         customer.setChineseName("VIP客户五");
         customer.setCustomerValue("VIP金龙鱼");
+        customer.setProjectId(null);
+        customer.setTaskId(1);
         customerService.updateCustomer(customer);
+        customer = customerService.selectCustomerDetails(5);
         Assert.assertEquals(customer.getChineseName(), "VIP客户五");
         Assert.assertEquals(customer.getCustomerValue(),"VIP金龙鱼");
+        Assert.assertEquals(customer.getTaskName(),"1号床任务");
         customer.setChineseName("客户五");
         customer.setCustomerValue("小鱼");
+        customer.setProjectId(1);
+        customer.setTaskId(null);
         customerService.updateCustomer(customer);
     }
 

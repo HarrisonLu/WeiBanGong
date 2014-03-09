@@ -6,19 +6,19 @@ import java.sql.Timestamp;
  * Created by Lion on 14-3-6.
  */
 public class Comment {
-    private int id;
+    private Integer id;
     private String details;
     private Timestamp time;
-    private int userId;
+    private Integer userId;
     private String userChineseName;
     private String userEnglishName;
-    private int customerId;
+    private Integer customerId;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,11 +38,11 @@ public class Comment {
         this.time = time;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -62,11 +62,11 @@ public class Comment {
         this.userEnglishName = userEnglishName;
     }
 
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 }

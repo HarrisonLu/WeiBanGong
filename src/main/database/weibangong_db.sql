@@ -135,9 +135,9 @@ create table t_customer
 
   primary key(id),
   foreign key(created_user_id)    references    t_user(id),
-  foreign key(project_id)    references    t_project(id),
-  foreign key(task_id)    references    t_task(id),
-  foreign key(discuss_stage_id)    references    t_discuss_stage(id)
+  foreign key(project_id)    references    t_project(id)    on update cascade,
+  foreign key(task_id)    references    t_task(id)    on update cascade,
+  foreign key(discuss_stage_id)    references    t_discuss_stage(id)    on update cascade
 ) engine = innodb    default    charset = utf8;
 
 create table t_comment
@@ -148,7 +148,9 @@ create table t_comment
   customer_id    int(10)    not null,
   create_time    timestamp    not null    default     current_timestamp,
 
-  primary key(id)
+  primary key(id),
+  foreign key(user_id)    references   t_user(id),
+  foreign key(customer_id)    references    t_customer(id)
 ) engine = innodb    default    charset = utf8;
 
 create table t_customer_user

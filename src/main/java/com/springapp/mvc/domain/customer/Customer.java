@@ -4,7 +4,7 @@ package com.springapp.mvc.domain.customer;
  * Created by Lion on 14-3-6.
  */
 public class Customer {
-    private int id;
+    private Integer id;
     private String chineseName;
     private String chineseNamePinyin;
     private String englishName;
@@ -16,18 +16,18 @@ public class Customer {
     private String officeAddress;
     private String houseAddress;
     private String customerValue;
-    private int projectId;
+    private Integer projectId;
     private String projectName;
-    private int taskId;
+    private Integer taskId;
     private String taskName;
-    private int discussStageId;
+    private Integer discussStageId;
     private String discussStageName;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -119,11 +119,11 @@ public class Customer {
         this.customerValue = customerValue;
     }
 
-    public int getProjectId() {
+    public Integer getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
@@ -135,11 +135,11 @@ public class Customer {
         this.projectName = projectName;
     }
 
-    public int getTaskId() {
+    public Integer getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
@@ -151,11 +151,11 @@ public class Customer {
         this.taskName = taskName;
     }
 
-    public int getDiscussStageId() {
+    public Integer getDiscussStageId() {
         return discussStageId;
     }
 
-    public void setDiscussStageId(int discussStageId) {
+    public void setDiscussStageId(Integer discussStageId) {
         this.discussStageId = discussStageId;
     }
 

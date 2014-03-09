@@ -7,7 +7,7 @@ import java.util.List;
 public class User extends BaseDomain {
 
     // id
-    private int id;
+    private Integer id;
 
     // 密码
     private String password;
@@ -51,11 +51,11 @@ public class User extends BaseDomain {
     // 组列表
     private List<Group> groupList;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -4,14 +4,14 @@ package com.springapp.mvc.domain.customer;
  * Created by Lion on 14-3-6.
  */
 public class DiscussStage {
-    private int id;
+    private Integer id;
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
