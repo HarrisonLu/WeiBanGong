@@ -16,8 +16,11 @@ public class Customer {
     private String officeAddress;
     private String houseAddress;
     private String customerValue;
+    private int projectId;
     private String projectName;
+    private int taskId;
     private String taskName;
+    private int discussStageId;
     private String discussStageName;
 
     public int getId() {
@@ -116,6 +119,14 @@ public class Customer {
         this.customerValue = customerValue;
     }
 
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
     public String getProjectName() {
         return projectName;
     }
@@ -124,12 +135,28 @@ public class Customer {
         this.projectName = projectName;
     }
 
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
     public String getTaskName() {
         return taskName;
     }
 
     public void setTaskName(String taskName) {
         this.taskName = taskName;
+    }
+
+    public int getDiscussStageId() {
+        return discussStageId;
+    }
+
+    public void setDiscussStageId(int discussStageId) {
+        this.discussStageId = discussStageId;
     }
 
     public String getDiscussStageName() {

@@ -15,8 +15,11 @@
         <result property="officeAddress" column="office_address"/>
         <result property="houseAddress" column="house_address"/>
         <result property="customerValue" column="customer_value"/>
+        <result property="projectId" column="project_id"/>
         <result property="projectName" column="project_name"/>
+        <result property="taskId" column="task_id"/>
         <result property="taskName" column="task_name"/>
+        <result property="discussStageId" column="discuss_stage_id"/>
         <result property="discussStageName" column="discuss_stage_name"/>
     </resultMap>
 
@@ -40,7 +43,10 @@
              email = #{email},
              office_address = #{officeAddress},
              house_address = #{houseAddress},
-             customer_value = #{customerValue}
+             customer_value = #{customerValue},
+             project_id = #{projectId},
+             task_id = #{taskId},
+             discuss_stage_id = #{discussStageId}
         where id = #{id}
     </select>
 
