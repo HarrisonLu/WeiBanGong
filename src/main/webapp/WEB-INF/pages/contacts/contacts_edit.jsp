@@ -3,11 +3,12 @@
 <html>
 <head>
     <title>通讯录</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/contacts.css" rel="stylesheet">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
 </head>
 <body>
-<jsp:include page="../template/header.jsp"/>
-
 <div class="container">
     <div class="row">
         <div class="col-xs-2">
@@ -50,43 +51,31 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label">座机号码</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>">
+                    <input type="text" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>" style="text-align: right">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">手机号码</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>">
+                    <input type="text" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>" style="text-align: right">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">QQ号码</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>">
+                    <input type="text" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>" style="text-align: right">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">邮箱</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="email" value="<c:out value="${user.email}"/>">
+                    <input type="text" class="form-control" name="email" value="<c:out value="${user.email}"/>" style="text-align: right">
                 </div>
             </div>
         </form>
     </div>
 </div>
-
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h4 class="panel-title">组织架构</h4>
-    </div>
-    <div class="list-group">
-        <c:forEach items="${user.groupList}" var="group">
-            <a href="/contacts/group/${group.id}" class="list-group-item">
-                <c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/>
-            </a>
-        </c:forEach>
-    </div>
-</div>
-
+<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

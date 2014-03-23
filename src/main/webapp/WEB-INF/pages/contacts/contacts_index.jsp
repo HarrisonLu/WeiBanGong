@@ -3,18 +3,20 @@
 <html>
 <head>
     <title>通讯录</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/contacts.css" rel="stylesheet">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
 </head>
-
 <body>
-<jsp:include page="../template/header.jsp"/>
-
 <div class="container">
-    <div class="input-group">
-        <span class="input-group-btn">
-            <a href="/index" class="btn btn-primary" role="button">返回</a>
-        </span>
-        <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
+    <div class="row" style="min-height: 50px">
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
+        </div>
+        <div class="col-xs-10" style="margin-top: 9px">
+            <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
+        </div>
     </div>
 </div>
 
@@ -28,24 +30,43 @@
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
-            <a href="/contacts/user/${myself.id}" class="list-group-item">
+            <a href="/contacts/user/${self.id}" class="list-group-item" style="min-height: 64px">
                 <img class="pull-left" src="/static_resources/images/head.png">
-                <h4 class="list-group-item-heading head-pic-text"><c:out value="${myself.englishName}"/> (<c:out
-                        value="${myself.chineseName}"/>)</h4>
-                <c:forEach items="${myself.groupList}" var="group">
+
+                <div>
+                    <img class="pull-right" src="/static_resources/images/btn_home.png" onclick="history.go(-1)">
+                    <p class="pull-right">&nbsp;&nbsp;</p>
+                    <img class="pull-right" src="/static_resources/images/btn_search.png">
+                </div>
+
+                <h4 class="list-group-item-heading head-pic-text"><c:out value="${self.englishName}"/> (<c:out
+                        value="${self.chineseName}"/>)</h4>
+
+                <c:forEach items="${self.groupList}" var="group">
                     <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
                 </c:forEach>
+                <c:if test="${self.groupList.size() == 0}">
+                    <p class="list-group-item-text head-pic-text">暂无分组</p>
+                </c:if>
+
             </a>
             <c:forEach items="${users}" var="user">
-                <a href="/contacts/user/${user.id}" class="list-group-item">
+                <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
                     <img class="pull-left" src="/static_resources/images/head.png">
+
+                    <div>
+                        <img class="pull-right" src="/static_resources/images/btn_home.png" onclick="history.go(-1)">
+                        <p class="pull-right">&nbsp;&nbsp;</p>
+                        <img class="pull-right" src="/static_resources/images/btn_search.png">
+                    </div>
+
                     <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                             value="${user.chineseName}"/>)</h4>
                     <c:forEach items="${user.groupList}" var="group">
                         <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
                     </c:forEach>
                     <c:if test="${user.groupList.size() == 0}">
-                        <p id="user_text" class="list-group-item-text head-pic-text">暂无分组</p>
+                        <p class="list-group-item-text head-pic-text">暂无分组</p>
                     </c:if>
                 </a>
             </c:forEach>
@@ -61,19 +82,19 @@
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${departments}" var="department">
-                <a href="/contacts/department/${department.id}" class="list-group-item">
-                    <p class="list-group-item-text"><c:out value="${department.name}"/></p>
+                <a href="/contacts/department/${department.id}" class="list-group-item" style="min-height: 64px">
+                    <img class="pull-left" src="/static_resources/images/head.png">
+                    <h4 class="list-group-item-text head-pic-text"><c:out value="${department.name}"/></h4>
                 </a>
             </c:forEach>
-            <c:if test="${departments.size() == 0}">
-                <p class="list-group-item">暂无分组</p>
-            </c:if>
         </div>
     </div>
 </div>
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap-typeahead.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/bootstrap-typeahead.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/underscore-min.js"></script>
 <script type="text/javascript">
     if(window.name != "Contacts") {
         location.reload();

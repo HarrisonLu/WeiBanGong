@@ -3,12 +3,13 @@
 <html>
 <head>
     <title>通讯录</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/contacts.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.min.css" rel="stylesheet"/>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/toastr.min.css"/>
 </head>
 <body>
-<jsp:include page="../template/header.jsp"/>
-
 <div class="container">
     <div class="row">
         <div class="col-xs-2">
@@ -90,8 +91,9 @@
         </c:if>
     </div>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/toastr.min.js"></script>
 <script type="text/javascript">
     toastr.options = {
         "closeButton": false,

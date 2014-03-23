@@ -3,11 +3,12 @@
 <html>
 <head>
     <title>客户管理</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/customer.css" rel="stylesheet">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
 </head>
 <body>
-<jsp:include page="../template/header.jsp"/>
-
 <div class="container">
     <div class="row title-bar">
         <div class="col-xs-2">
@@ -30,10 +31,10 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
             <c:forEach items="${customers}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item">
+                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
                     <img class="pull-left" src="/static_resources/images/head.png" alt="">
-                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.name}"/></h4>
-                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.project}"/></p>
+                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
+                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
                 </a>
             </c:forEach>
 
@@ -49,15 +50,16 @@
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${customers}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item">
+                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
                     <img class="pull-left" src="/static_resources/images/head.png" alt="">
-                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.name}"/></h4>
-                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.project}"/></p>
+                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
+                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
                 </a>
             </c:forEach>
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

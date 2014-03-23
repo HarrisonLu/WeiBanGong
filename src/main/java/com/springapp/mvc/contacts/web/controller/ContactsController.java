@@ -29,10 +29,10 @@ public class ContactsController {
         ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
         int userId = 1;
         request.getSession().setAttribute("user_id", userId);
-        User myself = contactsService.selectUserDetailsById(userId);
+        User self = contactsService.selectUserDetailsById(userId);
         List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
-        modelAndView.addObject("myself", myself);
+        modelAndView.addObject("self", self);
         modelAndView.addObject("users", users);
         modelAndView.addObject("departments", departments);
         return modelAndView;
