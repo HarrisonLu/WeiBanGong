@@ -12,6 +12,8 @@ import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.domain.customer.DiscussStage;
 import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
+import com.tool.ChineseToPinyin;
+import net.sourceforge.pinyin4j.PinyinHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,8 +69,11 @@ public class CustomerService {
     }
 
     // 插入 客户
-    public void insertCustomer(Customer custoemr){
-        customerMapper.insertCustomer(custoemr);
+    public void insertCustomer(Customer customer){
+        String chineseName = customer.getChineseName();
+        String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
+        customer.setChineseNamePinyin(chineseNamePinyin);
+        customerMapper.insertCustomer(customer);
     }
 
     // 根据 客户id 和 项目id 找 非项目成员的成员基本资料列表
@@ -138,6 +143,9 @@ public class CustomerService {
 
     // 更新 客户
     public void updateCustomer(Customer customer){
+        String chineseName = customer.getChineseName();
+        String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
+        customer.setChineseNamePinyin(chineseNamePinyin);
         customerMapper.updateCustomerInfo(customer);
     }
 

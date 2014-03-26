@@ -1,5 +1,7 @@
 package com.springapp.mvc.domain.customer;
 
+import java.util.Date;
+
 /**
  * Created by Lion on 14-3-6.
  */
@@ -16,6 +18,9 @@ public class Customer {
     private String officeAddress;
     private String houseAddress;
     private String customerValue;
+    private Date birthday;
+    private String hobby;
+    private Integer createdUserId;
     private Integer projectId;
     private String projectName;
     private Integer taskId;
@@ -117,6 +122,30 @@ public class Customer {
 
     public void setCustomerValue(String customerValue) {
         this.customerValue = customerValue;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public Integer getCreatedUserId() {
+        return createdUserId;
+    }
+
+    public void setCreatedUserId(Integer createdUserId) {
+        this.createdUserId = createdUserId;
     }
 
     public Integer getProjectId() {

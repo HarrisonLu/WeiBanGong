@@ -38,7 +38,7 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="localDataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath*:mybatis/mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath*:mybatis/mapper/**/*.xml"/>
     </bean>
 
     <!-- Configure TransactionManager to support Annotation based Transaction support. -->

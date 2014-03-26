@@ -47,11 +47,11 @@
         <result property="userEnglishName" column="comment_user_english_name"/>
         <result property="customerId" column="comment_customer_id"/>
     </resultMap>
-    <insert id="insertUserIdCollectedContactsIdLink" parameterType="map">
+    <insert id="insertUserIdCollectedContactsIdLink" parameterType="java.util.Map">
         insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
     </insert>
 
-    <delete id="deleteUserIdCollectedContactsIdLink" parameterType="map">
+    <delete id="deleteUserIdCollectedContactsIdLink" parameterType="java.util.Map">
         delete from t_user_collectedcontacts where user_id = #{user_id} and collectedcontacts_id = #{collectedcontacts_id}
     </delete>
 
@@ -86,11 +86,11 @@
         order by group_u.english_name
     </select>
 
-    <insert id="insertUserSharedCustomerLink" parameterType="map">
+    <insert id="insertUserSharedCustomerLink" parameterType="java.util.Map">
         insert into t_customer_user values (#{customerId}, #{userId})
     </insert>
 
-    <delete id="deleteUserSharedCustomerLink" parameterType="map">
+    <delete id="deleteUserSharedCustomerLink" parameterType="java.util.Map">
         delete from t_customer_user where customer_id = #{customerId} and user_id = #{userId}
     </delete>
 
@@ -100,7 +100,7 @@
         where t.id = #{taskId}
     </select>
 
-    <select id="fuzzySelectTaskBaseInfoList" parameterType="Map" resultMap="TaskResultMap">
+    <select id="fuzzySelectTaskBaseInfoList" parameterType="java.util.Map" resultMap="TaskResultMap">
         select t.id, t.name as task_name, t.create_time as task_create_time
         from t_task t
         left join t_project p on p.id = t.project_id

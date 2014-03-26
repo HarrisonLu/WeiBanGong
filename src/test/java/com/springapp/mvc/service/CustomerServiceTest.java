@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,7 +74,25 @@ public class CustomerServiceTest extends BaseTest{
 
     @Test
     public void testInsertCustomer() throws Exception {
-
+        Customer customer = new Customer();
+        customer.setChineseName("客户九");
+        customer.setEnglishName("nine");
+        customer.setGender("男");
+        customer.setPhone("139");
+        customer.setWechatNum("wc9");
+        customer.setQqNum("99");
+        customer.setEmail("99@qq.com");
+        customer.setOfficeAddress("9公司地址");
+        customer.setHouseAddress("9街9号");
+        customer.setCustomerValue("金龙鱼");
+        customer.setBirthday(new Date());
+        customer.setHobby("写代码");
+        customer.setCreatedUserId(2);
+        customer.setProjectId(1);
+        customer.setTaskId(null);
+        customer.setDiscussStageId(1);
+//
+//        customerService.insertCustomer(customer);
     }
 
     @Test
@@ -130,7 +149,7 @@ public class CustomerServiceTest extends BaseTest{
         Assert.assertEquals(customer.getOfficeAddress(),"5公司地址");
         Assert.assertEquals(customer.getHouseAddress(),"5街5号");
         Assert.assertEquals(customer.getCustomerValue(),"小鱼");
-        Assert.assertEquals(customer.getProjectName(),"至善园6号618项目");
+        Assert.assertEquals(customer.getProjectName(),"至善园6号616项目");
         Assert.assertEquals(customer.getTaskName(),null);
         Assert.assertEquals(customer.getDiscussStageName(),"未洽谈");
     }

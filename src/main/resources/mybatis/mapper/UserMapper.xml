@@ -82,7 +82,7 @@
                or chinese_name like "%"#{str}"%" ;
     </select>
 
-    <select id="isCollectedContacts" parameterType="map" resultType="java.lang.Boolean">
+    <select id="isCollectedContacts" parameterType="java.util.Map" resultType="java.lang.Boolean">
             select  count(*)
             from t_user_collectedcontacts
             where user_id = #{user_id} And collectedcontacts_id = #{collectedcontacts_id}

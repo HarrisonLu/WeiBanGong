@@ -128,6 +128,8 @@ create table t_customer
   office_address    varchar(50),
   house_address    varchar(50),
   customer_value    varchar(300),
+  birthday    date,
+  hobby    varchar(255),
   created_user_id    int(10)    not null,
   project_id    int(10),
   task_id    int(10),
