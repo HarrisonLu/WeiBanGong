@@ -3,24 +3,25 @@
 <html>
 <head>
     <title>客户管理</title>
-    <link href="${pageContext.request.contextPath}/static_resources/css/customer.css" rel="stylesheet">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
 </head>
 <body>
-<jsp:include page="../template/header.jsp"/>
-
 <div class="container">
-    <div class="row title-bar">
+    <div class="row title-bar" style="min-height: 50px">
         <div class="col-xs-3">
-            <a class="btn btn-success navbar-btn" role="button" onclick="history.go(-1)">返回</a>
+            <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/customer/create" class="btn btn-success navbar-btn" role="button">新建</a>
+            <a href="/customer/create"><img src="/static_resources/images/btn_new.png"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/customer/filter" class="btn btn-success navbar-btn" role="button">筛选</a>
+            <a href="/customer/filter"><img src="/static_resources/images/btn_filter.png"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/customer/search" class="btn btn-success navbar-btn" role="button">搜索</a>
+            <a href="/customer/search"><img src="/static_resources/images/btn_search.png"></a>
         </div>
     </div>
 </div>
@@ -35,45 +36,36 @@
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
-            <c:forEach items="${customers}" var="customer">
-                <%--<div class="list-group-item">--%>
-                <a href="/customer/${customer.id}" class="list-group-item">
+            <c:forEach items="${myCustomerList}" var="customer">
+                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
                     <img class="pull-left" src="/static_resources/images/head.png" alt="">
-                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.name}"/></h4>
-                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.project}"/></p>
-                </a>
-                <%--<a href="/customer/${customer.id}">--%>
-                <%--<span class="glyphicon glyphicon-user pull-right" style="font-size:30px;"></span>--%>
-                <%--</a>--%>
-                <%--<p class="pull-right">&nbsp;&nbsp;&nbsp;</p>--%>
-                <%--<a href="/customer/${customer.id}/comment">--%>
-                <%--<span class="glyphicon glyphicon-comment pull-right" style="font-size:30px;"></span>--%>
-                <%--</a>--%>
-                <%--</div>--%>
-            </c:forEach>
-
-        </div>
-    </div>
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapseTwo">
-                    共享客户
-                </a>
-            </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse in">
-            <c:forEach items="${customers}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item">
-                    <img class="pull-left" src="/static_resources/images/head.png" alt="">
-                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.name}"/></h4>
-                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.project}"/></p>
+                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
+                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
                 </a>
             </c:forEach>
         </div>
     </div>
 </div>
-
-
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapseTwo">
+                共享客户
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <c:forEach items="${sharedCustomerList}" var="customer">
+            <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
+                <img class="pull-left" src="/static_resources/images/head.png" alt="">
+                <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
+                <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
+            </a>
+        </c:forEach>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

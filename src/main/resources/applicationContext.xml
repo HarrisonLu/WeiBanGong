@@ -19,19 +19,25 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!-- LocalDataSource -->
-    <bean id="localDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="localDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${local.jdbc.driverClassName}"/>
         <property name="url" value="${local.jdbc.url}"/>
         <property name="username" value="${local.jdbc.username}"/>
         <property name="password" value="${local.jdbc.password}"/>
+        <property name="maxActive" value="255"/>
+        <property name="maxIdle" value="2"/>
+        <property name="maxWait" value="120000"/>
     </bean>
 
     <!-- ServerDataSource -->
-    <bean id="serverDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="serverDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${server.jdbc.driverClassName}"/>
         <property name="url" value="${server.jdbc.url}"/>
         <property name="username" value="${server.jdbc.username}"/>
         <property name="password" value="${server.jdbc.password}"/>
+        <property name="maxActive" value="255"/>
+        <property name="maxIdle" value="2"/>
+        <property name="maxWait" value="120000"/>
     </bean>
 
     <!-- SqlSessionFactory -->
