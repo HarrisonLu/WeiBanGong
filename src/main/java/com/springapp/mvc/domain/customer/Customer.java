@@ -23,6 +23,8 @@ public class Customer {
     private Integer createdUserId;
     private Integer projectId;
     private String projectName;
+    private Integer moduleId;
+    private String moduleName;
     private Integer taskId;
     private String taskName;
     private Integer discussStageId;
@@ -166,6 +168,22 @@ public class Customer {
 
     public Integer getTaskId() {
         return taskId;
+    }
+
+    public Integer getModuleId() {
+        return moduleId;
+    }
+
+    public void setModuleId(Integer moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public void setTaskId(Integer taskId) {

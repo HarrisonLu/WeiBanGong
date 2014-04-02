@@ -45,14 +45,8 @@ public interface LinkMapper {
     // 删除 成员-客户共享关系
     public void deleteUserSharedCustomerLink(Map<String, Integer> map);
 
-    // 根据 客户id 和 项目id 找 非项目成员的成员基本资料列表
-    public List<User> selectOtherSharedUserList(Map<String, Integer> map);
-
     // 根据 项目id 找 成员id列表
     public List<User> selectUserIdByProjectId(int projectId);
-
-    // 根据 项目id 和 用户id 判断 用户是否为项目成员
-    public boolean isProjectMember(Map<String, Integer> map);
 
     // 根据 任务id 找 项目id
     public int selectProjectIdByTaskId(int taskId);

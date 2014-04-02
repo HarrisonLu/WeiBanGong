@@ -20,6 +20,8 @@
         <result property="createdUserId" column="created_user_id"/>
         <result property="projectId" column="project_id"/>
         <result property="projectName" column="project_name"/>
+        <result property="moduleId" column="module_id"/>
+        <result property="moduleName" column="module_name"/>
         <result property="taskId" column="task_id"/>
         <result property="taskName" column="task_name"/>
         <result property="discussStageId" column="discuss_stage_id"/>
@@ -29,11 +31,11 @@
     <insert id="insertCustomer" parameterType="Customer">
         insert into t_customer(chinese_name, chinese_name_pinyin, english_name, gender, phone_num,
                                  wechat_num, qq_num, email, office_address, house_address,
-                                 customer_value, birthday, hobby, created_user_id, project_id, task_id, discuss_stage_id)
+                                 customer_value, birthday, hobby, created_user_id, project_id, module_id, task_id, discuss_stage_id)
                 values (#{chineseName}, #{chineseNamePinyin}, #{englishName}, #{gender},
                          #{phone}, #{wechatNum}, #{qqNum}, #{email}, #{officeAddress},
                          #{houseAddress}, #{customerValue}, #{birthday}, #{hobby}, #{createdUserId},
-                         #{projectId}, #{taskId}, #{discussStageId})
+                         #{projectId}, #{moduleId}, #{taskId}, #{discussStageId})
     </insert>
 
     <select id="updateCustomerInfo" parameterType="Customer">
@@ -52,6 +54,7 @@
              birthday = #{birthday},
              hobby = #{hobby},
              project_id = #{projectId},
+             module_id = #{moduleId},
              task_id = #{taskId},
              discuss_stage_id = #{discussStageId}
         where id = #{id}

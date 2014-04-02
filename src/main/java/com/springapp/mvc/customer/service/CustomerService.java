@@ -76,14 +76,6 @@ public class CustomerService {
         customerMapper.insertCustomer(customer);
     }
 
-    // 根据 客户id 和 项目id 找 非项目成员的成员基本资料列表
-    public List<User> selectOtherSharedUserList(int customerId, int projectId){
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("customerId", customerId);
-        map.put("projectId", projectId);
-        return linkMapper.selectOtherSharedUserList(map);
-    }
-
     // 根据 字符串 模糊搜索 成员基本资料列表
     public List<User> fuzzySelectUserList(String str){
         return userMapper.fuzzySelectUserBaseInfoListByString(str);
@@ -128,14 +120,6 @@ public class CustomerService {
         return customerMapper.selectCustomerDetails(customerId);
     }
 
-    // 根据 项目id 和 用户id 判断 用户是否为项目成员
-    public boolean isProjectMember(int userId, int projectId){
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("userId", userId);
-        map.put("projectId", projectId);
-        return linkMapper.isProjectMember(map);
-    }
-
     // 根据 任务id 找 项目id
     public int selectProjectIdByTaskId(int taskId){
         return linkMapper.selectProjectIdByTaskId(taskId);
@@ -147,16 +131,6 @@ public class CustomerService {
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
         customer.setChineseNamePinyin(chineseNamePinyin);
         customerMapper.updateCustomerInfo(customer);
-    }
-
-    // 开启 与项目成员共享客户信息
-    public void openProjectMemberShare(int customerId, int projectId){
-
-    }
-
-    // 关闭 与项目成员共享客户信息
-    public void closeProjectMemberShare(int customerId, int projectId){
-
     }
 
     // 插入 评论

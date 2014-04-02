@@ -3,13 +3,13 @@ package com.springapp.mvc.domain.project;
 import java.sql.Timestamp;
 
 /**
- * Created by Lion on 14-3-6.
+ * Created by lion on 14-4-2.
  */
-public class Task {
+public class Module {
     private int id;
     private String name;
-    private Integer moduleId;
-    private String moduleName;
+    private Integer ProjectId;
+    private String projectName;
     private Timestamp createTime;
 
     public int getId() {
@@ -28,27 +28,27 @@ public class Task {
         this.name = name;
     }
 
-    public Integer getModuleId() {
-        return moduleId;
+    public Integer getProjectId() {
+        return ProjectId;
     }
 
-    public void setModuleId(Integer moduleId) {
-        this.moduleId = moduleId;
+    public void setProjectId(Integer projectId) {
+        ProjectId = projectId;
     }
 
-    public String getModuleName() {
-        return moduleName;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
     public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp time) {
-        this.createTime = time;
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 }

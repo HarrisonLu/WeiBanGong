@@ -88,10 +88,10 @@ public class CustomerServiceTest extends BaseTest{
         customer.setBirthday(new Date());
         customer.setHobby("写代码");
         customer.setCreatedUserId(2);
-        customer.setProjectId(1);
-        customer.setTaskId(null);
+        customer.setModuleId(null);
+        customer.setTaskId(1);
         customer.setDiscussStageId(1);
-//
+
 //        customerService.insertCustomer(customer);
     }
 
