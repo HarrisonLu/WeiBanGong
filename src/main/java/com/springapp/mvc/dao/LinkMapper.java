@@ -48,10 +48,13 @@ public interface LinkMapper {
     // 根据 项目id 找 成员id列表
     public List<User> selectUserIdByProjectId(int projectId);
 
-    // 根据 任务id 找 项目id
-    public int selectProjectIdByTaskId(int taskId);
+    // 根据 模块id 找 项目id
+    public int selectProjectIdByModuleId(int moduleId);
 
-    // 根据 字符串 和 项目id 模糊搜索 任务基本资料列表
+    // 根据 任务id 找 模块id
+    public int selectModuleIdByTaskId(int taskId);
+
+    // 根据 字符串 和 模块id 模糊搜索 任务基本资料列表
     public List<Task> fuzzySelectTaskBaseInfoList(Map<String, String> map);
 
     // 根据 客户id 找 评论列表

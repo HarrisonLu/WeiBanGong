@@ -26,8 +26,11 @@ public interface CustomerMapper {
     // 根据 成员id 找 共享客户基本资料别表
     public List<Customer> selectSharedCustomerList(int userId);
 
-    // 根据 成员id、客户所处阶段 找 客户基本资料列表
-    public List<Customer> selectCustomerListByDiscussStage(Map<String, Integer> map);
+    // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
+    public List<Customer> selectMyCustomerListByDiscussStage(Map<String, Integer> map);
+
+    // 根据 成员id、客户所处阶段 找 共享客户基本资料列表
+    public List<Customer> selectSharedCustomerListByDiscussStage(Map<String, Integer> map);
 
     // 根据 客户id 找 客户详细资料
     public Customer selectCustomerDetails(int customerId);

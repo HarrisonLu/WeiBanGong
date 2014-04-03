@@ -1,5 +1,6 @@
 package com.springapp.mvc.domain.customer;
 
+
 import java.sql.Timestamp;
 
 /**

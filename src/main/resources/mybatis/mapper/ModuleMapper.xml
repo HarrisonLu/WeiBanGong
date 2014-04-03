@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.project.ModuleMapper">
+    <resultMap id="ModuleResultMap" type="Module">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="projectId" column="project_id"/>
+        <result property="projectName" column="project_name"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="selectModuleDetailsByModuleId" parameterType="int" resultMap="ModuleResultMap">
+        select m.id, m.name, m.create_time,
+               p.id as project_id, p.name as project_name
+        from t_module m
+        left join t_project p on m.project_id = p.id
+        where m.id = #{moduleId}
+    </select>
+</mapper>

@@ -5,11 +5,14 @@ import com.springapp.mvc.dao.contacts.UserMapper;
 import com.springapp.mvc.dao.customer.CommentMapper;
 import com.springapp.mvc.dao.customer.CustomerMapper;
 import com.springapp.mvc.dao.customer.DiscussStageMapper;
+import com.springapp.mvc.dao.project.ModuleMapper;
 import com.springapp.mvc.dao.project.ProjectMapper;
+import com.springapp.mvc.dao.project.TaskMapper;
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.domain.customer.Comment;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.domain.customer.DiscussStage;
+import com.springapp.mvc.domain.project.Module;
 import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
 import com.tool.ChineseToPinyin;
@@ -38,6 +41,10 @@ public class CustomerService {
     @Autowired
     private ProjectMapper projectMapper;
     @Autowired
+    private ModuleMapper moduleMapper;
+    @Autowired
+    private TaskMapper taskMapper;
+    @Autowired
     private DiscussStageMapper discussStageMapper;
     @Autowired
     private CommentMapper commentMapper;
@@ -60,12 +67,20 @@ public class CustomerService {
         return customerMapper.selectSharedCustomerList(userId);
     }
 
-    // 根据 成员id、客户所处阶段 找 客户基本资料列表
-    public List<Customer> selectCustomerListByDiscussStage(int userId, int discussStageId){
+    // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
+    public List<Customer> selectMyCustomerListByDiscussStage(int userId, int discussStageId){
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("discussStageId", discussStageId);
-        return customerMapper.selectCustomerListByDiscussStage(map);
+        return customerMapper.selectMyCustomerListByDiscussStage(map);
+    }
+
+    // 根据 成员id、客户所处阶段 找 客户基本资料列表
+    public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId){
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("discussStageId", discussStageId);
+        return customerMapper.selectSharedCustomerListByDiscussStage(map);
     }
 
     // 插入 客户
@@ -102,10 +117,10 @@ public class CustomerService {
         return projectMapper.fuzzySelectProjectBaseInfoList(str);
     }
 
-    // 根据 字符串 和 项目id 模糊搜索 任务基本资料列表
-    public List<Task> fuzzySelectTaskBaseInfoList(int projectId, String str){
+    // 根据 字符串 和 模块id 模糊搜索 任务基本资料列表
+    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str){
         Map<String, String> map = new HashMap<String, String>();
-        map.put("projectId", Integer.toString(projectId));
+        map.put("moduleId", Integer.toString(moduleId));
         map.put("str", str);
         return linkMapper.fuzzySelectTaskBaseInfoList(map);
     }
@@ -117,12 +132,42 @@ public class CustomerService {
 
     // 根据 客户id 找 客户详细资料
     public Customer selectCustomerDetails(int customerId){
-        return customerMapper.selectCustomerDetails(customerId);
+        Customer customer = new Customer();
+        customer = customerMapper.selectCustomerDetails(customerId);
+
+        Integer taskId = customer.getTaskId();
+        Integer moduleId = customer.getModuleId();
+        if (taskId != null)
+        {
+            Task task = new Task();
+            task = taskMapper.selectTaskDetailsByTaskId(taskId);
+            customer.setTaskName(task.getName());
+
+            Module module = new Module();
+            module = moduleMapper.selectModuleDetailsByModuleId(task.getModuleId());
+            customer.setModuleName(module.getName());
+
+            Project project = new Project();
+            project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
+            customer.setProjectName(project.getName());
+        }
+        else if (moduleId != null)
+        {
+            Module module = new Module();
+            module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
+            customer.setModuleName(module.getName());
+
+            Project project = new Project();
+            project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
+            customer.setProjectName(project.getName());
+        }
+
+        return  customer;
     }
 
-    // 根据 任务id 找 项目id
-    public int selectProjectIdByTaskId(int taskId){
-        return linkMapper.selectProjectIdByTaskId(taskId);
+    // 根据 任务id 找 模块id
+    public int selectModuleIdByTaskId(int taskId){
+        return linkMapper.selectModuleIdByTaskId(taskId);
     }
 
     // 更新 客户

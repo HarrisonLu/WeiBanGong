@@ -10,5 +10,6 @@ import java.util.Map;
  */
 public interface TaskMapper {
 
-
+    // 根据 任务id 找 任务详细资料
+    public Task selectTaskDetailsByTaskId(int taskId);
 }

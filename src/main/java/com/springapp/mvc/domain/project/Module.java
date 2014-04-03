@@ -6,17 +6,21 @@ import java.sql.Timestamp;
  * Created by lion on 14-4-2.
  */
 public class Module {
-    private int id;
+    private Integer id;
     private String name;
-    private Integer ProjectId;
+    private Integer projectId;
     private String projectName;
     private Timestamp createTime;
+    private Timestamp updateTime;
+    private Integer createrId;
+    private String createrChineseName;
+    private String createrEnglishName;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -29,11 +33,11 @@ public class Module {
     }
 
     public Integer getProjectId() {
-        return ProjectId;
+        return projectId;
     }
 
     public void setProjectId(Integer projectId) {
-        ProjectId = projectId;
+        this.projectId = projectId;
     }
 
     public String getProjectName() {
@@ -50,5 +54,37 @@ public class Module {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getCreaterId() {
+        return createrId;
+    }
+
+    public void setCreaterId(Integer createrId) {
+        this.createrId = createrId;
+    }
+
+    public String getCreaterChineseName() {
+        return createrChineseName;
+    }
+
+    public void setCreaterChineseName(String createrChineseName) {
+        this.createrChineseName = createrChineseName;
+    }
+
+    public String getCreaterEnglishName() {
+        return createrEnglishName;
+    }
+
+    public void setCreaterEnglishName(String createrEnglishName) {
+        this.createrEnglishName = createrEnglishName;
     }
 }

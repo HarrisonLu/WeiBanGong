@@ -94,8 +94,14 @@
         delete from t_customer_user where customer_id = #{customerId} and user_id = #{userId}
     </delete>
 
-    <select id="selectProjectIdByTaskId" parameterType="int" resultType="int">
-        select  t.project_id
+    <select id="selectProjectIdByModuleId" parameterType="int" resultType="int">
+        select  m.project_id
+        from t_module m
+        where m.id = #{moduleId}
+    </select>
+
+    <select id="selectModuleIdByTaskId" parameterType="int" resultType="int">
+        select  t.module_id
         from t_task t
         where t.id = #{taskId}
     </select>
@@ -103,8 +109,8 @@
     <select id="fuzzySelectTaskBaseInfoList" parameterType="java.util.Map" resultMap="TaskResultMap">
         select t.id, t.name as task_name, t.create_time as task_create_time
         from t_task t
-        left join t_project p on p.id = t.project_id
-        where p.id = #{projectId} and t.name like "%"#{str}"%"
+        left join t_module m on m.id = t.module_id
+        where m.id = #{moduleId} and t.name like "%"#{str}"%"
     </select>
 
     <select id="selectCommentListByCustomerId" parameterType="int" resultMap="CommentResultMap">

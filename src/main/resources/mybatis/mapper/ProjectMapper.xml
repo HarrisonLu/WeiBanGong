@@ -14,4 +14,9 @@
         where p.name like "%"#{str}"%"
     </select>
 
+    <select id="selectProjectDetailsByProjectId" parameterType="int" resultMap="ProjectResultMap">
+        select p.id, p.name, p.create_time
+        from t_project p
+        where p.id = #{projectId}
+    </select>
 </mapper>
