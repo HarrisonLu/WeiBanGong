@@ -1,8 +1,8 @@
-package com.springapp.mvc.customer.web.controller;
+package com.springapp.mvc.web.customer.controller;
 
-import com.springapp.mvc.contacts.web.command.UserCommand;
-import com.springapp.mvc.customer.service.CustomerService;
-import com.springapp.mvc.customer.web.command.CustomerCommand;
+import com.springapp.mvc.web.contacts.command.UserCommand;
+import com.springapp.mvc.service.customer.CustomerService;
+import com.springapp.mvc.web.customer.command.CustomerCommand;
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.domain.customer.Comment;
 import com.springapp.mvc.domain.customer.Customer;
