@@ -1,4 +1,4 @@
-package com.springapp.mvc.customer.service;
+package com.springapp.mvc.service.customer;
 
 import com.springapp.mvc.dao.LinkMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
@@ -75,7 +75,7 @@ public class CustomerService {
         return customerMapper.selectMyCustomerListByDiscussStage(map);
     }
 
-    // 根据 成员id、客户所处阶段 找 客户基本资料列表
+    // 根据 成员id、客户所处阶段 找 共享客户基本资料列表
     public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId){
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);

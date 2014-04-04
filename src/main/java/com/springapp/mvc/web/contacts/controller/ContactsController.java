@@ -1,10 +1,10 @@
-package com.springapp.mvc.contacts.web.controller;
+package com.springapp.mvc.web.contacts.controller;
 
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
-import com.springapp.mvc.contacts.service.ContactsService;
-import com.springapp.mvc.contacts.web.command.UserCommand;
+import com.springapp.mvc.service.contacts.ContactsService;
+import com.springapp.mvc.web.contacts.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +30,12 @@ public class ContactsController {
         int userId = 1;
         request.getSession().setAttribute("user_id", userId);
         User self = contactsService.selectUserDetailsById(userId);
-        List<User> users = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
+        List<User> groupUsers = contactsService.searchGroupUserBaseInfoListByUserId(userId);
+        List<User> collUsers = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
         modelAndView.addObject("self", self);
-        modelAndView.addObject("users", users);
+        modelAndView.addObject("groupUsers", groupUsers);
+        modelAndView.addObject("collUsers", collUsers);
         modelAndView.addObject("departments", departments);
         return modelAndView;
     }

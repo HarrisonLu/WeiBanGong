@@ -1,4 +1,4 @@
-package com.springapp.mvc.contacts.web.command;
+package com.springapp.mvc.web.contacts.command;
 
 public class UserCommand {
 

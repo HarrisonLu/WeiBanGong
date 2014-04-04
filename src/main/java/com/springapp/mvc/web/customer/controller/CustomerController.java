@@ -1,6 +1,7 @@
-package com.springapp.mvc.customer.web.controller;
+package com.springapp.mvc.web.customer.controller;
 
-import com.springapp.mvc.customer.service.CustomerService;
+import com.springapp.mvc.service.customer.CustomerService;
+import com.springapp.mvc.web.customer.command.CustomerCommand;
 import com.springapp.mvc.domain.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/customer")
@@ -19,6 +17,10 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+    private boolean isSessionExpired(HttpServletRequest request) {
+        return request.getSession() == null || request.getSession().getAttribute("user_id") == null;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showCustomerIndex(HttpServletRequest request) throws Exception {
@@ -41,13 +43,10 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/{customerId}/comment", method = RequestMethod.GET)
-    public ModelAndView showCustomerComment() throws Exception {
+    public ModelAndView showCustomerComment(@PathVariable int customerId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/customer/customer_comment");
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("id", "1");
-        map.put("name", "金秀贤");
-        map.put("project", "惠州房产项目");
-        modelAndView.addObject("customer", map);
+        Customer customer = customerService.selectCustomerDetails(customerId);
+        modelAndView.addObject("customer", customer);
         return modelAndView;
     }
 
@@ -55,6 +54,23 @@ public class CustomerController {
     public ModelAndView createCustomer() throws Exception {
         ModelAndView modelAndView = new ModelAndView("/customer/customer_create");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/create/project", method = RequestMethod.GET)
+    public ModelAndView showCustomerProject() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/customer/customer_project");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/create/task", method = RequestMethod.GET)
+    public ModelAndView showCustomerTask() throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/customer/customer_task");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveCustomer(HttpServletRequest request, CustomerCommand customerCommand) throws Exception {
+        return "redirect:/customer";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -67,8 +83,12 @@ public class CustomerController {
     public
     @ResponseBody
     Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
-        int userId = (Integer)request.getSession().getAttribute("user_id");
-        return customerService.fuzzySelectCustomer(userId, query);
+        if (isSessionExpired(request)) {
+            return new ModelAndView("redirect:/customer");
+        } else {
+            int userId = (Integer)request.getSession().getAttribute("user_id");
+            return customerService.fuzzySelectCustomer(userId, query);
+        }
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
@@ -79,11 +99,15 @@ public class CustomerController {
 
     @RequestMapping(value = "/filter/{filterType}", method = RequestMethod.GET)
     public ModelAndView filterResult(HttpServletRequest request, @PathVariable int filterType) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_filter_result");
-        int userId = (Integer)request.getSession().getAttribute("user_id");
-        List<Customer> customers = customerService.selectCustomerListByDiscussStage(userId, filterType);
-        modelAndView.addObject("customers", customers);
-        return modelAndView;
+        if (isSessionExpired(request)) {
+            return new ModelAndView("redirect:/customer");
+        } else {
+            ModelAndView modelAndView = new ModelAndView("/customer/customer_filter_result");
+            int userId = (Integer)request.getSession().getAttribute("user_id");
+            List<Customer> customers = customerService.selectCustomerListByDiscussStage(userId, filterType);
+            modelAndView.addObject("customers", customers);
+            return modelAndView;
+        }
     }
 
 

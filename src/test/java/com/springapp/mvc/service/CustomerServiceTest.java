@@ -1,12 +1,12 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.BaseTest;
-import com.springapp.mvc.customer.service.CustomerService;
 import com.springapp.mvc.domain.customer.Comment;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.domain.customer.DiscussStage;
 import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
+import com.springapp.mvc.service.customer.CustomerService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +65,7 @@ public class CustomerServiceTest extends BaseTest{
     public void testSelectMyCustomerListByDiscussStage() throws Exception {
         List<Customer> customerList = customerService.selectMyCustomerListByDiscussStage(1, 2);
         Assert.assertEquals(customerList.size(), 1);
-        customerList = customerService.selectMyCustomerListByDiscussStage(2,4);
+        customerList = customerService.selectMyCustomerListByDiscussStage(2, 4);
         Assert.assertEquals(customerList.size(), 2);
     }
 

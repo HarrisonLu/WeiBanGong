@@ -2,10 +2,10 @@ package com.springapp.mvc.service;
 
 import com.springapp.mvc.BaseTest;
 import com.springapp.mvc.PrintTest;
-import com.springapp.mvc.contacts.service.ContactsService;
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
+import com.springapp.mvc.service.contacts.ContactsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
