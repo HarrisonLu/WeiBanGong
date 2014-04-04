@@ -2,6 +2,7 @@ package com.springapp.mvc.dao.customer;
 
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.domain.customer.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * Created by Lion on 14-3-6.
  */
+@Repository
 public interface CustomerMapper {
 
     // 插入 客户
