@@ -1,0 +1,25 @@
+.row {
+    background-color: #E3E3E3;
+}
+
+.col-xs-8 {
+    text-align: center;
+    padding-top: 4px;
+}
+
+.input-group {
+    padding-top: 10px;
+}
+
+.panel-group {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.panel-heading {
+    text-align: center;
+}
+
+.head-pic-text{
+    padding-left: 50px;
+}

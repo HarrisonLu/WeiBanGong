@@ -72,7 +72,7 @@
         from t_customer c
               left join t_project p on c.project_id = p.id
               left join t_task t on c.task_id = t.id
-        where c.created_user_id = #{userId} order by c.chinese_name
+        where c.created_user_id = #{userId} order by c.english_name
     </select>
 
     <select id="selectSharedCustomerList" parameterType="int" resultMap="CustomerResultMap">
@@ -82,7 +82,7 @@
 
               left join t_project p on c.project_id = p.id
               left join t_task t on c.task_id = t.id
-        where cu.user_id = #{userId} order by c.chinese_name
+        where cu.user_id = #{userId} order by c.english_name
     </select>
 
     <select id="selectMyCustomerListByDiscussStage" parameterType="java.util.Map" resultMap="CustomerResultMap">
@@ -92,7 +92,7 @@
 
               left join t_project p on c.project_id = p.id
               left join t_task t on c.task_id = t.id
-        where c.discuss_stage_id = #{discussStageId} and c.created_user_id = #{userId}
+        where c.discuss_stage_id = #{discussStageId} and c.created_user_id = #{userId} order by english_name
     </select>
 
     <select id="selectSharedCustomerListByDiscussStage" parameterType="java.util.Map" resultMap="CustomerResultMap">
@@ -102,7 +102,7 @@
 
               left join t_project p on c.project_id = p.id
               left join t_task t on c.task_id = t.id
-        where c.discuss_stage_id = #{discussStageId} and cu.user_id = #{userId}
+        where c.discuss_stage_id = #{discussStageId} and cu.user_id = #{userId} order by english_name
     </select>
 
     <select id="fuzzySelectCustomerList" parameterType="java.util.Map" resultMap="CustomerResultMap">
