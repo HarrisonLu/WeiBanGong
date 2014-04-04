@@ -3,22 +3,22 @@
 <html>
 <head>
     <title>通讯录</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/contacts.wiwork.css">
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8">
             <h4><c:out value="${group.name}"/></h4>
         </div>
-        <div class="col-xs-2">
-            <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+        <div class="col-xs-2" style="text-align: right; margin-top: 10px">
+            <a href="/contacts"><img src="/static_resources/images/btn_home2.png"></a>
         </div>
     </div>
 </div>
@@ -36,7 +36,7 @@
         <p class="list-group-item">暂无分组成员</p>
     </c:if>
 </div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -38,7 +38,7 @@ public class MessageHandlerEvent extends MessageHandlerHelper {
         itemArticle1.setTitle("WeiBanGong");
         itemArticle1.setDescription("");
         itemArticle1.setPicUrl("http://p0.img.imtuan.com/wechatmsg/article/20130918/91991d9e7a1943e99d98ee588cd94c4f.jpg");
-        itemArticle1.setUrl("http://microoffice.duapp.com/index");
+        itemArticle1.setUrl("http://wiwork.yunnex.cn/index");
         items.add(itemArticle1);
         return items;
     }

@@ -2,25 +2,25 @@
 <html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container">
     <div class="input-group">
         <span class="input-group-btn">
-            <a class="btn btn-success" role="button" onclick="history.go(-1)">返回</a>
+            <a class="btn btn-primary" role="button" onclick="history.go(-1)">返回</a>
         </span>
         <input id="customer_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
     </div>
 </div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap-typeahead.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/underscore-min.js"></script>
-<script type="text/javascript">
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
+<script src="/static_resources/js/underscore-min.js"></script>
+<script>
     $(document).ready(function() {
         var customers;
         $('#customer_search').typeahead({
@@ -49,7 +49,10 @@
                 })
                 var item = '<img style="margin-right: 8px; margin-top: 8px" class="pull-left" src="/static_resources/images/head.png">'
                 item += '<div style="margin-top: 8px; min-width: 150px">' + itemEnglishName + '（' + customer.chineseName + ')'
-                item += '<p>' + customer.projectName + '</p>'
+                if (customer.projectName == null)
+                    item += '<p>暂无关联项目</p>'
+                else
+                    item += '<p>' + customer.projectName + '</p>'
                 item += '</div>'
                 return item;
             },

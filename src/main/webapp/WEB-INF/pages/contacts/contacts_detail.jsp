@@ -3,17 +3,17 @@
 <html>
 <head>
     <title>通讯录</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/toastr.min.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/contacts.wiwork.css">
+    <link rel="stylesheet" href="/static_resources/css/toastr.min.css">
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="onBack()">返回</a>
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8">
             <c:if test="${user.id == sessionScope.user_id}">
@@ -24,14 +24,12 @@
             </c:if>
         </div>
         <div class="col-xs-2">
-            <c:choose>
-                <c:when test="${user.id == sessionScope.user_id}">
-                    <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
-                </c:when>
-                <c:when test="${user.id != sessionScope.user_id}">
-                    <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
-                </c:when>
-            </c:choose>
+            <c:if test="${user.id == sessionScope.user_id}">
+                <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
+            </c:if>
+            <c:if test="${user.id != sessionScope.user_id}">
+                <a href="javascript:onHome()" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+            </c:if>
         </div>
     </div>
 </div>
@@ -91,10 +89,36 @@
         </c:if>
     </div>
 </div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/toastr.min.js"></script>
-<script type="text/javascript">
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/toastr.min.js"></script>
+<script>
+    var backCountKey = "back_count_key";
+    var isCollected = ${isCollected};
+    var curCount = sessionStorage.getItem(backCountKey);
+    if (curCount == null) {
+        curCount = 1;
+        sessionStorage.setItem(backCountKey, 1);
+    }
+
+    function onBack() {
+        if (${user.id == sessionScope.user_id}) {
+            window.location.href="/contacts";
+        } else {
+            history.go(-curCount);
+            sessionStorage.setItem(backCountKey, 1);
+        }
+    }
+
+    function onHome() {
+        sessionStorage.setItem(backCountKey, 1);
+        window.location.href="/contacts";
+    }
+
+    function onCount() {
+        sessionStorage.setItem(backCountKey, ++curCount);
+    }
+
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -110,41 +134,13 @@
         "hideMethod": "fadeOut"
     }
 
-    var backCountKey = "back_count";
-    var curCount = sessionStorage.getItem(backCountKey);
-    if (curCount == null) {
-        curCount = 1;
-        sessionStorage.setItem(backCountKey, 1);
-    }
-    var isCollected = ${isCollected};
-
-    function onBack() {
-        if (${user.id == sessionScope.user_id}) {
-            window.location.href="/contacts";
-        } else {
-            history.go(-curCount);
-            sessionStorage.setItem(backCountKey, 1);
-        }
-    }
-
     if (curCount != 1) {
-        if (isCollected && curCount % 2 == 0) {
+        if ((isCollected && curCount % 2 == 0) || (isCollected && curCount % 2 != 0)) {
             toastr.success("该员工已收藏至常用联系人列表");
-        } else if (isCollected && curCount % 2 != 0) {
-            toastr.success("该员工已收藏至常用联系人列表");
-        } else if (!isCollected && curCount % 2 == 0) {
-            toastr.error("已取消收藏");
-        } else if (!isCollected && curCount % 2 != 0) {
+        } else if ((!isCollected && curCount % 2 == 0) || (!isCollected && curCount % 2 != 0)) {
             toastr.error("已取消收藏");
         }
     }
-
-    function onCount() {
-        curCount++;
-        sessionStorage.setItem(backCountKey, curCount);
-    }
-
-
 </script>
 </body>
 </html>

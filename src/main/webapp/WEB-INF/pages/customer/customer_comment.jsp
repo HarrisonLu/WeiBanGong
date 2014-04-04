@@ -3,16 +3,17 @@
 <html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
+    <link rel="stylesheet" href="/static_resources/css/style.css">
 </head>
 <body>
-<div class="container">
-    <div class="row title-bar">
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2">
-            <a class="btn btn-success navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
         <div class="col-xs-8">
             <h4>评论</h4>
@@ -21,135 +22,46 @@
 </div>
 
 <div class="list-group">
-    <div class="list-group-item">
+    <div class="list-group-item" style="min-height: 64px">
         <img class="pull-left" src="/static_resources/images/head.png" alt="">
-        <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.name}"/></h4>
-        <p class="list-group-item-text head-pic-text"><c:out value="${customer.project}"/></p>
+        <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
+        <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
     </div>
 </div>
 
-<div class="container widget-content padded">
-    <ul>
-        <li>
-            <img width="30" height="30" src="images/avatar-male.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">兰若</a>
-                <p class="message">
-                    aaaaa
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li class="current-user">
-            <img width="30" height="30" src="images/avatar-female.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">王晓</a>
-                <p class="message">
-                    bbbbb
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li>
-            <img width="30" height="30" src="images/avatar-male.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">兰若</a>
-                <p class="message">
-                    ccccc
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li>
-            <img width="30" height="30" src="images/avatar-male.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">兰若</a>
-                <p class="message">
-                    ddddd
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li class="current-user">
-            <img width="30" height="30" src="images/avatar-female.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">王晓</a>
-                <p class="message">
-                    eeeee
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li>
-            <img width="30" height="30" src="images/avatar-male.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">兰若</a>
-                <p class="message">
-                    fffff
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li class="current-user">
-            <img width="30" height="30" src="images/avatar-female.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">王晓</a>
-                <p class="message">
-                    ggggg
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li class="current-user">
-            <img width="30" height="30" src="images/avatar-female.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">王晓</a>
-                <p class="message">
-                    hhhhh
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
-        <li>
-            <img width="30" height="30" src="images/avatar-male.jpg" />
-            <div class="bubble">
-                <a class="user-name" href="#">兰若</a>
-                <p class="message">
-                    iiiii
-                </p>
-                <p class="time">
-                    <strong>今天 </strong>3:53 pm
-                </p>
-            </div>
-        </li>
+<div class="container">
+    <ul class="content-reply-box mg10">
+        <c:forEach items="${comments}" var="comment">
+            <li class="odd">
+                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt=""><span class="user-name"><c:out value="${comment.userEnglishName}"/></span></a>
+                <div class="reply-content-box">
+                    <span class="reply-time"><c:out value="${comment.time}"/></span>
+                    <div class="reply-content pr">
+                        <span class="arrow">&nbsp;</span>
+                        <c:out value="${comment.details}"/>
+                    </div>
+                </div>
+            </li>
+        </c:forEach>
     </ul>
 
-    <div class="navbar navbar-fixed-bottom">
+    <div class="navbar navbar-fixed-bottom" style="margin-bottom: -4px">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="输入需要发送的信息…">
+            <input type="text" class="form-control" id="message" placeholder="输入需要发送的信息…">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">发送</button>
+                <button class="btn btn-default" onclick="onSend()">发送</button>
             </span>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
+<script>
+    function onSend() {
+        alert("发送成功");
+        document.getElementById("message").value="";
+
+    }
+</script>
 </body>
 </html>

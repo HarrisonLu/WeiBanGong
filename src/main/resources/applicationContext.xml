@@ -19,7 +19,7 @@
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <!-- LocalDataSource -->
-    <bean id="localDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="localDataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${local.jdbc.driverClassName}"/>
         <property name="url" value="${local.jdbc.url}"/>
         <property name="username" value="${local.jdbc.username}"/>
@@ -30,7 +30,7 @@
     </bean>
 
     <!-- ServerDataSource -->
-    <bean id="serverDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="serverDataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${server.jdbc.driverClassName}"/>
         <property name="url" value="${server.jdbc.url}"/>
         <property name="username" value="${server.jdbc.username}"/>

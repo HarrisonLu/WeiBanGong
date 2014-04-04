@@ -4,7 +4,7 @@
 
 .col-xs-8 {
     text-align: center;
-    padding-top: 4px;
+    margin-top: 4px;
 }
 
 .col-xs-3 {
@@ -13,20 +13,24 @@
 }
 
 .input-group {
-    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.panel-group {
+    margin-top: 15px;
+    margin-bottom: 20px;
 }
 
 .panel-heading {
     text-align: center;
 }
 
-.panel-group {
-    padding-top: 15px;
-    padding-bottom: 20px;
+.head-pic-text{
+    margin-left: 50px;
 }
 
-.head-pic-text{
-    padding-left: 50px;
+.head-pic-text_{
+    margin-left: 55px;
 }
 
 
