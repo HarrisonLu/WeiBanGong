@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -27,7 +27,7 @@
 </div>
 
 <div class="panel-group" id="accordion">
-    <div class="panel panel-success">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapseOne">
@@ -38,15 +38,24 @@
         <div id="collapseOne" class="panel-collapse collapse in">
             <c:forEach items="${myCustomerList}" var="customer">
                 <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/head.png" alt="">
-                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
-                    <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
+                    <c:if test="${customer.discussStageId == 1}">
+                        <img class="pull-left" src="/static_resources/images/line_green.png" alt="">
+                    </c:if>
+                    <c:if test="${customer.discussStageId == 2}">
+                        <img class="pull-left" src="/static_resources/images/line_yellow.png" alt="">
+                    </c:if>
+                    <c:if test="${customer.discussStageId == 3}">
+                        <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
+                    </c:if>
+                    <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
+                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
+                    <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
                 </a>
             </c:forEach>
         </div>
     </div>
 </div>
-<div class="panel panel-success">
+<div class="panel panel-primary">
     <div class="panel-heading">
         <h4 class="panel-title">
             <a data-toggle="collapse" href="#collapseTwo">
@@ -57,15 +66,23 @@
     <div id="collapseTwo" class="panel-collapse collapse in">
         <c:forEach items="${sharedCustomerList}" var="customer">
             <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
-                <img class="pull-left" src="/static_resources/images/head.png" alt="">
-                <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
-                <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
+                <c:if test="${customer.discussStageId == 1}">
+                    <img class="pull-left" src="/static_resources/images/line_green.png" alt="">
+                </c:if>
+                <c:if test="${customer.discussStageId == 2}">
+                    <img class="pull-left" src="/static_resources/images/line_yellow.png" alt="">
+                </c:if>
+                <c:if test="${customer.discussStageId == 3}">
+                    <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
+                </c:if>
+                <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
+                <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
+                <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
             </a>
         </c:forEach>
     </div>
 </div>
-</div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

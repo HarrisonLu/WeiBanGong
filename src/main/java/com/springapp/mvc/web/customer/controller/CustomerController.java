@@ -1,7 +1,10 @@
 package com.springapp.mvc.web.customer.controller;
 
+import com.springapp.mvc.web.contacts.command.UserCommand;
 import com.springapp.mvc.service.customer.CustomerService;
 import com.springapp.mvc.web.customer.command.CustomerCommand;
+import com.springapp.mvc.domain.contacts.User;
+import com.springapp.mvc.domain.customer.Comment;
 import com.springapp.mvc.domain.customer.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/customer")
@@ -47,6 +53,8 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("/customer/customer_comment");
         Customer customer = customerService.selectCustomerDetails(customerId);
         modelAndView.addObject("customer", customer);
+        List<Comment> comments = customerService.selectCommentListByCustomerId(customerId);
+        modelAndView.addObject("comments", comments);
         return modelAndView;
     }
 
@@ -104,11 +112,12 @@ public class CustomerController {
         } else {
             ModelAndView modelAndView = new ModelAndView("/customer/customer_filter_result");
             int userId = (Integer)request.getSession().getAttribute("user_id");
-            List<Customer> customers = customerService.selectCustomerListByDiscussStage(userId, filterType);
-            modelAndView.addObject("customers", customers);
+            List<Customer> myCustomerList = customerService.selectMyCustomerListByDiscussStage(userId, filterType);
+            List<Customer> sharedCustomerList = customerService.selectMyCustomerListByDiscussStage(userId, filterType);
+            modelAndView.addObject("myCustomerList", myCustomerList);
+            modelAndView.addObject("sharedCustomerList", sharedCustomerList);
             return modelAndView;
         }
     }
-
 
 }

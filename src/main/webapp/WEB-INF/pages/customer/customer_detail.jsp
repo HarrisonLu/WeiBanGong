@@ -3,22 +3,22 @@
 <html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2">
-            <a class="btn btn-success navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
         <div class="col-xs-8">
             <h4>名片详情</h4>
         </div>
         <div class="col-xs-2">
-            <a href="/customer/${customer.id}/comment" class="btn btn-success navbar-btn pull-right" role="button">评论</a>
+            <a href="/customer/${customer.id}/comment" class="btn btn-primary navbar-btn pull-right" role="button">评论</a>
         </div>
     </div>
 </div>
@@ -26,8 +26,8 @@
 <div class="list-group">
     <div class="list-group-item" style="min-height: 64px">
         <img class="pull-left" src="/static_resources/images/head.png" alt="">
-        <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.chineseName}"/></h4>
-        <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/></p>
+        <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
+        <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
     </div>
 </div>
 
@@ -37,18 +37,18 @@
             <p>所处阶段</p>
         </div>
         <div class="col-xs-6">
-            <p class="pull-right">洽谈中</p>
+            <p class="pull-right"><c:out value="${customer.discussStageName}"/></p>
         </div>
     </div>
 
     <hr>
     <p>客户价值</p>
-    <p>该客户是惠州房产项目政府主要负责人，负责进行土地所有权资格审核</p>
+    <c:out value="${customer.customerValue}"/>
 
 </div>
 
 <div class="panel-group" id="accordion">
-    <div class="panel panel-success">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapseOne">
@@ -64,7 +64,7 @@
             <li class="list-group-item">电子邮箱<p class="pull-right"><c:out value="${customer.email}"/></p></li>
         </div>
     </div>
-    <div class="panel panel-success">
+    <div class="panel panel-primary">
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapseTwo">
@@ -79,7 +79,7 @@
     </div>
     <div class="panel-footer">此客户为项目（任务）成员lisali（李莎）共享</div>
 </div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
 </body>
 </html>

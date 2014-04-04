@@ -3,11 +3,11 @@
 <html>
 <head>
     <title>通讯录</title>
-    <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/toastr.min.css"/>
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/contacts.wiwork.css">
+    <link rel="stylesheet" href="/static_resources/css/toastr.min.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -89,32 +89,17 @@
         </c:if>
     </div>
 </div>
-<script type="text/javascript" src="/static_resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static_resources/js/toastr.min.js"></script>
-<script type="text/javascript">
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "positionClass": "toast-bottom-full-width",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "2000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
-    var backCountKey = "back_count";
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/toastr.min.js"></script>
+<script>
+    var backCountKey = "back_count_key";
+    var isCollected = ${isCollected};
     var curCount = sessionStorage.getItem(backCountKey);
     if (curCount == null) {
         curCount = 1;
         sessionStorage.setItem(backCountKey, 1);
     }
-    var isCollected = ${isCollected};
 
     function onBack() {
         if (${user.id == sessionScope.user_id}) {
@@ -130,21 +115,31 @@
         window.location.href="/contacts";
     }
 
-    if (curCount != 1) {
-        if (isCollected && curCount % 2 == 0) {
-            toastr.success("该员工已收藏至常用联系人列表");
-        } else if (isCollected && curCount % 2 != 0) {
-            toastr.success("该员工已收藏至常用联系人列表");
-        } else if (!isCollected && curCount % 2 == 0) {
-            toastr.error("已取消收藏");
-        } else if (!isCollected && curCount % 2 != 0) {
-            toastr.error("已取消收藏");
-        }
+    function onCount() {
+        sessionStorage.setItem(backCountKey, ++curCount);
     }
 
-    function onCount() {
-        curCount++;
-        sessionStorage.setItem(backCountKey, curCount);
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "positionClass": "toast-bottom-full-width",
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    if (curCount != 1) {
+        if ((isCollected && curCount % 2 == 0) || (isCollected && curCount % 2 != 0)) {
+            toastr.success("该员工已收藏至常用联系人列表");
+        } else if ((!isCollected && curCount % 2 == 0) || (!isCollected && curCount % 2 != 0)) {
+            toastr.error("已取消收藏");
+        }
     }
 </script>
 </body>
