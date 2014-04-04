@@ -4,13 +4,13 @@
 <head>
     <title>客户管理</title>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/customer.css"/>
 </head>
 <body>
-<div class="container">
-    <div class="row title-bar" style="min-height: 50px">
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-3">
             <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
         </div>

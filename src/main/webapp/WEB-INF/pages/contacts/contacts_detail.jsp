@@ -4,16 +4,16 @@
 <head>
     <title>通讯录</title>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/toastr.min.css"/>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="onBack()">返回</a>
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8">
             <c:if test="${user.id == sessionScope.user_id}">
@@ -24,14 +24,12 @@
             </c:if>
         </div>
         <div class="col-xs-2">
-            <c:choose>
-                <c:when test="${user.id == sessionScope.user_id}">
-                    <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
-                </c:when>
-                <c:when test="${user.id != sessionScope.user_id}">
-                    <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
-                </c:when>
-            </c:choose>
+            <c:if test="${user.id == sessionScope.user_id}">
+                <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
+            </c:if>
+            <c:if test="${user.id != sessionScope.user_id}">
+                <a href="javascript:onHome()" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+            </c:if>
         </div>
     </div>
 </div>
@@ -127,6 +125,11 @@
         }
     }
 
+    function onHome() {
+        sessionStorage.setItem(backCountKey, 1);
+        window.location.href="/contacts";
+    }
+
     if (curCount != 1) {
         if (isCollected && curCount % 2 == 0) {
             toastr.success("该员工已收藏至常用联系人列表");
@@ -143,8 +146,6 @@
         curCount++;
         sessionStorage.setItem(backCountKey, curCount);
     }
-
-
 </script>
 </body>
 </html>

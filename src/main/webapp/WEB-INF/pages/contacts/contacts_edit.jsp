@@ -4,15 +4,15 @@
 <head>
     <title>通讯录</title>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8">
             <h4>编辑信息</h4>
@@ -51,25 +51,25 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label">座机号码</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>" style="text-align: right">
+                    <input type="number" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>" style="text-align: right">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">手机号码</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>" style="text-align: right">
+                    <input type="number" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>" style="text-align: right">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">QQ号码</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>" style="text-align: right">
+                    <input type="number" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>" style="text-align: right">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">邮箱</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" name="email" value="<c:out value="${user.email}"/>" style="text-align: right">
+                    <input type="email" class="form-control" name="email" value="<c:out value="${user.email}"/>" style="text-align: right">
                 </div>
             </div>
         </form>

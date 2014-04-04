@@ -4,13 +4,13 @@
 <head>
     <title>通讯录</title>
     <meta http-equiv="Content-type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="/static_resources/css/contacts.css"/>
 </head>
 <body>
-<div class="container">
-    <div class="row" style="min-height: 50px">
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
             <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
         </div>
@@ -50,7 +50,29 @@
                 </c:if>
 
             </a>
-            <c:forEach items="${users}" var="user">
+
+            <c:forEach items="${groupUsers}" var="user">
+                <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
+                    <img class="pull-left" src="/static_resources/images/head.png">
+
+                    <div>
+                        <img class="pull-right" src="/static_resources/images/btn_home.png" onclick="history.go(-1)">
+                        <p class="pull-right">&nbsp;&nbsp;</p>
+                        <img class="pull-right" src="/static_resources/images/btn_search.png">
+                    </div>
+
+                    <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
+                            value="${user.chineseName}"/>)</h4>
+                    <c:forEach items="${user.groupList}" var="group">
+                        <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                    </c:forEach>
+                    <c:if test="${user.groupList.size() == 0}">
+                        <p class="list-group-item-text head-pic-text">暂无分组</p>
+                    </c:if>
+                </a>
+            </c:forEach>
+
+            <c:forEach items="${collUsers}" var="user">
                 <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
                     <img class="pull-left" src="/static_resources/images/head.png">
 
@@ -83,7 +105,7 @@
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${departments}" var="department">
                 <a href="/contacts/department/${department.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/head.png">
+                    <img class="pull-left" src="/static_resources/images/btn_home2.png">
                     <h4 class="list-group-item-text head-pic-text"><c:out value="${department.name}"/></h4>
                 </a>
             </c:forEach>
