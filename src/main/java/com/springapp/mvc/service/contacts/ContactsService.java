@@ -1,4 +1,4 @@
-package com.springapp.mvc.contacts.service;
+package com.springapp.mvc.service.contacts;
 
 import com.springapp.mvc.dao.contacts.DepartmentMapper;
 import com.springapp.mvc.dao.contacts.GroupMapper;

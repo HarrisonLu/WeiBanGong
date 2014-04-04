@@ -1,10 +1,10 @@
-package com.springapp.mvc.contacts.web.controller;
+package com.springapp.mvc.web.contacts.controller;
 
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
-import com.springapp.mvc.contacts.service.ContactsService;
-import com.springapp.mvc.contacts.web.command.UserCommand;
+import com.springapp.mvc.service.contacts.ContactsService;
+import com.springapp.mvc.web.contacts.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
