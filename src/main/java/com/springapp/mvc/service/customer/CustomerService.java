@@ -50,7 +50,7 @@ public class CustomerService {
     private CommentMapper commentMapper;
 
     // 根据 英文字符串 和 成员id 模糊搜索 客户列表
-    public List<Customer> fuzzySelectCustomer(int userId, String str){
+    public List<Customer> fuzzySelectCustomer(int userId, String str) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", Integer.toString(userId));
         map.put("str", str);
@@ -58,17 +58,17 @@ public class CustomerService {
     }
 
     // 根据 成员id 找 我的客户基本资料列表
-    public List<Customer> selectMyCustomerList(int userId){
+    public List<Customer> selectMyCustomerList(int userId) {
         return customerMapper.selectMyCustomerList(userId);
     }
 
     // 根据 成员id 找 共享客户基本资料别表
-    public List<Customer> selectSharedCustomerList(int userId){
+    public List<Customer> selectSharedCustomerList(int userId) {
         return customerMapper.selectSharedCustomerList(userId);
     }
 
     // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
-    public List<Customer> selectMyCustomerListByDiscussStage(int userId, int discussStageId){
+    public List<Customer> selectMyCustomerListByDiscussStage(int userId, int discussStageId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("discussStageId", discussStageId);
@@ -76,7 +76,7 @@ public class CustomerService {
     }
 
     // 根据 成员id、客户所处阶段 找 共享客户基本资料列表
-    public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId){
+    public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("discussStageId", discussStageId);
@@ -84,7 +84,7 @@ public class CustomerService {
     }
 
     // 插入 客户
-    public void insertCustomer(Customer customer){
+    public void insertCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
         customer.setChineseNamePinyin(chineseNamePinyin);
@@ -92,12 +92,12 @@ public class CustomerService {
     }
 
     // 根据 字符串 模糊搜索 成员基本资料列表
-    public List<User> fuzzySelectUserList(String str){
+    public List<User> fuzzySelectUserList(String str) {
         return userMapper.fuzzySelectUserBaseInfoListByString(str);
     }
 
     // 插入 成员-客户共享关系
-    public void insertUserSharedCustomerLink(int userId, int customerId){
+    public void insertUserSharedCustomerLink(int userId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("customerId", customerId);
@@ -105,7 +105,7 @@ public class CustomerService {
     }
 
     // 删除 成员-客户共享关系
-    public void deleteUserSharedCustomerLink(int userId,int customerId){
+    public void deleteUserSharedCustomerLink(int userId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("customerId", customerId);
@@ -113,12 +113,12 @@ public class CustomerService {
     }
 
     // 根据 字符串 模糊搜索 项目基本资料列表
-    public List<Project> fuzzySelectProjectBaseInfoList(String str){
+    public List<Project> fuzzySelectProjectBaseInfoList(String str) {
         return projectMapper.fuzzySelectProjectBaseInfoList(str);
     }
 
     // 根据 字符串 和 模块id 模糊搜索 任务基本资料列表
-    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str){
+    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("moduleId", Integer.toString(moduleId));
         map.put("str", str);
@@ -126,19 +126,18 @@ public class CustomerService {
     }
 
     // 找 所有 所处阶段列表
-    public List<DiscussStage> selectAllDiscussStage(){
+    public List<DiscussStage> selectAllDiscussStage() {
         return discussStageMapper.selectAllDiscussStage();
     }
 
     // 根据 客户id 找 客户详细资料
-    public Customer selectCustomerDetails(int customerId){
+    public Customer selectCustomerDetails(int customerId) {
         Customer customer = new Customer();
         customer = customerMapper.selectCustomerDetails(customerId);
 
         Integer taskId = customer.getTaskId();
         Integer moduleId = customer.getModuleId();
-        if (taskId != null)
-        {
+        if (taskId != null) {
             Task task = new Task();
             task = taskMapper.selectTaskDetailsByTaskId(taskId);
             customer.setTaskName(task.getName());
@@ -150,9 +149,7 @@ public class CustomerService {
             Project project = new Project();
             project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
             customer.setProjectName(project.getName());
-        }
-        else if (moduleId != null)
-        {
+        } else if (moduleId != null) {
             Module module = new Module();
             module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
             customer.setModuleName(module.getName());
@@ -162,16 +159,16 @@ public class CustomerService {
             customer.setProjectName(project.getName());
         }
 
-        return  customer;
+        return customer;
     }
 
     // 根据 任务id 找 模块id
-    public int selectModuleIdByTaskId(int taskId){
+    public int selectModuleIdByTaskId(int taskId) {
         return linkMapper.selectModuleIdByTaskId(taskId);
     }
 
     // 更新 客户
-    public void updateCustomer(Customer customer){
+    public void updateCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
         customer.setChineseNamePinyin(chineseNamePinyin);
@@ -179,12 +176,12 @@ public class CustomerService {
     }
 
     // 插入 评论
-    public void insertComment(Comment comment){
+    public void insertComment(Comment comment) {
         commentMapper.insertComment(comment);
     }
 
     // 根据 客户id 找 评论列表
-    public List<Comment> selectCommentListByCustomerId(int customerId){
+    public List<Comment> selectCommentListByCustomerId(int customerId) {
         return linkMapper.selectCommentListByCustomerId(customerId);
     }
 }
