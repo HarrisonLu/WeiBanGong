@@ -18,7 +18,8 @@
         <result property="birthday" column="birthday"/>
         <result property="hobby" column="hobby"/>
         <result property="createdUserId" column="created_user_id"/>
-        <result property="createdUserName" column="created_user_name"/>
+        <result property="createdUserChineseName" column="created_user_chinese_name"/>
+        <result property="createdUserEnglishName" column="created_user_english_name"/>
         <result property="projectId" column="project_id"/>
         <result property="projectName" column="project_name"/>
         <result property="moduleId" column="module_id"/>
@@ -62,7 +63,8 @@
     </select>
 
     <select id="selectCustomerDetails" parameterType="int" resultMap="CustomerResultMap">
-        select c.*, d.name as discuss_stage_name, u.name as created_user_name
+        select c.*, d.name as discuss_stage_name,
+               u.chinese_name as created_user_chinese_name, u.english_name as created_user_english_name
         from t_customer c
               left join t_discuss_stage d on c.discuss_stage_id = d.id
               left join t_user u on c.created_user_id = u.id

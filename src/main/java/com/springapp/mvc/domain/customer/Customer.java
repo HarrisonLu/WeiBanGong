@@ -21,7 +21,8 @@ public class Customer {
     private Date birthday;
     private String hobby;
     private Integer createdUserId;
-    private String createUserName;
+    private String createdUserChineseName;
+    private String createdUserEnglishName;
     private Integer projectId;
     private String projectName;
     private Integer moduleId;
@@ -151,12 +152,20 @@ public class Customer {
         this.createdUserId = createdUserId;
     }
 
-    public String getCreateUserName() {
-        return createUserName;
+    public String getCreatedUserChineseName() {
+        return createdUserChineseName;
     }
 
-    public void setCreateUserName(String createUserName) {
-        this.createUserName = createUserName;
+    public void setCreatedUserChineseName(String createdUserChineseName) {
+        this.createdUserChineseName = createdUserChineseName;
+    }
+
+    public String getCreatedUserEnglishName() {
+        return createdUserEnglishName;
+    }
+
+    public void setCreatedUserEnglishName(String createdUserEnglishName) {
+        this.createdUserEnglishName = createdUserEnglishName;
     }
 
     public Integer getProjectId() {
