@@ -11,7 +11,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/02/2014 12:51:35 PM
+ Date: 04/07/2014 14:09:06 PM
 */
 
 SET NAMES utf8;
@@ -43,7 +43,7 @@ CREATE TABLE `t_customer` (
   `chinese_name` varchar(30) NOT NULL,
   `chinese_name_pinyin` varchar(30) NOT NULL,
   `english_name` varchar(30) DEFAULT NULL,
-  `gender` varchar(2) NOT NULL,
+  `gender` varchar(20) NOT NULL,
   `phone_num` varchar(20) DEFAULT NULL,
   `wechat_num` varchar(30) DEFAULT NULL,
   `qq_num` varchar(20) DEFAULT NULL,
@@ -64,11 +64,11 @@ CREATE TABLE `t_customer` (
   KEY `t_customer_ibfk_2` (`project_id`),
   KEY `t_customer_ibfk_3` (`task_id`),
   KEY `t_customer_ibfk_5` (`module_id`) USING BTREE,
-  CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_1` FOREIGN KEY (`created_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_customer_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_3` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
