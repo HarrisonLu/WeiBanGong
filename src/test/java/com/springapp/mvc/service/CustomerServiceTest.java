@@ -39,9 +39,9 @@ public class CustomerServiceTest extends BaseTest{
 
         Assert.assertEquals(customerList.size(), 4);
 
-        Assert.assertEquals(customerList.get(0).getChineseName(),"客户一");
-        Assert.assertEquals(customerList.get(0).getEnglishName(),"one");
-        Assert.assertEquals(customerList.get(0).getTaskName(),null);
+        Assert.assertEquals(customerList.get(1).getChineseName(),"客户一");
+        Assert.assertEquals(customerList.get(1).getEnglishName(),"one");
+        Assert.assertEquals(customerList.get(1).getTaskName(),null);
 //        Assert.assertEquals(customerList.get(3).getChineseName(),"客户四");
     }
 
@@ -51,13 +51,13 @@ public class CustomerServiceTest extends BaseTest{
 
         Assert.assertEquals(customerList.size(), 2);
 
-        Assert.assertEquals(customerList.get(0).getChineseName(),"客户七");
-        Assert.assertEquals(customerList.get(0).getEnglishName(),"seven");
-        Assert.assertEquals(customerList.get(0).getProjectName(),null);
-
-        Assert.assertEquals(customerList.get(1).getChineseName(),"客户八");
-        Assert.assertEquals(customerList.get(1).getEnglishName(),"eight");
+        Assert.assertEquals(customerList.get(1).getChineseName(),"客户七");
+        Assert.assertEquals(customerList.get(1).getEnglishName(),"seven");
         Assert.assertEquals(customerList.get(1).getProjectName(),null);
+
+        Assert.assertEquals(customerList.get(0).getChineseName(),"客户八");
+        Assert.assertEquals(customerList.get(0).getEnglishName(),"eight");
+        Assert.assertEquals(customerList.get(0).getProjectName(),null);
 
     }
 
@@ -66,7 +66,7 @@ public class CustomerServiceTest extends BaseTest{
         List<Customer> customerList = customerService.selectMyCustomerListByDiscussStage(1, 2);
         Assert.assertEquals(customerList.size(), 1);
         customerList = customerService.selectMyCustomerListByDiscussStage(2, 4);
-        Assert.assertEquals(customerList.size(), 2);
+        Assert.assertEquals(customerList.size(), 1);
     }
 
     @Test

@@ -132,30 +132,24 @@ public class CustomerService {
 
     // 根据 客户id 找 客户详细资料
     public Customer selectCustomerDetails(int customerId) {
-        Customer customer = new Customer();
-        customer = customerMapper.selectCustomerDetails(customerId);
+        Customer customer = customerMapper.selectCustomerDetails(customerId);
 
         Integer taskId = customer.getTaskId();
         Integer moduleId = customer.getModuleId();
         if (taskId != null) {
-            Task task = new Task();
-            task = taskMapper.selectTaskDetailsByTaskId(taskId);
+            Task task = taskMapper.selectTaskDetailsByTaskId(taskId);
             customer.setTaskName(task.getName());
 
-            Module module = new Module();
-            module = moduleMapper.selectModuleDetailsByModuleId(task.getModuleId());
+            Module module = moduleMapper.selectModuleDetailsByModuleId(task.getModuleId());
             customer.setModuleName(module.getName());
 
-            Project project = new Project();
-            project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
+            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
             customer.setProjectName(project.getName());
         } else if (moduleId != null) {
-            Module module = new Module();
-            module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
+            Module module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
             customer.setModuleName(module.getName());
 
-            Project project = new Project();
-            project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
+            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
             customer.setProjectName(project.getName());
         }
 

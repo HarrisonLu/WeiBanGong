@@ -21,6 +21,7 @@ public class Customer {
     private Date birthday;
     private String hobby;
     private Integer createdUserId;
+    private String createUserName;
     private Integer projectId;
     private String projectName;
     private Integer moduleId;
@@ -148,6 +149,14 @@ public class Customer {
 
     public void setCreatedUserId(Integer createdUserId) {
         this.createdUserId = createdUserId;
+    }
+
+    public String getCreateUserName() {
+        return createUserName;
+    }
+
+    public void setCreateUserName(String createUserName) {
+        this.createUserName = createUserName;
     }
 
     public Integer getProjectId() {
