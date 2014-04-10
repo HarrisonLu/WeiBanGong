@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>通讯录</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/contacts.wiwork.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
     <link rel="stylesheet" href="/static_resources/css/toastr.min.css">
 </head>
 <body>
@@ -15,7 +16,7 @@
         <div class="col-xs-2" style="margin-top: 6px">
             <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png"></a>
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 title-bar-text">
             <c:if test="${user.id == sessionScope.user_id}">
                 <h4>个人信息</h4>
             </c:if>
@@ -58,7 +59,6 @@
         <p>职位：<c:out value="${user.position}"/></p>
         <p>职级：<c:out value="${user.positionLevel}"/></p>
     </div>
-
 </div>
 
 <div class="panel panel-primary">

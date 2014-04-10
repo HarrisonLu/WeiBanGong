@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>客户管理</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
@@ -11,9 +12,9 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+            <a href="/customer" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 title-bar-text">
             <h4>新建客户</h4>
         </div>
         <div class="col-xs-2">
@@ -50,14 +51,14 @@
                     <div class="col-xs-4">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>男
+                                <input type="radio" name="gender" id="optionsRadios1" value="male" checked>男
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-4">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">女
+                                <input type="radio" name="gender" id="optionsRadios2" value="female">女
                             </label>
                         </div>
                     </div>
@@ -83,7 +84,7 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">所处阶段</label>
                     <div class="col-xs-8">
-                        <select class="form-control">
+                        <select class="form-control" name="discussStageId">
                             <option>未洽谈</option>
                             <option>洽谈中</option>
                             <option>合作期</option>
@@ -94,7 +95,7 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">客户价值</label>
                     <div class="col-xs-8">
-                        <input type="text" class="form-control" name="value">
+                        <input type="text" class="form-control" name="customerValue">
                     </div>
                 </div>
             </div>
@@ -112,7 +113,7 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">手机号码</label>
                     <div class="col-xs-8">
-                        <input type="number" class="form-control" name="mobilePhoneNum">
+                        <input type="number" class="form-control" name="phone">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
@@ -154,7 +155,7 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">生日</label>
                     <div class="col-xs-8">
-                        <input type="text" class="form-control" name="birthday">
+                        <input type="text" class="form-control" name="birthday" placeholder="MM/DD/YYYY">
                     </div>
                 </div>
                 <div class="form-group list-group-item">

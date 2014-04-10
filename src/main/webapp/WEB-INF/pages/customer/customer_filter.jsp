@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>客户管理</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
@@ -13,7 +14,7 @@
         <div class="col-xs-2">
             <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 title-bar-text">
             <h4>筛选客户</h4>
         </div>
     </div>

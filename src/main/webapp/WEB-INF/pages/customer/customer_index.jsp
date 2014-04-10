@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>客户管理</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
@@ -49,7 +50,7 @@
                     </c:if>
                     <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
                     <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
-                    <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
+                    <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/></p>
                 </a>
             </c:forEach>
         </div>
@@ -77,7 +78,7 @@
                 </c:if>
                 <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
                 <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
-                <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
+                <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/></p>
             </a>
         </c:forEach>
     </div>

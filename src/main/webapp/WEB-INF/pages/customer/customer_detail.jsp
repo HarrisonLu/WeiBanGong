@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>客户管理</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
@@ -14,7 +15,7 @@
         <div class="col-xs-2">
             <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 title-bar-text">
             <h4>名片详情</h4>
         </div>
         <div class="col-xs-2">
@@ -23,11 +24,13 @@
     </div>
 </div>
 
-<div class="list-group">
-    <div class="list-group-item" style="min-height: 64px">
-        <img class="pull-left" src="/static_resources/images/head.png" alt="">
-        <h4 class="list-group-item-heading head-pic-text"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
-        <p class="list-group-item-text head-pic-text"><c:out value="${customer.projectName}"/><c:out value="${customer.moduleName}"/><c:out value="${customer.taskName}"/></p>
+<div class="media well">
+    <img class="pull-left" src="/static_resources/images/head.png">
+    <div class="media-body">
+        <p><strong><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</strong></p>
+        <p><c:out value="${customer.projectName}"/></p>
+        <p><c:out value="${customer.moduleName}"/></p>
+        <p><c:out value="${customer.taskName}"/></p>
     </div>
 </div>
 
@@ -73,8 +76,8 @@
             </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
-            <li class="list-group-item">生日<p class="pull-right"><c:out value="${customer.phone}"/></p></li>
-            <li class="list-group-item">爱好<p class="pull-right"><c:out value="${customer.phone}"/></p></li>
+            <li class="list-group-item">生日<p class="pull-right"><c:out value="${customer.birthday}"/></p></li>
+            <li class="list-group-item">爱好<p class="pull-right"><c:out value="${customer.hobby}"/></p></li>
         </div>
     </div>
     <div class="panel-footer">此客户为项目（任务）成员lisali（李莎）共享</div>

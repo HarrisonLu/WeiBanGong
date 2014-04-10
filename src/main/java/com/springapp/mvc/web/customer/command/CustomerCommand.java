@@ -1,21 +1,37 @@
 package com.springapp.mvc.web.customer.command;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import java.util.Date;
+
 public class CustomerCommand {
 
+    @Size(min = 2)
     private String chineseName;
+    private String chineseNamePinyin;
+
     private String englishName;
     private String gender;
     private String phone;
     private String wechatNum;
     private String qqNum;
     private String email;
+    private String officeAddress;
+    private String houseAddress;
     private String customerValue;
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @NotNull @Past
+    private Date birthday;
+    private String hobby;
+    private Integer createdUserId;
     private Integer projectId;
-    private String projectName;
+    private Integer moduleId;
     private Integer taskId;
-    private String taskName;
     private Integer discussStageId;
-    private String discussStageName;
 
     public String getChineseName() {
         return chineseName;
@@ -23,6 +39,14 @@ public class CustomerCommand {
 
     public void setChineseName(String chineseName) {
         this.chineseName = chineseName;
+    }
+
+    public String getChineseNamePinyin() {
+        return chineseNamePinyin;
+    }
+
+    public void setChineseNamePinyin(String chineseNamePinyin) {
+        this.chineseNamePinyin = chineseNamePinyin;
     }
 
     public String getEnglishName() {
@@ -73,12 +97,52 @@ public class CustomerCommand {
         this.email = email;
     }
 
+    public String getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(String officeAddress) {
+        this.officeAddress = officeAddress;
+    }
+
+    public String getHouseAddress() {
+        return houseAddress;
+    }
+
+    public void setHouseAddress(String houseAddress) {
+        this.houseAddress = houseAddress;
+    }
+
     public String getCustomerValue() {
         return customerValue;
     }
 
     public void setCustomerValue(String customerValue) {
         this.customerValue = customerValue;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public Integer getCreatedUserId() {
+        return createdUserId;
+    }
+
+    public void setCreatedUserId(Integer createdUserId) {
+        this.createdUserId = createdUserId;
     }
 
     public Integer getProjectId() {
@@ -89,12 +153,12 @@ public class CustomerCommand {
         this.projectId = projectId;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public Integer getModuleId() {
+        return moduleId;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setModuleId(Integer moduleId) {
+        this.moduleId = moduleId;
     }
 
     public Integer getTaskId() {
@@ -105,27 +169,11 @@ public class CustomerCommand {
         this.taskId = taskId;
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
     public Integer getDiscussStageId() {
         return discussStageId;
     }
 
     public void setDiscussStageId(Integer discussStageId) {
         this.discussStageId = discussStageId;
-    }
-
-    public String getDiscussStageName() {
-        return discussStageName;
-    }
-
-    public void setDiscussStageName(String discussStageName) {
-        this.discussStageName = discussStageName;
     }
 }

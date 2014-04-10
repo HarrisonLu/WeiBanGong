@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>通讯录</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/contacts.wiwork.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -14,7 +15,7 @@
         <div class="col-xs-2" style="margin-top: 6px">
             <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png"></a>
         </div>
-        <div class="col-xs-8">
+        <div class="col-xs-8 title-bar-text">
             <h4><c:out value="${department.name}"/></h4>
         </div>
         <div class="col-xs-2" style="text-align: right; margin-top: 10px">
