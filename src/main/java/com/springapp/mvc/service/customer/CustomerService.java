@@ -141,26 +141,25 @@ public class CustomerService {
     @Cacheable(value = "customerDetailCache")
     public Customer selectCustomerDetails(int customerId) {
         Customer customer = customerMapper.selectCustomerDetails(customerId);
-
-        Integer taskId = customer.getTaskId();
-        Integer moduleId = customer.getModuleId();
-        if (taskId != null) {
-            Task task = taskMapper.selectTaskDetailsByTaskId(taskId);
-            customer.setTaskName(task.getName());
-
-            Module module = moduleMapper.selectModuleDetailsByModuleId(task.getModuleId());
-            customer.setModuleName(module.getName());
-
-            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
-            customer.setProjectName(project.getName());
-        } else if (moduleId != null) {
-            Module module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
-            customer.setModuleName(module.getName());
-
-            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
-            customer.setProjectName(project.getName());
-        }
-
+//
+//        Integer taskId = customer.getTaskId();
+//        Integer moduleId = customer.getModuleId();
+//        if (taskId != null) {
+//            Task task = taskMapper.selectTaskDetailsByTaskId(taskId);
+//            customer.setTaskName(task.getName());
+//
+//            Module module = moduleMapper.selectModuleDetailsByModuleId(task.getModuleId());
+//            customer.setModuleName(module.getName());
+//
+//            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
+//            customer.setProjectName(project.getName());
+//        } else if (moduleId != null) {
+//            Module module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
+//            customer.setModuleName(module.getName());
+//
+//            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
+//            customer.setProjectName(project.getName());
+//        }
         return customer;
     }
 

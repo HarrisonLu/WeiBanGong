@@ -11,7 +11,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/02/2014 12:51:17 PM
+ Date: 04/10/2014 21:14:05 PM
 */
 
 SET NAMES utf8;
@@ -50,7 +50,7 @@ CREATE TABLE `t_customer` (
   `chinese_name` varchar(30) NOT NULL,
   `chinese_name_pinyin` varchar(30) NOT NULL,
   `english_name` varchar(30) DEFAULT NULL,
-  `gender` varchar(2) NOT NULL,
+  `gender` varchar(20) NOT NULL,
   `phone_num` varchar(20) DEFAULT NULL,
   `wechat_num` varchar(30) DEFAULT NULL,
   `qq_num` varchar(20) DEFAULT NULL,
@@ -71,18 +71,18 @@ CREATE TABLE `t_customer` (
   KEY `t_customer_ibfk_2` (`project_id`),
   KEY `t_customer_ibfk_3` (`task_id`),
   KEY `t_customer_ibfk_5` (`module_id`) USING BTREE,
-  CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_1` FOREIGN KEY (`created_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_customer_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_3` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_customer` VALUES ('1', '客户一', 'kehuyi', 'one', '男', '131', 'wc1', '11', '11@qq.com', '1公司地址', '1街1号', '大鱼', '2014-01-01', '唱歌', '1', null, '1', null, '1'), ('2', '客户二', 'kehuer', 'two', '女', '132', 'wc2', '22', '22@qq.com', '2公司地址', '2街2号', '大大鱼', '2014-02-02', '跳舞', '1', null, null, '2', '2'), ('3', '客户三', 'kehusan', 'three', '男', '133', 'wc3', '33', '33@qq.com', '3公司地址', '33街33号', '小鱼', null, null, '1', null, null, '3', '3'), ('4', '客户四', 'kehusi', 'four', '女', '134', 'wc4', '44', '44@qq.com', '4公司地址', '4街4号', '特大鱼', null, null, '1', null, null, '4', '4'), ('5', '客户五', 'kehuwu', 'five', '男', '135', 'wc5', '55', '55@qq.com', '5公司地址', '5街5号', '小鱼', null, null, '2', null, '5', null, '1'), ('6', '客户六', 'kehuliu', 'six', '女', '136', 'wc6', '66', '66@qq.com', '6公司地址', '6街6号', '小小鱼', null, null, '2', null, null, '6', '2'), ('7', '客户七', 'kehuqi', 'seven', '男', '137', 'wc7', '77', '77@qq.com', '7公司地址', '7街7号', '小小小鱼', null, null, '2', null, null, '7', '3'), ('8', '客户八', 'kehuba', 'eight', '女', '138', 'wc8', '88', '88@qq.com', '8公司地址', '8街8号', '特小鱼', null, null, '2', null, null, '8', '4');
+INSERT INTO `t_customer` VALUES ('1', '客户一', 'kehuyi', 'one', '男', '131', 'wc1', '11', '11@qq.com', '1公司地址', '1街1号', '大鱼', '2014-01-01', '唱歌', '1', '1', '1', null, '1'), ('2', '客户二', 'kehuer', 'two', '女', '132', 'wc2', '22', '22@qq.com', '2公司地址', '2街2号', '大大鱼', '2014-02-02', '跳舞', '1', '1', '2', '2', '2'), ('3', '客户三', 'kehusan', 'three', '男', '133', 'wc3', '33', '33@qq.com', '3公司地址', '33街33号', '小鱼', null, null, '1', '1', '3', '3', '3'), ('4', '客户四', 'kehusi', 'four', '女', '134', 'wc4', '44', '44@qq.com', '4公司地址', '4街4号', '特大鱼', null, null, '1', '1', '4', '4', '4'), ('5', '客户五', 'kehuwu', 'five', '男', '135', 'wc5', '55', '55@qq.com', '5公司地址', '5街5号', '小鱼', null, null, '2', '2', '5', null, '1'), ('6', '客户六', 'kehuliu', 'six', '女', '136', 'wc6', '66', '66@qq.com', '6公司地址', '6街6号', '小小鱼', null, null, '2', '2', '6', '6', '2'), ('7', '客户七', 'kehuqi', 'seven', '男', '137', 'wc7', '77', '77@qq.com', '7公司地址', '7街7号', '小小小鱼', null, null, '2', '2', '7', '7', '3'), ('8', '客户八', 'kehuba', 'eight', '女', '138', 'wc8', '88', '88@qq.com', '8公司地址', '8街8号', '特小鱼', null, null, '2', '2', '8', '8', '4');
 COMMIT;
 
 -- ----------------------------
