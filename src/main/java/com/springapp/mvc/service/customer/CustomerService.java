@@ -182,7 +182,7 @@ public class CustomerService {
     }
 
     // 根据 客户id 找 评论列表
-    @Cacheable(value = "customerCommentCache")
+    //@Cacheable(value = "customerCommentCache")
     public List<Comment> selectCommentListByCustomerId(int customerId) {
         return linkMapper.selectCommentListByCustomerId(customerId);
     }

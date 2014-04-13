@@ -117,7 +117,7 @@
         select c.id, c.create_time as comment_Time, c.details as comment_details,
                 u.chinese_name as comment_user_chinese_name, u.english_name as comment_user_english_name
         from t_comment c
-        left join t_user u on c.id = u.id
+        left join t_user u on c.user_id = u.id
         where c.customer_id = #{customerId}
     </select>
 
