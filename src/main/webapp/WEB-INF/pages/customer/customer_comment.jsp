@@ -38,7 +38,7 @@
             <li class="odd">
                 <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt=""><span class="user-name"><c:out value="${comment.userEnglishName}"/></span></a>
                 <div class="reply-content-box">
-                    <span class="reply-time"><c:out value="${comment.timeStr}"/></span>
+                    <span class="reply-time"><c:out value="${comment.displayTime}"/></span>
                     <div class="reply-content pr">
                         <span class="arrow">&nbsp;</span>
                         <c:out value="${comment.details}"/>

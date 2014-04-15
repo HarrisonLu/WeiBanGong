@@ -4,7 +4,6 @@ import com.springapp.mvc.domain.customer.Comment;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.service.customer.CustomerService;
 import com.springapp.mvc.web.customer.command.CustomerCommand;
-import com.tool.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -51,23 +50,10 @@ public class CustomerController {
     public ModelAndView showCustomerComment(@PathVariable int customerId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/customer/customer_comment");
         Customer customer = customerService.selectCustomerDetails(customerId);
-        modelAndView.addObject("customer", customer);
         List<Comment> comments = customerService.selectCommentListByCustomerId(customerId);
-        for (Comment comment : comments) {
-//            comment.setTimeStr(DateUtil.getShortTime(comment.getTime()));
-        }
+        modelAndView.addObject("customer", customer);
         modelAndView.addObject("comments", comments);
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/{customerId}/comment/{message}", method = RequestMethod.GET)
-    public String commitComment(HttpServletRequest request, @PathVariable int customerId, @PathVariable String message) throws Exception {
-        Comment comment = new Comment();
-        comment.setDetails(URLDecoder.decode(message, "UTF-8"));
-        comment.setUserId((Integer) request.getSession().getAttribute("user_id"));
-        comment.setCustomerId(customerId);
-        customerService.insertComment(comment);
-        return "redirect:/customer/" + customerId + "/comment";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -88,47 +74,10 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveCustomer(HttpServletRequest request, @Valid CustomerCommand customerCommand, BindingResult bindingResult) throws Exception {
-        if (bindingResult.hasErrors()) {
-            return "/customer/customer_create";
-        }
-        Customer customer = new Customer();
-        customer.setChineseName(customerCommand.getChineseName());
-        customer.setEnglishName(customerCommand.getEnglishName());
-        customer.setGender(customerCommand.getGender());
-        customer.setPhone(customerCommand.getPhone());
-        customer.setWechatNum(customerCommand.getWechatNum());
-        customer.setQqNum(customerCommand.getQqNum());
-        customer.setEmail(customerCommand.getEmail());
-        customer.setCustomerValue(customerCommand.getCustomerValue());
-        customer.setBirthday(customerCommand.getBirthday());
-        customer.setHobby(customerCommand.getHobby());
-        customer.setCreatedUserId(1);
-        customer.setProjectId(1);
-        customer.setModuleId(1);
-        customer.setTaskId(1);
-        customer.setDiscussStageId(customerCommand.getDiscussStageId());
-        customerService.insertCustomer(customer);
-        return "redirect:/customer";
-    }
-
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView showSearchCustomer() throws Exception {
         ModelAndView modelAndView = new ModelAndView("/customer/customer_search");
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
-        if (isSessionExpired(request)) {
-            return new ModelAndView("redirect:/customer");
-        } else {
-            int userId = (Integer) request.getSession().getAttribute("user_id");
-            return customerService.fuzzySelectCustomer(userId, query);
-        }
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
@@ -151,5 +100,53 @@ public class CustomerController {
             return modelAndView;
         }
     }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveCustomer(HttpServletRequest request, @Valid CustomerCommand customerCommand, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors())
+            return "/customer/customer_create";
+
+        Customer customer = new Customer();
+        customer.setChineseName(customerCommand.getChineseName());
+        customer.setEnglishName(customerCommand.getEnglishName());
+        customer.setGender(customerCommand.getGender());
+        customer.setPhone(customerCommand.getPhone());
+        customer.setWechatNum(customerCommand.getWechatNum());
+        customer.setQqNum(customerCommand.getQqNum());
+        customer.setEmail(customerCommand.getEmail());
+        customer.setCustomerValue(customerCommand.getCustomerValue());
+        customer.setBirthday(customerCommand.getBirthday());
+        customer.setHobby(customerCommand.getHobby());
+        customer.setCreatedUserId(1);
+        customer.setProjectId(1);
+        customer.setModuleId(1);
+        customer.setTaskId(1);
+        customer.setDiscussStageId(customerCommand.getDiscussStageId());
+        customerService.insertCustomer(customer);
+        return "redirect:/customer";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
+        if (isSessionExpired(request)) {
+            return new ModelAndView("redirect:/customer");
+        } else {
+            int userId = (Integer) request.getSession().getAttribute("user_id");
+            return customerService.fuzzySelectCustomer(userId, query);
+        }
+    }
+
+    @RequestMapping(value = "/{customerId}/comment/{message}", method = RequestMethod.GET)
+    public String commitComment(HttpServletRequest request, @PathVariable int customerId, @PathVariable String message) throws Exception {
+        Comment comment = new Comment();
+        comment.setDetails(URLDecoder.decode(message, "UTF-8"));
+        comment.setUserId((Integer) request.getSession().getAttribute("user_id"));
+        comment.setCustomerId(customerId);
+        customerService.insertComment(comment);
+        return "redirect:/customer/" + customerId + "/comment";
+    }
+
 
 }

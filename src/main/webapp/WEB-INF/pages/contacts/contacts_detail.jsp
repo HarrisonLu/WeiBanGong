@@ -14,7 +14,7 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png"></a>
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <c:if test="${user.id == sessionScope.user_id}">
@@ -29,7 +29,7 @@
                 <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
             </c:if>
             <c:if test="${user.id != sessionScope.user_id}">
-                <a href="javascript:onHome()" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
+                <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
             </c:if>
         </div>
     </div>
@@ -89,62 +89,33 @@
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script src="/static_resources/js/toastr.min.js"></script>
 <script>
-    var backCountKey = "back_count_key";
-    var isCollected = ${isCollected};
-    var curCount = sessionStorage.getItem(backCountKey);
-    if (curCount == null) {
-        curCount = 1;
-        sessionStorage.setItem(backCountKey, 1);
-    }
-
-    function onBack() {
-        if (${user.id == sessionScope.user_id}) {
-            window.location.href = "/contacts";
-        } else {
-            history.go(-curCount);
-            sessionStorage.setItem(backCountKey, 1);
-        }
-    }
-
-    function onHome() {
-        sessionStorage.setItem(backCountKey, 1);
-        window.location.href = "/contacts";
-    }
-
-    function onCount() {
-        sessionStorage.setItem(backCountKey, ++curCount);
-    }
-
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "positionClass": "toast-bottom-full-width",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "2000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
-    if (curCount != 1) {
-        if ((isCollected && curCount % 2 == 0) || (isCollected && curCount % 2 != 0))
-            toastr.success("该员工已收藏至常用联系人列表");
-        else if ((!isCollected && curCount % 2 == 0) || (!isCollected && curCount % 2 != 0))
-            toastr.error("已取消收藏");
-    }
 
     function onLinkChange() {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "positionClass": "toast-bottom-full-width",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
         $.ajax({
             type: "GET",
             url: "/contacts/user/link/${user.id}",
             success: function(result) {
-                console.log(result);
-                document.getElementById("img_star_off").src="/static_resources/images/rate_star_big_on_holo_dark.png";
-                toastr.success("该员工已收藏至常用联系人列表");
+                if (result) {
+                    document.getElementById("img_star").src="/static_resources/images/rate_star_big_on_holo_dark.png";
+                    toastr.success("该员工已收藏至常用联系人列表");
+                } else {
+                    document.getElementById("img_star").src="/static_resources/images/rate_star_big_off_holo_dark.png";
+                    toastr.error("已取消收藏");
+                }
             }
         })
     }

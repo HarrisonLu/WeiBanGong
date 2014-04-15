@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by luhuanglh on 14-4-14.
  */
-public class DateUtil {
+public class DateHelper {
 
     private static String MyDateFormat = "yyyy-MM-dd HH:mm:ss";
 

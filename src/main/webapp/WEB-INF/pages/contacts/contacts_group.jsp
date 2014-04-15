@@ -18,8 +18,8 @@
         <div class="col-xs-8 title-bar-text">
             <h4><c:out value="${group.name}"/></h4>
         </div>
-        <div class="col-xs-2" style="text-align: right; margin-top: 10px">
-            <a href="/contacts"><img src="/static_resources/images/btn_home2.png"></a>
+        <div class="col-xs-2">
+            <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
         </div>
     </div>
 </div>
