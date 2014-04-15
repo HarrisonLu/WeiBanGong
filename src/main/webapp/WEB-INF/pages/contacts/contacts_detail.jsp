@@ -37,26 +37,22 @@
 
 <div class="media well">
     <img class="pull-left" src="/static_resources/images/head.png">
+
     <div class="media-body">
         <p><c:out value="${user.englishName}"/> (<c:out value="${user.chineseName}"/>)
             <c:if test="${user.id != sessionScope.user_id}">
-                <c:if test="${isCollected}">
-                    <a href="/contacts/user/link/delete/${user.id}" onclick="onCount()">
-                        <img name="star_on" class="pull-right" src="/static_resources/images/rate_star_big_on_holo_dark.png">
-                    </a>
-                </c:if>
-                <c:if test="${!isCollected}">
-                    <a href="/contacts/user/link/insert/${user.id}" onclick="onCount()">
-                        <img name="star_off" class="pull-right" src="/static_resources/images/rate_star_big_off_holo_dark.png">
-                    </a>
-                </c:if>
+                <a href="javascript:onLinkChange()">
+                    <img class="pull-right" id="img_star" src="${isCollected ? '/static_resources/images/rate_star_big_on_holo_dark.png' : '/static_resources/images/rate_star_big_off_holo_dark.png'}">
+                </a>
             </c:if>
         </p>
+
         <p><c:out value="${user.status}"/></p>
         <c:forEach items="${user.groupList}" var="group">
             <p>部门：<c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
         </c:forEach>
         <p>职位：<c:out value="${user.position}"/></p>
+
         <p>职级：<c:out value="${user.positionLevel}"/></p>
     </div>
 </div>
@@ -103,7 +99,7 @@
 
     function onBack() {
         if (${user.id == sessionScope.user_id}) {
-            window.location.href="/contacts";
+            window.location.href = "/contacts";
         } else {
             history.go(-curCount);
             sessionStorage.setItem(backCountKey, 1);
@@ -112,7 +108,7 @@
 
     function onHome() {
         sessionStorage.setItem(backCountKey, 1);
-        window.location.href="/contacts";
+        window.location.href = "/contacts";
     }
 
     function onCount() {
@@ -135,12 +131,24 @@
     }
 
     if (curCount != 1) {
-        if ((isCollected && curCount % 2 == 0) || (isCollected && curCount % 2 != 0)) {
+        if ((isCollected && curCount % 2 == 0) || (isCollected && curCount % 2 != 0))
             toastr.success("该员工已收藏至常用联系人列表");
-        } else if ((!isCollected && curCount % 2 == 0) || (!isCollected && curCount % 2 != 0)) {
+        else if ((!isCollected && curCount % 2 == 0) || (!isCollected && curCount % 2 != 0))
             toastr.error("已取消收藏");
-        }
     }
+
+    function onLinkChange() {
+        $.ajax({
+            type: "GET",
+            url: "/contacts/user/link/${user.id}",
+            success: function(result) {
+                console.log(result);
+                document.getElementById("img_star_off").src="/static_resources/images/rate_star_big_on_holo_dark.png";
+                toastr.success("该员工已收藏至常用联系人列表");
+            }
+        })
+    }
+
 </script>
 </body>
 </html>

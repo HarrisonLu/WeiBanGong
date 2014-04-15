@@ -14,6 +14,7 @@ public class CustomerCommand {
     private String chineseNamePinyin;
 
     private String englishName;
+
     private String gender;
     private String phone;
     private String wechatNum;

@@ -85,10 +85,10 @@
                     <label class="col-xs-4 control-label">所处阶段</label>
                     <div class="col-xs-8">
                         <select class="form-control" name="discussStageId">
-                            <option>未洽谈</option>
-                            <option>洽谈中</option>
-                            <option>合作期</option>
-                            <option>其他</option>
+                            <option class="form-control" value="1">未洽谈</option>
+                            <option class="form-control" value="2">洽谈中</option>
+                            <option class="form-control" value="3">合作期</option>
+                            <option class="form-control" value="4">其他</option>
                         </select>
                     </div>
                 </div>

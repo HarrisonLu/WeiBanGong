@@ -7,11 +7,14 @@ import com.springapp.mvc.service.contacts.ContactsService;
 import com.springapp.mvc.web.contacts.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/contacts")
@@ -38,6 +41,14 @@ public class ContactsController {
         modelAndView.addObject("collUsers", collUsers);
         modelAndView.addObject("departments", departments);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/ajax/user/collect", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<User> ajaxGetCollectedContacts(HttpServletRequest request) throws Exception {
+        int userId = (Integer)request.getSession().getAttribute("user_id");
+        return contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
@@ -83,14 +94,21 @@ public class ContactsController {
         }
     }
 
-    @RequestMapping(value = "/user/link/insert/{collectedId}", method = RequestMethod.GET)
-    public String addCollectedContacts(HttpServletRequest request, @PathVariable int collectedId) throws Exception {
+    @RequestMapping(value = "/user/link/{collectedId}", method = RequestMethod.GET)
+    public String changeCollectedContacts(HttpServletRequest request, @PathVariable int collectedId, Model model) throws Exception {
         if (isSessionExpired(request)) {
             return "redirect:/contacts";
         } else {
             int userId = (Integer)request.getSession().getAttribute("user_id");
-            contactsService.insertCollectedContacts(userId, collectedId);
-            return "redirect:/contacts/user/" + collectedId;
+            boolean isCollected = contactsService.isCollectedContacts(userId, collectedId);
+            if (isCollected) {
+                contactsService.deleteCollectedContacts(userId, collectedId);
+                model.addAttribute("coll", false);
+            } else {
+                contactsService.insertCollectedContacts(userId, collectedId);
+                model.addAttribute("coll", true);
+            }
+            return "redirect:/contacts/user/" + userId;
         }
     }
 
@@ -101,7 +119,7 @@ public class ContactsController {
         } else {
             int userId = (Integer)request.getSession().getAttribute("user_id");
             contactsService.deleteCollectedContacts(userId, collectedId);
-            return "redirect:/contacts/user/" + collectedId;
+            return "redirect:/contacts/user/" + userId;
         }
     }
 

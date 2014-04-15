@@ -16,7 +16,8 @@
             <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
         </div>
         <div class="col-xs-10" style="margin-top: 9px">
-            <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
+            <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索"
+                   data-provide="typeahead">
         </div>
     </div>
 </div>
@@ -34,17 +35,12 @@
             <a href="/contacts/user/${self.id}" class="list-group-item" style="min-height: 64px">
                 <img class="pull-left" src="/static_resources/images/head.png">
 
-                <%--<div>--%>
-                <%--<img class="pull-right" src="/static_resources/images/btn_home.png" onclick="history.go(-1)">--%>
-                <%--<p class="pull-right">&nbsp;&nbsp;</p>--%>
-                <%--<img class="pull-right" src="/static_resources/images/btn_search.png">--%>
-                <%--</div>--%>
-
                 <h4 class="list-group-item-heading head-pic-text"><c:out value="${self.englishName}"/> (<c:out
                         value="${self.chineseName}"/>)</h4>
 
                 <c:forEach items="${self.groupList}" var="group">
-                    <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                    <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out
+                            value="${group.name}"/></p>
                 </c:forEach>
                 <c:if test="${self.groupList.size() == 0}">
                     <p class="list-group-item-text head-pic-text">暂无分组</p>
@@ -59,7 +55,8 @@
                     <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                             value="${user.chineseName}"/>)</h4>
                     <c:forEach items="${user.groupList}" var="group">
-                        <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                        <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out
+                                value="${group.name}"/></p>
                     </c:forEach>
                     <c:if test="${user.groupList.size() == 0}">
                         <p class="list-group-item-text head-pic-text">暂无分组</p>
@@ -81,6 +78,7 @@
                     </c:if>
                 </a>
             </c:forEach>
+
         </div>
     </div>
     <div class="panel panel-primary">
@@ -107,43 +105,44 @@
 <script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
 <script src="/static_resources/js/underscore-min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(function () {
         if(window.name != "Contacts") {
-            location.reload();
+            location.reload(false);
             window.name = "Contacts";
         } else {
             window.name = "";
         }
+
         var users;
-        $('#contacts_search').typeahead({
-            source:function(query, process) {
+        $("#contacts_search").typeahead({
+            source: function (query, process) {
                 var parameter = {query: query};
-                $.post('/contacts/search', parameter, function (data) {
+                $.post("/contacts/search", parameter, function (data) {
                     users = data;
-                    var results = _.map(data, function(user) {
+                    var results = _.map(data, function (user) {
                         return user.id + "";
                     });
                     process(results);
                 });
             },
 
-            matcher: function(item) {
+            matcher: function (item) {
                 return true;
             },
 
-            highlighter: function(id) {
-                var user = _.find(users, function(u) {
+            highlighter: function (id) {
+                var user = _.find(users, function (u) {
                     return u.id == id;
                 })
-                var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
-                var itemEnglishName = user.englishName.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
+                var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&")
+                var itemEnglishName = user.englishName.replace(new RegExp("(" + query + ")", "ig"), function ($1, match) {
                     return '<span style="color:#79CDCD">' + match + '</span>'
                 })
                 var item = '<img style="margin-right: 8px; margin-top: 8px" class="pull-left" src="/static_resources/images/head.png">'
                 item += '<div style="margin-top: 8px; min-width: 150px">' + itemEnglishName + '（' + user.chineseName + ')'
                 var groups = user.groupList
-                if (groups != null && groups.length>0) {
-                    for (var i=0;i<groups.length;++i) {
+                if (groups != null && groups.length > 0) {
+                    for (var i = 0; i < groups.length; ++i) {
                         item += '<p>' + groups[i].departmentName + ' - ' + groups[i].name + '</p>'
                     }
                 } else {
@@ -153,16 +152,16 @@
                 return item;
             },
 
-            updater: function(id) {
-                var user = _.find(users, function(u) {
+            updater: function (id) {
+                var user = _.find(users, function (u) {
                     return u.id == id;
                 })
-                self.location='/contacts/user/' + id
+                self.location = '/contacts/user/' + id
                 return user.englishName + '（' + user.chineseName + '）';
             }
 
-        })
-    })
+        });
+    });
 </script>
 
 </body>

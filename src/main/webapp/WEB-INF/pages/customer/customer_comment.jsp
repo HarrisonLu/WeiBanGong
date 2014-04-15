@@ -38,7 +38,7 @@
             <li class="odd">
                 <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt=""><span class="user-name"><c:out value="${comment.userEnglishName}"/></span></a>
                 <div class="reply-content-box">
-                    <span class="reply-time"><c:out value="${comment.time}"/></span>
+                    <span class="reply-time"><c:out value="${comment.timeStr}"/></span>
                     <div class="reply-content pr">
                         <span class="arrow">&nbsp;</span>
                         <c:out value="${comment.details}"/>
@@ -61,9 +61,21 @@
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script>
     function onSend() {
-        alert("发送成功");
-        document.getElementById("message").value="";
-
+        var message = $("#message").val();
+        if (message == "") {
+            alert("请输入评论!")
+        } else {
+            $.ajax({
+                type: "GET",
+                url: encodeURI(encodeURI(window.location + "/" + message)),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                success:function(data){
+                    alert("评论成功!")
+                    document.getElementById("message").value="";
+                    location.reload(false);
+                }
+            });
+        }
     }
 </script>
 </body>

@@ -4,20 +4,17 @@ import com.springapp.mvc.domain.customer.Comment;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.service.customer.CustomerService;
 import com.springapp.mvc.web.customer.command.CustomerCommand;
+import com.tool.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.net.URLDecoder;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/customer")
@@ -56,8 +53,21 @@ public class CustomerController {
         Customer customer = customerService.selectCustomerDetails(customerId);
         modelAndView.addObject("customer", customer);
         List<Comment> comments = customerService.selectCommentListByCustomerId(customerId);
+        for (Comment comment : comments) {
+//            comment.setTimeStr(DateUtil.getShortTime(comment.getTime()));
+        }
         modelAndView.addObject("comments", comments);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/{customerId}/comment/{message}", method = RequestMethod.GET)
+    public String commitComment(HttpServletRequest request, @PathVariable int customerId, @PathVariable String message) throws Exception {
+        Comment comment = new Comment();
+        comment.setDetails(URLDecoder.decode(message, "UTF-8"));
+        comment.setUserId((Integer) request.getSession().getAttribute("user_id"));
+        comment.setCustomerId(customerId);
+        customerService.insertComment(comment);
+        return "redirect:/customer/" + customerId + "/comment";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -98,7 +108,7 @@ public class CustomerController {
         customer.setProjectId(1);
         customer.setModuleId(1);
         customer.setTaskId(1);
-        customer.setDiscussStageId(1);
+        customer.setDiscussStageId(customerCommand.getDiscussStageId());
         customerService.insertCustomer(customer);
         return "redirect:/customer";
     }
