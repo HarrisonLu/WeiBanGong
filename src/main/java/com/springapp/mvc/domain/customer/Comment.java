@@ -10,6 +10,7 @@ public class Comment {
     private Integer id;
     private String details;
     private Timestamp time;
+    private String displayTime;
     private Integer userId;
     private String userChineseName;
     private String userEnglishName;
@@ -37,6 +38,14 @@ public class Comment {
 
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public String getDisplayTime() {
+        return displayTime;
+    }
+
+    public void setDisplayTime(String displayTime) {
+        this.displayTime = displayTime;
     }
 
     public Integer getUserId() {

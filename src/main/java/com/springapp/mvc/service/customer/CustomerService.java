@@ -16,6 +16,7 @@ import com.springapp.mvc.domain.project.Module;
 import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
 import com.tool.ChineseToPinyin;
+import com.tool.Converter;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -60,19 +61,19 @@ public class CustomerService {
     }
 
     // 根据 成员id 找 我的客户基本资料列表
-    @Cacheable(value = "customerMyListCache")
+    //@Cacheable(value = "customerMyListCache")
     public List<Customer> selectMyCustomerList(int userId) {
         return customerMapper.selectMyCustomerList(userId);
     }
 
     // 根据 成员id 找 共享客户基本资料别表
-    @Cacheable(value = "customerSharedListCache")
+    //@Cacheable(value = "customerSharedListCache")
     public List<Customer> selectSharedCustomerList(int userId) {
         return customerMapper.selectSharedCustomerList(userId);
     }
 
     // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
-    @Cacheable(value = "customerMyFilterListCache")
+    //@Cacheable(value = "customerMyFilterListCache")
     public List<Customer> selectMyCustomerListByDiscussStage(int userId, int discussStageId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
@@ -81,7 +82,7 @@ public class CustomerService {
     }
 
     // 根据 成员id、客户所处阶段 找 共享客户基本资料列表
-    @Cacheable(value = "customerSharedFilterListCache")
+    //@Cacheable(value = "customerSharedFilterListCache")
     public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
@@ -90,7 +91,7 @@ public class CustomerService {
     }
 
     // 插入 客户
-    @CacheEvict(value = {"customerMyListCache", "customerSharedListCache", "customerMyFilterListCache", "customerSharedFilterListCache"})
+    //@CacheEvict(value = {"customerMyListCache", "customerSharedListCache", "customerMyFilterListCache", "customerSharedFilterListCache"})
     public void insertCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
@@ -138,28 +139,10 @@ public class CustomerService {
     }
 
     // 根据 客户id 找 客户详细资料
-    @Cacheable(value = "customerDetailCache")
+    //@Cacheable(value = "customerDetailCache")
     public Customer selectCustomerDetails(int customerId) {
         Customer customer = customerMapper.selectCustomerDetails(customerId);
-//
-//        Integer taskId = customer.getTaskId();
-//        Integer moduleId = customer.getModuleId();
-//        if (taskId != null) {
-//            Task task = taskMapper.selectTaskDetailsByTaskId(taskId);
-//            customer.setTaskName(task.getName());
-//
-//            Module module = moduleMapper.selectModuleDetailsByModuleId(task.getModuleId());
-//            customer.setModuleName(module.getName());
-//
-//            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
-//            customer.setProjectName(project.getName());
-//        } else if (moduleId != null) {
-//            Module module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
-//            customer.setModuleName(module.getName());
-//
-//            Project project = projectMapper.selectProjectDetailsByProjectId(module.getProjectId());
-//            customer.setProjectName(project.getName());
-//        }
+
         return customer;
     }
 
@@ -184,6 +167,14 @@ public class CustomerService {
     // 根据 客户id 找 评论列表
     //@Cacheable(value = "customerCommentCache")
     public List<Comment> selectCommentListByCustomerId(int customerId) {
-        return linkMapper.selectCommentListByCustomerId(customerId);
+
+
+        List<Comment> commentList = linkMapper.selectCommentListByCustomerId(customerId);
+        for (Comment comment : commentList)
+        {
+            String displayString = Converter.getPastTimeString(comment.getTime());
+            comment.setDisplayTime(displayString);
+        }
+        return commentList;
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -53,11 +54,11 @@ public class CustomerServiceTest extends BaseTest{
 
         Assert.assertEquals(customerList.get(1).getChineseName(),"客户七");
         Assert.assertEquals(customerList.get(1).getEnglishName(),"seven");
-        Assert.assertEquals(customerList.get(1).getProjectName(),null);
+        Assert.assertEquals(customerList.get(1).getProjectName(),"至善园6号618项目");
 
         Assert.assertEquals(customerList.get(0).getChineseName(),"客户八");
         Assert.assertEquals(customerList.get(0).getEnglishName(),"eight");
-        Assert.assertEquals(customerList.get(0).getProjectName(),null);
+        Assert.assertEquals(customerList.get(0).getProjectName(),"至善园6号618项目");
 
     }
 
