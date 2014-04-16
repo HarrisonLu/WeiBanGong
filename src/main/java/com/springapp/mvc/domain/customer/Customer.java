@@ -11,7 +11,8 @@ public class Customer {
     private String chineseNamePinyin;
     private String englishName;
     private String gender;
-    private String phone;
+    private String telephoneNum;
+    private String mobilePhoneNum;
     private String wechatNum;
     private String qqNum;
     private String email;
@@ -19,6 +20,7 @@ public class Customer {
     private String houseAddress;
     private String customerValue;
     private Date birthday;
+    private String birthdayString;
     private String hobby;
     private Integer createdUserId;
     private String createdUserChineseName;
@@ -72,12 +74,20 @@ public class Customer {
         this.gender = gender;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getTelephoneNum() {
+        return telephoneNum;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTelephoneNum(String telephoneNum) {
+        this.telephoneNum = telephoneNum;
+    }
+
+    public String getMobilePhoneNum() {
+        return mobilePhoneNum;
+    }
+
+    public void setMobilePhoneNum(String mobilePhoneNum) {
+        this.mobilePhoneNum = mobilePhoneNum;
     }
 
     public String getWechatNum() {
@@ -134,6 +144,14 @@ public class Customer {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getBirthdayString() {
+        return birthdayString;
+    }
+
+    public void setBirthdayString(String birthdayString) {
+        this.birthdayString = birthdayString;
     }
 
     public String getHobby() {

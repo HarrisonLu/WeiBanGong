@@ -61,6 +61,13 @@ public class CustomerServiceTest extends BaseTest{
         Assert.assertEquals(customerList.get(0).getProjectName(),"至善园6号618项目");
 
     }
+    @Test
+    public void testIsMyCustomer() throws Exception {
+        Boolean isMyCustomer_1 = customerService.isMyCustomer(2, 7);
+        Assert.assertEquals(isMyCustomer_1, true);
+        Boolean isMyCustomer_2 = customerService.isMyCustomer(1, 6);
+        Assert.assertEquals(isMyCustomer_2, false);
+    }
 
     @Test
     public void testSelectMyCustomerListByDiscussStage() throws Exception {
@@ -76,7 +83,7 @@ public class CustomerServiceTest extends BaseTest{
         customer.setChineseName("客户九");
         customer.setEnglishName("nine");
         customer.setGender("男");
-        customer.setPhone("139");
+        customer.setMobilePhoneNum("139");
         customer.setWechatNum("wc9");
         customer.setQqNum("99");
         customer.setEmail("99@qq.com");
@@ -139,7 +146,7 @@ public class CustomerServiceTest extends BaseTest{
         Assert.assertEquals(customer.getChineseName(),"客户五");
         Assert.assertEquals(customer.getEnglishName(),"five");
         Assert.assertEquals(customer.getGender(),"男");
-        Assert.assertEquals(customer.getPhone(),"135");
+        Assert.assertEquals(customer.getMobilePhoneNum(),"135");
         Assert.assertEquals(customer.getWechatNum(),"wc5");
         Assert.assertEquals(customer.getQqNum(),"55");
         Assert.assertEquals(customer.getEmail(),"55@qq.com");

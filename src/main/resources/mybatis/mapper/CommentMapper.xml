@@ -13,7 +13,7 @@
     </resultMap>
 
     <insert id="insertComment" parameterType="Comment">
-        insert into t_comment (details, user_id, customer_id)
+        insert into t_comment_customer (details, user_id, customer_id)
                 values (#{details}, #{userId}, #{customerId})
     </insert>
 </mapper>

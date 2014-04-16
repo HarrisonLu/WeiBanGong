@@ -26,6 +26,10 @@ public class DateHelper {
         return date;
     }
 
+    /*
+     *  根据 参数Timestamp类型 的时间
+     *  返回与当前时间的 时间差 的自定义的表示 字符串
+     */
     public static String getShortTime(Timestamp timestamp) {
         String shortString = null;
         String time = timestampToStr(timestamp);
@@ -55,6 +59,16 @@ public class DateHelper {
         return shortString;
     }
 
-
-
+    /*
+     *  返回 参数Date类型 的 年月日“YYYY-MM-DD”表示 字符串
+     */
+    public static String dateToString(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String string = year + "-" + month + "-" + day;
+        return string;
+    }
 }

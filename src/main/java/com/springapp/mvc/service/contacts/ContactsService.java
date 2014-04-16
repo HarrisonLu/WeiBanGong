@@ -67,7 +67,7 @@ public class ContactsService {
     }
 
     /// 判断 成员和联系人 是否为 收藏联系人关系
-    @Cacheable(value = "isCollectedContactsCache")
+//    @Cacheable(value = "isCollectedContactsCache")
     public Boolean isCollectedContacts(int userId, int collectedContactsId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("user_id", userId);

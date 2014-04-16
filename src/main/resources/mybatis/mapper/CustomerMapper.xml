@@ -8,7 +8,8 @@
         <result property="chineseNamePinyin" column="chinese_name_pinyin"/>
         <result property="englishName" column="english_name"/>
         <result property="gender" column="gender"/>
-        <result property="phone" column="phone_num"/>
+        <result property="telephoneNum" column="telephone_num"/>
+        <result property="mobilePhoneNum" column="mobile_phone_num"/>
         <result property="wechatNum" column="wechat_num"/>
         <result property="qqNum" column="qq_num"/>
         <result property="email" column="email"/>
@@ -31,11 +32,11 @@
     </resultMap>
 
     <insert id="insertCustomer" parameterType="Customer">
-        insert into t_customer(chinese_name, chinese_name_pinyin, english_name, gender, phone_num,
+        insert into t_customer(chinese_name, chinese_name_pinyin, english_name, gender, telephone_num, mobile_phone_num,
                                  wechat_num, qq_num, email, office_address, house_address,
                                  customer_value, birthday, hobby, created_user_id, project_id, module_id, task_id, discuss_stage_id)
                 values (#{chineseName}, #{chineseNamePinyin}, #{englishName}, #{gender},
-                         #{phone}, #{wechatNum}, #{qqNum}, #{email}, #{officeAddress},
+                         #{telephoneNum}, #{mobilePhoneNum}, #{wechatNum}, #{qqNum}, #{email}, #{officeAddress},
                          #{houseAddress}, #{customerValue}, #{birthday}, #{hobby}, #{createdUserId},
                          #{projectId}, #{moduleId}, #{taskId}, #{discussStageId})
     </insert>
@@ -46,7 +47,8 @@
              chinese_name_pinyin = #{chineseNamePinyin},
              english_name = #{englishName},
              gender = #{gender},
-             phone_num = #{phone},
+             telephone_num = #{telephoneNum},
+             mobile_phone_num = #{mobilePhoneNum},
              wechat_num = #{wechatNum},
              qq_num = #{qqNum},
              email = #{email},
@@ -133,6 +135,12 @@
               left join t_task t on c.task_id = t.id
         where (c.created_user_id = #{userId} or cu.user_id = #{userId})
                and (english_name like "%"#{str}"%" or chinese_name_pinyin like "%"#{str}"%" or chinese_name like "%"#{str}"%") ;
+    </select>
+
+    <select id="isMyCustomer" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_customer c
+        where c.id = #{customerId} and c.created_user_id = #{userId}
     </select>
 
 </mapper>
