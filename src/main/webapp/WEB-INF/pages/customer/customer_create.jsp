@@ -6,6 +6,7 @@
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/icheck.css">
     <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
@@ -48,19 +49,13 @@
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">性别</label>
-                    <div class="col-xs-4">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="gender" id="optionsRadios1" value="male" checked>男
-                            </label>
-                        </div>
+                    <div class="col-xs-4" style="margin-top: 4px">
+                        <input type="radio" name="gender" id="optionsRadios1" value="male" checked>
+                        <label for="optionsRadios1">男</label>
                     </div>
-                    <div class="col-xs-4">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="gender" id="optionsRadios2" value="female">女
-                            </label>
-                        </div>
+                    <div class="col-xs-4" style="margin-top: 4px">
+                        <input type="radio" name="gender" id="optionsRadios2" value="female">
+                        <label for="optionsRadios2">女</label>
                     </div>
                 </div>
             </div>
@@ -165,11 +160,9 @@
                     </div>
                 </div>
                 <div class="form-group list-group-item">
-                    <div class="checkbox">
-                        <label class="control-label"><strong>是否设置节假日提醒</strong>
-                            <input type="checkbox" class="pull-right" style="margin-right: 20px">
-                        </label>
-                    </div>
+                    <label class="control-label" style="margin-left: 15px"><strong>是否设置节假日提醒</strong>
+                        <input type="checkbox">
+                    </label>
                 </div>
             </div>
         </div>
@@ -195,5 +188,15 @@
 </form>
 <script src="/static_resources/js/jquery.min.js"></script>
 <script src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/icheck.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
 </body>
 </html>

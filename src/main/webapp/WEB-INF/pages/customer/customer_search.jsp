@@ -49,7 +49,7 @@
                     return '<span style="color:#79CDCD">' + match + '</span>'
                 })
                 var item = '<img style="margin-right: 8px; margin-top: 8px" class="pull-left" src="/static_resources/images/head.png">'
-                item += '<div style="margin-top: 8px; min-width: 150px">' + itemEnglishName + '（' + customer.chineseName + ')'
+                item += '<div style="margin-top: 8px; min-width: 200px">' + itemEnglishName + '（' + customer.chineseName + ')'
                 if (customer.projectName == null)
                     item += '<p>暂无关联项目</p>'
                 else

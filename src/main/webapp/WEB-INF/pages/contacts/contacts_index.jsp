@@ -139,7 +139,7 @@
                     return '<span style="color:#79CDCD">' + match + '</span>'
                 })
                 var item = '<img style="margin-right: 8px; margin-top: 8px" class="pull-left" src="/static_resources/images/head.png">'
-                item += '<div style="margin-top: 8px; min-width: 150px">' + itemEnglishName + '（' + user.chineseName + ')'
+                item += '<div style="margin-top: 8px; min-width: 200px">' + itemEnglishName + '（' + user.chineseName + ')'
                 var groups = user.groupList
                 if (groups != null && groups.length > 0) {
                     for (var i = 0; i < groups.length; ++i) {
