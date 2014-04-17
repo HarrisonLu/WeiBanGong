@@ -32,7 +32,7 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
             <c:forEach items="${myCustomerList}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
+                <a href="/customer/mine/${customer.id}" class="list-group-item" style="min-height: 64px">
                     <c:if test="${customer.discussStageId == 1}">
                         <img class="pull-left" src="/static_resources/images/line_green.png" alt="">
                     </c:if>
@@ -60,7 +60,7 @@
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${sharedCustomerList}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
+                <a href="/customer/shared/${customer.id}" class="list-group-item" style="min-height: 64px">
                     <c:if test="${customer.discussStageId == 1}">
                         <img class="pull-left" src="/static_resources/images/line_green.png" alt="">
                     </c:if>
