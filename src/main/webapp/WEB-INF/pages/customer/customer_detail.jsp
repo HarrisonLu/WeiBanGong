@@ -19,7 +19,22 @@
             <h4>名片详情</h4>
         </div>
         <div class="col-xs-2">
-            <a href="/customer/${customer.id}/commentCustomer" class="btn btn-primary navbar-btn pull-right" role="button">评论</a>
+            <c:choose>
+                <c:when test="${isMine}">
+                    <div class="btn-group navbar-btn pull-right">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">选项<b class="caret" style="margin-left: 5px;margin-top: 5px"></b>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/customer/mine/edit/${customer.id}">编辑</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/customer/comment/${customer.id}">评论</a></li>
+                        </ul>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a href="/customer/comment/${customer.id}" class="btn btn-primary navbar-btn pull-right" role="button">评论</a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
