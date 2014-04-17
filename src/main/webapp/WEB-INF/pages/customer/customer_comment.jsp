@@ -34,14 +34,14 @@
 
 <div class="container">
     <ul class="content-reply-box mg10">
-        <c:forEach items="${comments}" var="comment">
+        <c:forEach items="${commentCustomers}" var="commentCustomer">
             <li class="odd">
-                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt=""><span class="user-name"><c:out value="${comment.userEnglishName}"/></span></a>
+                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt=""><span class="user-name"><c:out value="${commentCustomer.userEnglishName}"/></span></a>
                 <div class="reply-content-box">
-                    <span class="reply-time"><c:out value="${comment.displayTime}"/></span>
+                    <span class="reply-time"><c:out value="${commentCustomer.displayTime}"/></span>
                     <div class="reply-content pr">
                         <span class="arrow">&nbsp;</span>
-                        <c:out value="${comment.details}"/>
+                        <c:out value="${commentCustomer.details}"/>
                     </div>
                 </div>
             </li>

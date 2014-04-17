@@ -2,14 +2,14 @@ package com.springapp.mvc.service.customer;
 
 import com.springapp.mvc.dao.LinkMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
-import com.springapp.mvc.dao.customer.CommentMapper;
+import com.springapp.mvc.dao.customer.CommentCustomerMapper;
 import com.springapp.mvc.dao.customer.CustomerMapper;
 import com.springapp.mvc.dao.customer.DiscussStageMapper;
 import com.springapp.mvc.dao.project.ModuleMapper;
 import com.springapp.mvc.dao.project.ProjectMapper;
 import com.springapp.mvc.dao.project.TaskMapper;
 import com.springapp.mvc.domain.contacts.User;
-import com.springapp.mvc.domain.customer.Comment;
+import com.springapp.mvc.domain.customer.CommentCustomer;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.domain.customer.DiscussStage;
 import com.springapp.mvc.domain.project.Project;
@@ -17,12 +17,9 @@ import com.springapp.mvc.domain.project.Task;
 import com.tool.ChineseToPinyin;
 import com.tool.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +46,7 @@ public class CustomerService {
     @Autowired
     private DiscussStageMapper discussStageMapper;
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentCustomerMapper commentCustomerMapper;
 
     // 根据 英文字符串 和 成员id 模糊搜索 客户列表
     public List<Customer> fuzzySelectCustomer(int userId, String str) {
@@ -76,7 +73,7 @@ public class CustomerService {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("customerId", customerId);
-        Integer integer = customerMapper.isMyCustomer(map);
+
         return customerMapper.isMyCustomer(map).equals(1);
     }
 
@@ -172,18 +169,18 @@ public class CustomerService {
     }
 
     // 插入 评论
-    public void insertComment(Comment comment) {
-        commentMapper.insertComment(comment);
+    public void insertCommentCustomer(CommentCustomer commentCustomer) {
+        commentCustomerMapper.insertCommentCustomer(commentCustomer);
     }
 
     // 根据 客户id 找 评论列表
     //@Cacheable(value = "customerCommentCache")
-    public List<Comment> selectCommentListByCustomerId(int customerId) {
-        List<Comment> commentList = linkMapper.selectCommentListByCustomerId(customerId);
-        for (Comment comment : commentList) {
-            String displayString = DateHelper.getShortTime(comment.getTime());
-            comment.setDisplayTime(displayString);
+    public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId) {
+        List<CommentCustomer> commentCustomerList = linkMapper.selectCommentCustomerListByCustomerId(customerId);
+        for (CommentCustomer commentCustomer : commentCustomerList) {
+            String displayString = DateHelper.getShortTime(commentCustomer.getTime());
+            commentCustomer.setDisplayTime(displayString);
         }
-        return commentList;
+        return commentCustomerList;
     }
 }

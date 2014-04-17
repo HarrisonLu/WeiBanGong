@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 /**
  * Created by Lion on 14-3-6.
  */
-public class Comment {
+public class CommentCustomer {
     private Integer id;
     private String details;
     private Timestamp time;

@@ -39,13 +39,13 @@ public class ContactsService {
     }
 
     // 根据 成员id 找 收藏联系人基本资料列表
-    @Cacheable(value = "contactsCollectedListCache")
+//    @Cacheable(value = "contactsCollectedListCache")
     public List<User> selectCollectedContactsBaseInfoListByUserId(int userId){
         return linkMapper.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
     // 根据 成员id 找 所在组成员基本信息列表
-    @Cacheable(value = "contactsGroupListCache")
+//    @Cacheable(value = "contactsGroupListCache")
     public List<User> searchGroupUserBaseInfoListByUserId(int userId){
         return linkMapper.searchGroupUserBaseInfoListByUserId(userId);
     }
@@ -76,31 +76,31 @@ public class ContactsService {
     }
 
     // 得到 所有部门基本信息
-    @Cacheable(value = "contactsDepartmentsCache")
+//    @Cacheable(value = "contactsDepartmentsCache")
     public List<Department> selectAllDepartmentBaseInfo() {
         return departmentMapper.selectAllDepartmentBaseInfo();
     }
 
     // 根据 成员id 找 成员详细信息
-    @Cacheable(value = "contactDetailCache")
+//    @Cacheable(value = "contactDetailCache")
     public User selectUserDetailsById(int userId){
         return userMapper.selectUserDetailsById(userId);
     }
 
     // 修改 成员信息
-    @CacheEvict(value = "contactDetailCache")
+//    @CacheEvict(value = "contactDetailCache")
     public void updateUserInfo(User user) {
         userMapper.updateUserInfo(user);
     }
 
     // 根据 部门id 找 部门详细信息
-    @Cacheable(value = "contactsDepartmentDetailCache")
+//    @Cacheable(value = "contactsDepartmentDetailCache")
     public Department selectDepartmentDetailsByDepartmentId(int departmentId){
         return departmentMapper.selectDepartmentDetailsByDepartmentId(departmentId);
     }
 
     // 根据 组id 找 组详细信息
-    @Cacheable(value = "contactsGroupDetailCache")
+//    @Cacheable(value = "contactsGroupDetailCache")
     public Group selectGroupDetailsByGroupId(int groupId) {
         return groupMapper.selectGroupDetailsByGroupId(groupId);
     }
