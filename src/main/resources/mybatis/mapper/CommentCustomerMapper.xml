@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.springapp.mvc.dao.customer.CommentMapper">
-    <resultMap id="CommentResultMap" type="Comment">
+<mapper namespace="com.springapp.mvc.dao.customer.CommentCustomerMapper">
+    <resultMap id="CommentCustomerResultMap" type="CommentCustomer">
         <id property="id" column="id"/>
         <result property="details" column="details"/>
         <result property="time" column="Time"/>
@@ -12,7 +12,7 @@
         <result property="customerId" column="customer_id"/>
     </resultMap>
 
-    <insert id="insertComment" parameterType="Comment">
+    <insert id="insertCommentCustomer" parameterType="CommentCustomer">
         insert into t_comment_customer (details, user_id, customer_id)
                 values (#{details}, #{userId}, #{customerId})
     </insert>

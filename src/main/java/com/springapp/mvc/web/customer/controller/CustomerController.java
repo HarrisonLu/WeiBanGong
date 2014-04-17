@@ -1,6 +1,6 @@
 package com.springapp.mvc.web.customer.controller;
 
-import com.springapp.mvc.domain.customer.Comment;
+import com.springapp.mvc.domain.customer.CommentCustomer;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.service.customer.CustomerService;
 import com.springapp.mvc.web.customer.command.CustomerCommand;
@@ -50,9 +50,9 @@ public class CustomerController {
     public ModelAndView showCustomerComment(@PathVariable int customerId) throws Exception {
         ModelAndView modelAndView = new ModelAndView("/customer/customer_comment");
         Customer customer = customerService.selectCustomerDetails(customerId);
-        List<Comment> comments = customerService.selectCommentListByCustomerId(customerId);
+        List<CommentCustomer> commentCustomers = customerService.selectCommentListByCustomerId(customerId);
         modelAndView.addObject("customer", customer);
-        modelAndView.addObject("comments", comments);
+        modelAndView.addObject("comments", commentCustomers);
         return modelAndView;
     }
 
@@ -140,12 +140,12 @@ public class CustomerController {
 
     @RequestMapping(value = "/{customerId}/comment/{message}", method = RequestMethod.GET)
     public String commitComment(HttpServletRequest request, @PathVariable int customerId, @PathVariable String message) throws Exception {
-        Comment comment = new Comment();
-        comment.setDetails(URLDecoder.decode(message, "UTF-8"));
-        comment.setUserId((Integer) request.getSession().getAttribute("user_id"));
-        comment.setCustomerId(customerId);
-        customerService.insertComment(comment);
-        return "redirect:/customer/" + customerId + "/comment";
+        CommentCustomer commentCustomer = new CommentCustomer();
+        commentCustomer.setDetails(URLDecoder.decode(message, "UTF-8"));
+        commentCustomer.setUserId((Integer) request.getSession().getAttribute("user_id"));
+        commentCustomer.setCustomerId(customerId);
+        customerService.insertComment(commentCustomer);
+        return "redirect:/customer/" + customerId + "/commentCustomer";
     }
 
 

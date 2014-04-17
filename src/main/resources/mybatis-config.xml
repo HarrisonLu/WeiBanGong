@@ -9,12 +9,13 @@
         <typeAlias type="com.springapp.mvc.domain.contacts.Group" alias="Group"/>
 
         <typeAlias type="com.springapp.mvc.domain.customer.Customer" alias="Customer"/>
-        <typeAlias type="com.springapp.mvc.domain.customer.Comment" alias="Comment"/>
+        <typeAlias type="com.springapp.mvc.domain.customer.CommentCustomer" alias="CommentCustomer"/>
         <typeAlias type="com.springapp.mvc.domain.customer.DiscussStage" alias="DiscussStage"/>
 
         <typeAlias type="com.springapp.mvc.domain.project.Project" alias="Project"/>
         <typeAlias type="com.springapp.mvc.domain.project.Module" alias="Module"/>
         <typeAlias type="com.springapp.mvc.domain.project.Task" alias="Task"/>
+        <typeAlias type="com.springapp.mvc.domain.project.SubTask" alias="SubTask"/>
     </typeAliases>
 
 </configuration>

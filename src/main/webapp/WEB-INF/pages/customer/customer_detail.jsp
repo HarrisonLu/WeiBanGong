@@ -19,7 +19,7 @@
             <h4>名片详情</h4>
         </div>
         <div class="col-xs-2">
-            <a href="/customer/${customer.id}/comment" class="btn btn-primary navbar-btn pull-right" role="button">评论</a>
+            <a href="/customer/${customer.id}/commentCustomer" class="btn btn-primary navbar-btn pull-right" role="button">评论</a>
         </div>
     </div>
 </div>

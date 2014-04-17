@@ -1,7 +1,7 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.domain.contacts.User;
-import com.springapp.mvc.domain.customer.Comment;
+import com.springapp.mvc.domain.customer.CommentCustomer;
 import com.springapp.mvc.domain.project.Task;
 import org.springframework.stereotype.Repository;
 
@@ -58,5 +58,5 @@ public interface LinkMapper {
     public List<Task> fuzzySelectTaskBaseInfoList(Map<String, String> map);
 
     // 根据 客户id 找 评论列表
-    public List<Comment> selectCommentListByCustomerId(int customerId);
+    public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId);
 }

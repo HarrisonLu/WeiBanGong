@@ -1,7 +1,7 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.BaseTest;
-import com.springapp.mvc.domain.customer.Comment;
+import com.springapp.mvc.domain.customer.CommentCustomer;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.domain.customer.DiscussStage;
 import com.springapp.mvc.domain.project.Project;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -204,13 +203,13 @@ public class CustomerServiceTest extends BaseTest{
     }
 
     @Test
-    public void testInsertComment() throws Exception {
+    public void testInsertCommentCustomer() throws Exception {
 
     }
 
     @Test
-    public void testSelectCommentListByCustomerId() throws Exception {
-        List<Comment> commentList = customerService.selectCommentListByCustomerId(1);
-        Assert.assertEquals(commentList.size(), 2);
+    public void testSelectCommentCustomerListByCustomerId() throws Exception {
+        List<CommentCustomer> commentCustomerList = customerService.selectCommentCustomerListByCustomerId(1);
+        Assert.assertEquals(commentCustomerList.size(), 2);
     }
 }

@@ -1,10 +1,7 @@
 package com.springapp.mvc.dao.customer;
 
-import com.springapp.mvc.domain.customer.Comment;
+import com.springapp.mvc.domain.customer.CommentCustomer;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Lion on 14-3-6.
@@ -13,6 +10,6 @@ import java.util.Map;
 public interface CommentMapper {
 
     // 插入 评论
-    public void insertComment(Comment comment);
+    public void insertCommentCustomer(CommentCustomer commentCustomer);
 
 }
