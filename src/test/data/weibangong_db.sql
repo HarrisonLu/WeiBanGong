@@ -11,17 +11,17 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/10/2014 21:14:05 PM
+ Date: 04/17/2014 14:51:02 PM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
---  Table structure for `t_comment`
+--  Table structure for `t_comment_customer`
 -- ----------------------------
-DROP TABLE IF EXISTS `t_comment`;
-CREATE TABLE `t_comment` (
+DROP TABLE IF EXISTS `t_comment_customer`;
+CREATE TABLE `t_comment_customer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `details` varchar(600) DEFAULT NULL,
   `user_id` int(10) NOT NULL,
@@ -30,16 +30,50 @@ CREATE TABLE `t_comment` (
   PRIMARY KEY (`id`),
   KEY `t_comment_ibfk_1` (`user_id`),
   KEY `t_comment_ibfk_2` (`customer_id`),
-  CONSTRAINT `t_comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_comment_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+  CONSTRAINT `t_comment_customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_comment_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Records of `t_comment`
+--  Records of `t_comment_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_comment` VALUES ('1', '卢煌 说 卢煌是客户一的创建用户', '1', '1', '2014-03-09 19:42:06'), ('2', '奋进 说 卢煌是客户二的创建用户', '2', '2', '2014-03-09 19:44:38'), ('3', '烧猪 说 客户一是卢煌的大鱼', '3', '1', '2014-03-09 19:47:47');
+INSERT INTO `t_comment_customer` VALUES ('1', '卢煌 说 卢煌是客户一的创建用户', '1', '1', '2014-04-15 14:42:06'), ('2', '奋进 说 卢煌是客户二的创建用户', '2', '2', '2014-03-09 19:44:38'), ('3', '烧猪 说 客户一是卢煌的大鱼', '3', '1', '2014-03-09 19:47:47');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_comment_project`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment_project`;
+CREATE TABLE `t_comment_project` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `details` varchar(600) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
+  `project_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `t_comment_project_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_comment_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_comment_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment_task`;
+CREATE TABLE `t_comment_task` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `details` varchar(600) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
+  `task_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `task_id` (`task_id`),
+  CONSTRAINT `t_comment_task_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_comment_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_customer`
@@ -51,7 +85,8 @@ CREATE TABLE `t_customer` (
   `chinese_name_pinyin` varchar(30) NOT NULL,
   `english_name` varchar(30) DEFAULT NULL,
   `gender` varchar(20) NOT NULL,
-  `phone_num` varchar(20) DEFAULT NULL,
+  `telephone_num` varchar(20) DEFAULT NULL,
+  `mobile_phone_num` varchar(30) DEFAULT NULL,
   `wechat_num` varchar(30) DEFAULT NULL,
   `qq_num` varchar(20) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
@@ -82,7 +117,7 @@ CREATE TABLE `t_customer` (
 --  Records of `t_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_customer` VALUES ('1', '客户一', 'kehuyi', 'one', '男', '131', 'wc1', '11', '11@qq.com', '1公司地址', '1街1号', '大鱼', '2014-01-01', '唱歌', '1', '1', '1', null, '1'), ('2', '客户二', 'kehuer', 'two', '女', '132', 'wc2', '22', '22@qq.com', '2公司地址', '2街2号', '大大鱼', '2014-02-02', '跳舞', '1', '1', '2', '2', '2'), ('3', '客户三', 'kehusan', 'three', '男', '133', 'wc3', '33', '33@qq.com', '3公司地址', '33街33号', '小鱼', null, null, '1', '1', '3', '3', '3'), ('4', '客户四', 'kehusi', 'four', '女', '134', 'wc4', '44', '44@qq.com', '4公司地址', '4街4号', '特大鱼', null, null, '1', '1', '4', '4', '4'), ('5', '客户五', 'kehuwu', 'five', '男', '135', 'wc5', '55', '55@qq.com', '5公司地址', '5街5号', '小鱼', null, null, '2', '2', '5', null, '1'), ('6', '客户六', 'kehuliu', 'six', '女', '136', 'wc6', '66', '66@qq.com', '6公司地址', '6街6号', '小小鱼', null, null, '2', '2', '6', '6', '2'), ('7', '客户七', 'kehuqi', 'seven', '男', '137', 'wc7', '77', '77@qq.com', '7公司地址', '7街7号', '小小小鱼', null, null, '2', '2', '7', '7', '3'), ('8', '客户八', 'kehuba', 'eight', '女', '138', 'wc8', '88', '88@qq.com', '8公司地址', '8街8号', '特小鱼', null, null, '2', '2', '8', '8', '4');
+INSERT INTO `t_customer` VALUES ('1', '客户一', 'kehuyi', 'one', '男', '111', '131', 'wc1', '11', '11@qq.com', '1公司地址', '1街1号', '大鱼', '2014-01-01', '唱歌', '1', '1', '1', null, '1'), ('2', '客户二', 'kehuer', 'two', '女', '222', '132', 'wc2', '22', '22@qq.com', '2公司地址', '2街2号', '大大鱼', '2014-02-02', '跳舞', '1', '1', '2', '2', '2'), ('3', '客户三', 'kehusan', 'three', '男', '333', '133', 'wc3', '33', '33@qq.com', '3公司地址', '33街33号', '小鱼', null, null, '1', '1', '3', '3', '3'), ('4', '客户四', 'kehusi', 'four', '女', '444', '134', 'wc4', '44', '44@qq.com', '4公司地址', '4街4号', '特大鱼', null, null, '1', '1', '4', '4', '4'), ('5', '客户五', 'kehuwu', 'five', '男', '555', '135', 'wc5', '55', '55@qq.com', '5公司地址', '5街5号', '小鱼', '2014-04-16', null, '2', '2', '5', null, '1'), ('6', '客户六', 'kehuliu', 'six', '女', '666', '136', 'wc6', '66', '66@qq.com', '6公司地址', '6街6号', '小小鱼', null, null, '2', '2', '6', '6', '2'), ('7', '客户七', 'kehuqi', 'seven', '男', '777', '137', 'wc7', '77', '77@qq.com', '7公司地址', '7街7号', '小小小鱼', null, null, '2', '2', '7', '7', '3'), ('8', '客户八', 'kehuba', 'eight', '女', '888', '138', 'wc8', '88', '88@qq.com', '8公司地址', '8街8号', '特小鱼', null, null, '2', '2', '8', '8', '4');
 COMMIT;
 
 -- ----------------------------
@@ -184,6 +219,55 @@ INSERT INTO `t_module` VALUES ('1', '1号床模块', '1', '2014-03-06 01:38:59')
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `t_module_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_module_customer`;
+CREATE TABLE `t_module_customer` (
+  `module_id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  KEY `module_id` (`module_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `t_module_customer_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
+  CONSTRAINT `t_module_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_module_manager`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_module_manager`;
+CREATE TABLE `t_module_manager` (
+  `module_id` int(10) NOT NULL,
+  `manager_id` int(10) NOT NULL,
+  KEY `module_id` (`module_id`),
+  KEY `manager_id` (`manager_id`),
+  CONSTRAINT `t_module_manager_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
+  CONSTRAINT `t_module_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_module_member`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_module_member`;
+CREATE TABLE `t_module_member` (
+  `module_id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  KEY `module_id` (`module_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `t_module_member_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
+  CONSTRAINT `t_module_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_priority`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_priority`;
+CREATE TABLE `t_priority` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `t_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_project`;
@@ -200,6 +284,70 @@ CREATE TABLE `t_project` (
 BEGIN;
 INSERT INTO `t_project` VALUES ('1', '至善园6号616项目', '2014-03-06 01:38:28'), ('2', '至善园6号618项目', '2014-03-06 01:39:31');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_project_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_customer`;
+CREATE TABLE `t_project_customer` (
+  `project_id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  KEY `project_id` (`project_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `t_project_customer_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
+  CONSTRAINT `t_project_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_project_manager`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_manager`;
+CREATE TABLE `t_project_manager` (
+  `project_id` int(10) NOT NULL,
+  `manager_id` int(10) NOT NULL,
+  KEY `project_id` (`project_id`),
+  KEY `manager_id` (`manager_id`),
+  CONSTRAINT `t_project_manager_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
+  CONSTRAINT `t_project_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_project_member`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_member`;
+CREATE TABLE `t_project_member` (
+  `project_id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  KEY `project_id` (`project_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `t_project_member_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
+  CONSTRAINT `t_project_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_stage_project`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_stage_project`;
+CREATE TABLE `t_stage_project` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_sub_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sub_task`;
+CREATE TABLE `t_sub_task` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `task_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `isUnderway` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `task_id` (`task_id`),
+  CONSTRAINT `t_sub_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_task`
@@ -221,6 +369,45 @@ CREATE TABLE `t_task` (
 BEGIN;
 INSERT INTO `t_task` VALUES ('1', '1号床 叠被子任务', '1', '2014-03-06 01:38:59'), ('2', '2号床 装蚊帐任务', '2', '2014-03-06 01:39:54'), ('3', '3号床 睡觉任务', '3', '2014-03-06 01:40:15'), ('4', '4号床 看电影任务', '4', '2014-03-07 17:23:38'), ('5', '1号床 倒垃圾任务', '5', '2014-03-07 17:23:49'), ('6', '2号床 洗厕所任务', '6', '2014-03-07 17:23:57'), ('7', '3号床 写作业任务', '7', '2014-03-07 17:24:10'), ('8', '4号床 起床任务', '8', '2014-03-07 17:24:20');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_task_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_task_customer`;
+CREATE TABLE `t_task_customer` (
+  `task_id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `t_task_customer_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
+  CONSTRAINT `t_task_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_task_manager`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_task_manager`;
+CREATE TABLE `t_task_manager` (
+  `task_id` int(10) NOT NULL,
+  `manager_id` int(10) NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `manager_id` (`manager_id`),
+  CONSTRAINT `t_task_manager_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
+  CONSTRAINT `t_task_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_task_member`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_task_member`;
+CREATE TABLE `t_task_member` (
+  `task_id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `t_task_member_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
+  CONSTRAINT `t_task_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_user`

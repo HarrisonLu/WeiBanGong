@@ -11,17 +11,17 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/07/2014 14:09:06 PM
+ Date: 04/17/2014 14:51:19 PM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
---  Table structure for `t_comment`
+--  Table structure for `t_comment_customer`
 -- ----------------------------
-DROP TABLE IF EXISTS `t_comment`;
-CREATE TABLE `t_comment` (
+DROP TABLE IF EXISTS `t_comment_customer`;
+CREATE TABLE `t_comment_customer` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `details` varchar(600) DEFAULT NULL,
   `user_id` int(10) NOT NULL,
@@ -30,9 +30,43 @@ CREATE TABLE `t_comment` (
   PRIMARY KEY (`id`),
   KEY `t_comment_ibfk_1` (`user_id`),
   KEY `t_comment_ibfk_2` (`customer_id`),
-  CONSTRAINT `t_comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_comment_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+  CONSTRAINT `t_comment_customer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_comment_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_comment_project`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment_project`;
+CREATE TABLE `t_comment_project` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `details` varchar(600) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
+  `project_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `project_id` (`project_id`),
+  CONSTRAINT `t_comment_project_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_comment_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_comment_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment_task`;
+CREATE TABLE `t_comment_task` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `details` varchar(600) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
+  `task_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `task_id` (`task_id`),
+  CONSTRAINT `t_comment_task_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_comment_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_customer`
@@ -44,7 +78,8 @@ CREATE TABLE `t_customer` (
   `chinese_name_pinyin` varchar(30) NOT NULL,
   `english_name` varchar(30) DEFAULT NULL,
   `gender` varchar(20) NOT NULL,
-  `phone_num` varchar(20) DEFAULT NULL,
+  `telephone_num` varchar(20) DEFAULT NULL,
+  `mobile_phone_num` varchar(30) DEFAULT NULL,
   `wechat_num` varchar(30) DEFAULT NULL,
   `qq_num` varchar(20) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
@@ -69,7 +104,7 @@ CREATE TABLE `t_customer` (
   CONSTRAINT `t_customer_ibfk_3` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_customer_user`
@@ -135,6 +170,55 @@ CREATE TABLE `t_module` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `t_module_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_module_customer`;
+CREATE TABLE `t_module_customer` (
+  `module_id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  KEY `module_id` (`module_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `t_module_customer_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
+  CONSTRAINT `t_module_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_module_manager`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_module_manager`;
+CREATE TABLE `t_module_manager` (
+  `module_id` int(10) NOT NULL,
+  `manager_id` int(10) NOT NULL,
+  KEY `module_id` (`module_id`),
+  KEY `manager_id` (`manager_id`),
+  CONSTRAINT `t_module_manager_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
+  CONSTRAINT `t_module_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_module_member`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_module_member`;
+CREATE TABLE `t_module_member` (
+  `module_id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  KEY `module_id` (`module_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `t_module_member_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
+  CONSTRAINT `t_module_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_priority`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_priority`;
+CREATE TABLE `t_priority` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `t_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_project`;
@@ -144,6 +228,70 @@ CREATE TABLE `t_project` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_project_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_customer`;
+CREATE TABLE `t_project_customer` (
+  `project_id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  KEY `project_id` (`project_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `t_project_customer_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
+  CONSTRAINT `t_project_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_project_manager`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_manager`;
+CREATE TABLE `t_project_manager` (
+  `project_id` int(10) NOT NULL,
+  `manager_id` int(10) NOT NULL,
+  KEY `project_id` (`project_id`),
+  KEY `manager_id` (`manager_id`),
+  CONSTRAINT `t_project_manager_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
+  CONSTRAINT `t_project_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_project_member`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_project_member`;
+CREATE TABLE `t_project_member` (
+  `project_id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  KEY `project_id` (`project_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `t_project_member_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
+  CONSTRAINT `t_project_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_stage_project`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_stage_project`;
+CREATE TABLE `t_stage_project` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_sub_task`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_sub_task`;
+CREATE TABLE `t_sub_task` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `task_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `isUnderway` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `task_id` (`task_id`),
+  CONSTRAINT `t_sub_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_task`
@@ -158,6 +306,45 @@ CREATE TABLE `t_task` (
   KEY `module_id` (`module_id`) USING BTREE,
   CONSTRAINT `t_task_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_task_customer`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_task_customer`;
+CREATE TABLE `t_task_customer` (
+  `task_id` int(10) NOT NULL,
+  `customer_id` int(10) NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `t_task_customer_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
+  CONSTRAINT `t_task_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_task_manager`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_task_manager`;
+CREATE TABLE `t_task_manager` (
+  `task_id` int(10) NOT NULL,
+  `manager_id` int(10) NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `manager_id` (`manager_id`),
+  CONSTRAINT `t_task_manager_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
+  CONSTRAINT `t_task_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_task_member`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_task_member`;
+CREATE TABLE `t_task_member` (
+  `task_id` int(10) NOT NULL,
+  `member_id` int(10) NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `member_id` (`member_id`),
+  CONSTRAINT `t_task_member_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
+  CONSTRAINT `t_task_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_user`
