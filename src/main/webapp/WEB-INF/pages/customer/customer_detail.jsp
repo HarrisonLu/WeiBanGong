@@ -76,7 +76,7 @@
             </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
-            <li class="list-group-item">生日<p class="pull-right"><c:out value="${customer.birthday}"/></p></li>
+            <li class="list-group-item">生日<p class="pull-right"><c:out value="${customer.birthdayString}"/></p></li>
             <li class="list-group-item">爱好<p class="pull-right"><c:out value="${customer.hobby}"/></p></li>
         </div>
     </div>
