@@ -2,7 +2,7 @@ package com.springapp.mvc.service.customer;
 
 import com.springapp.mvc.dao.LinkMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
-import com.springapp.mvc.dao.customer.CommentMapper;
+import com.springapp.mvc.dao.customer.CommentCustomerMapper;
 import com.springapp.mvc.dao.customer.CustomerMapper;
 import com.springapp.mvc.dao.customer.DiscussStageMapper;
 import com.springapp.mvc.dao.project.ModuleMapper;
@@ -46,7 +46,7 @@ public class CustomerService {
     @Autowired
     private DiscussStageMapper discussStageMapper;
     @Autowired
-    private CommentMapper commentMapper;
+    private CommentCustomerMapper commentCustomerMapper;
 
     // 根据 英文字符串 和 成员id 模糊搜索 客户列表
     public List<Customer> fuzzySelectCustomer(int userId, String str) {
@@ -73,7 +73,7 @@ public class CustomerService {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("customerId", customerId);
-        Integer integer = customerMapper.isMyCustomer(map);
+
         return customerMapper.isMyCustomer(map).equals(1);
     }
 
@@ -170,7 +170,7 @@ public class CustomerService {
 
     // 插入 评论
     public void insertCommentCustomer(CommentCustomer commentCustomer) {
-        commentMapper.insertCommentCustomer(commentCustomer);
+        commentCustomerMapper.insertCommentCustomer(commentCustomer);
     }
 
     // 根据 客户id 找 评论列表

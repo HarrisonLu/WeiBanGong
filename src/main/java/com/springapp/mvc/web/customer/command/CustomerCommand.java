@@ -16,8 +16,7 @@ public class CustomerCommand {
     private String englishName;
 
     private String gender;
-    private String telephoneNum;
-    private String mobilePhoneNum;
+    private String phone;
     private String wechatNum;
     private String qqNum;
     private String email;
@@ -26,8 +25,7 @@ public class CustomerCommand {
     private String customerValue;
 
     @DateTimeFormat(pattern = "MM/dd/yyyy")
-    @NotNull
-    @Past
+    @NotNull @Past
     private Date birthday;
     private String hobby;
     private Integer createdUserId;
@@ -68,20 +66,12 @@ public class CustomerCommand {
         this.gender = gender;
     }
 
-    public String getTelephoneNum() {
-        return telephoneNum;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelephoneNum(String telephoneNum) {
-        this.telephoneNum = telephoneNum;
-    }
-
-    public String getMobilePhoneNum() {
-        return mobilePhoneNum;
-    }
-
-    public void setMobilePhoneNum(String mobilePhoneNum) {
-        this.mobilePhoneNum = mobilePhoneNum;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getWechatNum() {

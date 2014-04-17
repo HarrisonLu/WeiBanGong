@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
  * Created by Lion on 14-3-6.
  */
 @Repository
-public interface CommentMapper {
+public interface CommentCustomerMapper {
 
     // 插入 评论
     public void insertCommentCustomer(CommentCustomer commentCustomer);

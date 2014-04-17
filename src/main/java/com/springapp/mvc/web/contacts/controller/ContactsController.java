@@ -7,7 +7,6 @@ import com.springapp.mvc.service.contacts.ContactsService;
 import com.springapp.mvc.web.contacts.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,62 +25,59 @@ public class ContactsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showContactsIndex(HttpServletRequest request, ModelMap model) throws Exception {
-        if (isSessionExpired(request))
-            return "redirect:/index";
-
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+    public ModelAndView showContactsIndex(HttpServletRequest request) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_index");
+        int userId = 1;
+        request.getSession().setAttribute("user_id", userId);
         User self = contactsService.selectUserDetailsById(userId);
         List<User> groupUsers = contactsService.searchGroupUserBaseInfoListByUserId(userId);
         List<User> collUsers = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
-        model.addAttribute("self", self);
-        model.addAttribute("groupUsers", groupUsers);
-        model.addAttribute("collUsers", collUsers);
-        model.addAttribute("departments", departments);
-        return "/contacts/contacts_index";
+        modelAndView.addObject("self", self);
+        modelAndView.addObject("groupUsers", groupUsers);
+        modelAndView.addObject("collUsers", collUsers);
+        modelAndView.addObject("departments", departments);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
-    public String showContactsDetail(HttpServletRequest request, ModelMap model, @PathVariable int userId) throws Exception {
+    public ModelAndView showContactsDetail(HttpServletRequest request, @PathVariable int userId) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return new ModelAndView("redirect:/contacts");
 
+        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_detail");
         User user = contactsService.selectUserDetailsById(userId);
         boolean isCollected = contactsService.isCollectedContacts((Integer) request.getSession().getAttribute("user_id"), userId);
-        model.addAttribute("user", user);
-        model.addAttribute("isCollected", isCollected);
-        return "/contacts/contacts_detail";
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("isCollected", isCollected);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/user/edit", method = RequestMethod.GET)
-    public String showContactsEdit(HttpServletRequest request, ModelMap model) throws Exception {
+    public ModelAndView showContactsEdit(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return new ModelAndView("redirect:/contacts");
 
+        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_edit");
         User user = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute("user_id"));
-        model.addAttribute("user", user);
-        return "/contacts/contacts_edit";
+        modelAndView.addObject("user", user);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/department/{departmentId}", method = RequestMethod.GET)
-    public String showContactsDepartment(HttpServletRequest request, ModelMap model, @PathVariable int departmentId) throws Exception {
-        if (isSessionExpired(request))
-            return "redirect:/index";
-
+    public ModelAndView showContactsDepartment(@PathVariable int departmentId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_department");
         Department department = contactsService.selectDepartmentDetailsByDepartmentId(departmentId);
-        model.addAttribute("department", department);
-        return "/contacts/contacts_department";
+        modelAndView.addObject("department", department);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
-    public String showContactsGroup(HttpServletRequest request, ModelMap model, @PathVariable int groupId) throws Exception {
-        if (isSessionExpired(request))
-            return "redirect:/index";
-
+    public ModelAndView showContactsGroup(@PathVariable int groupId) throws Exception {
+        ModelAndView modelAndView = new ModelAndView("/contacts/contacts_group");
         Group group = contactsService.selectGroupDetailsByGroupId(groupId);
-        model.addAttribute("group", group);
-        return "/contacts/contacts_group";
+        modelAndView.addObject("group", group);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/user/link/{collectedId}", method = RequestMethod.GET)

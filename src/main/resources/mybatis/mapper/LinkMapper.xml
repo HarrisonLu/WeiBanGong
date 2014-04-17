@@ -38,7 +38,7 @@
         <result property="projectName" column="project_name_of_task"/>
         <result property="createTime" column="task_create_time"/>
     </resultMap>
-    <resultMap id="CommentResultMap" type="Comment">
+    <resultMap id="CommentCustomerResultMap" type="CommentCustomer">
         <id property="id" column="id"/>
         <result property="details" column="comment_details"/>
         <result property="time" column="comment_Time"/>
@@ -113,7 +113,7 @@
         where m.id = #{moduleId} and t.name like "%"#{str}"%"
     </select>
 
-    <select id="selectCommentListByCustomerId" parameterType="int" resultMap="CommentResultMap">
+    <select id="selectCommentCustomerListByCustomerId" parameterType="int" resultMap="CommentCustomerResultMap">
         select c.id, c.create_time as comment_Time, c.details as comment_details,
                 u.chinese_name as comment_user_chinese_name, u.english_name as comment_user_english_name
         from t_comment_customer c
