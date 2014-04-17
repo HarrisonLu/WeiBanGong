@@ -22,6 +22,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,19 +60,28 @@ public class CustomerService {
     }
 
     // 根据 成员id 找 我的客户基本资料列表
-    @Cacheable(value = "customerMyListCache")
+//    @Cacheable(value = "customerMyListCache")
     public List<Customer> selectMyCustomerList(int userId) {
         return customerMapper.selectMyCustomerList(userId);
     }
 
     // 根据 成员id 找 共享客户基本资料别表
-    @Cacheable(value = "customerSharedListCache")
+//    @Cacheable(value = "customerSharedListCache")
     public List<Customer> selectSharedCustomerList(int userId) {
         return customerMapper.selectSharedCustomerList(userId);
     }
 
+    // 判断 客户是否为我的客户
+    public boolean isMyCustomer(int userId, int customerId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("customerId", customerId);
+        Integer integer = customerMapper.isMyCustomer(map);
+        return customerMapper.isMyCustomer(map).equals(1);
+    }
+
     // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
-    @Cacheable(value = "customerMyFilterListCache")
+//    @Cacheable(value = "customerMyFilterListCache")
     public List<Customer> selectMyCustomerListByDiscussStage(int userId, int discussStageId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
@@ -80,7 +90,7 @@ public class CustomerService {
     }
 
     // 根据 成员id、客户所处阶段 找 共享客户基本资料列表
-    @Cacheable(value = "customerSharedFilterListCache")
+//    @Cacheable(value = "customerSharedFilterListCache")
     public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
@@ -89,7 +99,7 @@ public class CustomerService {
     }
 
     // 插入 客户
-    @CacheEvict(value = {"customerMyListCache", "customerSharedListCache", "customerMyFilterListCache", "customerSharedFilterListCache"})
+//    @CacheEvict(value = {"customerMyListCache", "customerSharedListCache", "customerMyFilterListCache", "customerSharedFilterListCache"})
     public void insertCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
@@ -137,10 +147,14 @@ public class CustomerService {
     }
 
     // 根据 客户id 找 客户详细资料
-    @Cacheable(value = "customerDetailCache")
+    //@Cacheable(value = "customerDetailCache")
     public Customer selectCustomerDetails(int customerId) {
         Customer customer = customerMapper.selectCustomerDetails(customerId);
-
+        if (customer.getBirthday() != null)
+        {
+            String dateString = DateHelper.dateToString(customer.getBirthday());
+            customer.setBirthdayString(dateString);
+        }
         return customer;
     }
 
@@ -163,7 +177,7 @@ public class CustomerService {
     }
 
     // 根据 客户id 找 评论列表
-    @Cacheable(value = "customerCommentCache")
+    //@Cacheable(value = "customerCommentCache")
     public List<Comment> selectCommentListByCustomerId(int customerId) {
         List<Comment> commentList = linkMapper.selectCommentListByCustomerId(customerId);
         for (Comment comment : commentList) {

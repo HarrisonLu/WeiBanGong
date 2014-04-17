@@ -36,4 +36,8 @@ public interface CustomerMapper {
 
     // 根据 客户id 找 客户详细资料
     public Customer selectCustomerDetails(int customerId);
+
+    // 判断 客户是否为我的客户
+    public Integer isMyCustomer(Map<String, Integer> map);
+
 }

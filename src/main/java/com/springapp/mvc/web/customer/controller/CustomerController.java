@@ -141,7 +141,7 @@ public class CustomerController {
         customer.setChineseName(customerCommand.getChineseName());
         customer.setEnglishName(customerCommand.getEnglishName());
         customer.setGender(customerCommand.getGender());
-        customer.setPhone(customerCommand.getPhone());
+        //customer.setPhone(customerCommand.getPhone());
         customer.setWechatNum(customerCommand.getWechatNum());
         customer.setQqNum(customerCommand.getQqNum());
         customer.setEmail(customerCommand.getEmail());
