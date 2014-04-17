@@ -75,9 +75,9 @@
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
-            <li class="list-group-item">手机号码<p class="pull-right"><c:out value="${customer.phone}"/></p></li>
+            <li class="list-group-item">手机号码<p class="pull-right"><c:out value="${customer.mobilePhoneNum}"/></p></li>
             <li class="list-group-item">微信号<p class="pull-right"><c:out value="${customer.wechatNum}"/></p></li>
-            <li class="list-group-item">座机号码<p class="pull-right"><c:out value="${customer.phone}"/></p></li>
+            <li class="list-group-item">座机号码<p class="pull-right"><c:out value="${customer.telephoneNum}"/></p></li>
             <li class="list-group-item">QQ号码<p class="pull-right"><c:out value="${customer.qqNum}"/></p></li>
             <li class="list-group-item">电子邮箱<p class="pull-right"><c:out value="${customer.email}"/></p></li>
         </div>

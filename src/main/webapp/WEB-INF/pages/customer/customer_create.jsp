@@ -108,7 +108,7 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">手机号码</label>
                     <div class="col-xs-8">
-                        <input type="number" class="form-control" name="phone">
+                        <input type="number" class="form-control" name="mobilePhoneNum">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
