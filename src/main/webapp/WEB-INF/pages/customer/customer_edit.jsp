@@ -151,7 +151,7 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">生日</label>
                     <div class="col-xs-8">
-                        <input type="text" class="form-control" name="birthday" placeholder="MM/DD/YYYY" value="${customer.birthday}">
+                        <input type="text" class="form-control" name="birthday" placeholder="MM/DD/YYYY" value="${customer.birthdayString}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
