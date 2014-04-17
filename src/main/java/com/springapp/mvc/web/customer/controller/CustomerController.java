@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -40,29 +39,17 @@ public class CustomerController {
         return "/customer/customer_index";
     }
 
-    @RequestMapping(value = "/mine/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
     public String showMyCustomerDetail(HttpServletRequest request, ModelMap model, @PathVariable int customerId) throws Exception {
         if (isSessionExpired(request))
             return "redirect:/index";
 
         Customer customer = customerService.selectCustomerDetails(customerId);
         model.addAttribute("customer", customer);
-        model.addAttribute("isMine", true);
         return "/customer/customer_detail";
     }
 
-    @RequestMapping(value = "/shared/{customerId}", method = RequestMethod.GET)
-    public String showSharedCustomerDetail(HttpServletRequest request, ModelMap model, @PathVariable int customerId) throws Exception {
-        if (isSessionExpired(request))
-            return "redirect:/index";
-
-        Customer customer = customerService.selectCustomerDetails(customerId);
-        model.addAttribute("customer", customer);
-        model.addAttribute("isMine", false);
-        return "/customer/customer_detail";
-    }
-
-    @RequestMapping(value = "/mine/edit/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{customerId}", method = RequestMethod.GET)
     public String showCustomerEdit(HttpServletRequest request, ModelMap model, @PathVariable int customerId) throws Exception {
         if (isSessionExpired(request))
             return "redirect:/index";
@@ -141,7 +128,8 @@ public class CustomerController {
         customer.setChineseName(customerCommand.getChineseName());
         customer.setEnglishName(customerCommand.getEnglishName());
         customer.setGender(customerCommand.getGender());
-        //customer.setPhone(customerCommand.getPhone());
+        customer.setMobilePhoneNum(customerCommand.getMobilePhoneNum());
+        customer.setTelephoneNum(customerCommand.getTelephoneNum());
         customer.setWechatNum(customerCommand.getWechatNum());
         customer.setQqNum(customerCommand.getQqNum());
         customer.setEmail(customerCommand.getEmail());
