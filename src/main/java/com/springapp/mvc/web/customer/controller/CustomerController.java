@@ -6,9 +6,9 @@ import com.springapp.mvc.service.customer.CustomerService;
 import com.springapp.mvc.web.customer.command.CustomerCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -27,78 +27,99 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showCustomerIndex(HttpServletRequest request) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_index");
-        int userId = 1;
-        request.getSession().setAttribute("user_id", userId);
+    public String showCustomerIndex(HttpServletRequest request, ModelMap model) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+
+        int userId = (Integer) request.getSession().getAttribute("user_id");
         List<Customer> myCustomerList = customerService.selectMyCustomerList(userId);
         List<Customer> sharedCustomerList = customerService.selectSharedCustomerList(userId);
-        modelAndView.addObject("myCustomerList", myCustomerList);
-        modelAndView.addObject("sharedCustomerList", sharedCustomerList);
-        return modelAndView;
+        model.addAttribute("myCustomerList", myCustomerList);
+        model.addAttribute("sharedCustomerList", sharedCustomerList);
+        return "/customer/customer_index";
     }
 
     @RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
-    public ModelAndView showCustomerDetail(@PathVariable int customerId) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_detail");
+    public String showMyCustomerDetail(HttpServletRequest request, ModelMap model, @PathVariable int customerId) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+
+        int userId = (Integer) request.getSession().getAttribute("user_id");
         Customer customer = customerService.selectCustomerDetails(customerId);
-        modelAndView.addObject("customer", customer);
-        return modelAndView;
+        boolean isMine = customerService.isMyCustomer(userId, customerId);
+        model.addAttribute("customer", customer);
+        model.addAttribute("isMine", isMine);
+        return "/customer/customer_detail";
     }
 
-    @RequestMapping(value = "/{customerId}/comment", method = RequestMethod.GET)
-    public ModelAndView showCustomerComment(@PathVariable int customerId) throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_comment");
+    @RequestMapping(value = "/edit/{customerId}", method = RequestMethod.GET)
+    public String showCustomerEdit(HttpServletRequest request, ModelMap model, @PathVariable int customerId) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+
         Customer customer = customerService.selectCustomerDetails(customerId);
-        List<CommentCustomer> commentCustomers = customerService.selectCommentCustomerListByCustomerId(customerId);
-        modelAndView.addObject("customer", customer);
-        modelAndView.addObject("comments", commentCustomers);
-        return modelAndView;
+        model.addAttribute("customer", customer);
+        return "/customer/customer_edit";
+    }
+
+    @RequestMapping(value = "/comment/{customerId}", method = RequestMethod.GET)
+    public String showCustomerComment(HttpServletRequest request, ModelMap model, @PathVariable int customerId) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+
+        Customer customer = customerService.selectCustomerDetails(customerId);
+        List<CommentCustomer> comments = customerService.selectCommentCustomerListByCustomerId(customerId);
+        model.addAttribute("customer", customer);
+        model.addAttribute("comments", comments);
+        return "/customer/customer_comment";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView showCustomerCreate() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_create");
-        return modelAndView;
+    public String showCustomerCreate(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+        return "/customer/customer_create";
     }
 
     @RequestMapping(value = "/create/project", method = RequestMethod.GET)
-    public ModelAndView showCustomerProject() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_project");
-        return modelAndView;
+    public String showCustomerProject(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+        return "/customer/customer_project";
     }
 
     @RequestMapping(value = "/create/task", method = RequestMethod.GET)
-    public ModelAndView showCustomerTask() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_task");
-        return modelAndView;
+    public String showCustomerTask(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+        return "/customer/customer_task";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView showSearchCustomer() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_search");
-        return modelAndView;
+    public String showSearchCustomer(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+        return "/customer/customer_search";
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    public ModelAndView filterCustomer() throws Exception {
-        ModelAndView modelAndView = new ModelAndView("/customer/customer_filter");
-        return modelAndView;
+    public String filterCustomer(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+        return "/customer/customer_filter";
     }
 
     @RequestMapping(value = "/filter/{filterType}", method = RequestMethod.GET)
-    public ModelAndView filterResult(HttpServletRequest request, @PathVariable int filterType) throws Exception {
-        if (isSessionExpired(request)) {
-            return new ModelAndView("redirect:/customer");
-        } else {
-            ModelAndView modelAndView = new ModelAndView("/customer/customer_filter_result");
-            int userId = (Integer) request.getSession().getAttribute("user_id");
-            List<Customer> myCustomerList = customerService.selectMyCustomerListByDiscussStage(userId, filterType);
-            List<Customer> sharedCustomerList = customerService.selectSharedCustomerListByDiscussStage(userId, filterType);
-            modelAndView.addObject("myCustomerList", myCustomerList);
-            modelAndView.addObject("sharedCustomerList", sharedCustomerList);
-            return modelAndView;
-        }
+    public String filterResult(HttpServletRequest request, ModelMap model, @PathVariable int filterType) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+
+        int userId = (Integer) request.getSession().getAttribute("user_id");
+        List<Customer> myCustomerList = customerService.selectMyCustomerListByDiscussStage(userId, filterType);
+        List<Customer> sharedCustomerList = customerService.selectSharedCustomerListByDiscussStage(userId, filterType);
+        model.addAttribute("myCustomerList", myCustomerList);
+        model.addAttribute("sharedCustomerList", sharedCustomerList);
+        return "/customer/customer_filter_result";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -110,7 +131,8 @@ public class CustomerController {
         customer.setChineseName(customerCommand.getChineseName());
         customer.setEnglishName(customerCommand.getEnglishName());
         customer.setGender(customerCommand.getGender());
-        //customer.setPhone(customerCommand.getPhone());
+        customer.setMobilePhoneNum(customerCommand.getMobilePhoneNum());
+        customer.setTelephoneNum(customerCommand.getTelephoneNum());
         customer.setWechatNum(customerCommand.getWechatNum());
         customer.setQqNum(customerCommand.getQqNum());
         customer.setEmail(customerCommand.getEmail());
@@ -130,23 +152,18 @@ public class CustomerController {
     public
     @ResponseBody
     Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
-        if (isSessionExpired(request)) {
-            return new ModelAndView("redirect:/customer");
-        } else {
-            int userId = (Integer) request.getSession().getAttribute("user_id");
-            return customerService.fuzzySelectCustomer(userId, query);
-        }
+        int userId = (Integer) request.getSession().getAttribute("user_id");
+        return customerService.fuzzySelectCustomer(userId, query);
     }
 
-    @RequestMapping(value = "/{customerId}/comment/{message}", method = RequestMethod.GET)
+    @RequestMapping(value = "/comment/{customerId}/{message}", method = RequestMethod.GET)
     public String commitComment(HttpServletRequest request, @PathVariable int customerId, @PathVariable String message) throws Exception {
-        CommentCustomer commentCustomer = new CommentCustomer();
-        commentCustomer.setDetails(URLDecoder.decode(message, "UTF-8"));
-        commentCustomer.setUserId((Integer) request.getSession().getAttribute("user_id"));
-        commentCustomer.setCustomerId(customerId);
-        customerService.insertCommentCustomer(commentCustomer);
-        return "redirect:/customer/" + customerId + "/commentCustomer";
+        CommentCustomer comment = new CommentCustomer();
+        comment.setDetails(URLDecoder.decode(message, "UTF-8"));
+        comment.setUserId((Integer) request.getSession().getAttribute("user_id"));
+        comment.setCustomerId(customerId);
+        customerService.insertCommentCustomer(comment);
+        return "redirect:/customer/comment/" + customerId;
     }
-
 
 }

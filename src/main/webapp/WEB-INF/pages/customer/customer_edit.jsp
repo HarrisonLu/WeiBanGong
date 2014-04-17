@@ -109,19 +109,19 @@
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">手机号码</label>
                     <div class="col-xs-8">
-                        <input type="number" class="form-control" name="phone" value="${customer.phone}">
+                        <input type="number" class="form-control" name="phone" value="${customer.mobilePhoneNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">微信号</label>
                     <div class="col-xs-8">
-                        <input type="text" class="form-control" name="wechatNum" value="${customer.wechatNum}}">
+                        <input type="text" class="form-control" name="wechatNum" value="${customer.wechatNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">座机号码</label>
                     <div class="col-xs-8">
-                        <input type="number" class="form-control" name="telephoneNum" value="${customer.phone}">
+                        <input type="number" class="form-control" name="telephoneNum" value="${customer.telephoneNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
