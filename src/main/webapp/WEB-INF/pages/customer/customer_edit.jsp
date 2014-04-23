@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal" role="form" action="/customer/save" method="post">
+<form name="form1" class="form-horizontal" role="form" action="/customer/edit/${customer.id}" method="post">
     <div class="panel-group" id="accordion">
         <div class="panel panel-primary">
             <div class="panel-heading">

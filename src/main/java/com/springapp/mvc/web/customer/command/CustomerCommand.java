@@ -24,10 +24,6 @@ public class CustomerCommand {
     private String officeAddress;
     private String houseAddress;
     private String customerValue;
-
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    @NotNull
-    @Past
     private Date birthday;
     private String hobby;
     private Integer createdUserId;

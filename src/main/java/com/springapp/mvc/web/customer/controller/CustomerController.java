@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -145,6 +146,37 @@ public class CustomerController {
         customer.setTaskId(1);
         customer.setDiscussStageId(customerCommand.getDiscussStageId());
         customerService.insertCustomer(customer);
+        return "redirect:/customer";
+    }
+
+    @RequestMapping(value = "/edit/{customerId}", method = RequestMethod.POST)
+    public String editCustomer(HttpServletRequest request, @PathVariable int customerId, @Valid CustomerCommand customerCommand, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                System.out.println(error.toString());
+            }
+            return "/customer/customer_edit";
+        }
+
+        Customer customer = new Customer();
+        customer.setId(customerId);
+        customer.setChineseName(customerCommand.getChineseName());
+        customer.setEnglishName(customerCommand.getEnglishName());
+        customer.setGender(customerCommand.getGender());
+        customer.setMobilePhoneNum(customerCommand.getMobilePhoneNum());
+        customer.setTelephoneNum(customerCommand.getTelephoneNum());
+        customer.setWechatNum(customerCommand.getWechatNum());
+        customer.setQqNum(customerCommand.getQqNum());
+        customer.setEmail(customerCommand.getEmail());
+        customer.setCustomerValue(customerCommand.getCustomerValue());
+        customer.setBirthday(customerCommand.getBirthday());
+        customer.setHobby(customerCommand.getHobby());
+        customer.setCreatedUserId(1);
+        customer.setProjectId(1);
+        customer.setModuleId(1);
+        customer.setTaskId(1);
+        customer.setDiscussStageId(customerCommand.getDiscussStageId());
+        customerService.updateCustomer(customer);
         return "redirect:/customer";
     }
 
