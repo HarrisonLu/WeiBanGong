@@ -16,6 +16,10 @@
         <typeAlias type="com.springapp.mvc.domain.project.Module" alias="Module"/>
         <typeAlias type="com.springapp.mvc.domain.project.Task" alias="Task"/>
         <typeAlias type="com.springapp.mvc.domain.project.SubTask" alias="SubTask"/>
+        <typeAlias type="com.springapp.mvc.domain.project.CommentProject" alias="CommentProject"/>
+        <typeAlias type="com.springapp.mvc.domain.project.CommentTask" alias="CommentTask"/>
+        <typeAlias type="com.springapp.mvc.domain.project.ProjectStage" alias="ProjectStage"/>
+        <typeAlias type="com.springapp.mvc.domain.project.Priority" alias="Priority"/>
     </typeAliases>
 
 </configuration>

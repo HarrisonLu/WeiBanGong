@@ -28,7 +28,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void fuzzySelectUserBaseInfoListByStringTest() throws Exception {
-        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByString("d");
+        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByString("卢");
         System.out.println(userList.size());
         for (User user : userList) {
             printTest.printUserInfo(user);

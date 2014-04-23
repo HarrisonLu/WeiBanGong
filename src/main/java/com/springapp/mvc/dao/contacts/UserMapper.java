@@ -29,4 +29,13 @@ public interface UserMapper {
 
     // 判断 成员和联系人 是否为 收藏联系人关系
     public Boolean isCollectedContacts(Map<String, Integer> map);
+
+    // 根据 项目id 找 项目负责人基本资料 列表
+    public List<User> selectProjectManagerListByProjectId(int projectId);
+
+    // 根据 模块id 找 模块负责人基本资料 列表
+    public List<User> selectModuleManagerListByModuleId(int moduleId);
+
+    // 根据 任务id 找 任务负责人基本资料 列表
+    public List<User> selectTaskManagerListByTaskId(int taskId);
 }

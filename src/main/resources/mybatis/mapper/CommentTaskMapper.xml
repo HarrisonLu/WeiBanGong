@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.project.CommentTaskMapper">
+
+    <resultMap id="CommentTaskResultMap" type="CommentTask">
+        <id property="id" column="id"/>
+        <result property="details" column="details"/>
+        <result property="time" column="create_time"/>
+        <result property="displayTime" column="display_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="userChineseName" column="user_chinese_name"/>
+        <result property="userEnglishName" column="user_english_name"/>
+        <result property="taskId" column="task_id"/>
+    </resultMap>
+
+    <insert id="insertCommentTask" parameterType="CommentTask">
+        insert into t_comment_task (details, user_id, task_id)
+                values (#{details}, #{userId}, #{taskId})
+    </insert>
+
+    <select id="selectCommentTaskListByTaskId" parameterType="int" resultMap="CommentTaskResultMap">
+        select ct.*,
+               u.id as user_id, u.chinese_name as user_chinese_name, u.english_name as user_english_name
+        from t_comment_task ct
+        left join t_user u on u.id = ct.user_id
+        where ct.task_id = #{taskId}
+    </select>
+
+    <delete id="deleteAllTaskCommentByTaskId" parameterType="int">
+        delete from t_comment_task
+        where task_id = #{taskId}
+    </delete>
+
+</mapper>

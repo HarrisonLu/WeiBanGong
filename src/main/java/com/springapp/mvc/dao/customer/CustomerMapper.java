@@ -37,7 +37,18 @@ public interface CustomerMapper {
     // 根据 客户id 找 客户详细资料
     public Customer selectCustomerDetails(int customerId);
 
-    // 判断 客户是否为我的客户
+    // 根据 成员id 和 客户id 判断 客户是否为我的客户
     public Integer isMyCustomer(Map<String, Integer> map);
 
+    // 模糊搜索 客户 列表
+    public List<Customer> fuzzySelectCustomer(String str);
+
+    // 根据 项目id 找 项目关联客户基本资料 列表
+    public List<Customer> selectProjectCustomerListByProjectId(int projectId);
+
+    // 根据 模块id 找 模块关联客户基本资料 列表
+    public List<Customer> selectModuleCustomerListByModuleId(int moduleId);
+
+    // 根据 任务id 找 任务关联客户基本资料 列表
+    public List<Customer> selectTaskCustomerListByTaskId(int taskId);
 }

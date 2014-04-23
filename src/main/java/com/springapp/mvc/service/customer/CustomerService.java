@@ -168,7 +168,7 @@ public class CustomerService {
         customerMapper.updateCustomerInfo(customer);
     }
 
-    // 插入 评论
+    // 插入 客户评论
     public void insertCommentCustomer(CommentCustomer commentCustomer) {
         commentCustomerMapper.insertCommentCustomer(commentCustomer);
     }
@@ -176,7 +176,7 @@ public class CustomerService {
     // 根据 客户id 找 评论列表
     //@Cacheable(value = "customerCommentCache")
     public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId) {
-        List<CommentCustomer> commentCustomerList = linkMapper.selectCommentCustomerListByCustomerId(customerId);
+        List<CommentCustomer> commentCustomerList = commentCustomerMapper.selectCommentCustomerListByCustomerId(customerId);
         for (CommentCustomer commentCustomer : commentCustomerList) {
             String displayString = DateHelper.getShortTime(commentCustomer.getTime());
             commentCustomer.setDisplayTime(displayString);

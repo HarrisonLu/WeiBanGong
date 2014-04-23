@@ -11,7 +11,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/17/2014 14:51:02 PM
+ Date: 04/23/2014 19:57:05 PM
 */
 
 SET NAMES utf8;
@@ -56,7 +56,14 @@ CREATE TABLE `t_comment_project` (
   KEY `project_id` (`project_id`),
   CONSTRAINT `t_comment_project_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_comment_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_comment_project`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_comment_project` VALUES ('1', '卢煌的616项目不行', '2', '1', '2014-04-21 13:20:43'), ('2', '奋进的618项目牛逼啊', '1', '2', '2014-04-21 13:21:02'), ('3', '卢煌：616项目牛逼', '1', '1', '2014-04-22 12:44:48'), ('4', '奋进：618项目不错', '2', '2', '2014-04-22 12:45:12'), ('6', 'just for test.', '3', '1', '2014-04-23 10:52:44');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_comment_task`
@@ -73,7 +80,14 @@ CREATE TABLE `t_comment_task` (
   KEY `task_id` (`task_id`),
   CONSTRAINT `t_comment_task_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_comment_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_comment_task`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_comment_task` VALUES ('1', '卢煌 评论了 任务一', '1', '1', '2014-04-21 09:32:18'), ('2', '奋进 评论了 任务二', '2', '2', '2014-04-21 09:34:03'), ('3', '卢煌 评论了 任务三', '1', '3', '2014-04-21 09:37:34'), ('4', '卢煌 再次评论了 任务一', '1', '1', '2014-04-21 13:21:33'), ('6', 'just for test.', '3', '1', '2014-04-23 10:52:32'), ('7', 'test', '2', '10', '2014-04-23 19:46:30'), ('8', 'test2', '4', '11', '2014-04-23 19:56:30');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_customer`
@@ -111,13 +125,13 @@ CREATE TABLE `t_customer` (
   CONSTRAINT `t_customer_ibfk_3` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_customer` VALUES ('1', '客户一', 'kehuyi', 'one', '男', '111', '131', 'wc1', '11', '11@qq.com', '1公司地址', '1街1号', '大鱼', '2014-01-01', '唱歌', '1', '1', '1', null, '1'), ('2', '客户二', 'kehuer', 'two', '女', '222', '132', 'wc2', '22', '22@qq.com', '2公司地址', '2街2号', '大大鱼', '2014-02-02', '跳舞', '1', '1', '2', '2', '2'), ('3', '客户三', 'kehusan', 'three', '男', '333', '133', 'wc3', '33', '33@qq.com', '3公司地址', '33街33号', '小鱼', null, null, '1', '1', '3', '3', '3'), ('4', '客户四', 'kehusi', 'four', '女', '444', '134', 'wc4', '44', '44@qq.com', '4公司地址', '4街4号', '特大鱼', null, null, '1', '1', '4', '4', '4'), ('5', '客户五', 'kehuwu', 'five', '男', '555', '135', 'wc5', '55', '55@qq.com', '5公司地址', '5街5号', '小鱼', '2014-04-16', null, '2', '2', '5', null, '1'), ('6', '客户六', 'kehuliu', 'six', '女', '666', '136', 'wc6', '66', '66@qq.com', '6公司地址', '6街6号', '小小鱼', null, null, '2', '2', '6', '6', '2'), ('7', '客户七', 'kehuqi', 'seven', '男', '777', '137', 'wc7', '77', '77@qq.com', '7公司地址', '7街7号', '小小小鱼', null, null, '2', '2', '7', '7', '3'), ('8', '客户八', 'kehuba', 'eight', '女', '888', '138', 'wc8', '88', '88@qq.com', '8公司地址', '8街8号', '特小鱼', null, null, '2', '2', '8', '8', '4');
+INSERT INTO `t_customer` VALUES ('1', '客户一', 'kehuyi', 'one', '男', '111', '131', 'wc1', '11', '11@qq.com', '1公司地址', '1街1号', '大鱼', '2014-01-01', '唱歌', '1', '1', '1', null, '1'), ('2', '客户二', 'kehuer', 'two', '女', '222', '132', 'wc2', '22', '22@qq.com', '2公司地址', '2街2号', '大大鱼', '2014-02-02', '跳舞', '1', '1', '2', '2', '2'), ('3', '客户三', 'kehusan', 'three', '男', '333', '133', 'wc3', '33', '33@qq.com', '3公司地址', '33街33号', '小鱼', null, null, '1', '1', '3', '3', '3'), ('4', '客户四', 'kehusi', 'four', '女', '444', '134', 'wc4', '44', '44@qq.com', '4公司地址', '4街4号', '特大鱼', null, null, '1', '1', '4', '4', '4'), ('5', '客户五', 'kehuwu', 'five', '男', '555', '135', 'wc5', '55', '55@qq.com', '5公司地址', '5街5号', '小鱼', '2014-04-16', null, '2', '2', '5', null, '1'), ('6', '客户六', 'kehuliu', 'six', '女', '666', '136', 'wc6', '66', '66@qq.com', '6公司地址', '6街6号', '小小鱼', null, null, '2', '2', '6', '6', '2'), ('7', '客户七', 'kehuqi', 'seven', '男', '777', '137', 'wc7', '77', '77@qq.com', '7公司地址', '7街7号', '小小小鱼', null, null, '2', '2', '7', '7', '3'), ('8', '客户八', 'kehuba', 'eight', '女', '888', '138', 'wc8', '88', '88@qq.com', '8公司地址', '8街8号', '特小鱼', null, null, '2', '2', '8', '8', '4'), ('9', '客户九', 'kehujiu', 'nine', '男', null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null);
 COMMIT;
 
 -- ----------------------------
@@ -206,16 +220,20 @@ CREATE TABLE `t_module` (
   `name` varchar(30) NOT NULL,
   `project_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `creater_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `project_id` (`project_id`),
-  CONSTRAINT `t_module_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  KEY `t_module_ibfk_1` (`project_id`) USING BTREE,
+  KEY `t_module_ibfk_2` (`creater_id`) USING BTREE,
+  CONSTRAINT `t_module_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_module_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_module`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module` VALUES ('1', '1号床模块', '1', '2014-03-06 01:38:59'), ('2', '2号床模块', '1', '2014-03-06 01:39:54'), ('3', '3号床模块', '1', '2014-03-06 01:40:15'), ('4', '4号床模块', '1', '2014-03-07 17:23:38'), ('5', '1号床模块', '2', '2014-03-07 17:23:49'), ('6', '2号床模块', '2', '2014-03-07 17:23:57'), ('7', '3号床模块', '2', '2014-03-07 17:24:10'), ('8', '4号床模块', '2', '2014-03-07 17:24:20');
+INSERT INTO `t_module` VALUES ('1', '1号床模块', '1', '2014-03-06 01:38:59', '2014-04-23 16:00:06', '1'), ('2', '2号床模块', '1', '2014-03-06 01:39:54', '2014-04-21 00:39:22', '1'), ('3', '3号床模块', '1', '2014-03-06 01:40:15', '2014-04-21 00:39:26', '1'), ('4', '4号床模块', '1', '2014-03-07 17:23:38', '2014-04-21 00:39:31', '1'), ('5', '1号床模块', '2', '2014-03-07 17:23:49', '2014-04-21 00:39:34', '2'), ('6', '2号床模块', '2', '2014-03-07 17:23:57', '2014-04-21 00:39:36', '2'), ('7', '3号床模块', '2', '2014-03-07 17:24:10', '2014-04-21 00:39:39', '2'), ('8', '4号床模块', '2', '2014-03-07 17:24:20', '2014-04-21 00:39:41', '2'), ('10', 'test', '2', '2014-04-23 19:53:49', '2014-04-23 19:53:49', '2');
 COMMIT;
 
 -- ----------------------------
@@ -232,6 +250,13 @@ CREATE TABLE `t_module_customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_module_customer`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_module_customer` VALUES ('1', '3'), ('1', '4'), ('10', '1'), ('10', '2');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_module_manager`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_module_manager`;
@@ -243,6 +268,13 @@ CREATE TABLE `t_module_manager` (
   CONSTRAINT `t_module_manager_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
   CONSTRAINT `t_module_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_module_manager`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_module_manager` VALUES ('1', '4'), ('2', '4'), ('3', '5'), ('4', '5'), ('5', '6'), ('6', '6'), ('7', '7'), ('8', '7'), ('10', '4'), ('10', '5');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_module_member`
@@ -258,6 +290,13 @@ CREATE TABLE `t_module_member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_module_member`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_module_member` VALUES ('1', '14'), ('1', '15'), ('10', '6'), ('10', '7');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_priority`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_priority`;
@@ -265,7 +304,14 @@ CREATE TABLE `t_priority` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_priority`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_priority` VALUES ('1', '高'), ('2', '中'), ('3', '低');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_project`
@@ -275,14 +321,21 @@ CREATE TABLE `t_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `stage_id` int(10) NOT NULL,
+  `info` varchar(600) DEFAULT NULL,
+  `creater_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_project_ibfk_1` (`stage_id`) USING BTREE,
+  KEY `t_project_ibfk_2` (`creater_id`) USING BTREE,
+  CONSTRAINT `t_project_ibfk_1` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `t_project_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_project`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_project` VALUES ('1', '至善园6号616项目', '2014-03-06 01:38:28'), ('2', '至善园6号618项目', '2014-03-06 01:39:31');
+INSERT INTO `t_project` VALUES ('1', '至善园6号616项目', '2014-03-06 01:38:28', '1', '该项目由卢煌创建', '1'), ('2', '至善园6号618项目', '2014-03-06 01:39:31', '1', '该项目由卢煌创建', '2');
 COMMIT;
 
 -- ----------------------------
@@ -299,6 +352,13 @@ CREATE TABLE `t_project_customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_project_customer`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_project_customer` VALUES ('1', '1'), ('1', '2');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_project_manager`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_project_manager`;
@@ -310,6 +370,13 @@ CREATE TABLE `t_project_manager` (
   CONSTRAINT `t_project_manager_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
   CONSTRAINT `t_project_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_project_manager`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_project_manager` VALUES ('1', '3'), ('2', '3');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_project_member`
@@ -325,6 +392,13 @@ CREATE TABLE `t_project_member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_project_member`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_project_member` VALUES ('1', '12'), ('2', '13');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_stage_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_stage_project`;
@@ -332,7 +406,14 @@ CREATE TABLE `t_stage_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_stage_project`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_stage_project` VALUES ('1', '未开始'), ('2', '进行中'), ('3', '已完成'), ('4', '已关闭');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_sub_task`
@@ -343,11 +424,18 @@ CREATE TABLE `t_sub_task` (
   `name` varchar(30) NOT NULL,
   `task_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `isUnderway` tinyint(4) NOT NULL DEFAULT '0',
+  `is_underway` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `task_id` (`task_id`),
   CONSTRAINT `t_sub_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_sub_task`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_sub_task` VALUES ('1', '叠被子任务 拆分任务一', '1', '2014-04-21 13:19:11', '1'), ('2', '叠被子任务 拆分任务二', '2', '2014-04-21 13:19:39', '0'), ('5', 'test', '10', '2014-04-23 19:47:08', '0');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_task`
@@ -358,16 +446,27 @@ CREATE TABLE `t_task` (
   `name` varchar(30) NOT NULL,
   `module_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deadline` timestamp NULL DEFAULT NULL,
+  `creater_id` int(10) NOT NULL,
+  `priority_id` int(10) NOT NULL,
+  `stage_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `module_id` (`module_id`) USING BTREE,
-  CONSTRAINT `t_task_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  KEY `t_task_ibfk_1` (`module_id`) USING BTREE,
+  KEY `t_task_ibfk_2` (`creater_id`) USING BTREE,
+  KEY `t_task_ibfk_3` (`priority_id`) USING BTREE,
+  KEY `t_task_ibfk_4` (`stage_id`) USING BTREE,
+  CONSTRAINT `t_task_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_task_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_task_ibfk_3` FOREIGN KEY (`priority_id`) REFERENCES `t_priority` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `t_task_ibfk_4` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_task`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_task` VALUES ('1', '1号床 叠被子任务', '1', '2014-03-06 01:38:59'), ('2', '2号床 装蚊帐任务', '2', '2014-03-06 01:39:54'), ('3', '3号床 睡觉任务', '3', '2014-03-06 01:40:15'), ('4', '4号床 看电影任务', '4', '2014-03-07 17:23:38'), ('5', '1号床 倒垃圾任务', '5', '2014-03-07 17:23:49'), ('6', '2号床 洗厕所任务', '6', '2014-03-07 17:23:57'), ('7', '3号床 写作业任务', '7', '2014-03-07 17:24:10'), ('8', '4号床 起床任务', '8', '2014-03-07 17:24:20');
+INSERT INTO `t_task` VALUES ('1', '1号床 叠被子任务', '1', '2014-03-06 01:38:59', '2014-04-23 16:09:18', null, '1', '1', '1'), ('2', '2号床 装蚊帐任务', '2', '2014-03-06 01:39:54', '2014-04-21 00:46:01', null, '1', '2', '2'), ('3', '3号床 睡觉任务', '3', '2014-03-06 01:40:15', '2014-04-21 00:46:03', null, '1', '3', '3'), ('4', '4号床 看电影任务', '4', '2014-03-07 17:23:38', '2014-04-21 00:46:08', null, '1', '3', '4'), ('5', '1号床 倒垃圾任务', '5', '2014-03-07 17:23:49', '2014-04-21 00:46:10', null, '2', '1', '1'), ('6', '2号床 洗厕所任务', '6', '2014-03-07 17:23:57', '2014-04-21 00:46:13', null, '2', '2', '2'), ('7', '3号床 写作业任务', '7', '2014-03-07 17:24:10', '2014-04-21 00:46:15', null, '2', '3', '3'), ('8', '4号床 起床任务', '8', '2014-03-07 17:24:20', '2014-04-21 23:54:55', null, '2', '3', '4'), ('10', 'testTask', '10', '2014-04-23 19:45:06', '2014-04-23 19:55:44', '2014-04-23 19:44:51', '1', '1', '1'), ('11', 'testTask2', '10', '2014-04-23 19:55:41', '2014-04-23 19:55:41', null, '1', '1', '1');
 COMMIT;
 
 -- ----------------------------
@@ -384,6 +483,13 @@ CREATE TABLE `t_task_customer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_task_customer`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_task_customer` VALUES ('2', '6'), ('1', '5'), ('10', '1'), ('10', '2'), ('11', '3');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_task_manager`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_task_manager`;
@@ -397,6 +503,13 @@ CREATE TABLE `t_task_manager` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Records of `t_task_manager`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_task_manager` VALUES ('1', '8'), ('2', '8'), ('3', '9'), ('4', '9'), ('6', '10'), ('5', '10'), ('7', '11'), ('8', '11'), ('10', '1'), ('10', '2');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_task_member`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_task_member`;
@@ -408,6 +521,13 @@ CREATE TABLE `t_task_member` (
   CONSTRAINT `t_task_member_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
   CONSTRAINT `t_task_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_task_member`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_task_member` VALUES ('1', '16'), ('1', '17'), ('10', '4'), ('10', '5');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_user`
@@ -429,13 +549,13 @@ CREATE TABLE `t_user` (
   `mobile_phone_num` varchar(20) DEFAULT NULL,
   `created_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user` VALUES ('1', 'mima1', '卢煌', 'luhuang', 'hassion', 'luhuang@qq.com', '技术组组长', '前端工程师', '高级前端工程师', 'luhuanglh', '623360317', '88886666', '13430325317', '0000-00-00 00:00:00'), ('2', 'mima2', '施奋进', 'shifenjin', 'lion', 'shifenjin@qq.com', '技术组副组长', '后台工程师', '高级后台工程师', 'fenjin7009', '170843737', '', '13430347009', '0000-00-00 00:00:00'), ('3', 'mima3', '烧猪', 'shaozhu', 'hotpig', 'shaozhu@qq.com', '技术组服务专员', '酱油', '高级酱油', 'Liangsv', '526262444', '', '15112189421', '0000-00-00 00:00:00'), ('4', 'mima4', '李四', 'lisi', 'four', 'lisi@qq.com', '产品组组长', '产品经理', '高级产品经理', 'fourli', '44444444', '020-44', '13444444444', null), ('5', 'mima5', '王五', 'wangwu', 'five', 'wangwu@qq.com', '产品组副组长', '产品经理', '产品经理', 'fivewang', '55555555', '020-55', '13555555555', null), ('6', 'mima6', '赵六', 'zhaoliu', 'six', 'zhaoliu@qq.com', '设计组组长', '平台设计师', '高级平台设计师', 'sixzhao', '66666666', '020-66', '13666666666', null), ('7', 'mima7', '钱七', 'qianqi', 'seven', 'qianqi@qq.com', '设计组副组长', '界面设计师', '高级界面设计师', 'sevenqian', '77777777', '020-77', '13777777777', null), ('8', 'mima8', '孙八', 'sunba', 'eight', 'sunba@qq.com', '运营组组长', '运营工程师', '高级运营工程师', 'eightsun', '88888888', '020-88', '13888888888', null), ('9', 'mima9', '杨九', 'yangjiu', 'nine', 'yangjiu@qq.com', '运营组副组长', '运营工程师', '运营工程师', 'nineyang', '99999999', '020-99', '13999999999', null), ('10', 'mima10', '吴十', 'wushi', 'ten', 'wushi@qq.com', '微办公部长', '酱油', '高级酱油', 'tenwu', '10101010', '020-10', '13010101010', null);
+INSERT INTO `t_user` VALUES ('1', 'mima1', '卢煌', 'luhuang', 'hassion', 'luhuang@qq.com', '技术组组长', '前端工程师', '高级前端工程师', 'luhuanglh', '623360317', '88886666', '13430325317', '0000-00-00 00:00:00'), ('2', 'mima2', '施奋进', 'shifenjin', 'lion', 'shifenjin@qq.com', '技术组副组长', '后台工程师', '高级后台工程师', 'fenjin7009', '170843737', '', '13430347009', '0000-00-00 00:00:00'), ('3', 'mima3', '烧猪', 'shaozhu', 'hotpig', 'shaozhu@qq.com', '技术组服务专员', '酱油', '高级酱油', 'Liangsv', '526262444', '', '15112189421', '0000-00-00 00:00:00'), ('4', 'mima4', '李四', 'lisi', 'four', 'lisi@qq.com', '产品组组长', '产品经理', '高级产品经理', 'fourli', '44444444', '020-44', '13444444444', null), ('5', 'mima5', '王五', 'wangwu', 'five', 'wangwu@qq.com', '产品组副组长', '产品经理', '产品经理', 'fivewang', '55555555', '020-55', '13555555555', null), ('6', 'mima6', '赵六', 'zhaoliu', 'six', 'zhaoliu@qq.com', '设计组组长', '平台设计师', '高级平台设计师', 'sixzhao', '66666666', '020-66', '13666666666', null), ('7', 'mima7', '钱七', 'qianqi', 'seven', 'qianqi@qq.com', '设计组副组长', '界面设计师', '高级界面设计师', 'sevenqian', '77777777', '020-77', '13777777777', null), ('8', 'mima8', '孙八', 'sunba', 'eight', 'sunba@qq.com', '运营组组长', '运营工程师', '高级运营工程师', 'eightsun', '88888888', '020-88', '13888888888', null), ('9', 'mima9', '杨九', 'yangjiu', 'nine', 'yangjiu@qq.com', '运营组副组长', '运营工程师', '运营工程师', 'nineyang', '99999999', '020-99', '13999999999', null), ('10', 'mima10', '吴十', 'wushi', 'ten', 'wushi@qq.com', '微办公部长', '酱油', '高级酱油', 'tenwu', '10101010', '020-10', '13010101010', null), ('11', 'mima11', '萧十一郎', 'xiaoshiyilang', 'eleven', 'xiaoshiyilang@qq.com', null, null, null, 'elevenxiao', null, null, null, '2014-04-21 10:38:58'), ('12', 'mima12', '成员十二', 'chengyuanshier', 'twelve', null, null, null, null, 'twelve', null, null, null, '2014-04-21 10:55:21'), ('13', 'mima13', '十三姨', 'shisanyi', 'thirteen', null, null, null, null, 'thirteen', null, null, null, '2014-04-21 10:56:22'), ('14', 'mima14', '成员十四', 'chengyuanshisi', 'fourteen', null, null, null, null, 'fourteenWechat', null, null, null, '2014-04-21 11:31:03'), ('15', 'mima15', '成员十五', 'chengyuanshiwu', 'fifteen', null, null, null, null, 'fifteenWechat', null, null, null, '2014-04-21 11:31:41'), ('16', 'mima16', '成员十六', 'chengyuanshiliu', 'sixteen', null, null, null, null, 'sixteenWechat', null, null, null, '2014-04-21 13:14:04'), ('17', 'mima17', '成员十七', 'chengyuanshiqi', 'seventeen', null, null, null, null, 'seventeenWechat', null, null, null, '2014-04-21 13:15:07');
 COMMIT;
 
 -- ----------------------------

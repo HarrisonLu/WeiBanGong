@@ -8,13 +8,63 @@
         <result property="moduleId" column="module_id"/>
         <result property="moduleName" column="module_name"/>
         <result property="createTime" column="create_time"/>
+        <result property="deadline" column="deadline"/>
+        <result property="createrId" column="creater_id"/>
+        <result property="createrChineseName" column="creater_chinese_name"/>
+        <result property="createrEnglishName" column="creater_english_name"/>
+        <result property="priorityId" column="priority_id"/>
+        <result property="priorityName" column="priority_name"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <select id="selectTaskDetailsByTaskId" parameterType="int" resultMap="TaskResultMap">
-        select t.id, t.name, t.create_time,
-               m.id as module_id, m.name as module_name
+        select t.*,
+               m.id as module_id, m.name as module_name,
+               u.id as creater_id, u.chinese_name as creater_chinese_name, u.english_name as creater_english_name,
+               pr.id as priority_id, pr.name as priority_name,
+               sp.id as stage_id, sp.name as stage_name
         from t_task t
         left join t_module m on t.module_id = m.id
+        left join t_user u on u.id = t.creater_id
+        left join t_priority pr on pr.id = t.priority_id
+        left join t_stage_project sp on sp.id = t.stage_id
         where t.id = #{taskId}
     </select>
+
+    <select id="selectTaskListByModuleId" parameterType="int" resultMap="TaskResultMap">
+        select t.id, t.name, t.update_time, t.deadline,
+               sp.name as stage_name,
+               pr.name as priority_name
+        from t_task t
+        left join t_stage_project sp on sp.id = t.stage_id
+        left join t_priority pr on pr.id = t.priority_id
+        where t.module_id = #{moduleId}
+    </select>
+
+    <insert id="insertTask" parameterType="Task">
+        insert into t_task (name, module_id, deadline, creater_id, priority_id, stage_id)
+                values (#{name}, #{moduleId}, #{deadline}, #{createrId}, #{priorityId}, #{stageId})
+    </insert>
+
+    <update id="updateTaskDetail" parameterType="Task">
+        update t_task
+        set name = #{name}
+            <if test = "deadline != null">
+            deadline = #{deadline}
+            </if>
+        where id = #{id}
+    </update>
+
+    <select id="isTaskCreater" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_task
+        where id = #{taskId} and creater_id = #{userId}
+    </select>
+
+    <delete id="deleteTaskDetailByTaskId" parameterType="int">
+        delete from t_task
+        where id = #{taskId}
+    </delete>
 </mapper>

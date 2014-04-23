@@ -87,11 +87,179 @@
     </select>
 
     <insert id="insertUserSharedCustomerLink" parameterType="java.util.Map">
-        insert into t_customer_user values (#{customerId}, #{userId})
+        insert into t_customer_user
+                values (#{customerId}, #{userId})
     </insert>
 
     <delete id="deleteUserSharedCustomerLink" parameterType="java.util.Map">
-        delete from t_customer_user where customer_id = #{customerId} and user_id = #{userId}
+        delete from t_customer_user
+                where customer_id = #{customerId} and user_id = #{userId}
+    </delete>
+
+    <insert id="insertProjectCustomerLink" parameterType="java.util.Map">
+        insert into t_project_customer (project_id, customer_id)
+                values (#{projectId}, #{customerId})
+    </insert>
+
+    <delete id="deleteProjectCustomerLink" parameterType="java.util.Map">
+        delete from t_project_customer
+                where project_id = #{projectId} and customer_id = #{customerId}
+    </delete>
+
+    <insert id="insertModuleCustomerLink" parameterType="java.util.Map">
+        insert into t_module_customer (module_id, customer_id)
+                values (#{moduleId}, #{customerId})
+    </insert>
+
+    <delete id="deleteModuleCustomerLink" parameterType="java.util.Map">
+        delete from t_module_customer
+                where module_id = #{moduleId} and customer_id = #{customerId}
+    </delete>
+
+    <delete id="deleteAllModuleCustomerLinkByModuleId" parameterType="int">
+        delete from t_module_customer
+                where module_id = #{moduleId}
+    </delete>
+
+    <insert id="insertTaskCustomerLink" parameterType="java.util.Map">
+        insert into t_task_customer (task_id, customer_id)
+                values (#{taskId}, #{customerId})
+    </insert>
+
+    <delete id="deleteTaskCustomerLink" parameterType="java.util.Map">
+        delete from t_task_customer
+                where task_id = #{taskId} and customer_id = #{customerId}
+    </delete>
+
+    <delete id="deleteAllTaskCustomerLinkByTaskId" parameterType="int">
+        delete from t_task_customer
+                where task_id = #{taskId}
+    </delete>
+
+    <!--&lt;!&ndash;成员 与 项目&ndash;&gt;-->
+
+    <!--<select id="selectUserIdByProjectId" parameterType="int" resultMap="ProjectResultMap">-->
+
+    <!--</select>-->
+
+    <insert id="insertProjectManagerLink" parameterType="java.util.Map">
+        insert into t_project_manager (project_id, manager_id)
+                values (#{projectId}, #{managerId})
+    </insert>
+
+    <delete id="deleteProjectManagerLink" parameterType="java.util.Map">
+        delete from t_project_manager
+                where project_id = #{projectId} and manager_id = #{managerId}
+    </delete>
+
+    <insert id="insertProjectMemberLink" parameterType="java.util.Map">
+        insert into t_project_member (project_id, member_id)
+                values (#{projectId}, #{memberId})
+    </insert>
+
+    <delete id="deleteProjectMemberLink" parameterType="java.util.Map">
+        delete from t_project_member
+                where project_id = #{projectId} and member_id = #{memberId}
+    </delete>
+
+    <select id="isProjectManager" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_project_manager
+        where project_id = #{projectId} and manager_id = #{userId}
+    </select>
+
+    <select id="isProjectMember" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_project_member
+        where project_id = #{projectId} and member_id = #{userId}
+    </select>
+
+    <!--&lt;!&ndash;成员 与 模块&ndash;&gt;-->
+
+    <insert id="insertModuleManagerLink" parameterType="java.util.Map">
+        insert into t_module_manager (module_id, manager_id)
+                values (#{moduleId}, #{managerId})
+    </insert>
+
+    <delete id="deleteModuleManagerLink" parameterType="java.util.Map">
+        delete from t_module_manager
+                where module_id = #{moduleId} and manager_id = #{managerId}
+    </delete>
+
+    <insert id="insertModuleMemberLink" parameterType="java.util.Map">
+        insert into t_module_member (module_id, member_id)
+                values (#{moduleId}, #{memberId})
+    </insert>
+
+    <delete id="deleteModuleMemberLink" parameterType="java.util.Map">
+        delete from t_module_member
+                where module_id = #{moduleId} and member_id = #{memberId}
+    </delete>
+
+    <select id="isModuleManager" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_module_manager
+        where module_id = #{moduleId} and manager_id = #{userId}
+    </select>
+
+    <select id="isModuleMember" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_module_member
+        where module_id = #{moduleId} and member_id = #{userId}
+    </select>
+
+    <delete id="deleteAllModuleMemberLinkByModuleId" parameterType="int">
+        delete from t_module_member
+                where module_id = #{moduleId}
+    </delete>
+
+    <delete id="deleteAllModuleManagerLinkByModuleId" parameterType="int">
+        delete from t_module_manager
+                where module_id = #{moduleId}
+    </delete>
+
+    <!--&lt;!&ndash;成员 与 任务&ndash;&gt;-->
+
+    <insert id="insertTaskManagerLink" parameterType="java.util.Map">
+        insert into t_task_manager (task_id, manager_id)
+                values (#{taskId}, #{managerId})
+    </insert>
+
+    <delete id="deleteTaskManagerLink" parameterType="java.util.Map">
+        delete from t_task_manager
+                where task_id = #{taskId} and manager_id = #{managerId}
+    </delete>
+
+    <insert id="insertTaskMemberLink" parameterType="java.util.Map">
+        insert into t_task_member (task_id, member_id)
+                values (#{taskId}, #{memberId})
+    </insert>
+
+    <delete id="deleteTaskMemberLink" parameterType="java.util.Map">
+        delete from t_task_member
+                where task_id = #{taskId} and member_id = #{memberId}
+    </delete>
+
+    <select id="isTaskManager" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_task_manager
+        where task_id = #{taskId} and manager_id = #{userId}
+    </select>
+
+    <select id="isTaskMember" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_task_member
+        where task_id = #{taskId} and member_id = #{userId}
+    </select>
+
+    <delete id="deleteAllTaskMemberLinkByTaskId" parameterType="int">
+        delete from t_task_member
+        where task_id = #{taskId}
+    </delete>
+
+    <delete id="deleteAllTaskManagerLinkByTaskId" parameterType="int">
+        delete from t_task_manager
+        where task_id = #{taskId}
     </delete>
 
     <select id="selectProjectIdByModuleId" parameterType="int" resultType="int">
@@ -113,12 +281,6 @@
         where m.id = #{moduleId} and t.name like "%"#{str}"%"
     </select>
 
-    <select id="selectCommentCustomerListByCustomerId" parameterType="int" resultMap="CommentCustomerResultMap">
-        select c.id, c.create_time as comment_Time, c.details as comment_details,
-                u.chinese_name as comment_user_chinese_name, u.english_name as comment_user_english_name
-        from t_comment_customer c
-        left join t_user u on c.user_id = u.id
-        where c.customer_id = #{customerId}
-    </select>
+
 
 </mapper>

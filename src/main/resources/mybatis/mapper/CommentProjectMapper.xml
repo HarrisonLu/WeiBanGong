@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.project.CommentProjectMapper">
+
+    <resultMap id="CommentProjectResultMap" type="CommentProject">
+        <id property="id" column="id"/>
+        <result property="details" column="details"/>
+        <result property="time" column="create_time"/>
+        <result property="displayTime" column="display_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="userChineseName" column="user_chinese_name"/>
+        <result property="userEnglishName" column="user_english_name"/>
+        <result property="projectId" column="project_id"/>
+    </resultMap>
+
+    <insert id="insertProjectComment" parameterType="CommentProject">
+        insert into t_comment_project (details, user_id, project_id)
+                values (#{details}, #{userId}, #{projectId})
+    </insert>
+
+    <select id="selectProjectCommentListByProjectId" parameterType="int" resultMap="CommentProjectResultMap">
+        select cp.*,
+               u.id as user_id, u.chinese_name as user_chinese_name, u.english_name as user_english_name
+        from t_comment_project cp
+        left join t_user u on u.id = cp.user_id
+        where cp.project_id = #{projectId}
+    </select>
+
+</mapper>

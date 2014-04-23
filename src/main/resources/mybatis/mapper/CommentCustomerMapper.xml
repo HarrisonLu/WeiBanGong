@@ -2,10 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springapp.mvc.dao.customer.CommentCustomerMapper">
+
     <resultMap id="CommentCustomerResultMap" type="CommentCustomer">
         <id property="id" column="id"/>
         <result property="details" column="details"/>
-        <result property="time" column="Time"/>
+        <result property="time" column="time"/>
         <result property="userId" column="user_id"/>
         <result property="userChineseName" column="user_chinese_name"/>
         <result property="userEnglishName" column="user_english_name"/>
@@ -16,4 +17,12 @@
         insert into t_comment_customer (details, user_id, customer_id)
                 values (#{details}, #{userId}, #{customerId})
     </insert>
+
+    <select id="selectCommentCustomerListByCustomerId" parameterType="int" resultMap="CommentCustomerResultMap">
+        select c.id, c.create_time as time, c.details as details,
+                u.chinese_name as user_chinese_name, u.english_name as user_english_name
+        from t_comment_customer c
+        left join t_user u on c.user_id = u.id
+        where c.customer_id = #{customerId}
+    </select>
 </mapper>

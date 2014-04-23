@@ -17,4 +17,19 @@ public interface ProjectMapper {
 
     // 根据 项目id 找 项目详细资料
     public Project selectProjectDetailsByProjectId(int projectId);
+
+    // 根据 成员id 和 字符串 模糊搜索 项目基本信息列表
+    public List<Project> fuzzySelectProjectBaseInfoListByUserId(Map<String, String> map);
+
+    // 根据 成员id 得到 项目基本信息列表
+    public List<Project> selectProjectListByUserId(int userId);
+
+    // 插入 项目
+    public void insertProject(Project project);
+
+    // 更新 项目详细资料
+    public void updateProjectDetail(Project project);
+
+    // 判断 是否为 项目创建人
+    public Integer isProjectCreater(Map<String, Integer> map);
 }

@@ -11,7 +11,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/17/2014 14:51:19 PM
+ Date: 04/23/2014 20:11:54 PM
 */
 
 SET NAMES utf8;
@@ -49,7 +49,7 @@ CREATE TABLE `t_comment_project` (
   KEY `project_id` (`project_id`),
   CONSTRAINT `t_comment_project_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_comment_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_comment_task`
@@ -66,7 +66,7 @@ CREATE TABLE `t_comment_task` (
   KEY `task_id` (`task_id`),
   CONSTRAINT `t_comment_task_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_comment_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_customer`
@@ -104,7 +104,7 @@ CREATE TABLE `t_customer` (
   CONSTRAINT `t_customer_ibfk_3` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_4` FOREIGN KEY (`discuss_stage_id`) REFERENCES `t_discuss_stage` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_customer_ibfk_5` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_customer_user`
@@ -164,10 +164,14 @@ CREATE TABLE `t_module` (
   `name` varchar(30) NOT NULL,
   `project_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `creater_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `project_id` (`project_id`),
-  CONSTRAINT `t_module_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  KEY `t_module_ibfk_1` (`project_id`) USING BTREE,
+  KEY `t_module_ibfk_2` (`creater_id`) USING BTREE,
+  CONSTRAINT `t_module_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_module_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_module_customer`
@@ -216,7 +220,7 @@ CREATE TABLE `t_priority` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_project`
@@ -226,8 +230,15 @@ CREATE TABLE `t_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `stage_id` int(10) NOT NULL,
+  `info` varchar(600) DEFAULT NULL,
+  `creater_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_project_ibfk_1` (`stage_id`) USING BTREE,
+  KEY `t_project_ibfk_2` (`creater_id`) USING BTREE,
+  CONSTRAINT `t_project_ibfk_1` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `t_project_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_project_customer`
@@ -276,7 +287,7 @@ CREATE TABLE `t_stage_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_sub_task`
@@ -287,11 +298,11 @@ CREATE TABLE `t_sub_task` (
   `name` varchar(30) NOT NULL,
   `task_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `isUnderway` tinyint(4) NOT NULL DEFAULT '0',
+  `is_underway` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `task_id` (`task_id`),
   CONSTRAINT `t_sub_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_task`
@@ -302,10 +313,21 @@ CREATE TABLE `t_task` (
   `name` varchar(30) NOT NULL,
   `module_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deadline` timestamp NULL DEFAULT NULL,
+  `creater_id` int(10) NOT NULL,
+  `priority_id` int(10) NOT NULL,
+  `stage_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `module_id` (`module_id`) USING BTREE,
-  CONSTRAINT `t_task_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  KEY `t_task_ibfk_1` (`module_id`) USING BTREE,
+  KEY `t_task_ibfk_2` (`creater_id`) USING BTREE,
+  KEY `t_task_ibfk_3` (`priority_id`) USING BTREE,
+  KEY `t_task_ibfk_4` (`stage_id`) USING BTREE,
+  CONSTRAINT `t_task_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `t_task_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_task_ibfk_3` FOREIGN KEY (`priority_id`) REFERENCES `t_priority` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `t_task_ibfk_4` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_task_customer`
@@ -366,7 +388,7 @@ CREATE TABLE `t_user` (
   `mobile_phone_num` varchar(20) DEFAULT NULL,
   `created_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_user_collectedcontacts`

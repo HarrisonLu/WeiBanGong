@@ -134,13 +134,41 @@
               left join t_module m on c.module_id = m.id
               left join t_task t on c.task_id = t.id
         where (c.created_user_id = #{userId} or cu.user_id = #{userId})
-               and (english_name like "%"#{str}"%" or chinese_name_pinyin like "%"#{str}"%" or chinese_name like "%"#{str}"%") ;
+              and (english_name like "%"#{str}"%" or chinese_name_pinyin like "%"#{str}"%" or chinese_name like "%"#{str}"%") ;
     </select>
 
     <select id="isMyCustomer" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(*)
         from t_customer c
         where c.id = #{customerId} and c.created_user_id = #{userId}
+    </select>
+
+    <select id="fuzzySelectCustomer" parameterType="java.lang.String" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name, c.project_id, c.module_id, c.task_id
+        from t_customer c
+        where english_name like "%"#{str}"%" or chinese_name_pinyin like "%"#{str}"%" or chinese_name like "%"#{str}"%"
+
+    </select>
+
+    <select id="selectProjectCustomerListByProjectId" parameterType="int" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name
+        from t_customer c
+        left join t_project_customer pc on pc.customer_id = c.id
+        where pc.project_id = #{projectId}
+    </select>
+
+    <select id="selectModuleCustomerListByModuleId" parameterType="int" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name
+        from t_customer c
+        left join t_module_customer pc on pc.customer_id = c.id
+        where pc.module_id = #{moduleId}
+    </select>
+
+    <select id="selectTaskCustomerListByTaskId" parameterType="int" resultMap="CustomerResultMap">
+        select c.id, c.chinese_name, c.english_name
+        from t_customer c
+        left join t_task_customer pc on pc.customer_id = c.id
+        where pc.task_id = #{taskId}
     </select>
 
 </mapper>

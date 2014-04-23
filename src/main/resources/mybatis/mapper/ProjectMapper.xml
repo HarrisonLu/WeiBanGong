@@ -2,10 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springapp.mvc.dao.project.ProjectMapper">
+
     <resultMap id="ProjectResultMap" type="Project">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="createTime" column="create_time"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="info" column="info"/>
+        <result property="createrId" column="creater_id"/>
+        <result property="createrChineseName" column="creater_chinese_name"/>
+        <result property="createrEnglishName" column="creater_english_name"/>
     </resultMap>
 
     <select id="fuzzySelectProjectBaseInfoList" parameterType="java.lang.String" resultMap="ProjectResultMap">
@@ -15,8 +22,97 @@
     </select>
 
     <select id="selectProjectDetailsByProjectId" parameterType="int" resultMap="ProjectResultMap">
-        select p.id, p.name, p.create_time
+        select p.*,
+               sp.id as stage_id, sp.name as stage_name,
+               u.id as creater_id, u.chinese_name as creater_chinese_name, u.english_name as creater_english_name
         from t_project p
+        left join t_stage_project sp on sp.id = p.stage_id
+        left join t_user u on u.id = p.creater_id
         where p.id = #{projectId}
+    </select>
+
+    <select id="fuzzySelectProjectBaseInfoListByUserId" parameterType="java.util.Map" resultMap="ProjectResultMap">
+        select distinct p.id, p.name, p.create_time
+        from t_project p
+--         项目相关左链接
+        left join t_project_manager p_ma on p_ma.project_id = p.id
+        left join t_project_member p_me on p_me.project_id = p.id
+
+--         模块相关左链接
+        left join t_module m on m.project_id = p.id
+
+        left join t_module m_1 on m_1.project_id = p.id
+        left join t_module_manager m_ma on m_ma.module_id = m_1.id
+
+        left join t_module m_2 on m_2.project_id = p.id
+        left join t_module_member m_me on m_me.module_id = m_2.id
+
+--         任务相关左链接
+        left join t_module m_3 on m_3.project_id = p.id
+        left join t_task t on t.module_id = m_3.id
+
+        left join t_module m_4 on m_4.project_id = p.id
+        left join t_task t_1 on t_1.module_id = m_4.id
+        left join t_task_manager t_ma on t_ma.task_id = t_1.id
+
+        left join t_module m_5 on m_5.project_id = p.id
+        left join t_task t_2 on t_2.module_id = m_5.id
+        left join t_task_member t_me on t_me.task_id = t_2.id
+
+        where (p.creater_id = #{userId} or p_ma.manager_id = #{userId} or p_me.member_id = #{userId} or
+              m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
+              t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId}) and
+              p.name like "%"#{str}"%"
+    </select>
+
+    <select id="selectProjectListByUserId" parameterType="int" resultMap="ProjectResultMap">
+        select distinct p.id, p.name, p.create_time
+        from t_project p
+--         项目相关左链接
+        left join t_project_manager p_ma on p_ma.project_id = p.id
+        left join t_project_member p_me on p_me.project_id = p.id
+
+--         模块相关左链接
+        left join t_module m on m.project_id = p.id
+
+        left join t_module m_1 on m_1.project_id = p.id
+        left join t_module_manager m_ma on m_ma.module_id = m_1.id
+
+        left join t_module m_2 on m_2.project_id = p.id
+        left join t_module_member m_me on m_me.module_id = m_2.id
+
+--         任务相关左链接
+        left join t_module m_3 on m_3.project_id = p.id
+        left join t_task t on t.module_id = m_3.id
+
+        left join t_module m_4 on m_4.project_id = p.id
+        left join t_task t_1 on t_1.module_id = m_4.id
+        left join t_task_manager t_ma on t_ma.task_id = t_1.id
+
+        left join t_module m_5 on m_5.project_id = p.id
+        left join t_task t_2 on t_2.module_id = m_5.id
+        left join t_task_member t_me on t_me.task_id = t_2.id
+
+        where p.creater_id = #{userId} or p_ma.manager_id = #{userId} or p_me.member_id = #{userId} or
+              m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
+              t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId}
+    </select>
+
+    <insert id="insertProject" parameterType="Project">
+        insert into t_project (name, stage_id, info, creater_id)
+                values (#{name}, #{stageId}, #{info}, #{createrId})
+    </insert>
+
+    <update id="updateProjectDetail" parameterType="Project">
+        update t_project
+        set name = #{name},
+            info = #{info}
+        where id = #{id}
+    </update>
+
+    <select id="isProjectCreater" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_project
+        where id = #{projectId} and creater_id = #{userId}
     </select>
 </mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.project.SubTaskMapper">
+
+    <resultMap id="SubTaskResultMap" type="SubTask">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="taskId" column="task_id"/>
+        <result property="taskName" column="task_name"/>
+        <result property="isUnderway" column="is_underway"/>
+    </resultMap>
+
+    <insert id="insertSubTask" parameterType="SubTask">
+        insert into t_sub_task (name, task_id, is_underway)
+                values (#{name}, #{taskId}, #{isUnderway})
+    </insert>
+
+    <delete id="deleteSubTask" parameterType="int">
+        delete from t_sub_task
+                where id = #{subTaskId}
+    </delete>
+
+    <update id="updateSubTaskState" parameterType="SubTask">
+        update t_sub_task
+        set is_underway = #{isUnderway}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAllSubTaskByTaskId" parameterType="int">
+        delete from t_sub_task
+        where task_id = #{taskId}
+    </delete>
+
+    <select id="selectSubTaskBySubTaskId" parameterType="int" resultMap="SubTaskResultMap">
+        select id, name, is_underway
+        from t_sub_task
+        where id = #{id}
+    </select>
+
+    <select id="selectSubTaskListByTaskId" parameterType="int" resultMap="SubTaskResultMap">
+        select st.id, st.name, st.is_underway
+        from t_sub_task st
+        where st.task_id = #{taskId}
+    </select>
+
+</mapper>
