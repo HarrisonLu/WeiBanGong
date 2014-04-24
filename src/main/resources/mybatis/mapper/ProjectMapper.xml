@@ -66,7 +66,7 @@
     </select>
 
     <select id="selectProjectListByUserId" parameterType="int" resultMap="ProjectResultMap">
-        select distinct p.id, p.name, p.create_time
+        select distinct p.id, p.name, p.create_time, p.info
         from t_project p
 --         项目相关左链接
         left join t_project_manager p_ma on p_ma.project_id = p.id
