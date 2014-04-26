@@ -7,6 +7,7 @@ import com.springapp.mvc.dao.project.*;
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.domain.project.*;
+import com.tool.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +57,12 @@ public class ProjectService {
 
     // 根据 成员id 得到 项目基本信息列表
     public List<Project> selectProjectListByUserId(int userId){
-        return projectMapper.selectProjectListByUserId(userId);
+        List<Project> projectList = projectMapper.selectProjectListByUserId(userId);
+        for (Project project : projectList) {
+            String displayString = DateHelper.dateToString(project.getUpdateTime());
+            project.setDisplayUpdateTime(displayString);
+        }
+        return projectList;
     }
 
     // 模糊搜索 成员基本资料 列表
@@ -93,6 +99,21 @@ public class ProjectService {
     // 插入 项目
     public void insertProject(Project project){
         projectMapper.insertProject(project);
+    }
+
+    // 删除 项目
+    public void deleteProjectByProjectId(int projectId){
+        List<Module> moduleList = moduleMapper.selectModuleListByProjectId(projectId);
+        for (Module module : moduleList)
+        {
+            deleteModuleByModuleId(module.getId());
+        }
+
+        linkMapper.deleteAllProjectManagerLinkByProjectId(projectId);
+        linkMapper.deleteAllProjectCustomerLinkByProjectId(projectId);
+        linkMapper.deleteAllProjectMemberLinkByProjectId(projectId);
+        commentProjectMapper.deleteAllProjectCommentByProjectId(projectId);
+        projectMapper.deleteProjectDetailByProjectId(projectId);
     }
 
     // 根据 项目id 找 项目负责人基本资料 列表
@@ -174,8 +195,23 @@ public class ProjectService {
     }
 
     // 根据 项目id 找 模块列表
-    public List<Module> getModuleList(int projectId){
-        return moduleMapper.selectModuleListByProjectId(projectId);
+//    public List<Module> getModuleList(int projectId){
+//        return moduleMapper.selectModuleListByProjectId(projectId);
+//    }
+
+    // 根据 成员id 和 项目id 找 模块列表
+    public List<Module> getModuleListByUserIdAndProjectId(int userId, int projectId){
+        if (isProjectCreater(userId, projectId) ||
+            isProjectManager(userId, projectId) ||
+            isProjectMember(userId, projectId)){
+            return moduleMapper.selectModuleListByProjectId(projectId);
+        }
+        else {
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("userId", userId);
+            map.put("projectId", projectId);
+            return moduleMapper.getModuleListByUserIdAndProjectId(map);
+        }
     }
 
     // 插入 模块
@@ -262,8 +298,24 @@ public class ProjectService {
     }
 
     // 根据 模块id 找 任务列表
-    public List<Task> getTaskList(int moduleId){
-        return taskMapper.selectTaskListByModuleId(moduleId);
+//    public List<Task> getTaskList(int moduleId){
+//        return taskMapper.selectTaskListByModuleId(moduleId);
+//    }
+
+    // 根据 成员id 和 模块id 找 任务列表
+    public List<Task> getTaskListByUserIdAndModuleId(int userId, int moduleId){
+        if(isModuleCreater(userId, moduleId) ||
+           isModuleManager(userId, moduleId) ||
+           isModuleMember(userId, moduleId)){
+            return taskMapper.selectTaskListByModuleId(moduleId);
+        }
+        else {
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("userId", userId);
+            map.put("moduleId", moduleId);
+            return taskMapper.getTaskListByUserIdAndModuleId(map);
+        }
+
     }
 
     // 插入 任务

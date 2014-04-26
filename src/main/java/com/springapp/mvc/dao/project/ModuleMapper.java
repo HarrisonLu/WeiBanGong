@@ -18,6 +18,9 @@ public interface ModuleMapper {
     // 根据 项目id 找 模块列表
     public List<Module> selectModuleListByProjectId(int projectId);
 
+    // 根据 成员id 和 项目id 找 模块列表
+    public List<Module> getModuleListByUserIdAndProjectId(Map<String, Integer> map);
+
     // 插入 模块
     public void insertModule(Module module);
 

@@ -43,6 +43,21 @@
         where t.module_id = #{moduleId}
     </select>
 
+    <select id="getTaskListByUserIdAndModuleId" parameterType="java.util.Map" resultMap="TaskResultMap">
+        select t.id, t.name, t.update_time, t.deadline,
+               sp.name as stage_name,
+               pr.name as priority_name
+        from t_task t
+        left join t_stage_project sp on sp.id = t.stage_id
+        left join t_priority pr on pr.id = t.priority_id
+
+        left join t_task_manager t_ma on t_ma.task_id = t.id
+        left join t_task_member t_me on t_me.task_id = t.id
+        where t.module_id = #{moduleId}
+              and (t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId})
+    </select>
+
+
     <insert id="insertTask" parameterType="Task">
         insert into t_task (name, module_id, deadline, creater_id, priority_id, stage_id)
                 values (#{name}, #{moduleId}, #{deadline}, #{createrId}, #{priorityId}, #{stageId})

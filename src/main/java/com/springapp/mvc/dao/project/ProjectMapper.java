@@ -32,4 +32,7 @@ public interface ProjectMapper {
 
     // 判断 是否为 项目创建人
     public Integer isProjectCreater(Map<String, Integer> map);
+
+    // 删除 项目详细资料
+    public void deleteProjectDetailByProjectId(int projectId);
 }

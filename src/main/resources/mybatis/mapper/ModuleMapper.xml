@@ -30,6 +30,25 @@
         where m.project_id = #{projectId}
     </select>
 
+    <select id="getModuleListByUserIdAndProjectId" parameterType="java.util.Map" resultMap="ModuleResultMap">
+        select m.id, m.name, m.update_time
+        from t_module m
+
+        left join t_module_manager m_ma on m_ma.module_id = m.id
+        left join t_module_member m_me on m_me.module_id = m.id
+
+
+        left join t_task t on t.module_id = m.id
+        left join t_task_manager t_ma on t_ma.task_id = t.id
+        left join t_task t_1 on t_1.module_id = m.id
+        left join t_task_member t_me on t_me.task_id = t_1.id
+
+        where m.project_id = #{projectId}
+              and (m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
+                  t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId})
+    </select>
+
+
     <insert id="insertModule" parameterType="Module">
         insert into t_module (name, project_id, creater_id)
                 values (#{name}, #{projectId}, #{createrId})

@@ -85,6 +85,11 @@ public class ProjectServiceTest extends BaseTest {
     }
 
     @Test
+    public void testDeleteProjectByProjectId() throws Exception {
+        projectService.deleteProjectByProjectId(4);
+    }
+
+    @Test
     public void testGetProjectManagerList() throws Exception {
         List<User> userList = projectService.getProjectManagerList(1);
     }
@@ -142,10 +147,16 @@ public class ProjectServiceTest extends BaseTest {
 //        projectService.deleteModuleByModuleId(10);
     }
 
+//    @Test
+//    public void testGetModuleList() throws Exception {
+//        List<Module> moduleList = projectService.getModuleList(1);
+//        Assert.assertEquals(moduleList.size(), 4);
+//    }
+
     @Test
-    public void testGetModuleList() throws Exception {
-        List<Module> moduleList = projectService.getModuleList(1);
-        Assert.assertEquals(moduleList.size(), 4);
+    public void testGetModuleListByUserIdAndProjectId() throws Exception{
+        List<Module> moduleList = projectService.getModuleListByUserIdAndProjectId(1, 2);
+        Assert.assertEquals(moduleList.size(), 0);
     }
 
     @Test
@@ -220,10 +231,16 @@ public class ProjectServiceTest extends BaseTest {
 //        projectService.deleteTaskByTaskId(10);
     }
 
+//    @Test
+//    public void testGetTaskList() throws Exception {
+//        List<Task> taskList = projectService.getTaskList(1);
+//        Assert.assertEquals(taskList.size(), 1);
+//    }
+
     @Test
-    public void testGetTaskList() throws Exception {
-        List<Task> taskList = projectService.getTaskList(1);
-        Assert.assertEquals(taskList.size(), 1);
+    public void testGetTaskListByUserIdAndModuleId() throws Exception{
+        List<Task> taskList = projectService.getTaskListByUserIdAndModuleId(1, 5);
+        Assert.assertEquals(taskList.size(), 0);
     }
 
     @Test

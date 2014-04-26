@@ -7,6 +7,7 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
         <result property="stageId" column="stage_id"/>
         <result property="stageName" column="stage_name"/>
         <result property="info" column="info"/>
@@ -32,7 +33,7 @@
     </select>
 
     <select id="fuzzySelectProjectBaseInfoListByUserId" parameterType="java.util.Map" resultMap="ProjectResultMap">
-        select distinct p.id, p.name, p.create_time
+        select distinct p.id, p.name, p.create_time, p.update_time
         from t_project p
 --         项目相关左链接
         left join t_project_manager p_ma on p_ma.project_id = p.id
@@ -66,7 +67,7 @@
     </select>
 
     <select id="selectProjectListByUserId" parameterType="int" resultMap="ProjectResultMap">
-        select distinct p.id, p.name, p.create_time, p.info
+        select distinct p.id, p.name, p.create_time, p.update_time, p.info
         from t_project p
 --         项目相关左链接
         left join t_project_manager p_ma on p_ma.project_id = p.id
@@ -115,4 +116,9 @@
         from t_project
         where id = #{projectId} and creater_id = #{userId}
     </select>
+
+    <delete id="deleteProjectDetailByProjectId" parameterType="int">
+        delete from t_project
+                where id = #{projectId}
+    </delete>
 </mapper>

@@ -16,4 +16,7 @@ public interface CommentProjectMapper {
 
     // 根据 项目id 找 项目评论列表
     public List<CommentProject> selectProjectCommentListByProjectId(int projectId);
+
+    // 删除 项目所有评论
+    public void deleteAllProjectCommentByProjectId(int projectId);
 }

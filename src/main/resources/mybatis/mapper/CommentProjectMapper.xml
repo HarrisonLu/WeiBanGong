@@ -27,4 +27,8 @@
         where cp.project_id = #{projectId}
     </select>
 
+    <delete id="deleteAllProjectCommentByProjectId" parameterType="int">
+        delete from t_comment_project
+        where project_id = #{projectId}
+    </delete>
 </mapper>

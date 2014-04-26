@@ -51,6 +51,9 @@ public interface LinkMapper {
     // 删除 项目关联客户
     public void deleteProjectCustomerLink(Map<String, Integer> map);
 
+    // 删除 指定项目与所有客户 关联
+    public void deleteAllProjectCustomerLinkByProjectId(int projectId);
+
     // 插入 模块关联客户
     public void insertModuleCustomerLink(Map<String, Integer> map);
 
@@ -91,6 +94,12 @@ public interface LinkMapper {
 
     // 判断 是否为 项目成员
     public Integer isProjectMember(Map<String, Integer> map);
+
+    // 删除 指定项目与所有成员 关联
+    public void deleteAllProjectMemberLinkByProjectId(int projectId);
+
+    // 删除 指定项目与所有负责人 关联
+    public void deleteAllProjectManagerLinkByProjectId(int projectId);
 
 // 成员与模块
 

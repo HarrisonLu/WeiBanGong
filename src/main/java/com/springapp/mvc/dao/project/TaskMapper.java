@@ -18,6 +18,9 @@ public interface TaskMapper {
     // 根据 模块id 找 任务列表
     public List<Task> selectTaskListByModuleId(int moduleId);
 
+    // 根据 成员id 和 模块id 找 任务列表
+    public List<Task> getTaskListByUserIdAndModuleId(Map<String, Integer> map);
+
     // 插入 任务
     public void insertTask(Task task);
 
