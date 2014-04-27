@@ -1,14 +1,13 @@
 package com.springapp.mvc.service.contacts;
 
+import com.springapp.mvc.dao.LinkMapper;
 import com.springapp.mvc.dao.contacts.DepartmentMapper;
 import com.springapp.mvc.dao.contacts.GroupMapper;
-import com.springapp.mvc.dao.LinkMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,19 +33,19 @@ public class ContactsService {
     private LinkMapper linkMapper;
 
     // 根据 字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByString(String str){
+    public List<User> fuzzySelectUserBaseInfoListByString(String str) {
         return userMapper.fuzzySelectUserBaseInfoListByString(str);
     }
 
     // 根据 成员id 找 收藏联系人基本资料列表
-//    @Cacheable(value = "contactsCollectedListCache")
-    public List<User> selectCollectedContactsBaseInfoListByUserId(int userId){
+    @Cacheable(value = "contactsCollectedListCache")
+    public List<User> selectCollectedContactsBaseInfoListByUserId(int userId) {
         return linkMapper.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
     // 根据 成员id 找 所在组成员基本信息列表
-//    @Cacheable(value = "contactsGroupListCache")
-    public List<User> searchGroupUserBaseInfoListByUserId(int userId){
+    @Cacheable(value = "contactsGroupListCache")
+    public List<User> searchGroupUserBaseInfoListByUserId(int userId) {
         return linkMapper.searchGroupUserBaseInfoListByUserId(userId);
     }
 
@@ -76,14 +75,14 @@ public class ContactsService {
     }
 
     // 得到 所有部门基本信息
-//    @Cacheable(value = "contactsDepartmentsCache")
+    @Cacheable(value = "contactsDepartmentsCache")
     public List<Department> selectAllDepartmentBaseInfo() {
         return departmentMapper.selectAllDepartmentBaseInfo();
     }
 
     // 根据 成员id 找 成员详细信息
-//    @Cacheable(value = "contactDetailCache")
-    public User selectUserDetailsById(int userId){
+    @Cacheable(value = "contactDetailCache")
+    public User selectUserDetailsById(int userId) {
         return userMapper.selectUserDetailsById(userId);
     }
 
@@ -94,13 +93,13 @@ public class ContactsService {
     }
 
     // 根据 部门id 找 部门详细信息
-//    @Cacheable(value = "contactsDepartmentDetailCache")
-    public Department selectDepartmentDetailsByDepartmentId(int departmentId){
+    @Cacheable(value = "contactsDepartmentDetailCache")
+    public Department selectDepartmentDetailsByDepartmentId(int departmentId) {
         return departmentMapper.selectDepartmentDetailsByDepartmentId(departmentId);
     }
 
     // 根据 组id 找 组详细信息
-//    @Cacheable(value = "contactsGroupDetailCache")
+    @Cacheable(value = "contactsGroupDetailCache")
     public Group selectGroupDetailsByGroupId(int groupId) {
         return groupMapper.selectGroupDetailsByGroupId(groupId);
     }

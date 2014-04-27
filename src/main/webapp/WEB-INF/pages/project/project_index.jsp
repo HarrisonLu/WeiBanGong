@@ -27,6 +27,17 @@
     </div>
 </div>
 
+<div class="list-group">
+    <c:forEach items="${projects}" var="project">
+        <a href="/project/comment/${project.id}" class="list-group-item" style="min-height: 64px">
+            <h4 class="list-group-item-heading"><c:out value="${project.name}"/></h4>
+
+            <p class="list-group-item-text pull-right"><c:out value="${project.displayUpdateTime}"/></p>
+
+            <p class="list-group-item-text"><c:out value="${project.info}"/></p>
+        </a>
+    </c:forEach>
+</div>
 
 <script src="/static_resources/js/jquery.min.js"></script>
 <script src="/static_resources/js/bootstrap.min.js"></script>

@@ -48,7 +48,7 @@ public class ProjectService {
     private LinkMapper linkMapper;
 
     // 模糊搜索 项目
-    public List<Project> fuzzySelectProject(int userId, String str){
+    public List<Project> fuzzySelectProject(int userId, String str) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", Integer.toString(userId));
         map.put("str", str);
@@ -56,7 +56,7 @@ public class ProjectService {
     }
 
     // 根据 成员id 得到 项目基本信息列表
-    public List<Project> selectProjectListByUserId(int userId){
+    public List<Project> selectProjectListByUserId(int userId) {
         List<Project> projectList = projectMapper.selectProjectListByUserId(userId);
         for (Project project : projectList) {
             String displayString = DateHelper.dateToString(project.getUpdateTime());
@@ -66,15 +66,15 @@ public class ProjectService {
     }
 
     // 模糊搜索 成员基本资料 列表
-    public List<User> fuzzySelectUserList(String str){
+    public List<User> fuzzySelectUserList(String str) {
         return userMapper.fuzzySelectUserBaseInfoListByString(str);
     }
 
     // 模糊搜索 未关联项目/模块/任务 客户 列表
-    public List<Customer> fuzzySelectCustomerNotLink(String str){
+    public List<Customer> fuzzySelectCustomerNotLink(String str) {
         List<Customer> customerList = customerMapper.fuzzySelectCustomer(str);
         List<Customer> customerListNotLink = new LinkedList<Customer>();
-        for (Customer customer : customerList){
+        for (Customer customer : customerList) {
             if (customer.getProjectId() == null && customer.getModuleId() == null && customer.getTaskId() == null)
                 customerListNotLink.add(customer);
         }
@@ -82,30 +82,29 @@ public class ProjectService {
     }
 
     // 根据 项目id 找 项目详细信息
-    public Project getProjectDetail(int projectId){
+    public Project getProjectDetail(int projectId) {
         return projectMapper.selectProjectDetailsByProjectId(projectId);
     }
 
     // 根据 项目id 找 项目评论列表
-    public List<CommentProject> getProjectCommentList(int projectId){
+    public List<CommentProject> getProjectCommentList(int projectId) {
         return commentProjectMapper.selectProjectCommentListByProjectId(projectId);
     }
 
     // 插入 项目评论
-    public void insertProjectComment(CommentProject commentProject){
+    public void insertProjectComment(CommentProject commentProject) {
         commentProjectMapper.insertProjectComment(commentProject);
     }
 
     // 插入 项目
-    public void insertProject(Project project){
+    public void insertProject(Project project) {
         projectMapper.insertProject(project);
     }
 
     // 删除 项目
-    public void deleteProjectByProjectId(int projectId){
+    public void deleteProjectByProjectId(int projectId) {
         List<Module> moduleList = moduleMapper.selectModuleListByProjectId(projectId);
-        for (Module module : moduleList)
-        {
+        for (Module module : moduleList) {
             deleteModuleByModuleId(module.getId());
         }
 
@@ -117,22 +116,22 @@ public class ProjectService {
     }
 
     // 根据 项目id 找 项目负责人基本资料 列表
-    public List<User> getProjectManagerList(int projectId){
+    public List<User> getProjectManagerList(int projectId) {
         return userMapper.selectProjectManagerListByProjectId(projectId);
     }
 
     // 根据 项目id 找 项目关联客户基本资料 列表
-    public List<Customer> getProjectCustomerList(int projectId){
+    public List<Customer> getProjectCustomerList(int projectId) {
         return customerMapper.selectProjectCustomerListByProjectId(projectId);
     }
 
     // 更新 项目详细资料
-    public void updateProjectDetail(Project project){
+    public void updateProjectDetail(Project project) {
         projectMapper.updateProjectDetail(project);
     }
 
     // 插入 项目与负责人 关联
-    public void insertProjectManagerLink(int projectId, int userId){
+    public void insertProjectManagerLink(int projectId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("managerId", userId);
@@ -140,7 +139,7 @@ public class ProjectService {
     }
 
     // 删除 项目与负责人 关联
-    public void deleteProjectManagerLink(int projectId, int userId){
+    public void deleteProjectManagerLink(int projectId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("managerId", userId);
@@ -148,7 +147,7 @@ public class ProjectService {
     }
 
     // 插入 项目关联客户
-    public void insertProjectCustomerLink(int projectId, int customerId){
+    public void insertProjectCustomerLink(int projectId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("customerId", customerId);
@@ -156,7 +155,7 @@ public class ProjectService {
     }
 
     // 删除 项目关联客户
-    public void deleteProjectCustomerLink(int projectId, int customerId){
+    public void deleteProjectCustomerLink(int projectId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("customerId", customerId);
@@ -164,7 +163,7 @@ public class ProjectService {
     }
 
     // 插入 项目与成员 关联
-    public void insertProjectMemberLink(int projectId, int memberId){
+    public void insertProjectMemberLink(int projectId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("memberId", memberId);
@@ -172,7 +171,7 @@ public class ProjectService {
     }
 
     // 删除 项目与成员 关联
-    public void deleteProjectMemberLink(int projectId, int memberId){
+    public void deleteProjectMemberLink(int projectId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("memberId", memberId);
@@ -180,11 +179,10 @@ public class ProjectService {
     }
 
     // 删除 模块
-    public void deleteModuleByModuleId(int moduleId){
+    public void deleteModuleByModuleId(int moduleId) {
 
         List<Task> taskList = taskMapper.selectTaskListByModuleId(moduleId);
-        for (Task task : taskList)
-        {
+        for (Task task : taskList) {
             deleteTaskByTaskId(task.getId());
         }
 
@@ -200,13 +198,12 @@ public class ProjectService {
 //    }
 
     // 根据 成员id 和 项目id 找 模块列表
-    public List<Module> getModuleListByUserIdAndProjectId(int userId, int projectId){
+    public List<Module> getModuleListByUserIdAndProjectId(int userId, int projectId) {
         if (isProjectCreater(userId, projectId) ||
-            isProjectManager(userId, projectId) ||
-            isProjectMember(userId, projectId)){
+                isProjectManager(userId, projectId) ||
+                isProjectMember(userId, projectId)) {
             return moduleMapper.selectModuleListByProjectId(projectId);
-        }
-        else {
+        } else {
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("userId", userId);
             map.put("projectId", projectId);
@@ -215,32 +212,32 @@ public class ProjectService {
     }
 
     // 插入 模块
-    public void insertModule(Module module){
+    public void insertModule(Module module) {
         moduleMapper.insertModule(module);
     }
 
     // 根据 模块id 找 模块详细资料
-    public Module getModuleDetail(int moduleId){
+    public Module getModuleDetail(int moduleId) {
         return moduleMapper.selectModuleDetailsByModuleId(moduleId);
     }
 
     // 根据 模块id 找 模块负责人基本资料 列表
-    public List<User> getModuleManagerList(int moduleId){
+    public List<User> getModuleManagerList(int moduleId) {
         return userMapper.selectModuleManagerListByModuleId(moduleId);
     }
 
     // 根据 模块id 找 模块关联客户基本资料 列表
-    public List<Customer> getModuleCustomerList(int moduleId){
+    public List<Customer> getModuleCustomerList(int moduleId) {
         return customerMapper.selectModuleCustomerListByModuleId(moduleId);
     }
 
     // 更新 模块详细资料
-    public void updateModuleDetail(Module module){
+    public void updateModuleDetail(Module module) {
         moduleMapper.updateModuleDetail(module);
     }
 
     // 插入 模块与负责人 关联
-    public void insertModuleManagerLink(int moduleId, int userId){
+    public void insertModuleManagerLink(int moduleId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("managerId", userId);
@@ -248,7 +245,7 @@ public class ProjectService {
     }
 
     // 删除 模块与负责人 关联
-    public void deleteModuleManagerLink(int moduleId, int userId){
+    public void deleteModuleManagerLink(int moduleId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("managerId", userId);
@@ -256,7 +253,7 @@ public class ProjectService {
     }
 
     // 插入 模块关联客户
-    public void insertModuleCustomerLink(int moduleId, int customerId){
+    public void insertModuleCustomerLink(int moduleId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("customerId", customerId);
@@ -264,7 +261,7 @@ public class ProjectService {
     }
 
     // 删除 模块关联客户
-    public void deleteModuleCustomerLink(int moduleId, int customerId){
+    public void deleteModuleCustomerLink(int moduleId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("customerId", customerId);
@@ -272,7 +269,7 @@ public class ProjectService {
     }
 
     // 插入 模块与成员 关联
-    public void insertModuleMemberLink(int moduleId, int memberId){
+    public void insertModuleMemberLink(int moduleId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("memberId", memberId);
@@ -280,7 +277,7 @@ public class ProjectService {
     }
 
     // 删除 模块与成员 关联
-    public void deleteModuleMemberLink(int moduleId, int memberId){
+    public void deleteModuleMemberLink(int moduleId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("memberId", memberId);
@@ -288,7 +285,7 @@ public class ProjectService {
     }
 
     // 删除 任务
-    public void deleteTaskByTaskId(int taskId){
+    public void deleteTaskByTaskId(int taskId) {
         linkMapper.deleteAllTaskManagerLinkByTaskId(taskId);
         linkMapper.deleteAllTaskCustomerLinkByTaskId(taskId);
         linkMapper.deleteAllTaskMemberLinkByTaskId(taskId);
@@ -303,13 +300,12 @@ public class ProjectService {
 //    }
 
     // 根据 成员id 和 模块id 找 任务列表
-    public List<Task> getTaskListByUserIdAndModuleId(int userId, int moduleId){
-        if(isModuleCreater(userId, moduleId) ||
-           isModuleManager(userId, moduleId) ||
-           isModuleMember(userId, moduleId)){
+    public List<Task> getTaskListByUserIdAndModuleId(int userId, int moduleId) {
+        if (isModuleCreater(userId, moduleId) ||
+                isModuleManager(userId, moduleId) ||
+                isModuleMember(userId, moduleId)) {
             return taskMapper.selectTaskListByModuleId(moduleId);
-        }
-        else {
+        } else {
             Map<String, Integer> map = new HashMap<String, Integer>();
             map.put("userId", userId);
             map.put("moduleId", moduleId);
@@ -319,47 +315,47 @@ public class ProjectService {
     }
 
     // 插入 任务
-    public void insertTask(Task task){
+    public void insertTask(Task task) {
         taskMapper.insertTask(task);
     }
 
     // 得到 所有进度阶段列表
-    public List<ProjectStage> getAllProjectStageList(){
+    public List<ProjectStage> getAllProjectStageList() {
         return projectStageMapper.getAllProjectStageList();
     }
 
     // 得到 所有优先级列表
-    public List<Priority> getAllPriorityList(){
+    public List<Priority> getAllPriorityList() {
         return priorityMapper.getAllPriorityList();
     }
 
     // 根据 任务id 找 任务详细资料
-    public Task getTaskDetail(int taskId){
+    public Task getTaskDetail(int taskId) {
         return taskMapper.selectTaskDetailsByTaskId(taskId);
     }
 
     // 根据 任务id 找 任务负责人基本资料 列表
-    public List<User> getTaskManagerList(int taskId){
+    public List<User> getTaskManagerList(int taskId) {
         return userMapper.selectTaskManagerListByTaskId(taskId);
     }
 
     // 根据 任务id 找 任务关联客户基本资料 列表
-    public List<Customer> getTaskCustomerList(int taskId){
+    public List<Customer> getTaskCustomerList(int taskId) {
         return customerMapper.selectTaskCustomerListByTaskId(taskId);
     }
 
     // 根据 任务id 找 拆分任务 列表
-    public List<SubTask> selectSubTaskListByTaskId(int taskId){
+    public List<SubTask> selectSubTaskListByTaskId(int taskId) {
         return subTaskMapper.selectSubTaskListByTaskId(taskId);
     }
 
     // 更新 任务详细资料
-    public void updateTaskDetail(Task task){
+    public void updateTaskDetail(Task task) {
         taskMapper.updateTaskDetail(task);
     }
 
     // 插入 任务与负责人 关联
-    public void insertTaskManagerLink(int taskId, int userId){
+    public void insertTaskManagerLink(int taskId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("managerId", userId);
@@ -367,7 +363,7 @@ public class ProjectService {
     }
 
     // 删除 任务与负责人 关联
-    public void deleteTaskManagerLink(int taskId, int userId){
+    public void deleteTaskManagerLink(int taskId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("managerId", userId);
@@ -375,7 +371,7 @@ public class ProjectService {
     }
 
     // 插入 任务关联客户
-    public void insertTaskCustomerLink(int taskId, int customerId){
+    public void insertTaskCustomerLink(int taskId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("customerId", customerId);
@@ -383,7 +379,7 @@ public class ProjectService {
     }
 
     // 删除 任务关联客户
-    public void deleteTaskCustomerLink(int taskId, int customerId){
+    public void deleteTaskCustomerLink(int taskId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("customerId", customerId);
@@ -391,7 +387,7 @@ public class ProjectService {
     }
 
     // 插入 任务与成员 关联
-    public void insertTaskMemberLink(int taskId, int memberId){
+    public void insertTaskMemberLink(int taskId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("memberId", memberId);
@@ -399,7 +395,7 @@ public class ProjectService {
     }
 
     // 删除 任务与成员 关联
-    public void deleteTaskMemberLink(int taskId, int memberId){
+    public void deleteTaskMemberLink(int taskId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("memberId", memberId);
@@ -407,34 +403,34 @@ public class ProjectService {
     }
 
     // 插入 拆分任务
-    public void insertSubTask(SubTask subTask){
+    public void insertSubTask(SubTask subTask) {
         subTaskMapper.insertSubTask(subTask);
     }
 
     // 删除 拆分任务
-    public void deleteSubTask(int subTaskId){
+    public void deleteSubTask(int subTaskId) {
         subTaskMapper.deleteSubTask(subTaskId);
     }
 
     // 更新 拆分任务 开启状态
-    public void updateSubTaskState(int subTaskId, boolean bool){
+    public void updateSubTaskState(int subTaskId, boolean bool) {
         SubTask subTask = subTaskMapper.selectSubTaskBySubTaskId(subTaskId);
         subTask.setUnderway(bool);
         subTaskMapper.updateSubTaskState(subTask);
     }
 
     // 插入 任务评论
-    public void insertCommentTask(CommentTask commentTask){
+    public void insertCommentTask(CommentTask commentTask) {
         commentTaskMapper.insertCommentTask(commentTask);
     }
 
     // 根据 任务id 找 任务评论列表
-    public List<CommentTask> getTaskCommentList(int taskId){
+    public List<CommentTask> getTaskCommentList(int taskId) {
         return commentTaskMapper.selectCommentTaskListByTaskId(taskId);
     }
 
     // 判断 是否为 项目创建人
-    public boolean isProjectCreater(int userId, int projectId){
+    public boolean isProjectCreater(int userId, int projectId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("projectId", projectId);
@@ -442,7 +438,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 模块创建人
-    public boolean isModuleCreater(int userId, int moduleId){
+    public boolean isModuleCreater(int userId, int moduleId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("moduleId", moduleId);
@@ -450,7 +446,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 任务创建人
-    public boolean isTaskCreater(int userId, int taskId){
+    public boolean isTaskCreater(int userId, int taskId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("taskId", taskId);
@@ -458,7 +454,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 项目负责人
-    public boolean isProjectManager(int userId, int projectId){
+    public boolean isProjectManager(int userId, int projectId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("projectId", projectId);
@@ -466,7 +462,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 模块负责人
-    public boolean isModuleManager(int userId, int moduleId){
+    public boolean isModuleManager(int userId, int moduleId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("moduleId", moduleId);
@@ -474,7 +470,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 任务负责人
-    public boolean isTaskManager(int userId, int taskId){
+    public boolean isTaskManager(int userId, int taskId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("taskId", taskId);
@@ -482,7 +478,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 项目成员
-    public boolean isProjectMember(int userId, int projectId){
+    public boolean isProjectMember(int userId, int projectId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("projectId", projectId);
@@ -490,7 +486,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 模块成员
-    public boolean isModuleMember(int userId, int moduleId){
+    public boolean isModuleMember(int userId, int moduleId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("moduleId", moduleId);
@@ -498,7 +494,7 @@ public class ProjectService {
     }
 
     // 判断 是否为 任务成员
-    public boolean isTaskMember(int userId, int taskId){
+    public boolean isTaskMember(int userId, int taskId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("taskId", taskId);

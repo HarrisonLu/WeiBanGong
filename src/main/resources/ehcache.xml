@@ -1,74 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache>
-    <cache
-            name="etags"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <diskStore path="java.io.temdir"/>
+    <cache name="contactsGroupListCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
 
-    <cache
-            name="resource-status"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <cache name="contactsCollectedListCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
 
-    <cache
-            name="policies"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <cache name="contactDetailCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
 
-    <cache
-            name="drivers"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <cache name="contactsGroupDetailCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
 
-    <cache
-            name="vehicles"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <cache name="contactsDepartmentsCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
 
-    <cache
-            name="policy-drivers"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <cache name="contactsDepartmentDetailCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
 
-    <cache
-            name="policy-vehicles"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <!-- Customer -->
 
-    <cache
-            name="driving-history"
-            maxElementsInMemory="100"
-            timeToIdleSeconds="0"
-            timeToLiveSeconds="20"
-            memoryStoreEvictionPolicy="FIFO"
-            eternal="false"
-            overflowToDisk="false"/>
+    <cache name="customerMyListCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
+
+    <cache name="customerSharedListCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
+
+    <cache name="customerMyFilterListCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
+
+    <cache name="customerSharedFilterListCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
+
+    <cache name="customerDetailCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
+
+    <cache name="customerCommentCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="30"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU"/>
+
+
 </ehcache>

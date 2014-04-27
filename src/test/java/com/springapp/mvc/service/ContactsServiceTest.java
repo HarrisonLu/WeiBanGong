@@ -45,10 +45,10 @@ public class ContactsServiceTest extends BaseTest {
     }
 
     @Test
-    public void searchGroupUserBaseInfoListByUserId() throws Exception{
+    public void searchGroupUserBaseInfoListByUserId() throws Exception {
         List<User> userList = contactsService.searchGroupUserBaseInfoListByUserId(3);
         System.out.println("组联系人数量：" + userList.size());
-        for (User user : userList){
+        for (User user : userList) {
             printTest.printUserInfo(user);
         }
     }
@@ -64,14 +64,14 @@ public class ContactsServiceTest extends BaseTest {
     }
 
     @Test
-    public void isCollectedContactsTest() throws Exception{
+    public void isCollectedContactsTest() throws Exception {
         System.out.println(contactsService.isCollectedContacts(2, 1));
     }
 
     @Test
-    public void selectAllDepartmentBaseInfoTest() throws Exception{
+    public void selectAllDepartmentBaseInfoTest() throws Exception {
         List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
-        for (Department department : departmentList){
+        for (Department department : departmentList) {
             printTest.printDepartmentInfo(department);
         }
     }
@@ -94,7 +94,7 @@ public class ContactsServiceTest extends BaseTest {
     }
 
     @Test
-    public void selectDepartmentDetailsByDepartmentIdTest() throws Exception{
+    public void selectDepartmentDetailsByDepartmentIdTest() throws Exception {
         Department department = contactsService.selectDepartmentDetailsByDepartmentId(1);
         System.out.println("User number: " + department.getUserList().size());
         System.out.println("Group number: " + department.getGroupList().size());
@@ -102,7 +102,7 @@ public class ContactsServiceTest extends BaseTest {
     }
 
     @Test
-    public void selectGroupDetailsByGroupIdTest() throws Exception{
+    public void selectGroupDetailsByGroupIdTest() throws Exception {
         Group group = contactsService.selectGroupDetailsByGroupId(1);
         System.out.println("User number: " + group.getUserList().size());
         printTest.printGroupInfo(group);

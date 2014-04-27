@@ -22,7 +22,8 @@
             <c:choose>
                 <c:when test="${isMine}">
                     <div class="btn-group navbar-btn pull-right">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">选项<b class="caret" style="margin-left: 5px;"></b>
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">选项<b
+                                class="caret" style="margin-left: 5px;"></b>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/customer/edit/${customer.id}">编辑</a></li>
@@ -32,7 +33,8 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <a href="/customer/comment/${customer.id}" class="btn btn-primary navbar-btn pull-right" role="button">评论</a>
+                    <a href="/customer/comment/${customer.id}" class="btn btn-primary navbar-btn pull-right"
+                       role="button">评论</a>
                 </c:otherwise>
             </c:choose>
         </div>
@@ -41,29 +43,22 @@
 
 <div class="media well">
     <img class="pull-left" src="/static_resources/images/head.png">
+
     <div class="media-body">
         <p><strong><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</strong></p>
+
         <p><c:out value="${customer.projectName}"/></p>
+
         <p><c:out value="${customer.moduleName}"/></p>
+
         <p><c:out value="${customer.taskName}"/></p>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-xs-6">
-            <p>所处阶段</p>
-        </div>
-        <div class="col-xs-6">
-            <p class="pull-right"><c:out value="${customer.discussStageName}"/></p>
-        </div>
-    </div>
-
-    <hr>
-    <p>客户价值</p>
-    <c:out value="${customer.customerValue}"/>
-
-</div>
+<ul class="list-group">
+    <li class="list-group-item">所处阶段<p class="pull-right"><c:out value="${customer.discussStageName}"/></p></li>
+    <li class="list-group-item">客户价值<p class="pull-right"><c:out value="${customer.customerValue}"/></p></li>
+</ul>
 
 <div class="panel-group" id="accordion">
     <div class="panel panel-primary">

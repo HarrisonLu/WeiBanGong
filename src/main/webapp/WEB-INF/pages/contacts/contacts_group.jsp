@@ -26,7 +26,7 @@
 
 <div class="list-group">
     <c:forEach items="${group.userList}" var="user">
-        <a href="/contacts/user/${user.id}" class="list-group-item">
+        <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
             <img class="pull-left" src="/static_resources/images/head.png">
             <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                     value="${user.chineseName}"/>)</h4>
@@ -34,7 +34,9 @@
         </a>
     </c:forEach>
     <c:if test="${group.userList.size() == 0}">
-        <p class="list-group-item">暂无分组成员</p>
+        <li class="list-group-item" style="min-height: 64px">
+            <h4 class="list-group-item-text">暂无分组成员</h4>
+        </li>
     </c:if>
 </div>
 <script src="/static_resources/js/jquery.min.js"></script>

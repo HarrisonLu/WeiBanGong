@@ -4,26 +4,22 @@ import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.service.contacts.ContactsService;
+import com.springapp.mvc.web.BaseController;
 import com.springapp.mvc.web.contacts.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
 @RequestMapping("/contacts")
-public class ContactsController {
+public class ContactsController extends BaseController {
 
     @Autowired
     private ContactsService contactsService;
-
-    private boolean isSessionExpired(HttpServletRequest request) {
-        return request.getSession() == null || request.getSession().getAttribute("user_id") == null;
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String showContactsIndex(HttpServletRequest request, ModelMap model) throws Exception {

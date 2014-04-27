@@ -20,7 +20,8 @@
             <h4>名片详情</h4>
         </div>
         <div class="col-xs-2">
-            <button type="submit" class="btn btn-primary navbar-btn pull-right" onclick="document.form1.submit()">保存</button>
+            <button type="submit" class="btn btn-primary navbar-btn pull-right" onclick="document.form1.submit()">保存
+            </button>
         </div>
     </div>
 </div>
@@ -38,18 +39,21 @@
             <div id="collapseMain" class="panel-collapse collapse in">
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">中文姓名</label>
+
                     <div class="col-xs-8">
                         <input type="text" class="form-control" name="chineseName" value="${customer.chineseName}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">英文姓名</label>
+
                     <div class="col-xs-8">
                         <input type="text" class="form-control" name="englishName" value="${customer.englishName}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">性别</label>
+
                     <div class="col-xs-4" style="margin-top: 4px">
                         <input type="radio" name="gender" id="optionsRadios1" value="male" checked>
                         <label for="optionsRadios1">男</label>
@@ -73,12 +77,14 @@
             <div id="collapseOne" class="panel-collapse collapse in">
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">关联</label>
+
                     <div class="col-xs-8" style="text-align: left">
                         <a href="/customer/create/project"><img src="/static_resources/images/ic_input_add.png"/></a>
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">所处阶段</label>
+
                     <div class="col-xs-8">
                         <select class="form-control" name="discussStageId">
                             <option class="form-control" value="1">未洽谈</option>
@@ -90,6 +96,7 @@
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">客户价值</label>
+
                     <div class="col-xs-8">
                         <input type="text" class="form-control" name="customerValue" value="${customer.customerValue}">
                     </div>
@@ -108,30 +115,35 @@
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">手机号码</label>
+
                     <div class="col-xs-8">
                         <input type="number" class="form-control" name="phone" value="${customer.mobilePhoneNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">微信号</label>
+
                     <div class="col-xs-8">
                         <input type="text" class="form-control" name="wechatNum" value="${customer.wechatNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">座机号码</label>
+
                     <div class="col-xs-8">
                         <input type="number" class="form-control" name="telephoneNum" value="${customer.telephoneNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">QQ号码</label>
+
                     <div class="col-xs-8">
                         <input type="number" class="form-control" name="qqNum" value="${customer.qqNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">电子邮箱</label>
+
                     <div class="col-xs-8">
                         <input type="email" class="form-control" name="email" value="${customer.email}">
                     </div>
@@ -150,12 +162,15 @@
             <div id="collapseThree" class="panel-collapse collapse">
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">生日</label>
+
                     <div class="col-xs-8">
-                        <input type="text" class="form-control" name="birthday" placeholder="MM/DD/YYYY" value="${customer.birthdayString}">
+                        <input type="text" class="form-control" name="birthday" placeholder="MM/DD/YYYY"
+                               value="${customer.birthdayString}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">爱好</label>
+
                     <div class="col-xs-8">
                         <input type="text" class="form-control" name="hobby" value="${customer.hobby}">
                     </div>
@@ -179,6 +194,7 @@
             <div id="collapseFour" class="panel-collapse collapse in">
                 <div class="form-group list-group-item">
                     <label class="col-xs-4 control-label">添加其他共享成员</label>
+
                     <div class="col-xs-8" style="text-align: left">
                         <a href="#"><img src="/static_resources/images/ic_input_add.png"/></a>
                     </div>
@@ -191,7 +207,7 @@
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script src="/static_resources/js/icheck.min.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',

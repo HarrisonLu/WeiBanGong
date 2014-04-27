@@ -43,7 +43,9 @@
                         <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
                     </c:if>
                     <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
-                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
+                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out
+                            value="${customer.chineseName}"/>)</h4>
+
                     <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/></p>
                 </a>
             </c:forEach>
@@ -71,7 +73,9 @@
                         <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
                     </c:if>
                     <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
-                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</h4>
+                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out
+                            value="${customer.chineseName}"/>)</h4>
+
                     <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/></p>
                 </a>
             </c:forEach>

@@ -26,7 +26,7 @@
 
 <div class="list-group">
     <c:forEach items="${department.userList}" var="user">
-        <a href="/contacts/user/${user.id}" class="list-group-item">
+        <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
             <img class="pull-left" src="/static_resources/images/head.png">
             <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                     value="${user.chineseName}"/>)</h4>
@@ -34,8 +34,9 @@
         </a>
     </c:forEach>
     <c:forEach items="${department.groupList}" var="group">
-        <a href="/contacts/group/${group.id}" class="list-group-item">
-            <p class="list-group-item-text"><c:out value="${group.name}"/></p>
+        <a href="/contacts/group/${group.id}" class="list-group-item" style="min-height: 64px">
+            <img class="pull-left" src="/static_resources/images/btn_home2.png" style="margin-top: 6px">
+            <h4 class="list-group-item-text head-pic-text"><c:out value="${group.name}"/></h4>
         </a>
     </c:forEach>
 </div>

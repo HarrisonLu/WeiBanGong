@@ -9,39 +9,46 @@
     <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
-<div class="container">
-    <div class="input-group">
-        <span class="input-group-btn">
-            <a class="btn btn-primary" role="button" onclick="history.go(-1)">返回</a>
-        </span>
-        <input id="customer_search" type="text" class="form-control" placeholder="输入中英文名搜索" data-provide="typeahead">
+<div class="container-fluid">
+    <div class="row-fluid title-bar" style="min-height: 50px">
+        <div class="col-xs-2">
+            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+        </div>
+        <div class="col-xs-8 title-bar-text">
+            <h4>搜索客户</h4>
+        </div>
     </div>
+</div>
+
+<div class="container">
+    <input id="project_search" type="text" class="form-control" placeholder="搜索" data-provide="typeahead"
+           style="margin-top: 10px">
 </div>
 <script src="/static_resources/js/jquery.min.js"></script>
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
 <script src="/static_resources/js/underscore-min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var customers;
-        $('#customer_search').typeahead({
-            source:function(query, process) {
+        $('#project_search').typeahead({
+            source: function (query, process) {
                 var parameter = {query: query};
                 $.post('/customer/search', parameter, function (data) {
                     customers = data;
-                    var results = _.map(data, function(customer) {
+                    var results = _.map(data, function (customer) {
                         return customer.id + "";
                     });
                     process(results);
                 });
             },
 
-            matcher: function(item) {
+            matcher: function (item) {
                 return true;
             },
 
-            highlighter: function(id) {
-                var customer = _.find(customers, function(u) {
+            highlighter: function (id) {
+                var customer = _.find(customers, function (u) {
                     return u.id == id;
                 })
                 var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
@@ -58,11 +65,11 @@
                 return item;
             },
 
-            updater: function(id) {
-                var customer = _.find(customers, function(c) {
+            updater: function (id) {
+                var customer = _.find(customers, function (c) {
                     return c.id == id;
                 })
-                self.location='/customer/' + id
+                self.location = '/customer/' + id
                 return customer.englishName + '（' + customer.chineseName + '）';
             }
 

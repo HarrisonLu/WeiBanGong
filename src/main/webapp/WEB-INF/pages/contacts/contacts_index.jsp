@@ -71,7 +71,8 @@
                     <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                             value="${user.chineseName}"/>)</h4>
                     <c:forEach items="${user.groupList}" var="group">
-                        <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+                        <p class="list-group-item-text head-pic-text"><c:out value="${group.departmentName}"/> - <c:out
+                                value="${group.name}"/></p>
                     </c:forEach>
                     <c:if test="${user.groupList.size() == 0}">
                         <p class="list-group-item-text head-pic-text">暂无分组</p>
@@ -92,7 +93,7 @@
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${departments}" var="department">
                 <a href="/contacts/department/${department.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/btn_home2.png" style="margin-top: 4px">
+                    <img class="pull-left" src="/static_resources/images/btn_home2.png" style="margin-top: 6px">
                     <h4 class="list-group-item-text head-pic-text"><c:out value="${department.name}"/></h4>
                 </a>
             </c:forEach>
@@ -105,8 +106,8 @@
 <script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
 <script src="/static_resources/js/underscore-min.js"></script>
 <script>
-    $(function () {
-        if(window.name != "Contacts") {
+    $(document).ready(function () {
+        if (window.name != "Contacts") {
             location.reload(false);
             window.name = "Contacts";
         } else {

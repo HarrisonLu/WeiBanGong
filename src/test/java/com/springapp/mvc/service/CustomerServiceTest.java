@@ -22,14 +22,14 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
-public class CustomerServiceTest extends BaseTest{
+public class CustomerServiceTest extends BaseTest {
 
     @Autowired
     private CustomerService customerService;
 
     @Test
     public void testFuzzySelectCustomer() throws Exception {
-        List<Customer> customerList = customerService.fuzzySelectCustomer(1,"t");
+        List<Customer> customerList = customerService.fuzzySelectCustomer(1, "t");
         Assert.assertEquals(customerList.size(), 3);
     }
 
@@ -39,9 +39,9 @@ public class CustomerServiceTest extends BaseTest{
 
         Assert.assertEquals(customerList.size(), 4);
 
-        Assert.assertEquals(customerList.get(1).getChineseName(),"客户一");
-        Assert.assertEquals(customerList.get(1).getEnglishName(),"one");
-        Assert.assertEquals(customerList.get(1).getTaskName(),null);
+        Assert.assertEquals(customerList.get(1).getChineseName(), "客户一");
+        Assert.assertEquals(customerList.get(1).getEnglishName(), "one");
+        Assert.assertEquals(customerList.get(1).getTaskName(), null);
 //        Assert.assertEquals(customerList.get(3).getChineseName(),"客户四");
     }
 
@@ -51,15 +51,16 @@ public class CustomerServiceTest extends BaseTest{
 
         Assert.assertEquals(customerList.size(), 2);
 
-        Assert.assertEquals(customerList.get(1).getChineseName(),"客户七");
-        Assert.assertEquals(customerList.get(1).getEnglishName(),"seven");
-        Assert.assertEquals(customerList.get(1).getProjectName(),"至善园6号618项目");
+        Assert.assertEquals(customerList.get(1).getChineseName(), "客户七");
+        Assert.assertEquals(customerList.get(1).getEnglishName(), "seven");
+        Assert.assertEquals(customerList.get(1).getProjectName(), "至善园6号618项目");
 
-        Assert.assertEquals(customerList.get(0).getChineseName(),"客户八");
-        Assert.assertEquals(customerList.get(0).getEnglishName(),"eight");
-        Assert.assertEquals(customerList.get(0).getProjectName(),"至善园6号618项目");
+        Assert.assertEquals(customerList.get(0).getChineseName(), "客户八");
+        Assert.assertEquals(customerList.get(0).getEnglishName(), "eight");
+        Assert.assertEquals(customerList.get(0).getProjectName(), "至善园6号618项目");
 
     }
+
     @Test
     public void testIsMyCustomer() throws Exception {
         Boolean isMyCustomer_1 = customerService.isMyCustomer(2, 7);
@@ -142,19 +143,19 @@ public class CustomerServiceTest extends BaseTest{
     @Test
     public void testSelectCustomerDetails() throws Exception {
         Customer customer = customerService.selectCustomerDetails(5);
-        Assert.assertEquals(customer.getChineseName(),"客户五");
-        Assert.assertEquals(customer.getEnglishName(),"five");
-        Assert.assertEquals(customer.getGender(),"男");
-        Assert.assertEquals(customer.getMobilePhoneNum(),"135");
-        Assert.assertEquals(customer.getWechatNum(),"wc5");
-        Assert.assertEquals(customer.getQqNum(),"55");
-        Assert.assertEquals(customer.getEmail(),"55@qq.com");
-        Assert.assertEquals(customer.getOfficeAddress(),"5公司地址");
-        Assert.assertEquals(customer.getHouseAddress(),"5街5号");
-        Assert.assertEquals(customer.getCustomerValue(),"小鱼");
-        Assert.assertEquals(customer.getProjectName(),"至善园6号618项目");
-        Assert.assertEquals(customer.getModuleName(),"1号床模块");
-        Assert.assertEquals(customer.getDiscussStageName(),"未洽谈");
+        Assert.assertEquals(customer.getChineseName(), "客户五");
+        Assert.assertEquals(customer.getEnglishName(), "five");
+        Assert.assertEquals(customer.getGender(), "男");
+        Assert.assertEquals(customer.getMobilePhoneNum(), "135");
+        Assert.assertEquals(customer.getWechatNum(), "wc5");
+        Assert.assertEquals(customer.getQqNum(), "55");
+        Assert.assertEquals(customer.getEmail(), "55@qq.com");
+        Assert.assertEquals(customer.getOfficeAddress(), "5公司地址");
+        Assert.assertEquals(customer.getHouseAddress(), "5街5号");
+        Assert.assertEquals(customer.getCustomerValue(), "小鱼");
+        Assert.assertEquals(customer.getProjectName(), "至善园6号618项目");
+        Assert.assertEquals(customer.getModuleName(), "1号床模块");
+        Assert.assertEquals(customer.getDiscussStageName(), "未洽谈");
     }
 
     @Test
@@ -183,8 +184,8 @@ public class CustomerServiceTest extends BaseTest{
         customerService.updateCustomer(customer);
         customer = customerService.selectCustomerDetails(5);
         Assert.assertEquals(customer.getChineseName(), "VIP客户五");
-        Assert.assertEquals(customer.getCustomerValue(),"VIP金龙鱼");
-        Assert.assertEquals(customer.getTaskName(),"1号床 叠被子任务");
+        Assert.assertEquals(customer.getCustomerValue(), "VIP金龙鱼");
+        Assert.assertEquals(customer.getTaskName(), "1号床 叠被子任务");
         customer.setChineseName("客户五");
         customer.setCustomerValue("小鱼");
         customer.setModuleId(5);

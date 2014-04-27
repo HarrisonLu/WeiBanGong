@@ -11,7 +11,8 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd
-       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+       http://www.springframework.org/schema/cache
+       http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <context:annotation-config/>
 
@@ -54,7 +55,7 @@
     </bean>
 
     <!-- Configure SqlSessionTemplate which provides ThreadSafe SqlSession object. -->
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
 
@@ -64,8 +65,8 @@
         <property name="basePackage" value="com.springapp.mvc"/>
     </bean>
 
-    <!-- Cache -->
-    <cache:annotation-driven/>
+    <!-- Cache Configuration-->
+    <cache:annotation-driven cache-manager="cacheManager"/>
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="ehcache"/>
     </bean>

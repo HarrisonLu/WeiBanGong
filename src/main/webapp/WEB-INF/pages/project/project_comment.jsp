@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>客户管理</title>
+    <title>项目管理</title>
     <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
@@ -17,39 +17,31 @@
             <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
         </div>
         <div class="col-xs-8 title-bar-text">
-            <h4>评论</h4>
+            <h4>动态</h4>
         </div>
     </div>
 </div>
 
 <div class="media well">
-    <img class="pull-left" src="/static_resources/images/head.png">
+    <p><strong><c:out value="${project.name}"/></strong></p>
 
-    <div class="media-body">
-        <p><strong><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</strong></p>
-
-        <p><c:out value="${customer.projectName}"/></p>
-
-        <p><c:out value="${customer.moduleName}"/></p>
-
-        <p><c:out value="${customer.taskName}"/></p>
-    </div>
+    <p><c:out value="${project.info}"/></p>
 </div>
 
 <div class="container">
     <ul class="content-reply-box mg10">
-        <c:forEach items="${comments}" var="comment">
+        <c:forEach items="${commentProjects}" var="commentProject">
             <li class="odd">
                 <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png"
                                               alt=""><span class="user-name"><c:out
-                        value="${comment.userEnglishName}"/></span></a>
+                        value="${commentProject.userEnglishName}"/></span></a>
 
                 <div class="reply-content-box">
-                    <span class="reply-time"><c:out value="${comment.displayTime}"/></span>
+                    <span class="reply-time"><c:out value="${commentProject.displayTime}"/></span>
 
                     <div class="reply-content pr">
                         <span class="arrow">&nbsp;</span>
-                        <c:out value="${comment.details}"/>
+                        <c:out value="${commentProject.details}"/>
                     </div>
                 </div>
             </li>
@@ -65,6 +57,7 @@
         </div>
     </div>
 </div>
+
 <script src="/static_resources/js/jquery.min.js"></script>
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script>

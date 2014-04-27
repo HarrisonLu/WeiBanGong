@@ -3,6 +3,7 @@ package com.springapp.mvc.web.customer.controller;
 import com.springapp.mvc.domain.customer.CommentCustomer;
 import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.service.customer.CustomerService;
+import com.springapp.mvc.web.BaseController;
 import com.springapp.mvc.web.customer.command.CustomerCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +19,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
-public class CustomerController {
+public class CustomerController extends BaseController {
 
     @Autowired
     private CustomerService customerService;
-
-    private boolean isSessionExpired(HttpServletRequest request) {
-        return request.getSession() == null || request.getSession().getAttribute("user_id") == null;
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String showCustomerIndex(HttpServletRequest request, ModelMap model) throws Exception {
@@ -97,21 +94,21 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String showSearchCustomer(HttpServletRequest request) throws Exception {
+    public String showCustomerSearch(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
             return "redirect:/index";
         return "/customer/customer_search";
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.GET)
-    public String filterCustomer(HttpServletRequest request) throws Exception {
+    public String showCustomerFilter(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
             return "redirect:/index";
         return "/customer/customer_filter";
     }
 
     @RequestMapping(value = "/filter/{filterType}", method = RequestMethod.GET)
-    public String filterResult(HttpServletRequest request, ModelMap model, @PathVariable int filterType) throws Exception {
+    public String showCustomerFilterResult(HttpServletRequest request, ModelMap model, @PathVariable int filterType) throws Exception {
         if (isSessionExpired(request))
             return "redirect:/index";
 
@@ -123,8 +120,8 @@ public class CustomerController {
         return "/customer/customer_filter_result";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveCustomer(HttpServletRequest request, @Valid CustomerCommand customerCommand, BindingResult bindingResult) throws Exception {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String createCustomer(HttpServletRequest request, @Valid CustomerCommand customerCommand, BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors())
             return "/customer/customer_create";
 
@@ -195,7 +192,7 @@ public class CustomerController {
         comment.setUserId((Integer) request.getSession().getAttribute("user_id"));
         comment.setCustomerId(customerId);
         customerService.insertCommentCustomer(comment);
-        return "redirect:/customer/comment/" + customerId;
+        return "/customer/customer_comment";
     }
 
 }
