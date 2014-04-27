@@ -11,7 +11,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 04/23/2014 20:11:54 PM
+ Date: 04/27/2014 21:11:00 PM
 */
 
 SET NAMES utf8;
@@ -230,6 +230,7 @@ CREATE TABLE `t_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `stage_id` int(10) NOT NULL,
   `info` varchar(600) DEFAULT NULL,
   `creater_id` int(10) NOT NULL,
@@ -238,7 +239,7 @@ CREATE TABLE `t_project` (
   KEY `t_project_ibfk_2` (`creater_id`) USING BTREE,
   CONSTRAINT `t_project_ibfk_1` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_project_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_project_customer`
