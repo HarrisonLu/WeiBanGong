@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png"></a>
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>编辑信息</h4>
@@ -52,25 +52,25 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label">座机号码</label>
                 <div class="col-xs-8">
-                    <input type="number" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>" style="text-align: right">
+                    <input type="number" class="form-control" name="telephoneNum" value="<c:out value="${user.telephoneNum}"/>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">手机号码</label>
                 <div class="col-xs-8">
-                    <input type="number" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>" style="text-align: right">
+                    <input type="number" class="form-control" name="mobilePhoneNum" value="<c:out value="${user.mobilePhoneNum}"/>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">QQ号码</label>
                 <div class="col-xs-8">
-                    <input type="number" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>" style="text-align: right">
+                    <input type="number" class="form-control" name="qqNum" value="<c:out value="${user.qqNum}"/>">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-xs-4 control-label">邮箱</label>
                 <div class="col-xs-8">
-                    <input type="email" class="form-control" name="email" value="<c:out value="${user.email}"/>" style="text-align: right">
+                    <input type="email" class="form-control" name="email" value="<c:out value="${user.email}"/>">
                 </div>
             </div>
         </form>

@@ -12,8 +12,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>名片详情</h4>
@@ -57,7 +57,7 @@
 
 <ul class="list-group">
     <li class="list-group-item">所处阶段<p class="pull-right"><c:out value="${customer.discussStageName}"/></p></li>
-    <li class="list-group-item">客户价值<p class="pull-right"><c:out value="${customer.customerValue}"/></p></li>
+    <li class="list-group-item">客户价值<p><c:out value="${customer.customerValue}"/></p></li>
 </ul>
 
 <div class="panel-group" id="accordion">

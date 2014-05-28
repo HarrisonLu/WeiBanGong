@@ -5,6 +5,8 @@
     display: inline-block;
     *display: inline;
     vertical-align: middle;
+    position: absolute;
+    right: 20px;
     margin: 0;
     padding: 0;
     width: 22px;

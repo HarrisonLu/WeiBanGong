@@ -83,7 +83,7 @@ public class CustomerController extends BaseController {
     public String showCustomerProject(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
             return "redirect:/index";
-        return "/customer/customer_project";
+        return "customer/customer_create_project";
     }
 
     @RequestMapping(value = "/create/task", method = RequestMethod.GET)
@@ -125,6 +125,8 @@ public class CustomerController extends BaseController {
         if (bindingResult.hasErrors())
             return "/customer/customer_create";
 
+        int userId = (Integer) request.getSession().getAttribute("user_id");
+
         Customer customer = new Customer();
         customer.setChineseName(customerCommand.getChineseName());
         customer.setEnglishName(customerCommand.getEnglishName());
@@ -137,7 +139,7 @@ public class CustomerController extends BaseController {
         customer.setCustomerValue(customerCommand.getCustomerValue());
         customer.setBirthday(customerCommand.getBirthday());
         customer.setHobby(customerCommand.getHobby());
-        customer.setCreatedUserId(1);
+        customer.setCreatedUserId(userId);
         customer.setProjectId(1);
         customer.setModuleId(1);
         customer.setTaskId(1);
@@ -183,6 +185,15 @@ public class CustomerController extends BaseController {
     Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
         int userId = (Integer) request.getSession().getAttribute("user_id");
         return customerService.fuzzySelectCustomer(userId, query);
+    }
+
+    @RequestMapping(value = "/create/project", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Object searchCustomerProject(HttpServletRequest request, @RequestParam String query) throws Exception {
+        if (isSessionExpired(request))
+            return "redirect:/index";
+        return customerService.fuzzySelectProjectBaseInfoList(query);
     }
 
     @RequestMapping(value = "/comment/{customerId}/{message}", method = RequestMethod.GET)

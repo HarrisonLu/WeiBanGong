@@ -11,8 +11,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>搜索客户</h4>
@@ -21,9 +21,17 @@
 </div>
 
 <div class="container">
-    <input id="project_search" type="text" class="form-control" placeholder="搜索" data-provide="typeahead"
-           style="margin-top: 10px">
+    <div class="input-group" style="margin-top: 10px">
+        <input id="customer_search" type="text" class="form-control" placeholder="搜索" data-provide="typeahead">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="onSearch()">查找</button>
+        </span>
+    </div>
 </div>
+
+<div id="search_result" style="margin-top: 10px">
+</div>
+
 <script src="/static_resources/js/jquery.min.js"></script>
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
@@ -31,7 +39,7 @@
 <script>
     $(document).ready(function () {
         var customers;
-        $('#project_search').typeahead({
+        $('#customer_search').typeahead({
             source: function (query, process) {
                 var parameter = {query: query};
                 $.post('/customer/search', parameter, function (data) {
@@ -75,6 +83,31 @@
 
         })
     })
+
+    function onSearch() {
+        var query = $("#customer_search").val();
+        if (query == "") {
+            alert("请输入搜索内容")
+        } else {
+            $.ajax({
+                type: "POST",
+                url: encodeURI(encodeURI(window.location)),
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                data: {query: query},
+                success: function (data) {
+                    var html = "";
+                    for (var i in data) {
+                        html += "<a href='/customer/" + data[i].id + "' class='list-group-item' style='min-height: 64px'>" +
+                                    "<img class='pull-left' src='/static_resources/images/head.png' alt='' style='margin-left: 4px'>" +
+                                    "<h4 class='list-group-item-heading head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" + "</h4>" +
+                                    "<p class='list-group-item-text head-pic-text_'>" + data[i].projectName + "</p>" +
+                                "</a>";
+                    }
+                    $("#search_result").html(html);
+                }
+            });
+        }
+    }
 </script>
 </body>
 </html>

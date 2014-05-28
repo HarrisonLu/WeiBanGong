@@ -12,8 +12,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>管理项目</h4>
@@ -36,17 +36,10 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Title</h4>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success">查看</button>
-                <a href="/project/edit/1" class="btn btn-primary">编辑</a>
-                <button type="button" class="btn btn-danger">删除</button>
+            <div class="modal-body" style="text-align: center">
+                <button type="button" class="btn btn-success">查看</button><hr>
+                <a href="#" class="btn btn-primary">编辑</a><hr>
+                <button type="button" class="btn btn-danger">删除</button><hr>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>
@@ -57,9 +50,8 @@
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script>
     function showModal(id) {
-        $('.modal').modal('show').on('shown', function () {
-            $(".btn-primary").attr('href', '/project/edit/' + id);
-        })
+        $('.modal').modal('show');
+        $(".btn-primary").attr('href', '/project/edit/' + id);
     }
 </script>
 </body>

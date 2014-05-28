@@ -14,7 +14,7 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png"></a>
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <c:if test="${user.id == sessionScope.user_id}">
@@ -24,14 +24,16 @@
                 <h4>名片详情</h4>
             </c:if>
         </div>
-        <div class="col-xs-2">
-            <c:if test="${user.id == sessionScope.user_id}">
+        <c:if test="${user.id == sessionScope.user_id}">
+            <div class="col-xs-2">
                 <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
-            </c:if>
-            <c:if test="${user.id != sessionScope.user_id}">
-                <a href="/contacts" class="btn btn-primary navbar-btn pull-right" role="button">首页</a>
-            </c:if>
-        </div>
+            </div>
+        </c:if>
+        <%--<c:if test="${user.id != sessionScope.user_id}">--%>
+            <%--<div class="col-xs-2" style="margin-top: 10px">--%>
+                <%--<a href="/contacts"><img src="/static_resources/images/btn_head.png" width="32" height="32"></a>--%>
+            <%--</div>--%>
+        <%--</c:if>--%>
     </div>
 </div>
 

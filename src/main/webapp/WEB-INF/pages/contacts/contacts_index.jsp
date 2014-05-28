@@ -13,7 +13,7 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
-            <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
+            <a href="/index"><img src="/static_resources/images/btn_home.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-10" style="margin-top: 9px">
             <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索"
@@ -33,7 +33,7 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
             <a href="/contacts/user/${self.id}" class="list-group-item" style="min-height: 64px">
-                <img class="pull-left" src="/static_resources/images/head.png">
+                <img class="pull-left" src="/static_resources/images/head.png" width="40" height="40">
 
                 <h4 class="list-group-item-heading head-pic-text"><c:out value="${self.englishName}"/> (<c:out
                         value="${self.chineseName}"/>)</h4>
@@ -50,7 +50,7 @@
 
             <c:forEach items="${groupUsers}" var="user">
                 <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/head.png">
+                    <img class="pull-left" src="/static_resources/images/head.png" width="40" height="40">
 
                     <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                             value="${user.chineseName}"/>)</h4>
@@ -66,7 +66,7 @@
 
             <c:forEach items="${collUsers}" var="user">
                 <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/head.png">
+                    <img class="pull-left" src="/static_resources/images/head.png" width="40" height="40">
 
                     <h4 class="list-group-item-heading head-pic-text"><c:out value="${user.englishName}"/> (<c:out
                             value="${user.chineseName}"/>)</h4>
@@ -93,7 +93,7 @@
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${departments}" var="department">
                 <a href="/contacts/department/${department.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/btn_home2.png" style="margin-top: 6px">
+                    <img class="pull-left" src="/static_resources/images/btn_head.png" width="35" height="35" style="margin-top: 4px">
                     <h4 class="list-group-item-text head-pic-text"><c:out value="${department.name}"/></h4>
                 </a>
             </c:forEach>

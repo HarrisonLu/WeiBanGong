@@ -13,16 +13,16 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-3">
-            <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
+            <a href="/index"><img src="/static_resources/images/btn_home.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/customer/create"><img src="/static_resources/images/btn_new.png"></a>
+            <a href="/customer/create"><img src="/static_resources/images/btn_new.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/customer/filter"><img src="/static_resources/images/btn_filter.png"></a>
+            <a href="/customer/filter"><img src="/static_resources/images/btn_filter.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/customer/search"><img src="/static_resources/images/btn_search.png"></a>
+            <a href="/customer/search"><img src="/static_resources/images/btn_search.png" width="40" height="40"></a>
         </div>
     </div>
 </div>
@@ -48,7 +48,7 @@
                     <c:if test="${customer.discussStageId == 3}">
                         <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
                     </c:if>
-                    <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
+                    <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px" width="40" height="40">
                     <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out
                             value="${customer.chineseName}"/>)</h4>
 
@@ -78,7 +78,7 @@
                 <c:if test="${customer.discussStageId == 3}">
                     <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
                 </c:if>
-                <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
+                <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px" width="40" height="40">
                 <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out
                         value="${customer.chineseName}"/>)</h4>
 

@@ -107,7 +107,7 @@ public class ContactsController extends BaseController {
         user.setQqNum(userCommand.getQqNum());
         user.setEmail(userCommand.getEmail());
         contactsService.updateUserInfo(user);
-        return "redirect:/contacts/user/" + userId;
+        return "redirect:/contacts";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)

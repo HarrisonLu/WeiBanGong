@@ -13,8 +13,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>评论</h4>
@@ -40,9 +40,8 @@
     <ul class="content-reply-box mg10">
         <c:forEach items="${comments}" var="comment">
             <li class="odd">
-                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png"
-                                              alt=""><span class="user-name"><c:out
-                        value="${comment.userEnglishName}"/></span></a>
+                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt="">
+                    <span class="user-name"><c:out value="${comment.userEnglishName}"/></span></a>
 
                 <div class="reply-content-box">
                     <span class="reply-time"><c:out value="${comment.displayTime}"/></span>
@@ -58,7 +57,7 @@
 
     <div class="navbar navbar-fixed-bottom" style="margin-bottom: -4px">
         <div class="input-group">
-            <input type="text" class="form-control" id="message" placeholder="输入需要发送的信息…">
+            <input type="text" class="form-control" id="customer_message" placeholder="输入需要发送的信息…">
             <span class="input-group-btn">
                 <button class="btn btn-default" onclick="onSend()">发送</button>
             </span>
@@ -69,17 +68,17 @@
 <script src="/static_resources/js/bootstrap.min.js"></script>
 <script>
     function onSend() {
-        var message = $("#message").val();
+        var message = $("#customer_message").val();
         if (message == "") {
-            alert("请输入评论!")
+            alert("请输入评论")
         } else {
             $.ajax({
                 type: "GET",
                 url: encodeURI(encodeURI(window.location + "/" + message)),
                 contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                success: function (data) {
+                success: function () {
                     alert("评论成功!")
-                    document.getElementById("message").value = "";
+                    document.getElementById("customer_message").value = "";
                     location.reload(false);
                 }
             });

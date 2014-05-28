@@ -13,16 +13,16 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-3">
-            <a href="/index"><img src="/static_resources/images/btn_home.png"></a>
+            <a href="/index"><img src="/static_resources/images/btn_home.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/project/create"><img src="/static_resources/images/btn_new.png"></a>
+            <a href="/project/create"><img src="/static_resources/images/btn_new.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/project/manager"><img src="/static_resources/images/btn_filter.png"></a>
+            <a href="/project/manager"><img src="/static_resources/images/btn_filter.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-3">
-            <a href="/project/search"><img src="/static_resources/images/btn_search.png"></a>
+            <a href="/project/search"><img src="/static_resources/images/btn_search.png" width="40" height="40"></a>
         </div>
     </div>
 </div>
@@ -31,9 +31,7 @@
     <c:forEach items="${projects}" var="project">
         <a href="/project/comment/${project.id}" class="list-group-item" style="min-height: 64px">
             <h4 class="list-group-item-heading"><c:out value="${project.name}"/></h4>
-
             <p class="list-group-item-text pull-right"><c:out value="${project.displayUpdateTime}"/></p>
-
             <p class="list-group-item-text"><c:out value="${project.info}"/></p>
         </a>
     </c:forEach>

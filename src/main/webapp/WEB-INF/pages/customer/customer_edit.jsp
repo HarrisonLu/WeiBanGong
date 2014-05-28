@@ -13,8 +13,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a class="btn btn-primary navbar-btn pull-left" role="button" onclick="history.go(-1)">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>名片详情</h4>
@@ -174,11 +174,6 @@
                     <div class="col-xs-8">
                         <input type="text" class="form-control" name="hobby" value="${customer.hobby}">
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="control-label" style="margin-left: 15px"><strong>是否设置节假日提醒</strong>
-                        <input type="checkbox">
-                    </label>
                 </div>
             </div>
         </div>

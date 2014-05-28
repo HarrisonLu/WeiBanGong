@@ -12,8 +12,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a href="/customer" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="/customer"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>新建客户</h4>
@@ -173,11 +173,6 @@
                         <input type="text" class="form-control" name="hobby">
                     </div>
                 </div>
-                <div class="form-group list-group-item">
-                    <label class="control-label" style="margin-left: 15px"><strong>是否设置节假日提醒</strong>
-                        <input type="checkbox">
-                    </label>
-                </div>
             </div>
         </div>
 
@@ -209,7 +204,7 @@
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
             radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
+            increaseArea: '20%'
         });
     });
 </script>

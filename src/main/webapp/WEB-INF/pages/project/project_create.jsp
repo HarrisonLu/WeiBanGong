@@ -11,8 +11,8 @@
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2">
-            <a href="/project" class="btn btn-primary navbar-btn pull-left" role="button">返回</a>
+        <div class="col-xs-2" style="margin-top: 6px">
+            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>新建项目</h4>
@@ -23,6 +23,7 @@
         </div>
     </div>
 </div>
+
 <form name="form1" class="form-horizontal" role="form" action="/project/create" method="post" style="padding-right: 15px">
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">项目名称</label>
@@ -55,7 +56,7 @@
         <label class="col-xs-6 control-label">添加项目负责人</label>
 
         <div class="col-xs-6" style="text-align: left">
-            <a href="/customer/create/project"><img src="/static_resources/images/ic_input_add.png"/></a>
+            <a href="/project/create/manager"><img src="/static_resources/images/ic_input_add.png"/></a>
         </div>
     </div>
 
@@ -63,7 +64,7 @@
         <label class="col-xs-6 control-label">添加项目成员</label>
 
         <div class="col-xs-6" style="text-align: left">
-            <a href="/customer/create/project"><img src="/static_resources/images/ic_input_add.png"/></a>
+            <a href="/project/create/member"><img src="/static_resources/images/ic_input_add.png"/></a>
         </div>
     </div>
 
@@ -71,7 +72,7 @@
         <label class="col-xs-6 control-label">添加项目关联客户</label>
 
         <div class="col-xs-6" style="text-align: left">
-            <a href="/customer/create/project"><img src="/static_resources/images/ic_input_add.png"/></a>
+            <a href="/project/create/customer"><img src="/static_resources/images/ic_input_add.png"/></a>
         </div>
     </div>
 
@@ -92,11 +93,19 @@
     </div>
 
 </form>
-<button type="submit" class="btn btn-primary btn-lg btn-block" onclick="document.form1.submit()"
-        style="margin-top: 5px; margin-bottom: 5px">保存项目
-</button>
+
+<div class="container">
+    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="document.form1.submit()"
+            style="margin-top: 5px; margin-bottom: 5px">保存项目
+    </button>
+</div>
 
 <script src="/static_resources/js/jquery.min.js"></script>
 <script src="/static_resources/js/bootstrap.min.js"></script>
+<script>
+    function getProjectManagerFromChild(value) {
+        document.getElementById("project_manager").value = value;
+    }
+</script>
 </body>
 </html>

@@ -12,7 +12,6 @@ public class CustomerCommand {
     @Size(min = 2)
     private String chineseName;
     private String chineseNamePinyin;
-
     private String englishName;
 
     private String gender;
