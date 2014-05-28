@@ -88,7 +88,12 @@ public class ProjectService {
 
     // 根据 项目id 找 项目评论列表
     public List<CommentProject> getProjectCommentList(int projectId) {
-        return commentProjectMapper.selectProjectCommentListByProjectId(projectId);
+        List<CommentProject> commentProjectList = commentProjectMapper.selectProjectCommentListByProjectId(projectId);
+        for (CommentProject commentProject : commentProjectList) {
+            String displayTime = DateHelper.getShortTime(commentProject.getTime());
+            commentProject.setDisplayTime(displayTime);
+        }
+        return commentProjectList;
     }
 
     // 插入 项目评论
