@@ -94,9 +94,10 @@
         left join t_task t_2 on t_2.module_id = m_5.id
         left join t_task_member t_me on t_me.task_id = t_2.id
 
-        where p.creater_id = #{userId} or p_ma.manager_id = #{userId} or p_me.member_id = #{userId} or
+        where (p.creater_id = #{userId} or p_ma.manager_id = #{userId} or p_me.member_id = #{userId} or
               m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
-              t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId}
+              t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId})
+              order by create_time DESC
     </select>
 
     <insert id="insertProject" parameterType="Project">
