@@ -25,6 +25,7 @@
         from t_comment_project cp
         left join t_user u on u.id = cp.user_id
         where cp.project_id = #{projectId}
+             order by create_time DESC
     </select>
 
     <delete id="deleteAllProjectCommentByProjectId" parameterType="int">

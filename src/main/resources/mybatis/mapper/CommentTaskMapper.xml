@@ -25,6 +25,7 @@
         from t_comment_task ct
         left join t_user u on u.id = ct.user_id
         where ct.task_id = #{taskId}
+              order by create_time DESC
     </select>
 
     <delete id="deleteAllTaskCommentByTaskId" parameterType="int">

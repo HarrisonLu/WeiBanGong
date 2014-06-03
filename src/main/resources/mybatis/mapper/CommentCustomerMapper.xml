@@ -24,5 +24,6 @@
         from t_comment_customer c
         left join t_user u on c.user_id = u.id
         where c.customer_id = #{customerId}
+               order by create_time DESC
     </select>
 </mapper>
