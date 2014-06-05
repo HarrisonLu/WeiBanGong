@@ -50,11 +50,12 @@ public class ContactsService {
     }
 
     // 根据 成员id和联系人id 增加收藏联系人
-    public void insertCollectedContacts(int userId, int collectedContactsId) {
+    public Integer insertCollectedContacts(int userId, int collectedContactsId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("user_id", userId);
         map.put("collectedcontacts_id", collectedContactsId);
-        linkMapper.insertUserIdCollectedContactsIdLink(map);
+        map.put("company_id", companyId);
+        return linkMapper.insertUserIdCollectedContactsIdLink(map);
     }
 
     // 根据 成员id和联系人id 删除收藏联系人

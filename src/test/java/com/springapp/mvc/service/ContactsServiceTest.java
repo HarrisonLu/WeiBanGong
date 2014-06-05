@@ -55,7 +55,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void insertCollectedContactsTest() throws Exception {
-        contactsService.insertCollectedContacts(2, 3);
+        contactsService.insertCollectedContacts(2, 3, 1);
     }
 
     @Test

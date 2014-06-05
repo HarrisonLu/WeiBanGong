@@ -12,7 +12,7 @@ import java.util.List;
 public interface CommentCustomerMapper {
 
     // 插入 评论
-    public void insertCommentCustomer(CommentCustomer commentCustomer);
+    public Integer insertCommentCustomer(CommentCustomer commentCustomer);
 
     // 根据 客户id 找 评论列表
     public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId);

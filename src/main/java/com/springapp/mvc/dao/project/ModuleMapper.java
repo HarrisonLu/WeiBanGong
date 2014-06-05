@@ -22,7 +22,7 @@ public interface ModuleMapper {
     public List<Module> getModuleListByUserIdAndProjectId(Map<String, Integer> map);
 
     // 插入 模块
-    public void insertModule(Module module);
+    public Integer insertModule(Module module);
 
     // 更新 模块详细资料
     public void updateModuleDetail(Module module);
@@ -31,5 +31,5 @@ public interface ModuleMapper {
     public Integer isModuleCreater(Map<String, Integer> map);
 
     // 删除 模块详细资料
-    public void deleteModuleDetailByModuleId(int moduleId);
+    public Integer deleteModuleDetailByModuleId(int moduleId);
 }

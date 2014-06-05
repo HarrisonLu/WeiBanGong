@@ -48,7 +48,7 @@
         <result property="customerId" column="comment_customer_id"/>
     </resultMap>
     <insert id="insertUserIdCollectedContactsIdLink" parameterType="java.util.Map">
-        insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
+        insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id}, #{company_id})
     </insert>
 
     <delete id="deleteUserIdCollectedContactsIdLink" parameterType="java.util.Map">
@@ -88,7 +88,7 @@
 
     <insert id="insertUserSharedCustomerLink" parameterType="java.util.Map">
         insert into t_customer_user
-                values (#{customerId}, #{userId})
+                values (#{customerId}, #{userId}, #{companyId})
     </insert>
 
     <delete id="deleteUserSharedCustomerLink" parameterType="java.util.Map">
@@ -97,8 +97,8 @@
     </delete>
 
     <insert id="insertProjectCustomerLink" parameterType="java.util.Map">
-        insert into t_project_customer (project_id, customer_id)
-                values (#{projectId}, #{customerId})
+        insert into t_project_customer (project_id, customer_id, company_id)
+                values (#{projectId}, #{customerId}, #{companyId})
     </insert>
 
     <delete id="deleteProjectCustomerLink" parameterType="java.util.Map">
@@ -112,8 +112,8 @@
     </delete>
 
     <insert id="insertModuleCustomerLink" parameterType="java.util.Map">
-        insert into t_module_customer (module_id, customer_id)
-                values (#{moduleId}, #{customerId})
+        insert into t_module_customer (module_id, customer_id, company_id)
+                values (#{moduleId}, #{customerId}, #{companyId})
     </insert>
 
     <delete id="deleteModuleCustomerLink" parameterType="java.util.Map">
@@ -127,8 +127,8 @@
     </delete>
 
     <insert id="insertTaskCustomerLink" parameterType="java.util.Map">
-        insert into t_task_customer (task_id, customer_id)
-                values (#{taskId}, #{customerId})
+        insert into t_task_customer (task_id, customer_id, company_id)
+                values (#{taskId}, #{customerId}, #{companyId})
     </insert>
 
     <delete id="deleteTaskCustomerLink" parameterType="java.util.Map">
@@ -148,8 +148,8 @@
     <!--</select>-->
 
     <insert id="insertProjectManagerLink" parameterType="java.util.Map">
-        insert into t_project_manager (project_id, manager_id)
-                values (#{projectId}, #{managerId})
+        insert into t_project_manager (project_id, manager_id, company_id)
+                values (#{projectId}, #{managerId}, #{companyId})
     </insert>
 
     <delete id="deleteProjectManagerLink" parameterType="java.util.Map">
@@ -158,8 +158,8 @@
     </delete>
 
     <insert id="insertProjectMemberLink" parameterType="java.util.Map">
-        insert into t_project_member (project_id, member_id)
-                values (#{projectId}, #{memberId})
+        insert into t_project_member (project_id, member_id, company_id)
+                values (#{projectId}, #{memberId}, #{companyId})
     </insert>
 
     <delete id="deleteProjectMemberLink" parameterType="java.util.Map">
@@ -192,8 +192,8 @@
     <!--&lt;!&ndash;成员 与 模块&ndash;&gt;-->
 
     <insert id="insertModuleManagerLink" parameterType="java.util.Map">
-        insert into t_module_manager (module_id, manager_id)
-                values (#{moduleId}, #{managerId})
+        insert into t_module_manager (module_id, manager_id, company_id)
+                values (#{moduleId}, #{managerId}, #{companyId})
     </insert>
 
     <delete id="deleteModuleManagerLink" parameterType="java.util.Map">
@@ -202,8 +202,8 @@
     </delete>
 
     <insert id="insertModuleMemberLink" parameterType="java.util.Map">
-        insert into t_module_member (module_id, member_id)
-                values (#{moduleId}, #{memberId})
+        insert into t_module_member (module_id, member_id, company_id)
+                values (#{moduleId}, #{memberId}, #{companyId})
     </insert>
 
     <delete id="deleteModuleMemberLink" parameterType="java.util.Map">
@@ -236,8 +236,8 @@
     <!--&lt;!&ndash;成员 与 任务&ndash;&gt;-->
 
     <insert id="insertTaskManagerLink" parameterType="java.util.Map">
-        insert into t_task_manager (task_id, manager_id)
-                values (#{taskId}, #{managerId})
+        insert into t_task_manager (task_id, manager_id, company_id)
+                values (#{taskId}, #{managerId}, #{companyId})
     </insert>
 
     <delete id="deleteTaskManagerLink" parameterType="java.util.Map">
@@ -246,8 +246,8 @@
     </delete>
 
     <insert id="insertTaskMemberLink" parameterType="java.util.Map">
-        insert into t_task_member (task_id, member_id)
-                values (#{taskId}, #{memberId})
+        insert into t_task_member (task_id, member_id, company_id)
+                values (#{taskId}, #{memberId}, #{companyId})
     </insert>
 
     <delete id="deleteTaskMemberLink" parameterType="java.util.Map">

@@ -112,7 +112,7 @@ public class CustomerServiceTest extends BaseTest {
 
     @Test
     public void testInsertUserSharedCustomerLink() throws Exception {
-        customerService.insertUserSharedCustomerLink(1, 5);
+        customerService.insertUserSharedCustomerLink(1, 5, 1);
     }
 
     @Test
@@ -185,7 +185,6 @@ public class CustomerServiceTest extends BaseTest {
         customer = customerService.selectCustomerDetails(5);
         Assert.assertEquals(customer.getChineseName(), "VIP客户五");
         Assert.assertEquals(customer.getCustomerValue(), "VIP金龙鱼");
-        Assert.assertEquals(customer.getTaskName(), "1号床 叠被子任务");
         customer.setChineseName("客户五");
         customer.setCustomerValue("小鱼");
         customer.setModuleId(5);

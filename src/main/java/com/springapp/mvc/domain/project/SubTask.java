@@ -9,6 +9,7 @@ public class SubTask {
     private Integer taskId;
     private String taskName;
     private boolean isUnderway;
+    private Integer companyId;
 
     public Integer getId() {
         return id;
@@ -48,5 +49,13 @@ public class SubTask {
 
     public void setUnderway(boolean isUnderway) {
         this.isUnderway = isUnderway;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

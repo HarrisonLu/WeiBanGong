@@ -20,6 +20,7 @@ public class Task {
     private Integer stageId;
     private String stageName;
     private Timestamp updateTime;
+    private Integer companyId;
 
     public Integer getId() {
         return id;
@@ -131,5 +132,13 @@ public class Task {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

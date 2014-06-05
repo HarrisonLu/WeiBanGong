@@ -98,11 +98,11 @@ public class CustomerService {
 
     // 插入 客户
 //    @CacheEvict(value = {"customerMyListCache", "customerSharedListCache", "customerMyFilterListCache", "customerSharedFilterListCache"})
-    public void insertCustomer(Customer customer) {
+    public Integer insertCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
         customer.setChineseNamePinyin(chineseNamePinyin);
-        customerMapper.insertCustomer(customer);
+        return customerMapper.insertCustomer(customer);
     }
 
     // 根据 字符串 模糊搜索 成员基本资料列表
@@ -111,19 +111,20 @@ public class CustomerService {
     }
 
     // 插入 成员-客户共享关系
-    public void insertUserSharedCustomerLink(int userId, int customerId) {
+    public Integer insertUserSharedCustomerLink(int userId, int customerId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("customerId", customerId);
-        linkMapper.insertUserSharedCustomerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertUserSharedCustomerLink(map);
     }
 
     // 删除 成员-客户共享关系
-    public void deleteUserSharedCustomerLink(int userId, int customerId) {
+    public Integer deleteUserSharedCustomerLink(int userId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("customerId", customerId);
-        linkMapper.deleteUserSharedCustomerLink(map);
+        return linkMapper.deleteUserSharedCustomerLink(map);
     }
 
     // 根据 字符串 模糊搜索 项目基本资料列表
@@ -169,8 +170,8 @@ public class CustomerService {
     }
 
     // 插入 客户评论
-    public void insertCommentCustomer(CommentCustomer commentCustomer) {
-        commentCustomerMapper.insertCommentCustomer(commentCustomer);
+    public Integer insertCommentCustomer(CommentCustomer commentCustomer) {
+        return commentCustomerMapper.insertCommentCustomer(commentCustomer);
     }
 
     // 根据 客户id 找 评论列表

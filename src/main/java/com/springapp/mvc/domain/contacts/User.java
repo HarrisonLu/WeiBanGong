@@ -51,6 +51,9 @@ public class User extends BaseDomain {
     // 组列表
     private List<Group> groupList;
 
+    // 公司id
+    private Integer companyId;
+
     public Integer getId() {
         return id;
     }
@@ -169,6 +172,14 @@ public class User extends BaseDomain {
 
     public void setGroupList(List<Group> groupList) {
         this.groupList = groupList;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }
 

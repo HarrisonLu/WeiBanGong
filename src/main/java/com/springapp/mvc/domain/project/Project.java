@@ -17,6 +17,7 @@ public class Project {
     private Integer createrId;
     private String createrChineseName;
     private String createrEnglishName;
+    private Integer companyId;
 
     public Integer getId() {
         return id;
@@ -104,5 +105,13 @@ public class Project {
 
     public void setCreaterEnglishName(String createrEnglishName) {
         this.createrEnglishName = createrEnglishName;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

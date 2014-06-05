@@ -15,6 +15,7 @@ public class CommentCustomer {
     private String userChineseName;
     private String userEnglishName;
     private Integer customerId;
+    private Integer companyId;
 
     public Integer getId() {
         return id;
@@ -78,5 +79,13 @@ public class CommentCustomer {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

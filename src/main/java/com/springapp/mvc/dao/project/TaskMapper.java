@@ -22,7 +22,7 @@ public interface TaskMapper {
     public List<Task> getTaskListByUserIdAndModuleId(Map<String, Integer> map);
 
     // 插入 任务
-    public void insertTask(Task task);
+    public Integer insertTask(Task task);
 
     // 更新 任务详细资料
     public void updateTaskDetail(Task task);
@@ -31,5 +31,5 @@ public interface TaskMapper {
     public Integer isTaskCreater(Map<String, Integer> map);
 
     // 删除 任务详细资料
-    public void deleteTaskDetailByTaskId(int taskId);
+    public Integer deleteTaskDetailByTaskId(int taskId);
 }

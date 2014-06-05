@@ -33,6 +33,7 @@ public class Customer {
     private String taskName;
     private Integer discussStageId;
     private String discussStageName;
+    private Integer companyId;
 
     public Integer getId() {
         return id;
@@ -248,5 +249,13 @@ public class Customer {
 
     public void setDiscussStageName(String discussStageName) {
         this.discussStageName = discussStageName;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

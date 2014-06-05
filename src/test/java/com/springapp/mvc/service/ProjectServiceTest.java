@@ -77,16 +77,19 @@ public class ProjectServiceTest extends BaseTest {
     @Test
     public void testInsertProject() throws Exception {
         Project project = new Project();
+
         project.setName("testProject");
         project.setStageId(1);
         project.setInfo("i`m a project for test.");
-        project.setCreaterId(3);
+        project.setCreaterId(1);
+        project.setCompanyId(1);
+
 //        projectService.insertProject(project);
     }
 
     @Test
     public void testDeleteProjectByProjectId() throws Exception {
-        projectService.deleteProjectByProjectId(4);
+        //projectService.deleteProjectByProjectId(4);
     }
 
     @Test
@@ -114,17 +117,17 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertProjectManagerLink() throws Exception {
-        projectService.insertProjectManagerLink(1,10);
+        projectService.insertProjectManagerLink(1, 10, 1);
     }
 
     @Test
     public void testDeleteProjectManagerLink() throws Exception {
-        projectService.deleteProjectManagerLink(1,10);
+        projectService.deleteProjectManagerLink(1, 10);
     }
 
     @Test
     public void testInsertProjectCustomerLink() throws Exception {
-        projectService.insertProjectCustomerLink(1, 5);
+        projectService.insertProjectCustomerLink(1, 5, 1);
     }
 
     @Test
@@ -134,7 +137,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertProjectMemberLink() throws Exception {
-        projectService.insertProjectMemberLink(1, 10);
+        projectService.insertProjectMemberLink(1, 10, 1);
     }
 
     @Test
@@ -198,7 +201,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertModuleManagerLink() throws Exception {
-        projectService.insertModuleManagerLink(1, 10);
+        projectService.insertModuleManagerLink(1, 10, 1);
     }
 
     @Test
@@ -208,7 +211,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertModuleCustomerLink() throws Exception {
-        projectService.insertModuleCustomerLink(1, 5);
+        projectService.insertModuleCustomerLink(1, 5, 1);
     }
 
     @Test
@@ -218,7 +221,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertModuleMemberLink() throws Exception {
-        projectService.insertModuleMemberLink(1, 10);
+        projectService.insertModuleMemberLink(1, 10, 1);
     }
 
     @Test
@@ -304,7 +307,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertTaskManagerLink() throws Exception {
-        projectService.insertTaskManagerLink(1, 10);
+        projectService.insertTaskManagerLink(1, 10, 1);
     }
 
     @Test
@@ -314,7 +317,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertTaskCustomerLink() throws Exception {
-        projectService.insertTaskCustomerLink(1, 7);
+        projectService.insertTaskCustomerLink(1, 7, 1);
     }
 
     @Test
@@ -324,7 +327,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertTaskMemberLink() throws Exception {
-        projectService.insertTaskMemberLink(1, 10);
+        projectService.insertTaskMemberLink(1, 10, 1);
     }
 
     @Test

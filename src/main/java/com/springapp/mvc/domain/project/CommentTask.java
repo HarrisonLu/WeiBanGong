@@ -14,6 +14,7 @@ public class CommentTask {
     private String userChineseName;
     private String userEnglishName;
     private Integer taskId;
+    private Integer companyId;
 
     public Integer getId() {
         return id;
@@ -77,5 +78,13 @@ public class CommentTask {
 
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

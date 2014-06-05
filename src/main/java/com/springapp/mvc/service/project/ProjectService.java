@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by luhuanglh on 14-4-4.
@@ -57,12 +54,32 @@ public class ProjectService {
 
     // 根据 成员id 得到 项目基本信息列表
     public List<Project> selectProjectListByUserId(int userId) {
-        List<Project> projectList = projectMapper.selectProjectListByUserId(userId);
+        List<Project> projectList = projectMapper.selectProjectListWithProjectCreatorByUserId(userId);
+        projectList.addAll(projectMapper.selectProjectListWithProjectManagerByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithProjectMemberByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithModuleCreatorByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithModuleManagerByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithModuleMemberByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithTaskCreatorByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithTaskManagerByUserId(userId));
+        projectList.addAll(projectMapper.selectProjectListWithTaskMemberByUserId(userId));
+
+        List<Project> returnProjectList = new LinkedList<Project>();
         for (Project project : projectList) {
+            boolean contain = false;
+            for (Project returnProject : returnProjectList) {
+                if (project.getId() == returnProject.getId())
+                    contain = true;
+            }
+            if (contain == false)
+                returnProjectList.add(project);
+        }
+
+        for (Project project : returnProjectList) {
             String displayString = DateHelper.dateToString(project.getUpdateTime());
             project.setDisplayUpdateTime(displayString);
         }
-        return projectList;
+        return returnProjectList;
     }
 
     // 模糊搜索 成员基本资料 列表
@@ -97,17 +114,17 @@ public class ProjectService {
     }
 
     // 插入 项目评论
-    public void insertProjectComment(CommentProject commentProject) {
-        commentProjectMapper.insertProjectComment(commentProject);
+    public Integer insertProjectComment(CommentProject commentProject) {
+        return commentProjectMapper.insertProjectComment(commentProject);
     }
 
     // 插入 项目
-    public void insertProject(Project project) {
-        projectMapper.insertProject(project);
+    public Integer insertProject(Project project) {
+        return projectMapper.insertProject(project);
     }
 
     // 删除 项目
-    public void deleteProjectByProjectId(int projectId) {
+    public Integer deleteProjectByProjectId(int projectId) {
         List<Module> moduleList = moduleMapper.selectModuleListByProjectId(projectId);
         for (Module module : moduleList) {
             deleteModuleByModuleId(module.getId());
@@ -117,7 +134,7 @@ public class ProjectService {
         linkMapper.deleteAllProjectCustomerLinkByProjectId(projectId);
         linkMapper.deleteAllProjectMemberLinkByProjectId(projectId);
         commentProjectMapper.deleteAllProjectCommentByProjectId(projectId);
-        projectMapper.deleteProjectDetailByProjectId(projectId);
+        return projectMapper.deleteProjectDetailByProjectId(projectId);
     }
 
     // 根据 项目id 找 项目负责人基本资料 列表
@@ -136,55 +153,58 @@ public class ProjectService {
     }
 
     // 插入 项目与负责人 关联
-    public void insertProjectManagerLink(int projectId, int userId) {
+    public Integer insertProjectManagerLink(int projectId, int userId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("managerId", userId);
-        linkMapper.insertProjectManagerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertProjectManagerLink(map);
     }
 
     // 删除 项目与负责人 关联
-    public void deleteProjectManagerLink(int projectId, int userId) {
+    public Integer deleteProjectManagerLink(int projectId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("managerId", userId);
-        linkMapper.deleteProjectManagerLink(map);
+        return linkMapper.deleteProjectManagerLink(map);
     }
 
     // 插入 项目关联客户
-    public void insertProjectCustomerLink(int projectId, int customerId) {
+    public Integer insertProjectCustomerLink(int projectId, int customerId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("customerId", customerId);
-        linkMapper.insertProjectCustomerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertProjectCustomerLink(map);
     }
 
     // 删除 项目关联客户
-    public void deleteProjectCustomerLink(int projectId, int customerId) {
+    public Integer deleteProjectCustomerLink(int projectId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("customerId", customerId);
-        linkMapper.deleteProjectCustomerLink(map);
+        return linkMapper.deleteProjectCustomerLink(map);
     }
 
     // 插入 项目与成员 关联
-    public void insertProjectMemberLink(int projectId, int memberId) {
+    public Integer insertProjectMemberLink(int projectId, int memberId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("memberId", memberId);
-        linkMapper.insertProjectMemberLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertProjectMemberLink(map);
     }
 
     // 删除 项目与成员 关联
-    public void deleteProjectMemberLink(int projectId, int memberId) {
+    public Integer deleteProjectMemberLink(int projectId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("memberId", memberId);
-        linkMapper.deleteProjectMemberLink(map);
+        return linkMapper.deleteProjectMemberLink(map);
     }
 
     // 删除 模块
-    public void deleteModuleByModuleId(int moduleId) {
+    public Integer deleteModuleByModuleId(int moduleId) {
 
         List<Task> taskList = taskMapper.selectTaskListByModuleId(moduleId);
         for (Task task : taskList) {
@@ -194,7 +214,7 @@ public class ProjectService {
         linkMapper.deleteAllModuleManagerLinkByModuleId(moduleId);
         linkMapper.deleteAllModuleCustomerLinkByModuleId(moduleId);
         linkMapper.deleteAllModuleMemberLinkByModuleId(moduleId);
-        moduleMapper.deleteModuleDetailByModuleId(moduleId);
+        return moduleMapper.deleteModuleDetailByModuleId(moduleId);
     }
 
     // 根据 项目id 找 模块列表
@@ -217,8 +237,8 @@ public class ProjectService {
     }
 
     // 插入 模块
-    public void insertModule(Module module) {
-        moduleMapper.insertModule(module);
+    public Integer insertModule(Module module) {
+        return moduleMapper.insertModule(module);
     }
 
     // 根据 模块id 找 模块详细资料
@@ -242,61 +262,64 @@ public class ProjectService {
     }
 
     // 插入 模块与负责人 关联
-    public void insertModuleManagerLink(int moduleId, int userId) {
+    public Integer insertModuleManagerLink(int moduleId, int userId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("managerId", userId);
-        linkMapper.insertModuleManagerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertModuleManagerLink(map);
     }
 
     // 删除 模块与负责人 关联
-    public void deleteModuleManagerLink(int moduleId, int userId) {
+    public Integer deleteModuleManagerLink(int moduleId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("managerId", userId);
-        linkMapper.deleteModuleManagerLink(map);
+        return linkMapper.deleteModuleManagerLink(map);
     }
 
     // 插入 模块关联客户
-    public void insertModuleCustomerLink(int moduleId, int customerId) {
+    public Integer insertModuleCustomerLink(int moduleId, int customerId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("customerId", customerId);
-        linkMapper.insertModuleCustomerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertModuleCustomerLink(map);
     }
 
     // 删除 模块关联客户
-    public void deleteModuleCustomerLink(int moduleId, int customerId) {
+    public Integer deleteModuleCustomerLink(int moduleId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("customerId", customerId);
-        linkMapper.deleteModuleCustomerLink(map);
+        return linkMapper.deleteModuleCustomerLink(map);
     }
 
     // 插入 模块与成员 关联
-    public void insertModuleMemberLink(int moduleId, int memberId) {
+    public Integer insertModuleMemberLink(int moduleId, int memberId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("memberId", memberId);
-        linkMapper.insertModuleMemberLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertModuleMemberLink(map);
     }
 
     // 删除 模块与成员 关联
-    public void deleteModuleMemberLink(int moduleId, int memberId) {
+    public Integer deleteModuleMemberLink(int moduleId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("memberId", memberId);
-        linkMapper.deleteModuleMemberLink(map);
+        return linkMapper.deleteModuleMemberLink(map);
     }
 
     // 删除 任务
-    public void deleteTaskByTaskId(int taskId) {
+    public Integer deleteTaskByTaskId(int taskId) {
         linkMapper.deleteAllTaskManagerLinkByTaskId(taskId);
         linkMapper.deleteAllTaskCustomerLinkByTaskId(taskId);
         linkMapper.deleteAllTaskMemberLinkByTaskId(taskId);
         commentTaskMapper.deleteAllTaskCommentByTaskId(taskId);
         subTaskMapper.deleteAllSubTaskByTaskId(taskId);
-        taskMapper.deleteTaskDetailByTaskId(taskId);
+        return taskMapper.deleteTaskDetailByTaskId(taskId);
     }
 
     // 根据 模块id 找 任务列表
@@ -320,8 +343,8 @@ public class ProjectService {
     }
 
     // 插入 任务
-    public void insertTask(Task task) {
-        taskMapper.insertTask(task);
+    public Integer insertTask(Task task) {
+        return taskMapper.insertTask(task);
     }
 
     // 得到 所有进度阶段列表
@@ -360,61 +383,64 @@ public class ProjectService {
     }
 
     // 插入 任务与负责人 关联
-    public void insertTaskManagerLink(int taskId, int userId) {
+    public Integer insertTaskManagerLink(int taskId, int userId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("managerId", userId);
-        linkMapper.insertTaskManagerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertTaskManagerLink(map);
     }
 
     // 删除 任务与负责人 关联
-    public void deleteTaskManagerLink(int taskId, int userId) {
+    public Integer deleteTaskManagerLink(int taskId, int userId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("managerId", userId);
-        linkMapper.deleteTaskManagerLink(map);
+        return linkMapper.deleteTaskManagerLink(map);
     }
 
     // 插入 任务关联客户
-    public void insertTaskCustomerLink(int taskId, int customerId) {
+    public Integer insertTaskCustomerLink(int taskId, int customerId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("customerId", customerId);
-        linkMapper.insertTaskCustomerLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertTaskCustomerLink(map);
     }
 
     // 删除 任务关联客户
-    public void deleteTaskCustomerLink(int taskId, int customerId) {
+    public Integer deleteTaskCustomerLink(int taskId, int customerId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("customerId", customerId);
-        linkMapper.deleteTaskCustomerLink(map);
+        return linkMapper.deleteTaskCustomerLink(map);
     }
 
     // 插入 任务与成员 关联
-    public void insertTaskMemberLink(int taskId, int memberId) {
+    public Integer insertTaskMemberLink(int taskId, int memberId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("memberId", memberId);
-        linkMapper.insertTaskMemberLink(map);
+        map.put("companyId", companyId);
+        return linkMapper.insertTaskMemberLink(map);
     }
 
     // 删除 任务与成员 关联
-    public void deleteTaskMemberLink(int taskId, int memberId) {
+    public Integer deleteTaskMemberLink(int taskId, int memberId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("memberId", memberId);
-        linkMapper.deleteTaskMemberLink(map);
+        return linkMapper.deleteTaskMemberLink(map);
     }
 
     // 插入 拆分任务
-    public void insertSubTask(SubTask subTask) {
-        subTaskMapper.insertSubTask(subTask);
+    public Integer insertSubTask(SubTask subTask) {
+        return subTaskMapper.insertSubTask(subTask);
     }
 
     // 删除 拆分任务
-    public void deleteSubTask(int subTaskId) {
-        subTaskMapper.deleteSubTask(subTaskId);
+    public Integer deleteSubTask(int subTaskId) {
+        return subTaskMapper.deleteSubTask(subTaskId);
     }
 
     // 更新 拆分任务 开启状态
@@ -425,8 +451,8 @@ public class ProjectService {
     }
 
     // 插入 任务评论
-    public void insertCommentTask(CommentTask commentTask) {
-        commentTaskMapper.insertCommentTask(commentTask);
+    public Integer insertCommentTask(CommentTask commentTask) {
+        return commentTaskMapper.insertCommentTask(commentTask);
     }
 
     // 根据 任务id 找 任务评论列表

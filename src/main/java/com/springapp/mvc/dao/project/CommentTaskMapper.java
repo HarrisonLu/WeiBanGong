@@ -12,11 +12,11 @@ import java.util.List;
 public interface CommentTaskMapper {
 
     // 插入 任务评论
-    public void insertCommentTask(CommentTask commentTask);
+    public Integer insertCommentTask(CommentTask commentTask);
 
     // 根据 任务id 找 任务评论列表
     public List<CommentTask> selectCommentTaskListByTaskId(int taskId);
 
     // 删除 任务所有评论
-    public void deleteAllTaskCommentByTaskId(int taskId);
+    public Integer deleteAllTaskCommentByTaskId(int taskId);
 }

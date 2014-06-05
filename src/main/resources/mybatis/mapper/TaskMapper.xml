@@ -17,6 +17,7 @@
         <result property="stageId" column="stage_id"/>
         <result property="stageName" column="stage_name"/>
         <result property="updateTime" column="update_time"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <select id="selectTaskDetailsByTaskId" parameterType="int" resultMap="TaskResultMap">
@@ -58,9 +59,12 @@
     </select>
 
 
-    <insert id="insertTask" parameterType="Task">
-        insert into t_task (name, module_id, deadline, creater_id, priority_id, stage_id)
-                values (#{name}, #{moduleId}, #{deadline}, #{createrId}, #{priorityId}, #{stageId})
+    <insert id="insertTask" parameterType="Task" useGeneratedKeys="true" keyProperty="id">
+        insert into t_task (name, module_id, deadline, creater_id, priority_id, stage_id, company_id)
+                values (#{name}, #{moduleId}, #{deadline}, #{createrId}, #{priorityId}, #{stageId}, #{companyId})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id() as id
+        </selectKey>
     </insert>
 
     <update id="updateTaskDetail" parameterType="Task">

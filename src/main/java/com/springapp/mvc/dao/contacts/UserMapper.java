@@ -10,13 +10,13 @@ import java.util.Map;
 public interface UserMapper {
 
     /// 插入 成员
-    public void insertUser(User user);
+    public Integer insertUser(User user);
 
     // 修改 成员信息
     public void updateUserInfo(User user);
 
     /// 删除 成员
-    public void deleteUserById(int id);
+    public Integer deleteUserById(int id);
 
     // 根据 成员id 找 成员基本信息（中英文名、所属部门和组）
     public User selectUserBaseInfoById(int userId);

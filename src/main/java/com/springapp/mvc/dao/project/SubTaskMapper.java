@@ -12,16 +12,16 @@ import java.util.List;
 public interface SubTaskMapper {
 
     // 插入 拆分任务
-    public void insertSubTask(SubTask subTask);
+    public Integer insertSubTask(SubTask subTask);
 
     // 删除 拆分任务
-    public void deleteSubTask(int subTaskId);
+    public Integer deleteSubTask(int subTaskId);
 
     // 更新 拆分任务 开启状态
     public void updateSubTaskState(SubTask subTask);
 
     // 删除 任务所有拆分任务
-    public void deleteAllSubTaskByTaskId(int taskId);
+    public Integer deleteAllSubTaskByTaskId(int taskId);
 
     // 根据 拆分任务id 找 拆分任务
     public SubTask selectSubTaskBySubTaskId(int subTaskId);

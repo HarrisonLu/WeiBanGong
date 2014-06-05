@@ -14,6 +14,7 @@
         <result property="createrId" column="creater_id"/>
         <result property="createrChineseName" column="creater_chinese_name"/>
         <result property="createrEnglishName" column="creater_english_name"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <select id="fuzzySelectProjectBaseInfoList" parameterType="java.lang.String" resultMap="ProjectResultMap">
@@ -66,43 +67,90 @@
               p.name like "%"#{str}"%"
     </select>
 
-    <select id="selectProjectListByUserId" parameterType="int" resultMap="ProjectResultMap">
+    <select id="selectProjectListWithProjectCreatorByUserId" parameterType="int" resultMap="ProjectResultMap">
         select distinct p.id, p.name, p.create_time, p.update_time, p.info
         from t_project p
---         项目相关左链接
-        left join t_project_manager p_ma on p_ma.project_id = p.id
-        left join t_project_member p_me on p_me.project_id = p.id
-
---         模块相关左链接
-        left join t_module m on m.project_id = p.id
-
-        left join t_module m_1 on m_1.project_id = p.id
-        left join t_module_manager m_ma on m_ma.module_id = m_1.id
-
-        left join t_module m_2 on m_2.project_id = p.id
-        left join t_module_member m_me on m_me.module_id = m_2.id
-
---         任务相关左链接
-        left join t_module m_3 on m_3.project_id = p.id
-        left join t_task t on t.module_id = m_3.id
-
-        left join t_module m_4 on m_4.project_id = p.id
-        left join t_task t_1 on t_1.module_id = m_4.id
-        left join t_task_manager t_ma on t_ma.task_id = t_1.id
-
-        left join t_module m_5 on m_5.project_id = p.id
-        left join t_task t_2 on t_2.module_id = m_5.id
-        left join t_task_member t_me on t_me.task_id = t_2.id
-
-        where (p.creater_id = #{userId} or p_ma.manager_id = #{userId} or p_me.member_id = #{userId} or
-              m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
-              t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId})
+        where p.creater_id = #{userId}
               order by create_time DESC
     </select>
 
-    <insert id="insertProject" parameterType="Project">
-        insert into t_project (name, stage_id, info, creater_id)
-                values (#{name}, #{stageId}, #{info}, #{createrId})
+    <select id="selectProjectListWithProjectManagerByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_project_manager p_ma on p_ma.project_id = p.id
+    where p_ma.manager_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithProjectMemberByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_project_member p_me on p_me.project_id = p.id
+    where p_me.member_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithModuleCreatorByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_module m on m.project_id = p.id
+    where m.creater_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithModuleManagerByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_module m_1 on m_1.project_id = p.id
+        left join t_module_manager m_ma on m_ma.module_id = m_1.id
+    where m_ma.manager_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithModuleMemberByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_module m_2 on m_2.project_id = p.id
+        left join t_module_member m_me on m_me.module_id = m_2.id
+    where m_me.member_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithTaskCreatorByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_module m_3 on m_3.project_id = p.id
+        left join t_task t on t.module_id = m_3.id
+    where t.creater_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithTaskManagerByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+    left join t_module m_4 on m_4.project_id = p.id
+        left join t_task t_1 on t_1.module_id = m_4.id
+        left join t_task_manager t_ma on t_ma.task_id = t_1.id
+    where t_ma.manager_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <select id="selectProjectListWithTaskMemberByUserId" parameterType="int" resultMap="ProjectResultMap">
+    select distinct p.id, p.name, p.create_time, p.update_time, p.info
+    from t_project p
+        left join t_module m_5 on m_5.project_id = p.id
+        left join t_task t_2 on t_2.module_id = m_5.id
+        left join t_task_member t_me on t_me.task_id = t_2.id
+    where t_me.member_id = #{userId}
+          order by create_time DESC
+    </select>
+
+    <insert id="insertProject" parameterType="Project" useGeneratedKeys="true" keyProperty="id">
+        insert into t_project (name, stage_id, info, creater_id, company_id)
+                values (#{name}, #{stageId}, #{info}, #{createrId}, #{companyId})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id() as id
+        </selectKey>
     </insert>
 
     <update id="updateProjectDetail" parameterType="Project">

@@ -18,6 +18,9 @@ public class Department extends BaseDomain {
     // 成员列表
     private List<User> userList;
 
+    // 公司id
+    private Integer companyId;
+
     public Integer getId() {
         return id;
     }
@@ -48,5 +51,13 @@ public class Department extends BaseDomain {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 }

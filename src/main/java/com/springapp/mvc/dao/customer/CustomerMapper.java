@@ -14,7 +14,7 @@ import java.util.Map;
 public interface CustomerMapper {
 
     // 插入 客户
-    public void insertCustomer(Customer customer);
+    public Integer insertCustomer(Customer customer);
 
     // 更新 客户信息
     public void updateCustomerInfo(Customer customer);
