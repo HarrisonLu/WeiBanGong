@@ -11,7 +11,7 @@
         <result property="userChineseName" column="user_chinese_name"/>
         <result property="userEnglishName" column="user_english_name"/>
         <result property="customerId" column="customer_id"/>
-        <result property="companyId" column="companyId"/>
+        <result property="companyId" column="company_id"/>
     </resultMap>
 
     <insert id="insertCommentCustomer" parameterType="CommentCustomer">

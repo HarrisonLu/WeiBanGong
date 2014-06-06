@@ -29,7 +29,7 @@
         <result property="taskName" column="task_name"/>
         <result property="discussStageId" column="discuss_stage_id"/>
         <result property="discussStageName" column="discuss_stage_name"/>
-        <result property="companyId" column="companyId"/>
+        <result property="companyId" column="company_id"/>
     </resultMap>
 
     <insert id="insertCustomer" parameterType="Customer">

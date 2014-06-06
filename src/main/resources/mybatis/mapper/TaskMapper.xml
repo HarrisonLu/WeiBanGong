@@ -17,7 +17,7 @@
         <result property="stageId" column="stage_id"/>
         <result property="stageName" column="stage_name"/>
         <result property="updateTime" column="update_time"/>
-        <result property="companyId" column="companyId"/>
+        <result property="companyId" column="company_id"/>
     </resultMap>
 
     <select id="selectTaskDetailsByTaskId" parameterType="int" resultMap="TaskResultMap">

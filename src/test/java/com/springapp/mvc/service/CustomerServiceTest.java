@@ -96,6 +96,7 @@ public class CustomerServiceTest extends BaseTest {
         customer.setModuleId(null);
         customer.setTaskId(1);
         customer.setDiscussStageId(1);
+        customer.setCompanyId(1);
 
 //        customerService.insertCustomer(customer);
     }

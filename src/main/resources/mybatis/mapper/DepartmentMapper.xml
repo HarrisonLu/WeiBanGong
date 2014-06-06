@@ -5,7 +5,7 @@
     <resultMap id="DepartmentResultMap" type="Department">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <result property="companyId" column="companyId"/>
+        <result property="companyId" column="company_id"/>
         <collection property="groupList" ofType="Group">
             <id property="id" column="groupId"/>
             <result property="name" column="groupName"/>

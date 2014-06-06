@@ -6,7 +6,7 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="departmentName" column="departmentName"/>
-        <result property="companyId" column="companyId"/>
+        <result property="companyId" column="company_id"/>
         <collection property="userList" ofType="User">
             <id property="id" column="userId"/>
             <result property="chineseName" column="chinese_name"/>
