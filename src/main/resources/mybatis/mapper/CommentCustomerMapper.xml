@@ -11,11 +11,12 @@
         <result property="userChineseName" column="user_chinese_name"/>
         <result property="userEnglishName" column="user_english_name"/>
         <result property="customerId" column="customer_id"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <insert id="insertCommentCustomer" parameterType="CommentCustomer">
-        insert into t_comment_customer (details, user_id, customer_id)
-                values (#{details}, #{userId}, #{customerId})
+        insert into t_comment_customer (details, user_id, customer_id, company_id)
+                values (#{details}, #{userId}, #{customerId}, #{companyId})
     </insert>
 
     <select id="selectCommentCustomerListByCustomerId" parameterType="int" resultMap="CommentCustomerResultMap">

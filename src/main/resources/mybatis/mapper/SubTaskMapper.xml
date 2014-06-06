@@ -9,11 +9,12 @@
         <result property="taskId" column="task_id"/>
         <result property="taskName" column="task_name"/>
         <result property="isUnderway" column="is_underway"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <insert id="insertSubTask" parameterType="SubTask">
-        insert into t_sub_task (name, task_id, is_underway)
-                values (#{name}, #{taskId}, #{isUnderway})
+        insert into t_sub_task (name, task_id, is_underway, company_id)
+                values (#{name}, #{taskId}, #{isUnderway}, #{companyId})
     </insert>
 
     <delete id="deleteSubTask" parameterType="int">

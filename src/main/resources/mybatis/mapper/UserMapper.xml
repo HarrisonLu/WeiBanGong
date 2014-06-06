@@ -17,6 +17,7 @@
         <result property="qqNum" column="qq_num"/>
         <result property="telephoneNum" column="telephone_num"/>
         <result property="mobilePhoneNum" column="mobile_phone_num"/>
+        <result property="companyId" column="companyId"/>
         <collection property="departmentList" ofType="Department">
             <id property="id" column="departmentId"/>
             <result property="name" column="departmentName"/>

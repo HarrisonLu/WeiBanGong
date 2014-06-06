@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CommentCustomerMapper {
 
-    // 插入 评论
+    // 插入 客户评论
     public Integer insertCommentCustomer(CommentCustomer commentCustomer);
 
     // 根据 客户id 找 评论列表

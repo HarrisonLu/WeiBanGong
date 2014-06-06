@@ -12,11 +12,12 @@
         <result property="userChineseName" column="user_chinese_name"/>
         <result property="userEnglishName" column="user_english_name"/>
         <result property="taskId" column="task_id"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <insert id="insertCommentTask" parameterType="CommentTask">
-        insert into t_comment_task (details, user_id, task_id)
-                values (#{details}, #{userId}, #{taskId})
+        insert into t_comment_task (details, user_id, task_id, company_id)
+                values (#{details}, #{userId}, #{taskId}, #{companyId})
     </insert>
 
     <select id="selectCommentTaskListByTaskId" parameterType="int" resultMap="CommentTaskResultMap">

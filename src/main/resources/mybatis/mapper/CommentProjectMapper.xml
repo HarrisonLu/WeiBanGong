@@ -12,11 +12,12 @@
         <result property="userChineseName" column="user_chinese_name"/>
         <result property="userEnglishName" column="user_english_name"/>
         <result property="projectId" column="project_id"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <insert id="insertProjectComment" parameterType="CommentProject">
-        insert into t_comment_project (details, user_id, project_id)
-                values (#{details}, #{userId}, #{projectId})
+        insert into t_comment_project (details, user_id, project_id, company_id)
+                values (#{details}, #{userId}, #{projectId}, #{companyId})
     </insert>
 
     <select id="selectProjectCommentListByProjectId" parameterType="int" resultMap="CommentProjectResultMap">

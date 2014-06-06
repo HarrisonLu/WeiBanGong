@@ -29,16 +29,17 @@
         <result property="taskName" column="task_name"/>
         <result property="discussStageId" column="discuss_stage_id"/>
         <result property="discussStageName" column="discuss_stage_name"/>
+        <result property="companyId" column="companyId"/>
     </resultMap>
 
     <insert id="insertCustomer" parameterType="Customer">
         insert into t_customer(chinese_name, chinese_name_pinyin, english_name, gender, telephone_num, mobile_phone_num,
                                  wechat_num, qq_num, email, office_address, house_address,
-                                 customer_value, birthday, hobby, created_user_id, project_id, module_id, task_id, discuss_stage_id)
+                                 customer_value, birthday, hobby, created_user_id, project_id, module_id, task_id, discuss_stage_id, company_id)
                 values (#{chineseName}, #{chineseNamePinyin}, #{englishName}, #{gender},
                          #{telephoneNum}, #{mobilePhoneNum}, #{wechatNum}, #{qqNum}, #{email}, #{officeAddress},
                          #{houseAddress}, #{customerValue}, #{birthday}, #{hobby}, #{createdUserId},
-                         #{projectId}, #{moduleId}, #{taskId}, #{discussStageId})
+                         #{projectId}, #{moduleId}, #{taskId}, #{discussStageId}, #{companyId})
     </insert>
 
     <select id="updateCustomerInfo" parameterType="Customer">
