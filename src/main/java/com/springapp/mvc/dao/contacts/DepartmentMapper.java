@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface DepartmentMapper {
 
-    /// 插入 部门
+    // 插入 部门
     public Integer insertDepartment(Department department);
 
     /// 修改 部门

@@ -1,5 +1,6 @@
 package com.springapp.mvc.dao.contacts;
 
+import com.springapp.mvc.domain.admin.Admin;
 import com.springapp.mvc.domain.contacts.User;
 import org.springframework.stereotype.Repository;
 
@@ -38,4 +39,10 @@ public interface UserMapper {
 
     // 根据 任务id 找 任务负责人基本资料 列表
     public List<User> selectTaskManagerListByTaskId(int taskId);
+
+    /// 根据 账号和密码 判断 成员是否存在
+    public Integer hasAccountWithUser(Map<String, String> map);
+
+    // 根据 账号和密码 找 成员详细资料
+    public User selectUserDetailByAccountNumAndPassword(Map<String, String> map);
 }

@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/05/2014 15:53:52 PM
+ Date: 06/12/2014 00:54:14 AM
 */
 
 SET NAMES utf8;
@@ -23,12 +23,12 @@ CREATE TABLE `t_admin` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `password` varchar(30) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `telephone_num` varchar(30) DEFAULT NULL,
+  `phone_num` varchar(30) DEFAULT NULL,
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `t_admin_ibfk_1` (`company_id`) USING BTREE,
   CONSTRAINT `t_admin_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_comment_customer`
@@ -98,6 +98,7 @@ CREATE TABLE `t_company` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `user_account_postfix` varchar(30) DEFAULT NULL,
+  `is_set_user_account_postfix` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -479,7 +480,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_user_collectedcontacts`

@@ -17,9 +17,10 @@
         </collection>
     </resultMap>
 
-    <!--<insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
-         <!--insert into t_department values(#{id},#{name},#{createdTime})-->
-    <!--</insert>-->
+    <insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+         insert into t_department (id, name, company_id)
+         values(#{id}, #{name}, #{companyId})
+    </insert>
 
     <select id="selectAllDepartmentBaseInfo" resultMap="DepartmentResultMap">
         select d.id, d.name from t_department d
@@ -42,8 +43,8 @@
         <!--where id = #{id}-->
     <!--</update>-->
 
-    <!--<delete id="deleteDepartment" parameterType="java.lang.Integer">-->
-        <!--delete from t_department where id = #{id}-->
-    <!--</delete>-->
+    <delete id="deleteDepartmentById" parameterType="java.lang.Integer">
+        delete from t_department where id = #{id}
+    </delete>
 
 </mapper>

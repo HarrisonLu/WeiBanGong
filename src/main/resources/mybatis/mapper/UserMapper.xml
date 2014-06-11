@@ -29,16 +29,23 @@
         </collection>
     </resultMap>
 
-    <!--<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">-->
-        <!--insert into t_user values(#{id},#{email},#{password},#{chineseName},#{englishName},#{positionTitle},#{weChatNum},#{qqNum},#{phoneNum},#{createdTime})-->
-    <!--</insert>-->
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into t_user (id, password, chinese_name, chinese_name_pinyin,english_name, email, status,
+                            position, position_level, wechat_num, qq_num, telephone_num,
+                            mobile_phone_num, company_id)
+                     values(#{id}, #{password}, #{chineseName}, #{chineseNamePinyin}, #{englishName}, #{email}, #{status},
+                            #{position}, #{positionLevel}, #{wechatNum}, #{qqNum}, #{telephoneNum},
+                            #{mobilePhoneNum}, #{companyId})
+    </insert>
 
     <update id="updateUserInfo" parameterType="User">
         update t_user
-        set email = #{email},
+        set  password = #{password},
+             email = #{email},
              qq_num = #{qqNum},
              telephone_num = #{telephoneNum},
-             mobile_phone_num = #{mobilePhoneNum}
+             mobile_phone_num = #{mobilePhoneNum},
+             wechat_num = #{wechatNum}
         where id = #{id}
     </update>
 
@@ -84,7 +91,7 @@
     </select>
 
     <select id="isCollectedContacts" parameterType="java.util.Map" resultType="java.lang.Boolean">
-            select  count(*)
+            select count(*)
             from t_user_collectedcontacts
             where user_id = #{user_id} And collectedcontacts_id = #{collectedcontacts_id}
     </select>
@@ -110,17 +117,22 @@
         where t_ma.task_id = #{taskId}
     </select>
 
-    <!--<insert id="insertUserDepartmentLink" parameterType="java.util.HashMap">-->
-        <!--insert into t_user_department values(#{user_id}, #{department_id})-->
-    <!--</insert>-->
+    <select id="hasAccountWithUser" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_user u
+        where u.email = #{accountNum} and u.password = #{password}
+    </select>
 
-    <!--<insert id="insertUserFrequentContactsLink" parameterType="java.util.HashMap">-->
-        <!--insert into t_user_frequentcontacts values (#{user_id}, #{frequentcontacts_id})-->
-    <!--</insert>-->
+    <select id="selectUserDetailByAccountNumAndPassword" parameterType="java.util.Map" resultMap="UserResultMap">
+        select u.*
+        from t_user u
+        where u.email = #{accountNum} and u.password = #{password}
+    </select>
 
-    <!--<delete id="deleteUser" parameterType="java.lang.Integer">-->
-        <!--delete from t_user where id = #{id}-->
-    <!--</delete>-->
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        delete from t_user
+        where id = #{id}
+    </delete>
 
     <!--<update id="updateUser" parameterType="User">-->
         <!--update t_user set-->
