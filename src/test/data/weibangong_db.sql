@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/12/2014 00:53:59 AM
+ Date: 06/12/2014 15:55:13 PM
 */
 
 SET NAMES utf8;
@@ -192,11 +192,8 @@ DROP TABLE IF EXISTS `t_customer_user`;
 CREATE TABLE `t_customer_user` (
   `customer_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `customer_id` (`customer_id`),
   KEY `user_id` (`user_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_customer_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_customer_user_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`),
   CONSTRAINT `t_customer_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -205,7 +202,7 @@ CREATE TABLE `t_customer_user` (
 --  Records of `t_customer_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_customer_user` VALUES ('3', '2', '1'), ('4', '2', '1'), ('7', '1', '1'), ('8', '1', '1');
+INSERT INTO `t_customer_user` VALUES ('3', '2'), ('4', '2'), ('7', '1'), ('8', '1');
 COMMIT;
 
 -- ----------------------------
@@ -265,13 +262,13 @@ CREATE TABLE `t_group` (
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_group_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_group_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_group`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_group` VALUES ('1', '技术部', '1', '2014-03-07 02:16:55', '1');
+INSERT INTO `t_group` VALUES ('1', '技术部', '1', '2014-03-07 02:16:55', '1'), ('2', '运营部', '1', '2014-06-12 15:29:19', '1'), ('3', '产品部', '1', '2014-06-12 15:29:33', '1'), ('4', '保卫部', '1', '2014-06-12 15:29:59', '1'), ('5', '市场部', '1', '2014-06-12 15:30:20', '1');
 COMMIT;
 
 -- ----------------------------
@@ -309,11 +306,8 @@ DROP TABLE IF EXISTS `t_module_customer`;
 CREATE TABLE `t_module_customer` (
   `module_id` int(10) NOT NULL,
   `customer_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `module_id` (`module_id`),
   KEY `customer_id` (`customer_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_module_customer_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_module_customer_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
   CONSTRAINT `t_module_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -322,7 +316,7 @@ CREATE TABLE `t_module_customer` (
 --  Records of `t_module_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module_customer` VALUES ('1', '3', '1'), ('1', '4', '1');
+INSERT INTO `t_module_customer` VALUES ('1', '3'), ('1', '4');
 COMMIT;
 
 -- ----------------------------
@@ -332,11 +326,8 @@ DROP TABLE IF EXISTS `t_module_manager`;
 CREATE TABLE `t_module_manager` (
   `module_id` int(10) NOT NULL,
   `manager_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `module_id` (`module_id`),
   KEY `manager_id` (`manager_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_module_manager_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_module_manager_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
   CONSTRAINT `t_module_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -345,7 +336,7 @@ CREATE TABLE `t_module_manager` (
 --  Records of `t_module_manager`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module_manager` VALUES ('1', '4', '1'), ('2', '4', '1'), ('3', '5', '1'), ('4', '5', '1'), ('5', '6', '1'), ('6', '6', '1'), ('7', '7', '1'), ('8', '7', '1');
+INSERT INTO `t_module_manager` VALUES ('1', '4'), ('2', '4'), ('3', '5'), ('4', '5'), ('5', '6'), ('6', '6'), ('7', '7'), ('8', '7');
 COMMIT;
 
 -- ----------------------------
@@ -355,11 +346,8 @@ DROP TABLE IF EXISTS `t_module_member`;
 CREATE TABLE `t_module_member` (
   `module_id` int(10) NOT NULL,
   `member_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `module_id` (`module_id`),
   KEY `member_id` (`member_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_module_member_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_module_member_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `t_module` (`id`),
   CONSTRAINT `t_module_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -368,7 +356,7 @@ CREATE TABLE `t_module_member` (
 --  Records of `t_module_member`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module_member` VALUES ('1', '14', '1'), ('1', '15', '1');
+INSERT INTO `t_module_member` VALUES ('1', '14'), ('1', '15');
 COMMIT;
 
 -- ----------------------------
@@ -424,11 +412,8 @@ DROP TABLE IF EXISTS `t_project_customer`;
 CREATE TABLE `t_project_customer` (
   `project_id` int(10) NOT NULL,
   `customer_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `project_id` (`project_id`),
   KEY `customer_id` (`customer_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_project_customer_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_project_customer_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
   CONSTRAINT `t_project_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -437,7 +422,7 @@ CREATE TABLE `t_project_customer` (
 --  Records of `t_project_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_project_customer` VALUES ('1', '1', '1'), ('1', '2', '1');
+INSERT INTO `t_project_customer` VALUES ('1', '1'), ('1', '2');
 COMMIT;
 
 -- ----------------------------
@@ -447,11 +432,8 @@ DROP TABLE IF EXISTS `t_project_manager`;
 CREATE TABLE `t_project_manager` (
   `project_id` int(10) NOT NULL,
   `manager_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `project_id` (`project_id`),
   KEY `manager_id` (`manager_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_project_manager_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_project_manager_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
   CONSTRAINT `t_project_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -460,7 +442,7 @@ CREATE TABLE `t_project_manager` (
 --  Records of `t_project_manager`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_project_manager` VALUES ('1', '3', '1'), ('2', '3', '1');
+INSERT INTO `t_project_manager` VALUES ('1', '3'), ('2', '3');
 COMMIT;
 
 -- ----------------------------
@@ -470,11 +452,8 @@ DROP TABLE IF EXISTS `t_project_member`;
 CREATE TABLE `t_project_member` (
   `project_id` int(10) NOT NULL,
   `member_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `project_id` (`project_id`),
   KEY `member_id` (`member_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_project_member_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_project_member_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`),
   CONSTRAINT `t_project_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -483,7 +462,7 @@ CREATE TABLE `t_project_member` (
 --  Records of `t_project_member`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_project_member` VALUES ('1', '12', '1'), ('2', '13', '1');
+INSERT INTO `t_project_member` VALUES ('1', '12'), ('2', '13');
 COMMIT;
 
 -- ----------------------------
@@ -570,11 +549,8 @@ DROP TABLE IF EXISTS `t_task_customer`;
 CREATE TABLE `t_task_customer` (
   `task_id` int(10) NOT NULL,
   `customer_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `task_id` (`task_id`),
   KEY `customer_id` (`customer_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_task_customer_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_task_customer_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
   CONSTRAINT `t_task_customer_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `t_customer` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -583,7 +559,7 @@ CREATE TABLE `t_task_customer` (
 --  Records of `t_task_customer`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_task_customer` VALUES ('2', '6', '1'), ('1', '5', '1');
+INSERT INTO `t_task_customer` VALUES ('2', '6'), ('1', '5');
 COMMIT;
 
 -- ----------------------------
@@ -593,11 +569,8 @@ DROP TABLE IF EXISTS `t_task_manager`;
 CREATE TABLE `t_task_manager` (
   `task_id` int(10) NOT NULL,
   `manager_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `task_id` (`task_id`),
   KEY `manager_id` (`manager_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_task_manager_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_task_manager_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
   CONSTRAINT `t_task_manager_ibfk_2` FOREIGN KEY (`manager_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -606,7 +579,7 @@ CREATE TABLE `t_task_manager` (
 --  Records of `t_task_manager`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_task_manager` VALUES ('1', '8', '1'), ('2', '8', '1'), ('3', '9', '1'), ('4', '9', '1'), ('6', '10', '1'), ('5', '10', '1'), ('7', '11', '1'), ('8', '11', '1');
+INSERT INTO `t_task_manager` VALUES ('1', '8'), ('2', '8'), ('3', '9'), ('4', '9'), ('6', '10'), ('5', '10'), ('7', '11'), ('8', '11');
 COMMIT;
 
 -- ----------------------------
@@ -616,11 +589,8 @@ DROP TABLE IF EXISTS `t_task_member`;
 CREATE TABLE `t_task_member` (
   `task_id` int(10) NOT NULL,
   `member_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `task_id` (`task_id`),
   KEY `member_id` (`member_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_task_member_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_task_member_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `t_task` (`id`),
   CONSTRAINT `t_task_member_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -629,7 +599,7 @@ CREATE TABLE `t_task_member` (
 --  Records of `t_task_member`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_task_member` VALUES ('1', '16', '1'), ('1', '17', '1');
+INSERT INTO `t_task_member` VALUES ('1', '16'), ('1', '17');
 COMMIT;
 
 -- ----------------------------
@@ -671,11 +641,8 @@ DROP TABLE IF EXISTS `t_user_collectedcontacts`;
 CREATE TABLE `t_user_collectedcontacts` (
   `user_id` int(10) NOT NULL,
   `collectedcontacts_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `collectedcontacts_id` (`collectedcontacts_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_user_collectedcontacts_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_user_collectedcontacts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_user_collectedcontacts_ibfk_2` FOREIGN KEY (`collectedcontacts_id`) REFERENCES `t_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -687,14 +654,18 @@ DROP TABLE IF EXISTS `t_user_department`;
 CREATE TABLE `t_user_department` (
   `user_id` int(10) NOT NULL,
   `department_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `department_id` (`department_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_user_department_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_user_department_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_user_department_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_user_department`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user_department` VALUES ('1', '1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_user_group`
@@ -703,13 +674,17 @@ DROP TABLE IF EXISTS `t_user_group`;
 CREATE TABLE `t_user_group` (
   `user_id` int(10) NOT NULL,
   `group_id` int(10) NOT NULL,
-  `company_id` int(10) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_user_group_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_user_group_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_user_group_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `t_group` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_user_group`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user_group` VALUES ('1', '1'), ('2', '2'), ('3', '3');
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
