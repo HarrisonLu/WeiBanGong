@@ -21,7 +21,7 @@
         <typeAlias type="com.springapp.mvc.domain.project.ProjectStage" alias="ProjectStage"/>
         <typeAlias type="com.springapp.mvc.domain.project.Priority" alias="Priority"/>
 
-        <typeAlias type="com.springapp.mvc.domain.admin.Admin" alias="Admin"/>
+        <typeAlias type="com.springapp.mvc.domain.admin.Administrator" alias="Administrator"/>
         <typeAlias type="com.springapp.mvc.domain.admin.Company" alias="Company"/>
     </typeAliases>
 

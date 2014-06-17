@@ -1,17 +1,16 @@
 package com.springapp.mvc.service.admin;
 
-import com.springapp.mvc.dao.admin.AdminMapper;
+import com.springapp.mvc.dao.admin.AdministratorMapper;
 import com.springapp.mvc.dao.admin.CompanyMapper;
 import com.springapp.mvc.dao.contacts.DepartmentMapper;
 import com.springapp.mvc.dao.contacts.GroupMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
-import com.springapp.mvc.domain.admin.Admin;
+import com.springapp.mvc.domain.admin.Administrator;
 import com.springapp.mvc.domain.admin.Company;
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
 import com.tool.ChineseToPinyin;
-import net.sourceforge.pinyin4j.PinyinHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +33,7 @@ public class AdminService {
     @Autowired
     GroupMapper groupMapper;
     @Autowired
-    AdminMapper adminMapper;
+    AdministratorMapper administratorMapper;
     @Autowired
     CompanyMapper companyMapper;
 
@@ -43,15 +42,15 @@ public class AdminService {
         Map<String, String> map= new HashMap<String, String>();
         map.put("accountNum", accountNum);
         map.put("password", password);
-        return adminMapper.hasAccountWithAdmin(map).equals(1) || userMapper.hasAccountWithUser(map).equals(1);
+        return administratorMapper.hasAccountWithAdmin(map).equals(1) || userMapper.hasAccountWithUser(map).equals(1);
     }
 
     // 根据 账号和密码 找 管理员详细资料
-    public Admin selectAdminDetailByAccountNumAndPassword(String accountNum, String password){
+    public Administrator selectAdminDetailByAccountNumAndPassword(String accountNum, String password){
         Map<String, String> map= new HashMap<String, String>();
         map.put("accountNum", accountNum);
         map.put("password", password);
-        return adminMapper.selectAdminDetailByAccountNumAndPassword(map);
+        return administratorMapper.selectAdminDetailByAccountNumAndPassword(map);
     }
 
     // 根据 账号和密码 找 成员详细资料
@@ -68,8 +67,8 @@ public class AdminService {
     }
 
     // 插入 管理员
-    public boolean insertAdmin(Admin admin){
-        return adminMapper.insertAdmin(admin).equals(1);
+    public boolean insertAdmin(Administrator administrator){
+        return administratorMapper.insertAdmin(administrator).equals(1);
     }
 
     // 更新 成员 详细信息
@@ -78,8 +77,8 @@ public class AdminService {
     }
 
     // 更新 管理员 详细信息
-    public boolean updateAdminDetail(Admin admin){
-        return adminMapper.updateAdminDetail(admin).equals(1);
+    public boolean updateAdminDetail(Administrator administrator){
+        return administratorMapper.updateAdminDetail(administrator).equals(1);
     }
 
     // 插入 部门

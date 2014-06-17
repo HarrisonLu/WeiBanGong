@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springapp.mvc.dao.admin.AdministratorMapper">
+
+    <resultMap id="AdministratorResultMap" type="Administrator">
+        <id property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="companyId" column="company_id"/>
+        <result property="companyName" column="company_name"/>
+    </resultMap>
+
+    <select id="hasAccountWithAdmin" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(*)
+        from t_admin a
+        where a.email = #{accountNum} and a.password = #{password}
+    </select>
+
+    <select id="selectAdminDetailByAccountNumAndPassword" parameterType="java.util.Map" resultMap="AdministratorResultMap">
+        select a.*
+        from t_admin a
+        where a.email = #{accountNum} and a.password = #{password}
+    </select>
+
+    <insert id="insertAdmin" parameterType="Administrator">
+        insert into t_admin (password, email, phone_num, company_id)
+        values (#{password}, #{email}, #{phoneNum}, #{companyId})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id() as id
+        </selectKey>
+    </insert>
+
+    <update id="updateAdminDetail" parameterType="Administrator">
+        update t_admin
+        set  password = #{password},
+             email = #{email},
+             phone_num = #{phoneNum}
+        where id = #{id}
+    </update>
+
+</mapper>

@@ -3,7 +3,7 @@ package com.springapp.mvc.domain.admin;
 /**
  * Created by lion on 14-6-8.
  */
-public class Admin {
+public class Administrator {
 
     // id
     private Integer id;

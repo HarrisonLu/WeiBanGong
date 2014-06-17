@@ -1,6 +1,6 @@
 package com.springapp.mvc.service;
 
-import com.springapp.mvc.domain.admin.Admin;
+import com.springapp.mvc.domain.admin.Administrator;
 import com.springapp.mvc.domain.admin.Company;
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;
@@ -32,18 +32,18 @@ public class AdminServiceTest {
         user_1.setPassword("mima1");
         Assert.assertEquals(adminService.hasAccount(user_1.getEmail(), user_1.getPassword()), true);
 
-        Admin admin = new Admin();
-        admin.setEmail("GLY@yunnex.com");
-        admin.setPassword("asdf_1234");
-        Assert.assertEquals(adminService.hasAccount(admin.getEmail(), admin.getPassword()), true);
+        Administrator administrator = new Administrator();
+        administrator.setEmail("GLY@yunnex.com");
+        administrator.setPassword("asdf_1234");
+        Assert.assertEquals(adminService.hasAccount(administrator.getEmail(), administrator.getPassword()), true);
     }
 
     @Test
     public void testSelectAdminDetailByAccountNumAndPassword() throws Exception {
-        Admin admin = new Admin();
-        admin.setEmail("GLY@yunnex.com");
-        admin.setPassword("asdf_1234");
-        Assert.assertEquals(adminService.selectAdminDetailByAccountNumAndPassword(admin.getEmail(), admin.getPassword()).getPhoneNum(), "13999999999");
+        Administrator administrator = new Administrator();
+        administrator.setEmail("GLY@yunnex.com");
+        administrator.setPassword("asdf_1234");
+        Assert.assertEquals(adminService.selectAdminDetailByAccountNumAndPassword(administrator.getEmail(), administrator.getPassword()).getPhoneNum(), "13999999999");
     }
 
     @Test
@@ -65,12 +65,12 @@ public class AdminServiceTest {
 
     @Test
     public void testInsertAdmin() throws Exception {
-        Admin admin = new Admin();
-        admin.setId(99);
-        admin.setEmail("AbilityMan@ability.com");
-        admin.setPassword("qwer_1234");
-        admin.setPhoneNum("13900000000");
-        admin.setCompanyId(2);
+        Administrator administrator = new Administrator();
+        administrator.setId(99);
+        administrator.setEmail("AbilityMan@ability.com");
+        administrator.setPassword("qwer_1234");
+        administrator.setPhoneNum("13900000000");
+        administrator.setCompanyId(2);
 
 //        Assert.assertEquals(adminService.insertAdmin(admin), true);
     }
@@ -90,12 +90,12 @@ public class AdminServiceTest {
 
     @Test
     public void testUpdateAdminDetail() throws Exception {
-        Admin admin = new Admin();
-        admin.setId(1);
-        admin.setEmail("GLY@yunnex.com");
-        admin.setPhoneNum("13999999999");
-        admin.setPassword("asdf_1234");
-        adminService.updateAdminDetail(admin);
+        Administrator administrator = new Administrator();
+        administrator.setId(1);
+        administrator.setEmail("GLY@yunnex.com");
+        administrator.setPhoneNum("13999999999");
+        administrator.setPassword("asdf_1234");
+        adminService.updateAdminDetail(administrator);
     }
 
     @Test

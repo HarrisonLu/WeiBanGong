@@ -1,10 +1,7 @@
 package com.springapp.mvc.dao.admin;
 
-import com.springapp.mvc.domain.admin.Admin;
 import com.springapp.mvc.domain.admin.Company;
 import org.springframework.stereotype.Repository;
-
-import java.util.Map;
 
 /**
  * Created by lion on 14-6-8.
