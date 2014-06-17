@@ -22,7 +22,8 @@
     <select id="selectCommentCustomerListByCustomerId" parameterType="int" resultMap="CommentCustomerResultMap">
         select c.id, c.create_time as time, c.details as details,
                 u.chinese_name as user_chinese_name, u.english_name as user_english_name
-        from t_comment_customer c
+        from t_company co
+        left join t_comment_customer c on co.id = c.company_id and c.company_id = #{companyId}
         left join t_user u on c.user_id = u.id
         where c.customer_id = #{customerId}
                order by create_time DESC

@@ -13,7 +13,7 @@ import java.util.Map;
 public interface ProjectMapper {
 
     // 根据 字符串 模糊搜索 项目基本资料列表
-    public List<Project> fuzzySelectProjectBaseInfoList(String str);
+    public List<Project> fuzzySelectProjectBaseInfoList(Map<String, String> map);
 
     // 根据 项目id 找 项目详细资料
     public Project selectProjectDetailsByProjectId(int projectId);
@@ -23,23 +23,23 @@ public interface ProjectMapper {
 
     // 根据 成员id 得到 项目基本信息列表
         // 根据 成员id（为项目创建人） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithProjectCreatorByUserId(int userId);
+    public List<Project> selectProjectListWithProjectCreatorByUserId(Map<String, Integer> map);
         // 根据 成员id（为项目负责人） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithProjectManagerByUserId(int userId);
+    public List<Project> selectProjectListWithProjectManagerByUserId(Map<String, Integer> map);
         // 根据 成员id（为项目成员） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithProjectMemberByUserId(int userId);
+    public List<Project> selectProjectListWithProjectMemberByUserId(Map<String, Integer> map);
         // 根据 成员id（为模块创建人） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithModuleCreatorByUserId(int userId);
+    public List<Project> selectProjectListWithModuleCreatorByUserId(Map<String, Integer> map);
         // 根据 成员id（为模块负责人） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithModuleManagerByUserId(int userId);
+    public List<Project> selectProjectListWithModuleManagerByUserId(Map<String, Integer> map);
         // 根据 成员id（为模块成员） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithModuleMemberByUserId(int userId);
+    public List<Project> selectProjectListWithModuleMemberByUserId(Map<String, Integer> map);
         // 根据 成员id（为任务创建人） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithTaskCreatorByUserId(int userId);
+    public List<Project> selectProjectListWithTaskCreatorByUserId(Map<String, Integer> map);
         // 根据 成员id（为任务负责人） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithTaskManagerByUserId(int userId);
+    public List<Project> selectProjectListWithTaskManagerByUserId(Map<String, Integer> map);
         // 根据 成员id（为任务成员） 得到 项目基本信息列表
-    public List<Project> selectProjectListWithTaskMemberByUserId(int userId);
+    public List<Project> selectProjectListWithTaskMemberByUserId(Map<String, Integer> map);
 
     // 插入 项目
     public Integer insertProject(Project project);

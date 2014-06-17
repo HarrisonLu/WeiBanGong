@@ -34,11 +34,12 @@
         where t.id = #{taskId}
     </select>
 
-    <select id="selectTaskListByModuleId" parameterType="int" resultMap="TaskResultMap">
+    <select id="selectTaskListByModuleId" parameterType="java.util.Map" resultMap="TaskResultMap">
         select t.id, t.name, t.update_time, t.deadline,
                sp.name as stage_name,
                pr.name as priority_name
-        from t_task t
+        from t_company c
+        left join t_task t on c.id = t.company_id and t.company_id = #{companyId}
         left join t_stage_project sp on sp.id = t.stage_id
         left join t_priority pr on pr.id = t.priority_id
         where t.module_id = #{moduleId}

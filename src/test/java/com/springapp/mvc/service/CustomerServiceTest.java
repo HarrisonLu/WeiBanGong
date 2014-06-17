@@ -123,14 +123,14 @@ public class CustomerServiceTest extends BaseTest {
 
     @Test
     public void testFuzzySelectProjectBaseInfoList() throws Exception {
-        List<Project> projectList = customerService.fuzzySelectProjectBaseInfoList("8");
+        List<Project> projectList = customerService.fuzzySelectProjectBaseInfoList("8", 1);
         Assert.assertEquals(projectList.size(), 1);
         Assert.assertEquals(projectList.get(0).getName(), "至善园6号618项目");
     }
 
     @Test
     public void testFuzzySelectTaskBaseInfoList() throws Exception {
-        List<Task> taskList = customerService.fuzzySelectTaskBaseInfoList(2, "号");
+        List<Task> taskList = customerService.fuzzySelectTaskBaseInfoList(2, "号", 1);
         Assert.assertEquals(taskList.size(), 1);
     }
 
@@ -210,7 +210,7 @@ public class CustomerServiceTest extends BaseTest {
 
     @Test
     public void testSelectCommentCustomerListByCustomerId() throws Exception {
-        List<CommentCustomer> commentCustomerList = customerService.selectCommentCustomerListByCustomerId(1);
+        List<CommentCustomer> commentCustomerList = customerService.selectCommentCustomerListByCustomerId(1, 1);
         Assert.assertEquals(commentCustomerList.size(), 2);
     }
 }

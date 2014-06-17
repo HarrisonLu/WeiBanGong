@@ -75,11 +75,12 @@
         where u.id = #{userId}
     </select>
 
-    <select id="fuzzySelectUserBaseInfoListByString" parameterType="java.lang.String" resultMap="UserResultMap">
+    <select id="fuzzySelectUserBaseInfoListByString" parameterType="java.util.Map" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name,
                 d.id as departmentId, d.name as departmentName,
                 g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
-        from t_user u
+        from t_company c
+              left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
               left join t_user_department ud on u.id = ud.user_id
               left join t_department d on ud.department_id = d.id
               left join t_user_group ug on u.id = ug.user_id
@@ -96,23 +97,26 @@
             where user_id = #{user_id} And collectedcontacts_id = #{collectedcontacts_id}
     </select>
 
-    <select id="selectProjectManagerListByProjectId" parameterType="int" resultMap="UserResultMap">
+    <select id="selectProjectManagerListByProjectId" parameterType="java.util.Map" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name
-        from t_user u
+        from t_company c
+        left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
         left join t_project_manager p_ma on p_ma.manager_id = u.id
         where p_ma.project_id = #{projectId}
     </select>
 
-    <select id="selectModuleManagerListByModuleId" parameterType="int" resultMap="UserResultMap">
+    <select id="selectModuleManagerListByModuleId" parameterType="java.util.Map" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name
-        from t_user u
+        from t_company c
+        left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
         left join t_module_manager m_ma on m_ma.manager_id = u.id
         where m_ma.module_id = #{moduleId}
     </select>
 
     <select id="selectTaskManagerListByTaskId" parameterType="int" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name
-        from t_user u
+        from t_company c
+        left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
         left join t_task_manager t_ma on t_ma.manager_id = u.id
         where t_ma.task_id = #{taskId}
     </select>

@@ -25,15 +25,17 @@
         where m.id = #{moduleId}
     </select>
 
-    <select id="selectModuleListByProjectId" parameterType="int" resultMap="ModuleResultMap">
+    <select id="selectModuleListByProjectId" parameterType="java.util.Map" resultMap="ModuleResultMap">
         select m.id, m.name, m.update_time
-        from t_module m
+        from t_company c
+        left join t_module m on c.id = m.company_id and m.company_id = #{companyId}
         where m.project_id = #{projectId}
     </select>
 
     <select id="getModuleListByUserIdAndProjectId" parameterType="java.util.Map" resultMap="ModuleResultMap">
         select m.id, m.name, m.update_time
-        from t_module m
+        from t_company c
+        left join t_module m on c.id = m.company_id and m.company_id = #{companyId}
 
         left join t_module_manager m_ma on m_ma.module_id = m.id
         left join t_module_member m_me on m_me.module_id = m.id

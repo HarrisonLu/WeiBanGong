@@ -22,8 +22,10 @@
          values(#{id}, #{name}, #{companyId})
     </insert>
 
-    <select id="selectAllDepartmentBaseInfo" resultMap="DepartmentResultMap">
-        select d.id, d.name from t_department d
+    <select id="selectAllDepartmentBaseInfo" parameterType="java.lang.Integer" resultMap="DepartmentResultMap">
+        select d.id, d.name
+        from t_department d
+        where d.company_id = #{companyId}
     </select>
 
     <select id="selectDepartmentDetailsByDepartmentId" parameterType="int" resultMap="DepartmentResultMap">

@@ -26,19 +26,19 @@ public interface UserMapper {
     public User selectUserDetailsById(int userId);
 
     // 根据 字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByString(String str);
+    public List<User> fuzzySelectUserBaseInfoListByString(Map<String, String> map);
 
     // 判断 成员和联系人 是否为 收藏联系人关系
     public Boolean isCollectedContacts(Map<String, Integer> map);
 
     // 根据 项目id 找 项目负责人基本资料 列表
-    public List<User> selectProjectManagerListByProjectId(int projectId);
+    public List<User> selectProjectManagerListByProjectId(Map<String, Integer> map);
 
     // 根据 模块id 找 模块负责人基本资料 列表
-    public List<User> selectModuleManagerListByModuleId(int moduleId);
+    public List<User> selectModuleManagerListByModuleId(Map<String, Integer> map);
 
     // 根据 任务id 找 任务负责人基本资料 列表
-    public List<User> selectTaskManagerListByTaskId(int taskId);
+    public List<User> selectTaskManagerListByTaskId(Map<String, Integer> map);
 
     /// 根据 账号和密码 判断 成员是否存在
     public Integer hasAccountWithUser(Map<String, String> map);

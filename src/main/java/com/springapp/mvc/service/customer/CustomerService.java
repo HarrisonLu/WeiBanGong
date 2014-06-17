@@ -16,6 +16,7 @@ import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
 import com.tool.ChineseToPinyin;
 import com.tool.DateHelper;
+import com.weixin.sdk.message.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -51,22 +52,32 @@ public class CustomerService {
 
     // 根据 英文字符串 和 成员id 模糊搜索 客户列表
     public List<Customer> fuzzySelectCustomer(int userId, String str) {
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", Integer.toString(userId));
         map.put("str", str);
+        map.put("companyId", Integer.toString(companyId));
         return customerMapper.fuzzySelectCustomerList(map);
     }
 
     // 根据 成员id 找 我的客户基本资料列表
     @Cacheable(value = "customerMyListCache")
     public List<Customer> selectMyCustomerList(int userId) {
-        return customerMapper.selectMyCustomerList(userId);
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("companyId", companyId);
+        return customerMapper.selectMyCustomerList(map);
     }
 
     // 根据 成员id 找 共享客户基本资料别表
     @Cacheable(value = "customerSharedListCache")
     public List<Customer> selectSharedCustomerList(int userId) {
-        return customerMapper.selectSharedCustomerList(userId);
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("companyId", companyId);
+        return customerMapper.selectSharedCustomerList(map);
     }
 
     // 判断 客户是否为我的客户
@@ -81,18 +92,22 @@ public class CustomerService {
     // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
     @Cacheable(value = "customerMyFilterListCache")
     public List<Customer> selectMyCustomerListByDiscussStage(int userId, int discussStageId) {
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("discussStageId", discussStageId);
+        map.put("companyId", companyId);
         return customerMapper.selectMyCustomerListByDiscussStage(map);
     }
 
     // 根据 成员id、客户所处阶段 找 共享客户基本资料列表
     @Cacheable(value = "customerSharedFilterListCache")
     public List<Customer> selectSharedCustomerListByDiscussStage(int userId, int discussStageId) {
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("discussStageId", discussStageId);
+        map.put("companyId", companyId);
         return customerMapper.selectSharedCustomerListByDiscussStage(map);
     }
 
@@ -106,8 +121,11 @@ public class CustomerService {
     }
 
     // 根据 字符串 模糊搜索 成员基本资料列表
-    public List<User> fuzzySelectUserList(String str) {
-        return userMapper.fuzzySelectUserBaseInfoListByString(str);
+    public List<User> fuzzySelectUserList(String str, Integer companyId) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("str", str);
+        map.put("companyId", Integer.toString(companyId));
+        return userMapper.fuzzySelectUserBaseInfoListByString(map);
     }
 
     // 插入 成员-客户共享关系
@@ -128,15 +146,19 @@ public class CustomerService {
     }
 
     // 根据 字符串 模糊搜索 项目基本资料列表
-    public List<Project> fuzzySelectProjectBaseInfoList(String str) {
-        return projectMapper.fuzzySelectProjectBaseInfoList(str);
+    public List<Project> fuzzySelectProjectBaseInfoList(String str, Integer companyId) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("str", str);
+        map.put("companyId", Integer.toString(companyId));
+        return projectMapper.fuzzySelectProjectBaseInfoList(map);
     }
 
     // 根据 字符串 和 模块id 模糊搜索 任务基本资料列表
-    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str) {
+    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str, Integer companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("moduleId", Integer.toString(moduleId));
         map.put("str", str);
+        map.put("companyId", Integer.toString(companyId));
         return linkMapper.fuzzySelectTaskBaseInfoList(map);
     }
 
@@ -176,8 +198,11 @@ public class CustomerService {
 
     // 根据 客户id 找 评论列表
     @Cacheable(value = "customerCommentCache")
-    public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId) {
-        List<CommentCustomer> commentCustomerList = commentCustomerMapper.selectCommentCustomerListByCustomerId(customerId);
+    public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId, Integer companyId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("customerId", customerId);
+        map.put("companyId", companyId);
+        List<CommentCustomer> commentCustomerList = commentCustomerMapper.selectCommentCustomerListByCustomerId(map);
         for (CommentCustomer commentCustomer : commentCustomerList) {
             String displayString = DateHelper.getShortTime(commentCustomer.getTime());
             commentCustomer.setDisplayTime(displayString);

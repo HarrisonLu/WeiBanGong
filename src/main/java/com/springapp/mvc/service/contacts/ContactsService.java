@@ -33,28 +33,38 @@ public class ContactsService {
     private LinkMapper linkMapper;
 
     // 根据 字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByString(String str) {
-        return userMapper.fuzzySelectUserBaseInfoListByString(str);
+    public List<User> fuzzySelectUserBaseInfoListByString(String str, Integer companyId) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("str", str);
+        map.put("companyId", Integer.toString(companyId));
+        return userMapper.fuzzySelectUserBaseInfoListByString(map);
     }
 
     // 根据 成员id 找 收藏联系人基本资料列表
     @Cacheable(value = "contactsCollectedListCache")
     public List<User> selectCollectedContactsBaseInfoListByUserId(int userId) {
-        return linkMapper.selectCollectedContactsBaseInfoListByUserId(userId);
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("companyId", companyId);
+        return linkMapper.selectCollectedContactsBaseInfoListByUserId(map);
     }
 
     // 根据 成员id 找 所在组成员基本信息列表
     @Cacheable(value = "contactsGroupListCache")
     public List<User> searchGroupUserBaseInfoListByUserId(int userId) {
+        Integer companyId = userMapper.selectUserDetailsById(userId).getCompanyId();
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("companyId", companyId);
         return linkMapper.searchGroupUserBaseInfoListByUserId(userId);
     }
 
     // 根据 成员id和联系人id 增加收藏联系人
-    public Integer insertCollectedContacts(int userId, int collectedContactsId, int companyId) {
+    public Integer insertCollectedContacts(int userId, int collectedContactsId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("user_id", userId);
         map.put("collectedcontacts_id", collectedContactsId);
-        map.put("company_id", companyId);
         return linkMapper.insertUserIdCollectedContactsIdLink(map);
     }
 
@@ -77,8 +87,8 @@ public class ContactsService {
 
     // 得到 所有部门基本信息
     @Cacheable(value = "contactsDepartmentsCache")
-    public List<Department> selectAllDepartmentBaseInfo() {
-        return departmentMapper.selectAllDepartmentBaseInfo();
+    public List<Department> selectAllDepartmentBaseInfo(Integer companyId) {
+        return departmentMapper.selectAllDepartmentBaseInfo(companyId);
     }
 
     // 根据 成员id 找 成员详细信息

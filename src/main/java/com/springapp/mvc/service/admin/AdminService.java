@@ -132,7 +132,10 @@ public class AdminService {
     }
 
     // 根据 字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByString(String str){
-        return userMapper.fuzzySelectUserBaseInfoListByString(str);
+    public List<User> fuzzySelectUserBaseInfoListByString(String str, Integer companyId){
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("str", str);
+        map.put("companyId", Integer.toString(companyId));
+        return userMapper.fuzzySelectUserBaseInfoListByString(map);
     }
 }

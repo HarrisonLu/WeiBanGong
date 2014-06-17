@@ -30,28 +30,28 @@ public class ProjectServiceTest extends BaseTest {
     @Test
     public void testFuzzySelectProject() throws Exception {
         List<Project> projectList;
-        projectList = projectService.fuzzySelectProject(1, "6");
+        projectList = projectService.fuzzySelectProject(1, "6", 1);
         Assert.assertEquals(projectList.size(), 1);
-        projectList = projectService.fuzzySelectProject(1, "啦啦");
+        projectList = projectService.fuzzySelectProject(1, "啦啦", 1);
         Assert.assertEquals(projectList.size(), 0);
     }
 
     @Test
     public void testSelectProjectListByUserId() throws Exception {
         List<Project> projectList;
-        projectList = projectService.selectProjectListByUserId(1);
+        projectList = projectService.selectProjectListByUserId(1, 1);
         Assert.assertEquals(projectList.size(), 1);
     }
 
     @Test
     public void testFuzzySelectUserList() throws Exception {
-        List<User> userList = projectService.fuzzySelectUserList("卢");
+        List<User> userList = projectService.fuzzySelectUserList("卢", 1);
         Assert.assertEquals(userList.size(), 1);
     }
 
     @Test
     public void testFuzzySelectCustomerNotLink() throws Exception {
-        List<Customer> customerList = projectService.fuzzySelectCustomerNotLink("客户");
+        List<Customer> customerList = projectService.fuzzySelectCustomerNotLink("客户", 1);
         Assert.assertEquals(customerList.size(), 1);
     }
 
@@ -62,7 +62,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetProjectCommentList() throws Exception {
-        List<CommentProject> commentProjectList = projectService.getProjectCommentList(1);
+        List<CommentProject> commentProjectList = projectService.getProjectCommentList(1, 1);
     }
 
     @Test
@@ -94,12 +94,12 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetProjectManagerList() throws Exception {
-        List<User> userList = projectService.getProjectManagerList(1);
+        List<User> userList = projectService.getProjectManagerList(1, 1);
     }
 
     @Test
     public void testGetProjectCustomerList() throws Exception {
-        List<Customer> customerList = projectService.getProjectCustomerList(1);
+        List<Customer> customerList = projectService.getProjectCustomerList(1, 1);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertProjectManagerLink() throws Exception {
-        projectService.insertProjectManagerLink(1, 10, 1);
+        projectService.insertProjectManagerLink(1, 10);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertProjectCustomerLink() throws Exception {
-        projectService.insertProjectCustomerLink(1, 5, 1);
+        projectService.insertProjectCustomerLink(1, 5);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertProjectMemberLink() throws Exception {
-        projectService.insertProjectMemberLink(1, 10, 1);
+        projectService.insertProjectMemberLink(1, 10);
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testDeleteModuleByModuleId() throws Exception {
-//        projectService.deleteModuleByModuleId(10);
+//        projectService.deleteModuleByModuleId(9);
     }
 
 //    @Test
@@ -158,7 +158,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetModuleListByUserIdAndProjectId() throws Exception{
-        List<Module> moduleList = projectService.getModuleListByUserIdAndProjectId(1, 2);
+        List<Module> moduleList = projectService.getModuleListByUserIdAndProjectId(1, 2, 1);
         Assert.assertEquals(moduleList.size(), 0);
     }
 
@@ -178,12 +178,12 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetModuleManagerList() throws Exception {
-        List<User> userList = projectService.getModuleManagerList(1);
+        List<User> userList = projectService.getModuleManagerList(1, 1);
     }
 
     @Test
     public void testGetModuleCustomerList() throws Exception {
-        List<Customer> customerList = projectService.getModuleCustomerList(1);
+        List<Customer> customerList = projectService.getModuleCustomerList(1, 1);
     }
 
     @Test
@@ -201,7 +201,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertModuleManagerLink() throws Exception {
-        projectService.insertModuleManagerLink(1, 10, 1);
+        projectService.insertModuleManagerLink(1, 10);
     }
 
     @Test
@@ -211,7 +211,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertModuleCustomerLink() throws Exception {
-        projectService.insertModuleCustomerLink(1, 5, 1);
+        projectService.insertModuleCustomerLink(1, 5);
     }
 
     @Test
@@ -221,7 +221,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertModuleMemberLink() throws Exception {
-        projectService.insertModuleMemberLink(1, 10, 1);
+        projectService.insertModuleMemberLink(1, 10);
     }
 
     @Test
@@ -242,7 +242,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetTaskListByUserIdAndModuleId() throws Exception{
-        List<Task> taskList = projectService.getTaskListByUserIdAndModuleId(1, 5);
+        List<Task> taskList = projectService.getTaskListByUserIdAndModuleId(1, 5, 1);
         Assert.assertEquals(taskList.size(), 0);
     }
 
@@ -278,12 +278,12 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetTaskManagerList() throws Exception {
-        List<User> userList = projectService.getTaskManagerList(1);
+        List<User> userList = projectService.getTaskManagerList(1, 1);
     }
 
     @Test
     public void testGetTaskCustomerList() throws Exception {
-        List<Customer> customerList = projectService.getTaskCustomerList(1);
+        List<Customer> customerList = projectService.getTaskCustomerList(1, 1);
     }
 
     @Test
@@ -307,7 +307,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertTaskManagerLink() throws Exception {
-        projectService.insertTaskManagerLink(1, 10, 1);
+        projectService.insertTaskManagerLink(1, 10);
     }
 
     @Test
@@ -317,7 +317,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertTaskCustomerLink() throws Exception {
-        projectService.insertTaskCustomerLink(1, 7, 1);
+        projectService.insertTaskCustomerLink(1, 7);
     }
 
     @Test
@@ -327,7 +327,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testInsertTaskMemberLink() throws Exception {
-        projectService.insertTaskMemberLink(1, 10, 1);
+        projectService.insertTaskMemberLink(1, 10);
     }
 
     @Test
@@ -366,7 +366,7 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetTaskCommentList() throws Exception {
-        List<CommentTask> commentTaskList = projectService.getTaskCommentList(1);
+        List<CommentTask> commentTaskList = projectService.getTaskCommentList(1, 1);
     }
 
     @Test

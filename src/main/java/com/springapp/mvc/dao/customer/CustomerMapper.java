@@ -23,10 +23,10 @@ public interface CustomerMapper {
     public List<Customer> fuzzySelectCustomerList(Map<String, String> map);
 
     // 根据 成员id 找 我的客户基本资料列表
-    public List<Customer> selectMyCustomerList(int userId);
+    public List<Customer> selectMyCustomerList(Map<String, Integer> map);
 
     // 根据 成员id 找 共享客户基本资料别表
-    public List<Customer> selectSharedCustomerList(int userId);
+    public List<Customer> selectSharedCustomerList(Map<String, Integer> map);
 
     // 根据 成员id、客户所处阶段 找 我的客户基本资料列表
     public List<Customer> selectMyCustomerListByDiscussStage(Map<String, Integer> map);
@@ -41,14 +41,14 @@ public interface CustomerMapper {
     public Integer isMyCustomer(Map<String, Integer> map);
 
     // 模糊搜索 客户 列表
-    public List<Customer> fuzzySelectCustomer(String str);
+    public List<Customer> fuzzySelectCustomer(Map<String, String> map);
 
     // 根据 项目id 找 项目关联客户基本资料 列表
-    public List<Customer> selectProjectCustomerListByProjectId(int projectId);
+    public List<Customer> selectProjectCustomerListByProjectId(Map<String, Integer> map);
 
     // 根据 模块id 找 模块关联客户基本资料 列表
-    public List<Customer> selectModuleCustomerListByModuleId(int moduleId);
+    public List<Customer> selectModuleCustomerListByModuleId(Map<String, Integer> map);
 
     // 根据 任务id 找 任务关联客户基本资料 列表
-    public List<Customer> selectTaskCustomerListByTaskId(int taskId);
+    public List<Customer> selectTaskCustomerListByTaskId(Map<String, Integer> map);
 }

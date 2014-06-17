@@ -23,7 +23,8 @@
     <select id="selectCommentTaskListByTaskId" parameterType="int" resultMap="CommentTaskResultMap">
         select ct.*,
                u.id as user_id, u.chinese_name as user_chinese_name, u.english_name as user_english_name
-        from t_comment_task ct
+        from t_company c
+        left join t_comment_task ct on c.id = ct.company_id and ct.company_id = #{company_id}
         left join t_user u on u.id = ct.user_id
         where ct.task_id = #{taskId}
               order by create_time DESC

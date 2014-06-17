@@ -155,7 +155,7 @@ public class AdminServiceTest {
 
     @Test
     public void testFuzzySelectUserBaseInfoListByString() throws Exception {
-        List<User> userList = adminService.fuzzySelectUserBaseInfoListByString("卢");
+        List<User> userList = adminService.fuzzySelectUserBaseInfoListByString("卢", 1);
         Assert.assertEquals(userList.size(), 1);
     }
 }

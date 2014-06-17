@@ -79,20 +79,22 @@
         where c.id = #{customerId}
     </select>
     
-    <select id="selectMyCustomerList" parameterType="int" resultMap="CustomerResultMap">
+    <select id="selectMyCustomerList" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, c.discuss_stage_id,
                p.name as project_name, m.name as module_name, t.name as task_name
-        from t_customer c
+        from t_company co
+              left join t_customer c on co.id = c.company_id and c.company_id = #{companyId}
               left join t_project p on c.project_id = p.id
               left join t_module m on c.module_id = m.id
               left join t_task t on c.task_id = t.id
         where c.created_user_id = #{userId} order by c.english_name
     </select>
 
-    <select id="selectSharedCustomerList" parameterType="int" resultMap="CustomerResultMap">
+    <select id="selectSharedCustomerList" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, c.discuss_stage_id,
                p.name as project_name, m.name as module_name, t.name as task_name
-        from t_customer c
+        from t_company co
+              left join t_customer c on co.id = c.company_id and c.company_id = #{companyId}
               left join t_customer_user cu on cu.customer_id = c.id
 
               left join t_project p on c.project_id = p.id
@@ -104,7 +106,8 @@
     <select id="selectMyCustomerListByDiscussStage" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, c.discuss_stage_id,
                p.name as project_name, m.name as module_name, t.name as task_name
-        from t_customer c
+        from t_company co
+              left join t_customer c on co.id = c.company_id and c.company_id = #{companyId}
               left join t_customer_user cu on cu.customer_id = c.id
 
               left join t_project p on c.project_id = p.id
@@ -116,7 +119,8 @@
     <select id="selectSharedCustomerListByDiscussStage" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, c.discuss_stage_id,
                p.name as project_name, m.name as module_name, t.name as task_name
-        from t_customer c
+        from t_company co
+              left join t_customer c on co.id = c.company_id and c.company_id = #{companyId}
               left join t_customer_user cu on cu.customer_id = c.id
 
               left join t_project p on c.project_id = p.id
@@ -128,7 +132,8 @@
     <select id="fuzzySelectCustomerList" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name,
                p.name as project_name, m.name as module_name, t.name as task_name
-        from t_customer c
+        from t_company co
+              left join t_customer c on c.company_id = co.id and c.company_id = #{companyId}
               left join t_customer_user cu on cu.customer_id = c.id
 
               left join t_project p on c.project_id = p.id
@@ -144,30 +149,33 @@
         where c.id = #{customerId} and c.created_user_id = #{userId}
     </select>
 
-    <select id="fuzzySelectCustomer" parameterType="java.lang.String" resultMap="CustomerResultMap">
+    <select id="fuzzySelectCustomer" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, c.project_id, c.module_id, c.task_id
-        from t_customer c
+        from t_company co
+        left join t_customer c on c.company_id = co.id and c.company_id = #{companyId}
         where english_name like "%"#{str}"%" or chinese_name_pinyin like "%"#{str}"%" or chinese_name like "%"#{str}"%"
-
     </select>
 
-    <select id="selectProjectCustomerListByProjectId" parameterType="int" resultMap="CustomerResultMap">
+    <select id="selectProjectCustomerListByProjectId" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name
-        from t_customer c
+        from t_company co
+        left join t_customer c on c.company_id = co.id and c.company_id = #{companyId}
         left join t_project_customer pc on pc.customer_id = c.id
         where pc.project_id = #{projectId}
     </select>
 
-    <select id="selectModuleCustomerListByModuleId" parameterType="int" resultMap="CustomerResultMap">
+    <select id="selectModuleCustomerListByModuleId" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name
-        from t_customer c
+        from t_company co
+        left join t_customer c on c.company_id = co.id and c.company_id = #{companyId}
         left join t_module_customer pc on pc.customer_id = c.id
         where pc.module_id = #{moduleId}
     </select>
 
     <select id="selectTaskCustomerListByTaskId" parameterType="int" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name
-        from t_customer c
+        from t_company co
+        left join t_customer c on c.company_id = co.id and c.company_id = #{companyId}
         left join t_task_customer pc on pc.customer_id = c.id
         where pc.task_id = #{taskId}
     </select>

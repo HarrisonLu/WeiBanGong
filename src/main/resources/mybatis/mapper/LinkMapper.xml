@@ -48,18 +48,20 @@
         <result property="customerId" column="comment_customer_id"/>
     </resultMap>
     <insert id="insertUserIdCollectedContactsIdLink" parameterType="java.util.Map">
-        insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id}, #{company_id})
+        insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
     </insert>
 
     <delete id="deleteUserIdCollectedContactsIdLink" parameterType="java.util.Map">
         delete from t_user_collectedcontacts where user_id = #{user_id} and collectedcontacts_id = #{collectedcontacts_id}
     </delete>
 
-    <select id="selectCollectedContactsBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
+    <select id="selectCollectedContactsBaseInfoListByUserId" parameterType="java.util.Map" resultMap="UserResultMap">
         select collectedcontacts.id, collectedcontacts.chinese_name, collectedcontacts.english_name,
                 d.id as departmentId, d.name as departmentName,
                 g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup
-        from t_user collectedcontacts
+        from t_company c
+              left join t_user collectedcontacts on c.id = collectedcontacts.company_id
+                    and collectedcontacts.company_id = #{companyId}
               left join t_user_collectedcontacts uc on uc.collectedcontacts_id = collectedcontacts.id
               left join t_user u on u.id = uc.user_id
               left join t_user_department ud on collectedcontacts.id = ud.user_id
@@ -88,7 +90,7 @@
 
     <insert id="insertUserSharedCustomerLink" parameterType="java.util.Map">
         insert into t_customer_user
-                values (#{customerId}, #{userId}, #{companyId})
+                values (#{customerId}, #{userId})
     </insert>
 
     <delete id="deleteUserSharedCustomerLink" parameterType="java.util.Map">
@@ -97,8 +99,8 @@
     </delete>
 
     <insert id="insertProjectCustomerLink" parameterType="java.util.Map">
-        insert into t_project_customer (project_id, customer_id, company_id)
-                values (#{projectId}, #{customerId}, #{companyId})
+        insert into t_project_customer (project_id, customer_id)
+                values (#{projectId}, #{customerId})
     </insert>
 
     <delete id="deleteProjectCustomerLink" parameterType="java.util.Map">
@@ -112,8 +114,8 @@
     </delete>
 
     <insert id="insertModuleCustomerLink" parameterType="java.util.Map">
-        insert into t_module_customer (module_id, customer_id, company_id)
-                values (#{moduleId}, #{customerId}, #{companyId})
+        insert into t_module_customer (module_id, customer_id)
+                values (#{moduleId}, #{customerId})
     </insert>
 
     <delete id="deleteModuleCustomerLink" parameterType="java.util.Map">
@@ -127,8 +129,8 @@
     </delete>
 
     <insert id="insertTaskCustomerLink" parameterType="java.util.Map">
-        insert into t_task_customer (task_id, customer_id, company_id)
-                values (#{taskId}, #{customerId}, #{companyId})
+        insert into t_task_customer (task_id, customer_id)
+                values (#{taskId}, #{customerId})
     </insert>
 
     <delete id="deleteTaskCustomerLink" parameterType="java.util.Map">
@@ -148,8 +150,8 @@
     <!--</select>-->
 
     <insert id="insertProjectManagerLink" parameterType="java.util.Map">
-        insert into t_project_manager (project_id, manager_id, company_id)
-                values (#{projectId}, #{managerId}, #{companyId})
+        insert into t_project_manager (project_id, manager_id)
+                values (#{projectId}, #{managerId})
     </insert>
 
     <delete id="deleteProjectManagerLink" parameterType="java.util.Map">
@@ -158,8 +160,8 @@
     </delete>
 
     <insert id="insertProjectMemberLink" parameterType="java.util.Map">
-        insert into t_project_member (project_id, member_id, company_id)
-                values (#{projectId}, #{memberId}, #{companyId})
+        insert into t_project_member (project_id, member_id)
+                values (#{projectId}, #{memberId})
     </insert>
 
     <delete id="deleteProjectMemberLink" parameterType="java.util.Map">
@@ -192,8 +194,8 @@
     <!--&lt;!&ndash;成员 与 模块&ndash;&gt;-->
 
     <insert id="insertModuleManagerLink" parameterType="java.util.Map">
-        insert into t_module_manager (module_id, manager_id, company_id)
-                values (#{moduleId}, #{managerId}, #{companyId})
+        insert into t_module_manager (module_id, manager_id)
+                values (#{moduleId}, #{managerId})
     </insert>
 
     <delete id="deleteModuleManagerLink" parameterType="java.util.Map">
@@ -202,8 +204,8 @@
     </delete>
 
     <insert id="insertModuleMemberLink" parameterType="java.util.Map">
-        insert into t_module_member (module_id, member_id, company_id)
-                values (#{moduleId}, #{memberId}, #{companyId})
+        insert into t_module_member (module_id, member_id)
+                values (#{moduleId}, #{memberId})
     </insert>
 
     <delete id="deleteModuleMemberLink" parameterType="java.util.Map">
@@ -236,8 +238,8 @@
     <!--&lt;!&ndash;成员 与 任务&ndash;&gt;-->
 
     <insert id="insertTaskManagerLink" parameterType="java.util.Map">
-        insert into t_task_manager (task_id, manager_id, company_id)
-                values (#{taskId}, #{managerId}, #{companyId})
+        insert into t_task_manager (task_id, manager_id)
+                values (#{taskId}, #{managerId})
     </insert>
 
     <delete id="deleteTaskManagerLink" parameterType="java.util.Map">
@@ -246,8 +248,8 @@
     </delete>
 
     <insert id="insertTaskMemberLink" parameterType="java.util.Map">
-        insert into t_task_member (task_id, member_id, company_id)
-                values (#{taskId}, #{memberId}, #{companyId})
+        insert into t_task_member (task_id, member_id)
+                values (#{taskId}, #{memberId})
     </insert>
 
     <delete id="deleteTaskMemberLink" parameterType="java.util.Map">
@@ -291,7 +293,8 @@
 
     <select id="fuzzySelectTaskBaseInfoList" parameterType="java.util.Map" resultMap="TaskResultMap">
         select t.id, t.name as task_name, t.create_time as task_create_time
-        from t_task t
+        from t_company c
+        left join t_task t on t.company_id = c.id and t.company_id = #{companyId}
         left join t_module m on m.id = t.module_id
         where m.id = #{moduleId} and t.name like "%"#{str}"%"
     </select>

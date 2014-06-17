@@ -22,7 +22,7 @@ public interface LinkMapper {
     public Integer deleteUserIdCollectedContactsIdLink(Map<String, Integer> map);
 
     // 根据 成员id 找 收藏联系人基本资料列表
-    public List<User> selectCollectedContactsBaseInfoListByUserId(int userId);
+    public List<User> selectCollectedContactsBaseInfoListByUserId(Map<String, Integer> map);
 
     /// 插入 成员id 和 部门id 关联
     public Integer insertUserIdDepartmentIdLink(Map<String, Integer> map);

@@ -18,7 +18,7 @@ public interface DepartmentMapper {
     public Integer deleteDepartmentById(int departmentId);
 
     // 得到 所有部门基本信息
-    public List<Department> selectAllDepartmentBaseInfo();
+    public List<Department> selectAllDepartmentBaseInfo(Integer companyId);
 
     // 根据 部门id 找 部门详细信息
     public Department selectDepartmentDetailsByDepartmentId(int departmentId);

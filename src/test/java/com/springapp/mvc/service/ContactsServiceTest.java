@@ -28,7 +28,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void fuzzySelectUserBaseInfoListByStringTest() throws Exception {
-        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByString("卢");
+        List<User> userList = contactsService.fuzzySelectUserBaseInfoListByString("卢", 1);
         System.out.println(userList.size());
         for (User user : userList) {
             printTest.printUserInfo(user);
@@ -46,7 +46,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void searchGroupUserBaseInfoListByUserId() throws Exception {
-        List<User> userList = contactsService.searchGroupUserBaseInfoListByUserId(3);
+        List<User> userList = contactsService.searchGroupUserBaseInfoListByUserId(1);
         System.out.println("组联系人数量：" + userList.size());
         for (User user : userList) {
             printTest.printUserInfo(user);
@@ -55,7 +55,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void insertCollectedContactsTest() throws Exception {
-        contactsService.insertCollectedContacts(2, 3, 1);
+        contactsService.insertCollectedContacts(2, 3);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class ContactsServiceTest extends BaseTest {
 
     @Test
     public void selectAllDepartmentBaseInfoTest() throws Exception {
-        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo();
+        List<Department> departmentList = contactsService.selectAllDepartmentBaseInfo(1);
         for (Department department : departmentList) {
             printTest.printDepartmentInfo(department);
         }
@@ -86,8 +86,10 @@ public class ContactsServiceTest extends BaseTest {
     public void updateUserInfoTest() throws Exception {
         User user = new User();
         user.setId(1);
+        user.setPassword("mima1");
         user.setTelephoneNum("88886666");
         user.setMobilePhoneNum("13430325317");
+        user.setWechatNum("luhuanglh");
         user.setQqNum("623360317");
         user.setEmail("luhuang@qq.com");
         contactsService.updateUserInfo(user);
