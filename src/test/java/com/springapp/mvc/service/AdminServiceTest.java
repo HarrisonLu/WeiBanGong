@@ -117,8 +117,15 @@ public class AdminServiceTest {
         administrator.setId(1);
         administrator.setEmail("GLY@yunnex.com");
         administrator.setPhoneNum("13999999999");
-        administrator.setPassword("asdf_1234");
         adminService.updateAdminDetail(administrator);
+    }
+
+    @Test
+    public void testUpdateAdminPassword() throws Exception {
+        Administrator administrator = new Administrator();
+        administrator.setId(1);
+        administrator.setPassword("asdf_1234");
+        adminService.updateAdminPassword(administrator);
     }
 
     @Test
@@ -175,6 +182,12 @@ public class AdminServiceTest {
     public void testHasUserAccountPostfix() throws Exception {
         Assert.assertEquals(adminService.hasUserAccountPostfix(1), false);
     }
+
+    @Test
+    public void testSetUserAccountPostfix() throws Exception {
+        Assert.assertEquals(adminService.setUserAccountPostfix(1, "lalala"), false);
+    }
+
 
     @Test
     public void testFuzzySelectUserBaseInfoListByString() throws Exception {

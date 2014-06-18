@@ -9,7 +9,7 @@ import java.util.Map;
 @Repository
 public interface UserMapper {
 
-    /// 插入 成员
+    // 插入 成员
     public Integer insertUser(User user);
 
     // 修改 成员信息
@@ -42,7 +42,7 @@ public interface UserMapper {
     // 根据 任务id 找 任务负责人基本资料 列表
     public List<User> selectTaskManagerListByTaskId(Map<String, Integer> map);
 
-    /// 根据 账号和密码 判断 成员是否存在
+    // 根据 账号和密码 判断 成员是否存在
     public Integer hasAccountWithUser(Map<String, String> map);
 
     // 根据 账号和密码 找 成员详细资料

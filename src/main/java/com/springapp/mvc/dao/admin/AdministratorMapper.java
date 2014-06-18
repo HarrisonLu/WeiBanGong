@@ -18,4 +18,6 @@ public interface AdministratorMapper {
     public Integer insertAdmin(Administrator administrator);
     // 更新 管理员 详细信息
     public Integer updateAdminDetail(Administrator administrator);
+    // 修改 管理员 密码
+    public void updateAdminPassword(Administrator administrator);
 }

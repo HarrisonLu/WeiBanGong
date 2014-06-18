@@ -112,7 +112,7 @@ public class AdminService {
         userMapper.updateUserInfo(user);
     }
 
-    // 修改 成员密码
+    // 修改 成员 密码
     public void updateUserPassword(User user){
         userMapper.updateUserPassword(user);
     }
@@ -120,6 +120,11 @@ public class AdminService {
     // 更新 管理员 详细信息
     public boolean updateAdminDetail(Administrator administrator){
         return administratorMapper.updateAdminDetail(administrator).equals(1);
+    }
+
+    // 修改 管理员 密码
+    public void updateAdminPassword(Administrator administrator){
+        administratorMapper.updateAdminPassword(administrator);
     }
 
     // 插入 部门
@@ -169,6 +174,23 @@ public class AdminService {
     // 判断 是否设置员工账号后缀
     public boolean hasUserAccountPostfix(int companyId){
         return companyMapper.hasUserAccountPostfix(companyId).equals(1);
+    }
+
+    // 设置 员工账号后缀
+    public boolean setUserAccountPostfix(Integer companyId, String userAccountPostfix) {
+        if (hasUserAccountPostfix(companyId) == false) {
+            Company company = new Company();
+            company.setId(companyId);
+            company.setSetUserAccountPostfix(true);
+            company.setUserAccountPostfix(userAccountPostfix);
+
+            companyMapper.setUserAccountPostfix(company);
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     // 根据 字符串 模糊搜索 成员基本信息列表

@@ -22,5 +22,11 @@
         where c.id = #{id}
     </select>
 
+    <update id="setUserAccountPostfix" parameterType="Company">
+        update t_company
+        set  user_account_postfix = #{userAccountPostfix},
+             is_set_user_account_postfix = #{isSetUserAccountPostfix}
+        where id = #{id}
+    </update>
 
 </mapper>
