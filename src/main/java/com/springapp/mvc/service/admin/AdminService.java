@@ -37,29 +37,65 @@ public class AdminService {
     @Autowired
     CompanyMapper companyMapper;
 
-    // 判断 账号 是否 存在
-    public boolean hasAccount(String accountNum, String password){
+    /* 账号登录
+       返回：账户类型（0为登录失败，1为管理员账户，2为用户账户），公司id，账户id
+    */
+    public Map<String, Integer> login(String accountNum, String password){
         Map<String, String> map= new HashMap<String, String>();
         map.put("accountNum", accountNum);
         map.put("password", password);
-        return administratorMapper.hasAccountWithAdmin(map).equals(1) || userMapper.hasAccountWithUser(map).equals(1);
+
+        Integer accountType = 0;
+        Integer companyId = 0;
+        Integer accountId = 0;
+
+        // 登录成功
+            // 为管理员账户
+        if (administratorMapper.hasAccountWithAdmin(map).equals(1)) {
+            Administrator administrator = administratorMapper.selectAdminDetailByAccountNumAndPassword(map);
+            accountType = 1;
+            companyId = administrator.getCompanyId();
+            accountId = administrator.getId();
+        }
+            // 为用户账户
+        else if (userMapper.hasAccountWithUser(map).equals(1)) {
+            User user = userMapper.selectUserDetailByAccountNumAndPassword(map);
+            accountType = 2;
+            companyId = user.getCompanyId();
+            accountId = user.getId();
+        }
+
+        Map<String, Integer> returnMap = new HashMap<String, Integer>();
+        returnMap.put("accountType", accountType);
+        returnMap.put("companyId", companyId);
+        returnMap.put("accountId", accountId);
+
+        return returnMap;
     }
 
-    // 根据 账号和密码 找 管理员详细资料
-    public Administrator selectAdminDetailByAccountNumAndPassword(String accountNum, String password){
-        Map<String, String> map= new HashMap<String, String>();
-        map.put("accountNum", accountNum);
-        map.put("password", password);
-        return administratorMapper.selectAdminDetailByAccountNumAndPassword(map);
-    }
-
-    // 根据 账号和密码 找 成员详细资料
-    public User selectUserDetailByAccountNumAndPassword(String accountNum, String password){
-        Map<String, String> map= new HashMap<String, String>();
-        map.put("accountNum", accountNum);
-        map.put("password", password);
-        return userMapper.selectUserDetailByAccountNumAndPassword(map);
-    }
+//    // 判断 账号 是否 存在
+//    public boolean hasAccount(String accountNum, String password){
+//        Map<String, String> map= new HashMap<String, String>();
+//        map.put("accountNum", accountNum);
+//        map.put("password", password);
+//        return administratorMapper.hasAccountWithAdmin(map).equals(1) || userMapper.hasAccountWithUser(map).equals(1);
+//    }
+//
+//    // 根据 账号和密码 找 管理员详细资料
+//    public Administrator selectAdminDetailByAccountNumAndPassword(String accountNum, String password){
+//        Map<String, String> map= new HashMap<String, String>();
+//        map.put("accountNum", accountNum);
+//        map.put("password", password);
+//        return administratorMapper.selectAdminDetailByAccountNumAndPassword(map);
+//    }
+//
+//    // 根据 账号和密码 找 成员详细资料
+//    public User selectUserDetailByAccountNumAndPassword(String accountNum, String password){
+//        Map<String, String> map= new HashMap<String, String>();
+//        map.put("accountNum", accountNum);
+//        map.put("password", password);
+//        return userMapper.selectUserDetailByAccountNumAndPassword(map);
+//    }
 
     // 插入 公司
     public boolean insertCompany(Company company){

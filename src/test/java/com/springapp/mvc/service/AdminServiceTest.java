@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lion on 14-6-9.
@@ -25,33 +27,47 @@ public class AdminServiceTest {
     @Autowired
     AdminService adminService;
 
-    @Test
-    public void testHasAccount() throws Exception {
-        User user_1 = new User();
-        user_1.setEmail("luhuang@qq.com");
-        user_1.setPassword("mima1");
-        Assert.assertEquals(adminService.hasAccount(user_1.getEmail(), user_1.getPassword()), true);
+//    @Test
+//    public void testHasAccount() throws Exception {
+//        User user_1 = new User();
+//        user_1.setEmail("luhuang@qq.com");
+//        user_1.setPassword("mima1");
+//        Assert.assertEquals(adminService.hasAccount(user_1.getEmail(), user_1.getPassword()), true);
+//
+//        Administrator administrator = new Administrator();
+//        administrator.setEmail("GLY@yunnex.com");
+//        administrator.setPassword("asdf_1234");
+//        Assert.assertEquals(adminService.hasAccount(administrator.getEmail(), administrator.getPassword()), true);
+//    }
+//
+//    @Test
+//    public void testSelectAdminDetailByAccountNumAndPassword() throws Exception {
+//        Administrator administrator = new Administrator();
+//        administrator.setEmail("GLY@yunnex.com");
+//        administrator.setPassword("asdf_1234");
+//        Assert.assertEquals(adminService.selectAdminDetailByAccountNumAndPassword(administrator.getEmail(), administrator.getPassword()).getPhoneNum(), "13999999999");
+//    }
+//
+//    @Test
+//    public void testSelectUserDetailByAccountNumAndPassword() throws Exception {
+//        User user_1 = new User();
+//        user_1.setEmail("luhuang@qq.com");
+//        user_1.setPassword("mima1");
+//        Assert.assertEquals(adminService.selectUserDetailByAccountNumAndPassword(user_1.getEmail(), user_1.getPassword()).getChineseName(), "卢煌");
+//    }
 
-        Administrator administrator = new Administrator();
-        administrator.setEmail("GLY@yunnex.com");
-        administrator.setPassword("asdf_1234");
-        Assert.assertEquals(adminService.hasAccount(administrator.getEmail(), administrator.getPassword()), true);
-    }
-
     @Test
-    public void testSelectAdminDetailByAccountNumAndPassword() throws Exception {
-        Administrator administrator = new Administrator();
-        administrator.setEmail("GLY@yunnex.com");
-        administrator.setPassword("asdf_1234");
-        Assert.assertEquals(adminService.selectAdminDetailByAccountNumAndPassword(administrator.getEmail(), administrator.getPassword()).getPhoneNum(), "13999999999");
-    }
+    public void testLogin() throws Exception {
+        Map<String, Integer> map = new HashMap<String, Integer>();
 
-    @Test
-    public void testSelectUserDetailByAccountNumAndPassword() throws Exception {
-        User user_1 = new User();
-        user_1.setEmail("luhuang@qq.com");
-        user_1.setPassword("mima1");
-        Assert.assertEquals(adminService.selectUserDetailByAccountNumAndPassword(user_1.getEmail(), user_1.getPassword()).getChineseName(), "卢煌");
+        map = adminService.login("luhuang@qq.com", "mima1");
+        Assert.assertEquals(map.get("accountType") == 2, true);
+
+        map = adminService.login("GLY@yunnex.com", "asdf_1234");
+        Assert.assertEquals(map.get("accountType") == 1, true);
+
+        map = adminService.login("lalalala", "hahahahah");
+        Assert.assertEquals(map.get("accountType") == 0, true);
     }
 
     @Test
