@@ -40,12 +40,17 @@
 
     <update id="updateUserInfo" parameterType="User">
         update t_user
-        set  password = #{password},
-             email = #{email},
+        set  email = #{email},
              qq_num = #{qqNum},
              telephone_num = #{telephoneNum},
              mobile_phone_num = #{mobilePhoneNum},
              wechat_num = #{wechatNum}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserPassword" parameterType="User">
+        update t_user
+        set  password = #{password}
         where id = #{id}
     </update>
 

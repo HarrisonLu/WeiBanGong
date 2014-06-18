@@ -79,13 +79,20 @@ public class AdminServiceTest {
     public void testUpdateUserDetail() throws Exception {
         User user = new User();
         user.setId(1);
-        user.setPassword("mima1");
         user.setTelephoneNum("88886666");
         user.setMobilePhoneNum("13430325317");
         user.setQqNum("623360317");
         user.setEmail("luhuang@qq.com");
         user.setWechatNum("luhuanglh");
         adminService.updateUserDetail(user);
+    }
+
+    @Test
+    public void testUpdateUserPassword() throws Exception {
+        User user = new User();
+        user.setId(1);
+        user.setPassword("mima1");
+        adminService.updateUserPassword(user);
     }
 
     @Test

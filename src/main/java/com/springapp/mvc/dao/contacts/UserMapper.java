@@ -15,7 +15,10 @@ public interface UserMapper {
     // 修改 成员信息
     public void updateUserInfo(User user);
 
-    /// 删除 成员
+    // 修改 成员密码
+    public void updateUserPassword(User user);
+
+    // 删除 成员
     public Integer deleteUserById(int id);
 
     // 根据 成员id 找 成员基本信息（中英文名、所属部门和组）

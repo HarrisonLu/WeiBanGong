@@ -76,6 +76,11 @@ public class AdminService {
         userMapper.updateUserInfo(user);
     }
 
+    // 修改 成员密码
+    public void updateUserPassword(User user){
+        userMapper.updateUserPassword(user);
+    }
+
     // 更新 管理员 详细信息
     public boolean updateAdminDetail(Administrator administrator){
         return administratorMapper.updateAdminDetail(administrator).equals(1);
