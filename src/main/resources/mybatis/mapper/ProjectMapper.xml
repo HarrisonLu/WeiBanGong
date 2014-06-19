@@ -166,7 +166,8 @@
     <update id="updateProjectDetail" parameterType="Project">
         update t_project
         set name = #{name},
-            info = #{info}
+            info = #{info},
+            stage_id = #{stageId}
         where id = #{id}
     </update>
 
