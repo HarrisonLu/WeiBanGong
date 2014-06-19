@@ -43,6 +43,7 @@
         left join t_stage_project sp on sp.id = t.stage_id
         left join t_priority pr on pr.id = t.priority_id
         where t.module_id = #{moduleId}
+              order by create_time DESC
     </select>
 
     <select id="getTaskListByUserIdAndModuleId" parameterType="java.util.Map" resultMap="TaskResultMap">

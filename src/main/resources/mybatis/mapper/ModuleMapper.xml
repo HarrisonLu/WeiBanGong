@@ -49,6 +49,7 @@
         where m.project_id = #{projectId}
               and (m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
                   t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId})
+              order by create_time DESC
     </select>
 
 
