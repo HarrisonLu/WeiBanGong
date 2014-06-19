@@ -111,7 +111,9 @@ public class ProjectService {
 
     // 根据 项目id 找 项目详细信息
     public Project getProjectDetail(int projectId) {
-        return projectMapper.selectProjectDetailsByProjectId(projectId);
+        Project project = projectMapper.selectProjectDetailsByProjectId(projectId);
+        project.setDisplayCreateTime(DateHelper.timestampToStr2(project.getCreateTime()));
+        return project;
     }
 
     // 根据 项目id 找 项目评论列表

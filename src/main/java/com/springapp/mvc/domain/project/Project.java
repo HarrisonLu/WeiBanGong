@@ -9,6 +9,7 @@ public class Project {
     private Integer id;
     private String name;
     private Timestamp createTime;
+    private String displayCreateTime;
     private Timestamp updateTime;
     private String displayUpdateTime;
     private Integer stageId;
@@ -41,6 +42,14 @@ public class Project {
 
     public void setCreateTime(Timestamp time) {
         this.createTime = time;
+    }
+
+    public String getDisplayCreateTime() {
+        return displayCreateTime;
+    }
+
+    public void setDisplayCreateTime(String displayCreateTime) {
+        this.displayCreateTime = displayCreateTime;
     }
 
     public Timestamp getUpdateTime() {
