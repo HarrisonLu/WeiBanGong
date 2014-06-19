@@ -34,7 +34,7 @@
     </select>
 
     <select id="fuzzySelectProjectBaseInfoListByUserId" parameterType="java.util.Map" resultMap="ProjectResultMap">
-        select distinct p.id, p.name, p.create_time, p.update_time
+        select distinct p.id, p.name, p.create_time, p.update_time, p.info
         from t_company c
         left join t_project p on c.id = p.company_id and p.company_id = #{companyId}
 --         项目相关左链接
@@ -157,7 +157,7 @@
 
     <insert id="insertProject" parameterType="Project" useGeneratedKeys="true" keyProperty="id">
         insert into t_project (name, stage_id, info, creater_id, company_id)
-                values (#{name}, #{stageId}, #{info}, #{createrId}, #{companyId})
+        values (#{name}, #{stageId}, #{info}, #{createrId}, #{companyId})
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             select last_insert_id() as id
         </selectKey>

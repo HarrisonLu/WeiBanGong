@@ -188,7 +188,6 @@ public class AdminServiceTest {
         Assert.assertEquals(adminService.setUserAccountPostfix(1, "lalala"), false);
     }
 
-
     @Test
     public void testFuzzySelectUserBaseInfoListByString() throws Exception {
         List<User> userList = adminService.fuzzySelectUserBaseInfoListByString("卢", 1);
