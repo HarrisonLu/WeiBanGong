@@ -1,14 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
-<body>
+<body onload="document.getElementById('input_search').focus()">
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
@@ -22,7 +20,7 @@
 
 <div class="container">
     <div class="input-group" style="margin-top: 10px">
-        <input id="customer_search" type="text" class="form-control" placeholder="搜索" data-provide="typeahead">
+        <input id="input_search" type="text" class="form-control" placeholder="搜索" data-provide="typeahead">
         <span class="input-group-btn">
             <button class="btn btn-default" type="button" onclick="onSearch()">查找</button>
         </span>
@@ -32,14 +30,10 @@
 <div id="search_result" style="margin-top: 10px">
 </div>
 
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
-<script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
-<script src="/static_resources/js/underscore-min.js"></script>
 <script>
     $(document).ready(function () {
         var customers;
-        $('#customer_search').typeahead({
+        $('#input_search').typeahead({
             source: function (query, process) {
                 var parameter = {query: query};
                 $.post('/customer/search', parameter, function (data) {
@@ -85,28 +79,33 @@
     })
 
     function onSearch() {
-        var query = $("#customer_search").val();
+        var query = $("#input_search").val();
         if (query == "") {
-            alert("请输入搜索内容")
-        } else {
-            $.ajax({
-                type: "POST",
-                url: encodeURI(encodeURI(window.location)),
-                contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                data: {query: query},
-                success: function (data) {
-                    var html = "";
-                    for (var i in data) {
-                        html += "<a href='/customer/" + data[i].id + "' class='list-group-item' style='min-height: 64px'>" +
-                                    "<img class='pull-left' src='/static_resources/images/head.png' alt='' style='margin-left: 4px'>" +
-                                    "<h4 class='list-group-item-heading head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" + "</h4>" +
-                                    "<p class='list-group-item-text head-pic-text_'>" + data[i].projectName + "</p>" +
-                                "</a>";
-                    }
-                    $("#search_result").html(html);
-                }
-            });
+            toastr.warning("请输入搜索内容");
+            return;
         }
+        $.ajax({
+            type: "POST",
+            url: encodeURI(encodeURI(window.location)),
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            data: {query: query},
+            success: function (data) {
+                if (data.length == 0) {
+                    toastr.error("搜索不到结果");
+                    return;
+                }
+                toastr.clear();
+                var html = "";
+                for (var i in data) {
+                    html += "<a href='/customer/" + data[i].id + "' class='list-group-item' style='min-height: 64px'>" +
+                            "<img class='pull-left' src='/static_resources/images/head.png' alt='' style='margin-left: 4px'>" +
+                            "<h4 class='list-group-item-heading head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" + "</h4>" +
+                            "<p class='list-group-item-text head-pic-text_ info-detail'>" + data[i].projectName + "</p>" +
+                            "</a>";
+                }
+                $("#search_result").html(html);
+            }
+        });
     }
 </script>
 </body>

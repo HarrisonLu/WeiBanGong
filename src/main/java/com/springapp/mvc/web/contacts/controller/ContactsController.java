@@ -24,60 +24,67 @@ public class ContactsController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public String showContactsIndex(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return sessionExpiredDirectedUrl;
 
         int userId = (Integer) request.getSession().getAttribute("user_id");
-        User self = contactsService.selectUserDetailsById(userId);
+        int companyId = (Integer) request.getSession().getAttribute("company_id");
         List<User> groupUsers = contactsService.searchGroupUserBaseInfoListByUserId(userId);
-        List<User> collUsers = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
-        List<Department> departments = contactsService.selectAllDepartmentBaseInfo();
-        model.addAttribute("self", self);
+        List<Department> departments = contactsService.selectAllDepartmentBaseInfo(companyId);
         model.addAttribute("groupUsers", groupUsers);
-        model.addAttribute("collUsers", collUsers);
         model.addAttribute("departments", departments);
-        return "/contacts/contacts_index";
+        return "contacts/contacts_index";
+    }
+
+    @RequestMapping(value = "/collection", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Object showContactsCollection(HttpServletRequest request) throws Exception {
+        int userId = (Integer) request.getSession().getAttribute("user_id");
+        return contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     public String showContactsDetail(HttpServletRequest request, ModelMap model, @PathVariable int userId) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return sessionExpiredDirectedUrl;
 
         User user = contactsService.selectUserDetailsById(userId);
         boolean isCollected = contactsService.isCollectedContacts((Integer) request.getSession().getAttribute("user_id"), userId);
         model.addAttribute("user", user);
         model.addAttribute("isCollected", isCollected);
-        return "/contacts/contacts_detail";
+        return "contacts/contacts_detail";
     }
 
     @RequestMapping(value = "/user/edit", method = RequestMethod.GET)
     public String showContactsEdit(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return sessionExpiredDirectedUrl;
 
         User user = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute("user_id"));
         model.addAttribute("user", user);
-        return "/contacts/contacts_edit";
+        return "contacts/contacts_edit";
     }
 
     @RequestMapping(value = "/department/{departmentId}", method = RequestMethod.GET)
     public String showContactsDepartment(HttpServletRequest request, ModelMap model, @PathVariable int departmentId) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return sessionExpiredDirectedUrl;
 
         Department department = contactsService.selectDepartmentDetailsByDepartmentId(departmentId);
         model.addAttribute("department", department);
-        return "/contacts/contacts_department";
+
+        return "contacts/contacts_department";
     }
 
     @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
     public String showContactsGroup(HttpServletRequest request, ModelMap model, @PathVariable int groupId) throws Exception {
         if (isSessionExpired(request))
-            return "redirect:/index";
+            return sessionExpiredDirectedUrl;
 
         Group group = contactsService.selectGroupDetailsByGroupId(groupId);
         model.addAttribute("group", group);
-        return "/contacts/contacts_group";
+
+        return "contacts/contacts_group";
     }
 
     @RequestMapping(value = "/user/link/{collectedId}", method = RequestMethod.GET)
@@ -94,11 +101,8 @@ public class ContactsController extends BaseController {
         return true;
     }
 
-    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     public String saveContacts(HttpServletRequest request, UserCommand userCommand) throws Exception {
-        if (isSessionExpired(request))
-            return "redirect:/contacts";
-
         int userId = (Integer) request.getSession().getAttribute("user_id");
         User user = new User();
         user.setId(userId);
@@ -113,8 +117,9 @@ public class ContactsController extends BaseController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public
     @ResponseBody
-    Object searchContacts(@RequestParam String query) throws Exception {
-        return contactsService.fuzzySelectUserBaseInfoListByString(query);
+    Object searchContacts(HttpServletRequest request, @RequestParam String query) throws Exception {
+        int companyId = (Integer) request.getSession().getAttribute("company_id");
+        return contactsService.fuzzySelectUserBaseInfoListByString(query, companyId);
     }
 
 }

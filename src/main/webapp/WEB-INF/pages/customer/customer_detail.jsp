@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -45,54 +42,47 @@
     <img class="pull-left" src="/static_resources/images/head.png">
 
     <div class="media-body">
-        <p><strong><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</strong></p>
-
-        <p><c:out value="${customer.projectName}"/></p>
-
-        <p><c:out value="${customer.moduleName}"/></p>
-
-        <p><c:out value="${customer.taskName}"/></p>
+        <h4 class="media-heading">${customer.englishName} (${customer.chineseName})</h4>
+        <p></p><p>${customer.projectName}</p>
+        <p>${customer.moduleName}</p>
+        <p>${customer.taskName}</p>
     </div>
 </div>
 
 <ul class="list-group">
-    <li class="list-group-item">所处阶段<p class="pull-right"><c:out value="${customer.discussStageName}"/></p></li>
-    <li class="list-group-item">客户价值<p><c:out value="${customer.customerValue}"/></p></li>
+    <li class="list-group-item">所处阶段<p class="pull-right">${customer.discussStageName}</p></li>
+    <li class="list-group-item">客户价值<p>${customer.customerValue}</p></li>
 </ul>
 
-<div class="panel-group" id="accordion">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapseOne">
-                    联系方式
-                </a>
-            </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <li class="list-group-item">手机号码<p class="pull-right"><c:out value="${customer.mobilePhoneNum}"/></p></li>
-            <li class="list-group-item">微信号<p class="pull-right"><c:out value="${customer.wechatNum}"/></p></li>
-            <li class="list-group-item">座机号码<p class="pull-right"><c:out value="${customer.telephoneNum}"/></p></li>
-            <li class="list-group-item">QQ号码<p class="pull-right"><c:out value="${customer.qqNum}"/></p></li>
-            <li class="list-group-item">电子邮箱<p class="pull-right"><c:out value="${customer.email}"/></p></li>
-        </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapseOne">
+                联系方式
+            </a>
+        </h4>
     </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapseTwo">
-                    个性信息
-                </a>
-            </h4>
-        </div>
-        <div id="collapseTwo" class="panel-collapse collapse in">
-            <li class="list-group-item">生日<p class="pull-right"><c:out value="${customer.birthdayString}"/></p></li>
-            <li class="list-group-item">爱好<p class="pull-right"><c:out value="${customer.hobby}"/></p></li>
-        </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+        <li class="list-group-item">手机号码<p class="pull-right">${customer.mobilePhoneNum}</p></li>
+        <li class="list-group-item">微信号<p class="pull-right">${customer.wechatNum}</p></li>
+        <li class="list-group-item">座机号码<p class="pull-right">${customer.telephoneNum}</p></li>
+        <li class="list-group-item">QQ号码<p class="pull-right">${customer.qqNum}</p></li>
+        <li class="list-group-item">电子邮箱<p class="pull-right">${customer.email}</p></li>
     </div>
-    <div class="panel-footer">此客户为项目（任务）成员lisali（李莎）共享</div>
 </div>
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapseTwo">
+                个性信息
+            </a>
+        </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in">
+        <li class="list-group-item">生日<p class="pull-right">${customer.birthdayString}</p></li>
+        <li class="list-group-item">爱好<p class="pull-right">${customer.hobby}</p></li>
+    </div>
+</div>
 </body>
 </html>

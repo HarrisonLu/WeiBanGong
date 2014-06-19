@@ -2,13 +2,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" type="text/css" href="/static_resources/css/bootstrap.css">
+    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
+    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
+    <link rel="stylesheet" href="/static_resources/css/toastr.min.css">
+    <link rel="stylesheet" href="/static_resources/css/icheck.css">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap-datetimepicker.min.css">
 </head>
 
 <body>
-<script type="text/javascript" charset="UTF-8" src="/static_resources/js/appframework.ui.min.js"/>
+<script src="/static_resources/js/jquery.min.js"></script>
+<script src="/static_resources/js/bootstrap.min.js"></script>
+<script src="/static_resources/js/bootstrap-typeahead.min.js"></script>
+<script src="/static_resources/js/toastr.min.js"></script>
+<script src="/static_resources/js/underscore-min.js"></script>
+<script src="/static_resources/js/icheck.min.js"></script>
+<script src="/static_resources/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static_resources/js/common.js"></script>
 </body>
 </html>

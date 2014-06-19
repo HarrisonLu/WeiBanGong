@@ -1,19 +1,19 @@
 package com.springapp.mvc.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/")
-public class MainController {
+public class MainController extends BaseController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String printWelcome(HttpServletRequest request, ModelMap model) {
-        request.getSession().setAttribute("user_id", 1);
-        model.addAttribute("message", "Hello world!");
+    public String printWelcome(HttpServletRequest request) {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
         return "index";
     }
 

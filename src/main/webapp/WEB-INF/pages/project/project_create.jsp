@@ -1,49 +1,46 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>项目管理</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container-fluid">
     <div class="row-fluid title-bar" style="min-height: 50px">
         <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>新建项目</h4>
         </div>
         <div class="col-xs-2">
-            <button type="submit" class="btn btn-primary navbar-btn pull-right" onclick="document.form1.submit()">保存
+            <button class="btn btn-primary navbar-btn pull-right" onclick="onCreate(CREATE_PROJECT)">保存
             </button>
         </div>
     </div>
 </div>
 
-<form name="form1" class="form-horizontal" role="form" action="/project/create" method="post" style="padding-right: 15px">
+<form name="form1" class="form-horizontal" role="form" style="margin-right: 15px">
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">项目名称</label>
 
         <div class="col-xs-8">
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control" id="project_name">
         </div>
     </div>
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">项目描述</label>
 
         <div class="col-xs-8">
-            <input type="text" class="form-control" name="info">
+            <input type="text" class="form-control" id="project_info">
         </div>
     </div>
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">项目阶段</label>
 
         <div class="col-xs-8">
-            <select class="form-control" name="stageId">
+            <select class="form-control" id="project_stage">
                 <option class="form-control" value="1">未开始</option>
                 <option class="form-control" value="2">进行中</option>
                 <option class="form-control" value="3">已完成</option>
@@ -60,6 +57,10 @@
         </div>
     </div>
 
+    <div class="list-group" id="manager">
+    </div>
+
+
     <div class="form-group list-group-item">
         <label class="col-xs-6 control-label">添加项目成员</label>
 
@@ -67,6 +68,10 @@
             <a href="/project/create/member"><img src="/static_resources/images/ic_input_add.png"/></a>
         </div>
     </div>
+
+    <div class="list-group" id="member">
+    </div>
+
 
     <div class="form-group list-group-item">
         <label class="col-xs-6 control-label">添加项目关联客户</label>
@@ -76,36 +81,38 @@
         </div>
     </div>
 
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">项目创建时间</label>
-
-        <div class="col-xs-8">
-            <input type="text" class="form-control" name="createTime" placeholder="yyyy-mm-dd">
-        </div>
+    <div class="list-group" id="customer">
     </div>
 
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">项目创建者</label>
 
-        <div class="col-xs-8">
-            <input type="text" class="form-control" name="createrChineseName">
-        </div>
-    </div>
+    <%--<div class="form-group list-group-item">--%>
+    <%--<label class="col-xs-4 control-label">项目创建时间</label>--%>
+
+    <%--<div class="col-xs-8">--%>
+    <%--<input type="text" class="form-control" name="createTime" placeholder="yyyy-mm-dd">--%>
+    <%--</div>--%>
+    <%--</div>--%>
+
+    <%--<div class="form-group list-group-item">--%>
+    <%--<label class="col-xs-4 control-label">项目创建者</label>--%>
+
+    <%--<div class="col-xs-8">--%>
+    <%--<input type="text" class="form-control" name="createrChineseName">--%>
+    <%--</div>--%>
+    <%--</div>--%>
 
 </form>
 
 <div class="container">
-    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="document.form1.submit()"
+    <button class="btn btn-primary btn-lg btn-block" onclick="onCreate(CREATE_PROJECT)"
             style="margin-top: 5px; margin-bottom: 5px">保存项目
     </button>
 </div>
 
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
 <script>
-    function getProjectManagerFromChild(value) {
-        document.getElementById("project_manager").value = value;
-    }
+    $(document).ready(function () {
+        onProjectCreateDocumentReady();
+    });
 </script>
 </body>
 </html>

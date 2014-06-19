@@ -1,14 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
+<jsp:include page="../template/header.jsp"/>
+<html>
 <head>
     <title>通讯录</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
-    <link rel="stylesheet" href="/static_resources/css/toastr.min.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -30,9 +25,9 @@
             </div>
         </c:if>
         <%--<c:if test="${user.id != sessionScope.user_id}">--%>
-            <%--<div class="col-xs-2" style="margin-top: 10px">--%>
-                <%--<a href="/contacts"><img src="/static_resources/images/btn_head.png" width="32" height="32"></a>--%>
-            <%--</div>--%>
+        <%--<div class="col-xs-2" style="margin-top: 10px">--%>
+        <%--<a href="/contacts"><img src="/static_resources/images/btn_head.png" width="32" height="32"></a>--%>
+        <%--</div>--%>
         <%--</c:if>--%>
     </div>
 </div>
@@ -41,21 +36,22 @@
     <img class="pull-left" src="/static_resources/images/head.png">
 
     <div class="media-body">
-        <p><c:out value="${user.englishName}"/> (<c:out value="${user.chineseName}"/>)
+        <h4 class="media-heading">${user.englishName} (${user.chineseName})
             <c:if test="${user.id != sessionScope.user_id}">
                 <a href="javascript:onLinkChange()">
-                    <img class="pull-right" id="img_star" src="${isCollected ? '/static_resources/images/rate_star_big_on_holo_dark.png' : '/static_resources/images/rate_star_big_off_holo_dark.png'}">
+                    <img class="pull-right" id="img_star"
+                         src="${isCollected ? '/static_resources/images/rate_star_big_on_holo_dark.png' : '/static_resources/images/rate_star_big_off_holo_dark.png'}">
                 </a>
             </c:if>
-        </p>
+        </h4>
 
-        <p><c:out value="${user.status}"/></p>
+        <p></p><p>${user.status}</p>
         <c:forEach items="${user.groupList}" var="group">
-            <p>部门：<c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/></p>
+            <p>部门：${group.departmentName} - ${group.name}</p>
         </c:forEach>
-        <p>职位：<c:out value="${user.position}"/></p>
+        <p>职位：${user.position}</p>
 
-        <p>职级：<c:out value="${user.positionLevel}"/></p>
+        <p>职级：${user.positionLevel}</p>
     </div>
 </div>
 
@@ -64,11 +60,11 @@
         <h4 class="panel-title">联系方式</h4>
     </div>
     <ul class="list-group">
-        <li class="list-group-item">微信号<p class="pull-right"><c:out value="${user.wechatNum}"/></p></li>
-        <li class="list-group-item">座机号码<p class="pull-right"><c:out value="${user.telephoneNum}"/></p></li>
-        <li class="list-group-item">手机号码<p class="pull-right"><c:out value="${user.mobilePhoneNum}"/></p></li>
-        <li class="list-group-item">QQ号码<p class="pull-right"><c:out value="${user.qqNum}"/></p></li>
-        <li class="list-group-item">邮箱<p class="pull-right"><c:out value="${user.email}"/></p></li>
+        <li class="list-group-item">微信号<p class="pull-right">${user.wechatNum}</p></li>
+        <li class="list-group-item">座机号码<p class="pull-right">${user.telephoneNum}</p></li>
+        <li class="list-group-item">手机号码<p class="pull-right">${user.mobilePhoneNum}</p></li>
+        <li class="list-group-item">QQ号码<p class="pull-right">${user.qqNum}</p></li>
+        <li class="list-group-item">邮箱<p class="pull-right">${user.email}</p></li>
     </ul>
 </div>
 
@@ -79,7 +75,7 @@
     <div class="list-group">
         <c:forEach items="${user.groupList}" var="group">
             <a href="/contacts/group/${group.id}" class="list-group-item">
-                <c:out value="${group.departmentName}"/> - <c:out value="${group.name}"/>
+                    ${group.departmentName} - ${group.name}
             </a>
         </c:forEach>
         <c:if test="${user.groupList.size() == 0}">
@@ -87,35 +83,18 @@
         </c:if>
     </div>
 </div>
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
-<script src="/static_resources/js/toastr.min.js"></script>
-<script>
 
+<script>
     function onLinkChange() {
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "positionClass": "toast-bottom-full-width",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "2000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
         $.ajax({
             type: "GET",
             url: "/contacts/user/link/${user.id}",
-            success: function(result) {
-                if (result) {
-                    document.getElementById("img_star").src="/static_resources/images/rate_star_big_on_holo_dark.png";
+            success: function (data) {
+                if (data) {
+                    document.getElementById("img_star").src = "/static_resources/images/rate_star_big_on_holo_dark.png";
                     toastr.success("该员工已收藏至常用联系人列表");
                 } else {
-                    document.getElementById("img_star").src="/static_resources/images/rate_star_big_off_holo_dark.png";
+                    document.getElementById("img_star").src = "/static_resources/images/rate_star_big_off_holo_dark.png";
                     toastr.error("已取消收藏");
                 }
             }

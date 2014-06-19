@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>项目管理</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
+    <title>客户管理</title>
     <link rel="stylesheet" href="/static_resources/css/style.css">
 </head>
 <body>
@@ -23,8 +20,8 @@
 </div>
 
 <div class="media well">
-    <p><strong><c:out value="${project.name}"/></strong></p>
-    <p><c:out value="${project.info}"/></p>
+    <h4 class="media-heading">${project.name}</h4>
+    <p></p><p>${project.info}</p>
 </div>
 
 <div class="container">
@@ -32,15 +29,14 @@
         <c:forEach items="${commentProjects}" var="commentProject">
             <li class="odd">
                 <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png"
-                                              alt=""><span class="user-name"><c:out
-                        value="${commentProject.userEnglishName}"/></span></a>
+                                              alt=""><span
+                        class="user-name">${commentProject.userEnglishName}</span></a>
 
                 <div class="reply-content-box">
-                    <span class="reply-time"><c:out value="${commentProject.displayTime}"/></span>
+                    <span class="reply-time">${commentProject.displayTime}</span>
 
                     <div class="reply-content pr">
-                        <span class="arrow">&nbsp;</span>
-                        <c:out value="${commentProject.details}"/>
+                        <span class="arrow">&nbsp;</span>${commentProject.details}
                     </div>
                 </div>
             </li>
@@ -57,25 +53,23 @@
     </div>
 </div>
 
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
 <script>
     function onSend() {
         var message = $("#project_message").val();
         if (message == "") {
             alert("请输入评论")
-        } else {
-            $.ajax({
-                type: "GET",
-                url: encodeURI(encodeURI(window.location + "/" + message)),
-                contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                success: function (data) {
-                    alert("评论成功!")
-                    document.getElementById("project_message").value = "";
-                    location.reload(false);
-                }
-            });
+            return;
         }
+        $.ajax({
+            type: "POST",
+            url: encodeURI(encodeURI(window.location)),
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            data: {message: message},
+            success: function (data) {
+                document.getElementById("project_message").value = "";
+                location.reload(false);
+            }
+        });
     }
 </script>
 </body>

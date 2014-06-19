@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -21,7 +18,7 @@
     </div>
 </div>
 
-<div class="panel-group" id="accordion">
+<div class="panel-group">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -43,15 +40,17 @@
                         <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
                     </c:if>
                     <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
-                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out
-                            value="${customer.chineseName}"/>)</h4>
+                    <h4 class="list-group-item-heading head-pic-text_">${customer.englishName}
+                        (${customer.chineseName})</h4>
 
-                    <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/></p>
+                    <p class="list-group-item-text head-pic-text_ info-detail">${customer.projectName}</p>
                 </a>
             </c:forEach>
-
         </div>
     </div>
+</div>
+
+<div class="panel-group">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -73,16 +72,15 @@
                         <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
                     </c:if>
                     <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px">
-                    <h4 class="list-group-item-heading head-pic-text_"><c:out value="${customer.englishName}"/> (<c:out
-                            value="${customer.chineseName}"/>)</h4>
+                    <h4 class="list-group-item-heading head-pic-text_">${customer.englishName}
+                        (${customer.chineseName})</h4>
 
-                    <p class="list-group-item-text head-pic-text_"><c:out value="${customer.projectName}"/></p>
+                    <p class="list-group-item-text head-pic-text_ info-detail">${customer.projectName}</p>
                 </a>
             </c:forEach>
         </div>
     </div>
 </div>
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

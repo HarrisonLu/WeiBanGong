@@ -1,13 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title>客户管理</title>
-    <meta http-equiv="Content-type" content="text/html" charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static_resources/css/bootstrap.css">
-    <link rel="stylesheet" href="/static_resources/css/wiwork.css">
     <link rel="stylesheet" href="/static_resources/css/style.css">
 </head>
 <body>
@@ -24,15 +21,11 @@
 
 <div class="media well">
     <img class="pull-left" src="/static_resources/images/head.png">
-
     <div class="media-body">
-        <p><strong><c:out value="${customer.englishName}"/> (<c:out value="${customer.chineseName}"/>)</strong></p>
-
-        <p><c:out value="${customer.projectName}"/></p>
-
-        <p><c:out value="${customer.moduleName}"/></p>
-
-        <p><c:out value="${customer.taskName}"/></p>
+        <h4 class="media-heading">${customer.englishName} (${customer.chineseName})</h4>
+        <p></p><p>${customer.projectName}</p>
+        <p>${customer.moduleName}</p>
+        <p>${customer.taskName}</p>
     </div>
 </div>
 
@@ -40,15 +33,15 @@
     <ul class="content-reply-box mg10">
         <c:forEach items="${comments}" var="comment">
             <li class="odd">
-                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png" alt="">
-                    <span class="user-name"><c:out value="${comment.userEnglishName}"/></span></a>
+                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png"
+                                              alt="">
+                    <span class="user-name">${comment.userEnglishName}</span></a>
 
                 <div class="reply-content-box">
-                    <span class="reply-time"><c:out value="${comment.displayTime}"/></span>
+                    <span class="reply-time">${comment.displayTime}</span>
 
                     <div class="reply-content pr">
-                        <span class="arrow">&nbsp;</span>
-                        <c:out value="${comment.details}"/>
+                        <span class="arrow">&nbsp;</span>${comment.details}
                     </div>
                 </div>
             </li>
@@ -64,25 +57,24 @@
         </div>
     </div>
 </div>
-<script src="/static_resources/js/jquery.min.js"></script>
-<script src="/static_resources/js/bootstrap.min.js"></script>
+
 <script>
     function onSend() {
         var message = $("#customer_message").val();
         if (message == "") {
             alert("请输入评论")
-        } else {
-            $.ajax({
-                type: "GET",
-                url: encodeURI(encodeURI(window.location + "/" + message)),
-                contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                success: function () {
-                    alert("评论成功!")
-                    document.getElementById("customer_message").value = "";
-                    location.reload(false);
-                }
-            });
+            return;
         }
+        $.ajax({
+            type: "POST",
+            url: encodeURI(encodeURI(window.location)),
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            data: {message: message},
+            success: function () {
+                document.getElementById("customer_message").value = "";
+                location.reload(false);
+            }
+        });
     }
 </script>
 </body>

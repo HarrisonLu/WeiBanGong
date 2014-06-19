@@ -1,6 +1,7 @@
 package com.weixin.sdk;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 public class ResourceManager {
@@ -11,8 +12,8 @@ public class ResourceManager {
 
     static {
         try {
-            props.load(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream(RESOURCE_FILENAME));
+            props.load(new InputStreamReader(Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(RESOURCE_FILENAME), "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }

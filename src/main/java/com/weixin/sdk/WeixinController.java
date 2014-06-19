@@ -8,18 +8,14 @@ import com.weixin.sdk.message.result.handler.MessageResultHandlerNews;
 import com.weixin.sdk.message.result.handler.MessageResultHandlerText;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.IOException;
 import java.util.Arrays;
 
 @Controller
@@ -50,7 +46,7 @@ public class WeixinController implements IMessage {
         return "Hello";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
     public
     @ResponseBody
     String processMsg(HttpServletRequest request) throws Exception {

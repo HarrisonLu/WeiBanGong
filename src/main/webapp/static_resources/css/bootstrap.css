@@ -2224,9 +2224,9 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-lg {
     padding: 10px 16px;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.33;
-    border-radius: 6px;
+    border-radius: 0px;
 }
 .btn-sm {
     padding: 5px 10px;
@@ -4595,7 +4595,8 @@ a.thumbnail.active {
     padding: 10px 15px;
     margin-bottom: -1px;
     background-color: #ffffff;
-    border: 1px solid #dddddd;
+    /*border: 1px solid #dddddd;*/
+    border: 1px solid #e6e6e6;
 }
 .list-group-item:first-child {
     border-top-right-radius: 0px;
