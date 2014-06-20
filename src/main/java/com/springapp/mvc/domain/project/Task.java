@@ -11,7 +11,9 @@ public class Task {
     private Integer moduleId;
     private String moduleName;
     private Timestamp createTime;
+    private String displayCreateTime;
     private Timestamp deadline;
+    private String displayDeadline;
     private Integer createrId;
     private String createrChineseName;
     private String createrEnglishName;
@@ -62,12 +64,28 @@ public class Task {
         this.createTime = time;
     }
 
+    public String getDisplayCreateTime() {
+        return displayCreateTime;
+    }
+
+    public void setDisplayCreateTime(String displayCreateTime) {
+        this.displayCreateTime = displayCreateTime;
+    }
+
     public Timestamp getDeadline() {
         return deadline;
     }
 
     public void setDeadline(Timestamp deadline) {
         this.deadline = deadline;
+    }
+
+    public String getDisplayDeadline() {
+        return displayDeadline;
+    }
+
+    public void setDisplayDeadline(String displayDeadline) {
+        this.displayDeadline = displayDeadline;
     }
 
     public Integer getCreaterId() {

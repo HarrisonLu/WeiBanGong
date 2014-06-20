@@ -44,5 +44,19 @@
         where id = #{id}
     </update>
 
+    <insert id="insertRightsForCreateProject" parameterType="java.util.Map">
+        insert into t_rights_create_project (user_id, company_id)
+                values (#{userId}, #{companyId})
+    </insert>
 
+    <delete id="deleteRightsForCreateProject" parameterType="java.lang.Integer">
+        delete from t_rights_create_project
+                where user_id = #{userId}
+    </delete>
+
+    <select id="hasRightsForCreateProject" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(*)
+        from t_rights_create_project
+        where user_id = #{userId}
+    </select>
 </mapper>

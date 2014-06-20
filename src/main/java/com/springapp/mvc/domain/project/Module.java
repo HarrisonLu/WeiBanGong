@@ -11,6 +11,7 @@ public class Module {
     private Integer projectId;
     private String projectName;
     private Timestamp createTime;
+    private String displayCreateTime;
     private Timestamp updateTime;
     private Integer createrId;
     private String createrChineseName;
@@ -55,6 +56,14 @@ public class Module {
 
     public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
+    }
+
+    public String getDisplayCreateTime() {
+        return displayCreateTime;
+    }
+
+    public void setDisplayCreateTime(String displayCreateTime) {
+        this.displayCreateTime = displayCreateTime;
     }
 
     public Timestamp getUpdateTime() {

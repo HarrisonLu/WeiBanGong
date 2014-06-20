@@ -193,4 +193,19 @@ public class AdminServiceTest {
         List<User> userList = adminService.fuzzySelectUserBaseInfoListByString("卢", 1);
         Assert.assertEquals(userList.size(), 1);
     }
+
+    @Test
+    public void testInsertRightsForCreateProject() throws Exception {
+//        Assert.assertEquals(adminService.insertRightsForCreateProject(1, 1), true);
+    }
+
+    @Test
+    public void testDeleteRightsForCreateProject() throws Exception {
+//        Assert.assertEquals(adminService.deleteRightsForCreateProject(1), true);
+    }
+
+    @Test
+    public void testHasRightsForCreateProject() throws Exception {
+        Assert.assertEquals(adminService.hasRightsForCreateProject(1), true);
+    }
 }

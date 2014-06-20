@@ -198,4 +198,22 @@ public class AdminService {
         map.put("companyId", Integer.toString(companyId));
         return userMapper.fuzzySelectUserBaseInfoListByString(map);
     }
+
+    // 插入 新建项目权限
+    public boolean insertRightsForCreateProject(Integer userId, Integer companyId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("companyId", companyId);
+        return administratorMapper.insertRightsForCreateProject(map).equals(1);
+    }
+
+    // 删除 新建项目权限
+    public boolean deleteRightsForCreateProject(Integer userId) {
+        return administratorMapper.deleteRightsForCreateProject(userId).equals(1);
+    }
+
+    // 判断 是否 拥有新建项目权限
+    public boolean hasRightsForCreateProject(Integer userId) {
+        return administratorMapper.hasRightsForCreateProject(userId).equals(1);
+    }
 }

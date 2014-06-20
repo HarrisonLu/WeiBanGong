@@ -276,7 +276,9 @@ public class ProjectService {
 
     // 根据 模块id 找 模块详细资料
     public Module getModuleDetail(int moduleId) {
-        return moduleMapper.selectModuleDetailsByModuleId(moduleId);
+        Module module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
+        module.setDisplayCreateTime(DateHelper.timestampToStr2(module.getCreateTime()));
+        return module;
     }
 
     // 根据 模块id 找 模块负责人基本资料 列表
@@ -399,7 +401,10 @@ public class ProjectService {
 
     // 根据 任务id 找 任务详细资料
     public Task getTaskDetail(int taskId) {
-        return taskMapper.selectTaskDetailsByTaskId(taskId);
+        Task task = taskMapper.selectTaskDetailsByTaskId(taskId);
+        task.setDisplayCreateTime(DateHelper.timestampToStr2(task.getCreateTime()));
+        task.setDisplayDeadline(DateHelper.timestampToStr2(task.getDeadline()));
+        return task;
     }
 
     // 根据 任务id 找 任务负责人基本资料 列表

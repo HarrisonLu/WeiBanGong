@@ -20,4 +20,13 @@ public interface AdministratorMapper {
     public Integer updateAdminDetail(Administrator administrator);
     // 修改 管理员 密码
     public void updateAdminPassword(Administrator administrator);
+
+    // 权限 相关
+        // 新建项目权限 相关
+            // 插入 新建项目权限
+    public Integer insertRightsForCreateProject(Map<String, Integer> map);
+            // 删除 新建项目权限
+    public Integer deleteRightsForCreateProject(Integer userId);
+            // 判断 是否 拥有新建项目权限
+    public Integer hasRightsForCreateProject(Integer userId);
 }
