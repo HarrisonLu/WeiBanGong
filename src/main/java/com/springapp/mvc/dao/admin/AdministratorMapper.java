@@ -20,6 +20,9 @@ public interface AdministratorMapper {
     public Integer updateAdminDetail(Administrator administrator);
     // 修改 管理员 密码
     public void updateAdminPassword(Administrator administrator);
+    // 根据 管理员id 找 管理员详细资料
+    public Administrator selectAdminDetailsByAdminId(int adminId);
+
 
     // 权限 相关
         // 新建项目权限 相关

@@ -44,6 +44,14 @@
         where id = #{id}
     </update>
 
+    <select id="selectAdminDetailsByAdminId" parameterType="int" resultMap="AdministratorResultMap">
+        select a.*,
+               c.name as company_name
+        from t_admin a
+        left join t_company c on a.company_id = c.id
+        where a.id = #{adminId}
+    </select>
+
     <insert id="insertRightsForCreateProject" parameterType="java.util.Map">
         insert into t_rights_create_project (user_id, company_id)
                 values (#{userId}, #{companyId})

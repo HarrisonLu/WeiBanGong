@@ -195,6 +195,13 @@ public class AdminServiceTest {
     }
 
     @Test
+    public void testSelectAdminDetailsByAdminId() throws Exception {
+        Administrator administrator = adminService.selectAdminDetailsByAdminId(1);
+        Assert.assertEquals(administrator.getPhoneNum(), "13999999999");
+    }
+
+
+    @Test
     public void testInsertRightsForCreateProject() throws Exception {
 //        Assert.assertEquals(adminService.insertRightsForCreateProject(1, 1), true);
     }

@@ -45,9 +45,9 @@ public class AdminService {
         map.put("accountNum", accountNum);
         map.put("password", password);
 
-        Integer accountType = 0;
-        Integer companyId = 0;
-        Integer accountId = 0;
+        int accountType = 0;
+        int companyId = 0;
+        int accountId = 0;
 
         // 登录成功
         // 为管理员账户
@@ -197,6 +197,11 @@ public class AdminService {
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
         return userMapper.fuzzySelectUserBaseInfoListByString(map);
+    }
+
+    // 根据 管理员id 找 管理员详细资料
+    public Administrator selectAdminDetailsByAdminId(int adminId) {
+        return administratorMapper.selectAdminDetailsByAdminId(adminId);
     }
 
     // 插入 新建项目权限
