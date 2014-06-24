@@ -204,6 +204,11 @@ public class AdminService {
         return administratorMapper.selectAdminDetailsByAdminId(adminId);
     }
 
+    // 根据 公司id 找 公司详细资料
+    public Company selectCompanyDetailsByCompanyId(int companyId) {
+        return companyMapper.selectCompanyDetailsByCompanyId(companyId);
+    }
+
     // 插入 新建项目权限
     public boolean insertRightsForCreateProject(Integer userId, Integer companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();

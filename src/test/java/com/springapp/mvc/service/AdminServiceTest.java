@@ -200,6 +200,11 @@ public class AdminServiceTest {
         Assert.assertEquals(administrator.getPhoneNum(), "13999999999");
     }
 
+    @Test
+    public void selectCompanyDetailsByCompanyId() throws Exception {
+        Company company = adminService.selectCompanyDetailsByCompanyId(1);
+        Assert.assertEquals(company.getName(), "云移有限公司");
+    }
 
     @Test
     public void testInsertRightsForCreateProject() throws Exception {

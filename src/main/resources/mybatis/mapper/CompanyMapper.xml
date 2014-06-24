@@ -29,4 +29,10 @@
         where id = #{id}
     </update>
 
+    <select id="selectCompanyDetailsByCompanyId" parameterType="int" resultMap="CompanyResultMap">
+        select c.*
+        from t_company c
+        where id = #{id}
+    </select>
+
 </mapper>
