@@ -30,10 +30,10 @@
     </resultMap>
 
     <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        insert into t_user (id, password, chinese_name, chinese_name_pinyin,english_name, email, status,
+        insert into t_user (password, chinese_name, chinese_name_pinyin,english_name, email, status,
                             position, position_level, wechat_num, qq_num, telephone_num,
                             mobile_phone_num, company_id)
-                     values(#{id}, #{password}, #{chineseName}, #{chineseNamePinyin}, #{englishName}, #{email}, #{status},
+                     values(#{password}, #{chineseName}, #{chineseNamePinyin}, #{englishName}, #{email}, #{status},
                             #{position}, #{positionLevel}, #{wechatNum}, #{qqNum}, #{telephoneNum},
                             #{mobilePhoneNum}, #{companyId})
     </insert>

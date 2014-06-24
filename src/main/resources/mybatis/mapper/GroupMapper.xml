@@ -16,8 +16,8 @@
     </resultMap>
 
     <insert id="insertGroup" parameterType="Group" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-         insert into t_group (id, name, department_id, company_id)
-         values(#{id}, #{name}, #{departmentId}, #{companyId})
+         insert into t_group (name, department_id, company_id)
+         values(#{name}, #{departmentId}, #{companyId})
     </insert>
 
     <select id="selectGroupDetailsByGroupId" parameterType="int" resultMap="GroupResultMap">

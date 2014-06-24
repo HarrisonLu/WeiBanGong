@@ -18,8 +18,8 @@
     </resultMap>
 
     <insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-         insert into t_department (id, name, company_id)
-         values(#{id}, #{name}, #{companyId})
+         insert into t_department (name, company_id)
+         values(#{name}, #{companyId})
     </insert>
 
     <select id="selectAllDepartmentBaseInfo" parameterType="java.lang.Integer" resultMap="DepartmentResultMap">

@@ -50,14 +50,14 @@ public class AdminService {
         int accountId = 0;
 
         // 登录成功
-        // 为管理员账户
+            // 为管理员账户
         if (administratorMapper.hasAccountWithAdmin(map).equals(1)) {
             Administrator administrator = administratorMapper.selectAdminDetailByAccountNumAndPassword(map);
             accountType = 1;
             companyId = administrator.getCompanyId();
             accountId = administrator.getId();
         }
-        // 为用户账户
+            // 为用户账户
         else if (userMapper.hasAccountWithUser(map).equals(1)) {
             User user = userMapper.selectUserDetailByAccountNumAndPassword(map);
             accountType = 2;
