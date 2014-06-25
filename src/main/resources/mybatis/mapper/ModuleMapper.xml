@@ -33,11 +33,10 @@
     </select>
 
     <select id="getModuleListByUserIdAndProjectId" parameterType="java.util.Map" resultMap="ModuleResultMap">
---         select m.id, m.name, m.update_time
-        select distinct m.*
+        select distinct m.id, m.name, m.update_time
         from t_company c
         left join t_module m on c.id = m.company_id and m.company_id = #{companyId}
---         from t_module m
+
         left join t_module_manager m_ma on m_ma.module_id = m.id
         left join t_module_member m_me on m_me.module_id = m.id
 
@@ -49,7 +48,7 @@
         where m.project_id = #{projectId}
               and (m.creater_id = #{userId} or m_ma.manager_id = #{userId} or m_me.member_id = #{userId} or
                   t.creater_id = #{userId} or t_ma.manager_id = #{userId} or t_me.member_id = #{userId})
---               order by m.create_time DESC
+              order by m.create_time DESC
     </select>
 
 
