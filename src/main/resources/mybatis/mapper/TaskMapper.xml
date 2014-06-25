@@ -47,7 +47,7 @@
     </select>
 
     <select id="getTaskListByUserIdAndModuleId" parameterType="java.util.Map" resultMap="TaskResultMap">
-        select t.id, t.name, t.update_time, t.deadline,
+        select distinct t.id, t.name, t.update_time, t.deadline,
                sp.name as stage_name,
                pr.name as priority_name
         from t_task t
