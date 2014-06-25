@@ -140,7 +140,9 @@ public class AdminService {
     // 插入 成员
     public boolean insertUser(User user) {
         String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
-        user.setChineseNamePinyin(chineseNamePinYin);
+        if (chineseNamePinYin != null) {
+            user.setChineseNamePinyin(chineseNamePinYin);
+        }
         boolean bool = userMapper.insertUser(user).equals(1);
 
         return bool;
@@ -182,7 +184,9 @@ public class AdminService {
             Company company = new Company();
             company.setId(companyId);
             company.setSetUserAccountPostfix(true);
-            company.setUserAccountPostfix(userAccountPostfix);
+            if (userAccountPostfix != null) {
+                company.setUserAccountPostfix(userAccountPostfix);
+            }
             companyMapper.setUserAccountPostfix(company);
 
             return true;

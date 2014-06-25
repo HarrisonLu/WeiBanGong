@@ -82,7 +82,9 @@ public class ProjectService {
 
         for (Project project : returnProjectList) {
             String displayString = DateHelper.dateToString(project.getUpdateTime());
-            project.setDisplayUpdateTime(displayString);
+            if (displayString != null) {
+                project.setDisplayUpdateTime(displayString);
+            }
         }
         return returnProjectList;
     }
@@ -112,7 +114,9 @@ public class ProjectService {
     // 根据 项目id 找 项目详细信息
     public Project getProjectDetail(int projectId) {
         Project project = projectMapper.selectProjectDetailsByProjectId(projectId);
-        project.setDisplayCreateTime(DateHelper.timestampToStr2(project.getCreateTime()));
+        if (project.getCreateTime() != null) {
+            project.setDisplayCreateTime(DateHelper.timestampToStr2(project.getCreateTime()));
+        }
         return project;
     }
 
@@ -125,7 +129,9 @@ public class ProjectService {
         List<CommentProject> commentProjectList = commentProjectMapper.selectProjectCommentListByProjectId(map);
         for (CommentProject commentProject : commentProjectList) {
             String displayTime = DateHelper.getShortTime(commentProject.getTime());
-            commentProject.setDisplayTime(displayTime);
+            if (displayTime != null) {
+                commentProject.setDisplayTime(displayTime);
+            }
         }
         return commentProjectList;
     }
@@ -277,7 +283,9 @@ public class ProjectService {
     // 根据 模块id 找 模块详细资料
     public Module getModuleDetail(int moduleId) {
         Module module = moduleMapper.selectModuleDetailsByModuleId(moduleId);
-        module.setDisplayCreateTime(DateHelper.timestampToStr2(module.getCreateTime()));
+        if (module.getCreateTime() != null) {
+            module.setDisplayCreateTime(DateHelper.timestampToStr2(module.getCreateTime()));
+        }
         return module;
     }
 
@@ -402,8 +410,12 @@ public class ProjectService {
     // 根据 任务id 找 任务详细资料
     public Task getTaskDetail(int taskId) {
         Task task = taskMapper.selectTaskDetailsByTaskId(taskId);
-        task.setDisplayCreateTime(DateHelper.timestampToStr2(task.getCreateTime()));
-        task.setDisplayDeadline(DateHelper.timestampToStr2(task.getDeadline()));
+        if (task.getCreateTime() != null) {
+            task.setDisplayCreateTime(DateHelper.timestampToStr2(task.getCreateTime()));
+        }
+        if (task.getDeadline() != null) {
+            task.setDisplayDeadline(DateHelper.timestampToStr2(task.getDeadline()));
+        }
         return task;
     }
 

@@ -116,7 +116,9 @@ public class CustomerService {
     public Integer insertCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
-        customer.setChineseNamePinyin(chineseNamePinyin);
+        if (chineseNamePinyin != null) {
+            customer.setChineseNamePinyin(chineseNamePinyin);
+        }
         return customerMapper.insertCustomer(customer);
     }
 
@@ -187,7 +189,9 @@ public class CustomerService {
     public void updateCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
         String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
-        customer.setChineseNamePinyin(chineseNamePinyin);
+        if (chineseNamePinyin != null) {
+            customer.setChineseNamePinyin(chineseNamePinyin);
+        }
         customerMapper.updateCustomerInfo(customer);
     }
 
@@ -205,7 +209,9 @@ public class CustomerService {
         List<CommentCustomer> commentCustomerList = commentCustomerMapper.selectCommentCustomerListByCustomerId(map);
         for (CommentCustomer commentCustomer : commentCustomerList) {
             String displayString = DateHelper.getShortTime(commentCustomer.getTime());
-            commentCustomer.setDisplayTime(displayString);
+            if (displayString != null) {
+                commentCustomer.setDisplayTime(displayString);
+            }
         }
         return commentCustomerList;
     }

@@ -180,7 +180,7 @@ public class AdminServiceTest {
 
     @Test
     public void testHasUserAccountPostfix() throws Exception {
-        Assert.assertEquals(adminService.hasUserAccountPostfix(1), false);
+        Assert.assertEquals(adminService.hasUserAccountPostfix(1), true);
     }
 
     @Test

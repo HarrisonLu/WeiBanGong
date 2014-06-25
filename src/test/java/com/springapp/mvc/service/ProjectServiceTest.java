@@ -158,8 +158,8 @@ public class ProjectServiceTest extends BaseTest {
 
     @Test
     public void testGetModuleListByUserIdAndProjectId() throws Exception{
-        List<Module> moduleList = projectService.getModuleListByUserIdAndProjectId(1, 2, 1);
-        Assert.assertEquals(moduleList.size(), 0);
+        List<Module> moduleList = projectService.getModuleListByUserIdAndProjectId(4, 1, 1);
+        Assert.assertEquals(moduleList.size(), 2);
     }
 
     @Test
