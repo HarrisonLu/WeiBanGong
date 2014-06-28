@@ -8,17 +8,17 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-3">
+    <div class="row-fluid title-bar">
+        <div class="col-xs-3 title-bar-col">
             <a href="/index"><img class="title-bar-image" src="/static_resources/images/bar_item_home.png"></a>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 title-bar-col">
             <a href="/customer/create"><img class="title-bar-image" src="/static_resources/images/bar_item_create.png"></a>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 title-bar-col">
             <a href="/customer/filter"><img class="title-bar-image" src="/static_resources/images/bar_item_filter.png"></a>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 title-bar-col">
             <a href="/customer/search"><img class="title-bar-image" src="/static_resources/images/bar_item_search.png"></a>
         </div>
     </div>
@@ -35,18 +35,17 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
             <c:forEach items="${myCustomerList}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
+                <a href="/customer/${customer.id}" class="list-group-item list-group-item-higher">
                     <c:if test="${customer.discussStageId == 1}">
-                        <img class="pull-left" src="/static_resources/images/line_green.png" alt="">
+                        <img class="pull-left" src="/static_resources/images/line_green.png">
                     </c:if>
                     <c:if test="${customer.discussStageId == 2}">
-                        <img class="pull-left" src="/static_resources/images/line_yellow.png" alt="">
+                        <img class="pull-left" src="/static_resources/images/line_yellow.png">
                     </c:if>
                     <c:if test="${customer.discussStageId == 3}">
-                        <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
+                        <img class="pull-left" src="/static_resources/images/line_red.png">
                     </c:if>
-                    <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px"
-                         width="40" height="40">
+                    <img class="pull-left" src="/static_resources/images/head.png" style="margin-left: 4px">
                     <h4 class="list-group-item-heading head-pic-text_">${customer.englishName}
                         (${customer.chineseName})</h4>
 
@@ -68,18 +67,17 @@
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${sharedCustomerList}" var="customer">
-                <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 64px">
+                <a href="/customer/${customer.id}" class="list-group-item list-group-item-higher">
                     <c:if test="${customer.discussStageId == 1}">
-                        <img class="pull-left" src="/static_resources/images/line_green.png" alt="">
+                        <img class="pull-left" src="/static_resources/images/line_green.png">
                     </c:if>
                     <c:if test="${customer.discussStageId == 2}">
-                        <img class="pull-left" src="/static_resources/images/line_yellow.png" alt="">
+                        <img class="pull-left" src="/static_resources/images/line_yellow.png">
                     </c:if>
                     <c:if test="${customer.discussStageId == 3}">
-                        <img class="pull-left" src="/static_resources/images/line_red.png" alt="">
+                        <img class="pull-left" src="/static_resources/images/line_red.png">
                     </c:if>
-                    <img class="pull-left" src="/static_resources/images/head.png" alt="" style="margin-left: 4px"
-                         width="40" height="40">
+                    <img class="pull-left" src="/static_resources/images/head.png" style="margin-left: 4px">
                     <h4 class="list-group-item-heading head-pic-text_">${customer.englishName}
                         (${customer.chineseName})</h4>
 

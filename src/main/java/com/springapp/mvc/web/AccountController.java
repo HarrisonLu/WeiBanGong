@@ -1,5 +1,7 @@
 package com.springapp.mvc.web;
 
+import com.springapp.mvc.domain.admin.Administrator;
+import com.springapp.mvc.domain.admin.Company;
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.service.admin.AdminService;
 import com.springapp.mvc.service.contacts.ContactsService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @Controller
 public class AccountController extends BaseController {
@@ -35,62 +38,113 @@ public class AccountController extends BaseController {
         return "account/register";
     }
 
+    @RequestMapping(value = "/admin_404", method = RequestMethod.GET)
+    public String showAdmin404(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        return "account/admin_404";
+    }
+
+    @RequestMapping(value = "/member_404", method = RequestMethod.GET)
+    public String showMember404(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        return "account/member_404";
+    }
+
     @RequestMapping(value = "/account", method = RequestMethod.GET)
     public String showAccount(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        if (isAdminRole(request)) {
+            int adminId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+            Administrator admin = adminService.selectAdminDetailsByAdminId(adminId);
+            model.addAttribute("admin", admin);
+            return "account/account_admin";
+        }
+
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         User user = contactsService.selectUserDetailsById(userId);
         model.addAttribute("user", user);
-        return "account/account_personal";
-
-//        return "account/account_admin";
+        return "account/account_member";
     }
 
-    @RequestMapping(value = "/account/password", method = RequestMethod.GET)
+    @RequestMapping(value = "/account/password/change", method = RequestMethod.GET)
     public String showPasswordReset(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
-        User user = contactsService.selectUserDetailsById(userId);
-        model.addAttribute("user", user);
-        return "account/password_reset";
+        if (isAdminRole(request)) {
+            int adminId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+            Administrator admin = adminService.selectAdminDetailsByAdminId(adminId);
+            model.addAttribute("email", admin.getEmail());
+        } else {
+            int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+            User user = contactsService.selectUserDetailsById(userId);
+            model.addAttribute("email", user.getEmail());
+        }
+        return "account/account_pwd_reset";
     }
 
-    @RequestMapping(value = "/account/admin/suffix", method = RequestMethod.GET)
-    public String showSuffix(HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "/account/admin/postfix", method = RequestMethod.GET)
+    public String showSuffix(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        return "account/account_admin_suffix";
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+        Company company = adminService.selectCompanyDetailsByCompanyId(companyId);
+        model.addAttribute("postfix", company.getUserAccountPostfix());
+        return "account/account_admin_postfix";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public
     @ResponseBody
     Boolean doLogin(HttpServletRequest request, @RequestParam String email, @RequestParam String password) throws Exception {
+        Map<String, Integer> map = adminService.login(email, password);
+        int accountType = map.get("accountType");
+        int accountId = map.get("accountId");
+        int companyId = map.get("companyId");
 
-        if (email.equals("123") && password.equals("123")) {
-            request.getSession().setAttribute(SESSION_KEY, 1);
-            request.getSession().setAttribute("company_id", 1);
-            return true;
+        if (accountType == 0) {
+            return false;
         }
-        return false;
+
+        if (accountType == 1) {
+            request.getSession().setAttribute(SESSION_KEY, ROLE_ADMIN);
+        } else if (accountType == 2) {
+            request.getSession().setAttribute(SESSION_KEY, ROLE_MEMBER);
+        }
+
+        request.getSession().setAttribute(ACCOUNT_ID, accountId);
+        request.getSession().setAttribute(COMPANY_ID, companyId);
+
+        return true;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doRegister(HttpServletRequest request,
-                       @RequestParam String companyName,
-                       @RequestParam String mobilePhone,
+    Boolean doRegister(@RequestParam String companyName,
+                       @RequestParam String phoneNum,
                        @RequestParam String email,
-                       @RequestParam String password,
-                       @RequestParam String confirmPassword) throws Exception {
+                       @RequestParam String password) throws Exception {
 
-        return true;
+        Company company = new Company();
+        company.setName(companyName);
+        if (!adminService.insertCompany(company)) {
+            return false;
+        }
+
+        Administrator admin = new Administrator();
+        admin.setEmail(email);
+        admin.setPhoneNum(phoneNum);
+        admin.setCompanyId(company.getId());
+        admin.setPassword(password);
+        return adminService.insertAdmin(admin);
     }
 
     @RequestMapping(value = "/account/password/change", method = RequestMethod.POST)
@@ -98,15 +152,23 @@ public class AccountController extends BaseController {
     @ResponseBody
     Boolean doChangePassword(HttpServletRequest request,
                              @RequestParam String newPwd) {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
-        User user = new User();
-        user.setId(userId);
-        user.setPassword(newPwd);
-        adminService.updateUserPassword(user);
+        if (isAdminRole(request)) {
+            int adminId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+            Administrator admin = new Administrator();
+            admin.setId(adminId);
+            admin.setPassword(newPwd);
+            adminService.updateAdminPassword(admin);
+        } else {
+            int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+            User user = new User();
+            user.setId(userId);
+            user.setPassword(newPwd);
+            adminService.updateUserPassword(user);
+        }
         return true;
     }
 
-    @RequestMapping(value = "/account/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/account/member/update", method = RequestMethod.POST)
     public
     @ResponseBody
     Boolean doUpdateAccount(HttpServletRequest request,
@@ -115,7 +177,7 @@ public class AccountController extends BaseController {
                             @RequestParam String mobilePhoneNum,
                             @RequestParam String qqNum,
                             @RequestParam String email) {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         User user = new User();
         user.setId(userId);
         user.setWechatNum(weChatNum);
@@ -127,13 +189,28 @@ public class AccountController extends BaseController {
         return true;
     }
 
-    @RequestMapping(value = "/account/admin/suffix/apply", method = RequestMethod.POST)
+    @RequestMapping(value = "/account/admin/update", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doUpdateAccount(HttpServletRequest request,
+                            @RequestParam String phoneNum,
+                            @RequestParam String email) {
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        Administrator admin = new Administrator();
+        admin.setId(userId);
+        admin.setPhoneNum(phoneNum);
+        admin.setEmail(email);
+        adminService.updateAdminDetail(admin);
+        return true;
+    }
+
+    @RequestMapping(value = "/account/admin/postfix", method = RequestMethod.POST)
     public
     @ResponseBody
     Boolean doApplySuffix(HttpServletRequest request,
-                          @RequestParam String suffix) {
-        int companyId = (Integer) request.getSession().getAttribute("company_id");
-        return adminService.setUserAccountPostfix(companyId, suffix);
+                          @RequestParam String postfix) {
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+        return adminService.setUserAccountPostfix(companyId, postfix);
     }
 
 
@@ -142,6 +219,8 @@ public class AccountController extends BaseController {
     @ResponseBody
     Boolean doLogout(HttpServletRequest request) throws Exception {
         request.getSession().removeAttribute(SESSION_KEY);
+        request.getSession().removeAttribute(ACCOUNT_ID);
+        request.getSession().removeAttribute(COMPANY_ID);
         return true;
     }
 }

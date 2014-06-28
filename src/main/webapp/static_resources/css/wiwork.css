@@ -1,5 +1,5 @@
 .index-icon-row {
-    margin-top:  22px;
+    margin-top: 22px;
 }
 
 .index-icon {
@@ -7,6 +7,7 @@
 }
 
 .title-bar {
+    min-height: 50px;
     background-color: #E3E3E3;
 }
 
@@ -18,12 +19,20 @@
 .title-bar-image {
     width: 35px;
     height: 35px;
-    margin-top: 2px;
 }
 
-.col-xs-3 {
+.title-bar-btn {
     text-align: center;
-    margin-top: 6px;
+    margin-top: 8px;
+}
+
+.title-bar-col {
+    text-align: center;
+    margin-top: 8px;
+}
+
+.list-group-item-higher {
+    min-height: 64px;
 }
 
 .input-group {
@@ -37,6 +46,17 @@
 
 .panel-heading {
     text-align: center;
+}
+
+.head-pic {
+    width: 40px;
+    height: 40px;
+}
+
+.head-pic-small {
+    width: 35px;
+    height: 35px;
+    margin-top: 4px;
 }
 
 .head-pic-text {
@@ -54,4 +74,13 @@
 .input-larger-text {
     border: 0;
     font-size: 17px;
+}
+
+.btn-block-bottom {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.btn-block-bottom-no-top-margin {
+    margin-bottom: 15px;
 }

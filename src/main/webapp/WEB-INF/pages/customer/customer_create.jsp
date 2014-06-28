@@ -5,11 +5,11 @@
 <head>
     <title>客户管理</title>
 </head>
-<body onload="document.form1.chineseName.focus()">
+<body onload="document.getElementById('chineseName').focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:onBack()"><img class="title-bar-image" src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>新建客户</h4>
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal">
+<form class="form-horizontal">
     <div class="panel-group">
         <div class="panel panel-primary">
             <div class="panel-heading">

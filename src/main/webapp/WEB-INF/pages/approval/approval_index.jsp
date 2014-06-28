@@ -8,19 +8,19 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-3">
+    <div class="row-fluid title-bar">
+        <div class="col-xs-3 title-bar-col">
             <a href="/index"><img class="title-bar-image" src="/static_resources/images/bar_item_home.png"></a>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 title-bar-col">
             <a href="/approval/create"><img class="title-bar-image" src="/static_resources/images/bar_item_create.png"
                     ></a>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 title-bar-col">
             <a href="/approval/draft"><img class="title-bar-image" src="/static_resources/images/bar_item_filter.png"
                     ></a>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-3 title-bar-col">
             <a href="/approval/archive"><img class="title-bar-image" src="/static_resources/images/bar_item_search.png"
                     ></a>
         </div>

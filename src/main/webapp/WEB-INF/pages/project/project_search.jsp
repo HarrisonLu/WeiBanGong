@@ -5,11 +5,12 @@
 <head>
     <title>项目管理</title>
 </head>
-<body>
+<body onload="document.getElementById('project_search').focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>搜索项目</h4>
@@ -49,9 +50,9 @@
                 toastr.clear();
                 var html = "";
                 for (var i in data) {
-                    html += "<a href='/project/comment/" + data[i].id + "' class='list-group-item' style='min-height: 64px'>" +
+                    html += "<a href='/project/detail/" + data[i].id + "' class='list-group-item' style='min-height: 64px'>" +
                             "<h4 class='list-group-item-heading'>" + data[i].name + "</h4>" +
-                            "<p class='list-group-item-text'>" + data[i].info + "</p></a>";
+                            "<p class='list-group-item-text info-detail'>" + data[i].info + "</p></a>";
                 }
                 $("#search_result").html(html);
             }

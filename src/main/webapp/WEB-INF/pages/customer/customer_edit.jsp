@@ -6,11 +6,11 @@
 <head>
     <title>客户管理</title>
 </head>
-<body>
+<body onload="document.getElementById('chineseName').focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:onBack()"><img class="title-bar-image" src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>编辑客户</h4>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal">
+<form class="form-horizontal">
     <div class="panel-group">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -121,7 +121,8 @@
                     <label class="col-xs-4 control-label">手机号码</label>
 
                     <div class="col-xs-8">
-                        <input type="number" class="form-control" id="mobilePhoneNum" value="${customer.mobilePhoneNum}">
+                        <input type="number" class="form-control" id="mobilePhoneNum"
+                               value="${customer.mobilePhoneNum}">
                     </div>
                 </div>
                 <div class="form-group list-group-item">
@@ -170,7 +171,8 @@
                     <label class="col-xs-4 control-label">生日</label>
 
                     <div class="col-xs-8">
-                        <input type="text" class="form-control" id="birthday" placeholder="暂时留空" value="${customer.birthday}">
+                        <input type="text" id="birthday" class="form-control form_datetime"
+                               value="${customer.birthdayString}" readonly>
                     </div>
                 </div>
                 <div class="form-group list-group-item">
@@ -187,6 +189,14 @@
 </form>
 
 <script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        minView: 2,
+        startView: 4,
+        pickerPosition: "bottom-left"
+    });
+
     $(document).ready(function () {
         onCustomerCreateDocumentReady();
     });

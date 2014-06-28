@@ -31,9 +31,10 @@ public class CustomerController extends BaseController {
     public String showCustomerIndex(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
+        if (isAdminRole(request))
+            return adminDirectedUrl;
 
-
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         List<Customer> myCustomerList = customerService.selectMyCustomerList(userId);
         List<Customer> sharedCustomerList = customerService.selectSharedCustomerList(userId);
         model.addAttribute("myCustomerList", myCustomerList);
@@ -46,7 +47,7 @@ public class CustomerController extends BaseController {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         Customer customer = customerService.selectCustomerDetails(customerId);
         boolean isMine = customerService.isMyCustomer(userId, customerId);
         model.addAttribute("customer", customer);
@@ -69,7 +70,7 @@ public class CustomerController extends BaseController {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        int companyId = (Integer) request.getSession().getAttribute("company_id");
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         Customer customer = customerService.selectCustomerDetails(customerId);
         List<CommentCustomer> comments = customerService.selectCommentCustomerListByCustomerId(customerId, companyId);
         model.addAttribute("customer", customer);
@@ -123,7 +124,7 @@ public class CustomerController extends BaseController {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         List<Customer> myCustomerList = customerService.selectMyCustomerListByDiscussStage(userId, filterType);
         List<Customer> sharedCustomerList = customerService.selectSharedCustomerListByDiscussStage(userId, filterType);
         model.addAttribute("myCustomerList", myCustomerList);
@@ -148,7 +149,7 @@ public class CustomerController extends BaseController {
                                  @RequestParam String hobby,
                                  @RequestParam String projectId) throws Exception {
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         User user = contactsService.selectUserDetailsById(userId);
         int cid = user.getCompanyId();
 
@@ -191,7 +192,7 @@ public class CustomerController extends BaseController {
                                @RequestParam String hobby,
                                @RequestParam String projectId) throws Exception {
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         User user = contactsService.selectUserDetailsById(userId);
         int cid = user.getCompanyId();
 
@@ -223,13 +224,13 @@ public class CustomerController extends BaseController {
     public
     @ResponseBody
     Object searchCustomerProject(HttpServletRequest request, @RequestParam String query) throws Exception {
-        int companyId = (Integer) request.getSession().getAttribute("company_id");
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         return customerService.fuzzySelectProjectBaseInfoList(query, companyId);
     }
 
     @RequestMapping(value = "/comment/{customerId}", method = RequestMethod.POST)
     public String commitComment(HttpServletRequest request, @PathVariable int customerId, @RequestParam String message) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         CommentCustomer comment = new CommentCustomer();
         comment.setDetails(URLDecoder.decode(message, "UTF-8"));
         comment.setUserId(userId);
@@ -245,7 +246,7 @@ public class CustomerController extends BaseController {
     public
     @ResponseBody
     Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         return customerService.fuzzySelectCustomer(userId, query);
     }
 

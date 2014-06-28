@@ -70,8 +70,16 @@ function ajaxSearchUser(query) {
             for (var i in data) {
                 html += "<li class='list-group-item' style='min-height: 64px'>" +
                     "<img class='pull-left' src='/static_resources/images/head.png' alt='' style='margin-left: 4px'>" +
-                    "<h4 class='list-group-item-text head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" +
-                    "<input type='checkbox' id=" + data[i].id + " value='" + data[i].englishName + " (" + data[i].chineseName + ")'></h4></li>";
+                    "<h4 class='list-group-item-heading head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" +
+                    "<input type='checkbox' id=" + data[i].id + " value='" + data[i].englishName + " (" + data[i].chineseName + ")'></h4>";
+                var groups = data[i].groupList;
+                for (var j in groups) {
+                    html += "<p class='list-group-item-text head-pic-text_ info-detail'>" + groups[j].departmentName + " - " + groups[j].name + "</p>";
+                }
+                if (groups.length == 0) {
+                    html += "<p class='list-group-item-text head-pic-text_ info-detail'>暂无分组</p>";
+                }
+                html += "</li>";
             }
             $("#search_result").html(html);
             iCheckUpdate();
@@ -301,9 +309,9 @@ function onCreate(type, id) {
             }
         });
     } else if (type == CREATE_TASK) {
-        var task_priority = document.getElementById("task_priority").value;
-        var task_stage = document.getElementById("task_stage").value;
-        var task_deadline = document.getElementById("task_deadline").value;
+        var task_priority = $('#task_priority').val();
+        var task_stage = $('#task_stage').val();
+        var task_deadline = $('#task_deadline').val();
         $.ajax({
             type: "POST",
             url: encodeURI(encodeURI(window.location)),

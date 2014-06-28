@@ -1,5 +1,5 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../template/header.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
             <a href="javascript:onBack()"><img class="title-bar-image" src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
-            <h4>新建模块</h4>
+            <h4>${module.name}</h4>
         </div>
         <div class="col-xs-2">
             <button class="btn btn-primary navbar-btn pull-right" onclick="onCreate(CREATE_MODULE, ${projectId})">保存
@@ -22,12 +22,12 @@
     </div>
 </div>
 
-<form class="form-horizontal" style="padding-right: 15px">
+<form name="form1" class="form-horizontal" role="form" style="padding-right: 15px">
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">模块名称</label>
 
         <div class="col-xs-8">
-            <input type="text" class="form-control" id="module_name">
+            <input type="text" class="form-control" id="module_name" value="${module.name}">
         </div>
     </div>
 
@@ -40,6 +40,11 @@
     </div>
 
     <div class="list-group" id="manager">
+        <c:forEach items="${managers}" var="manager">
+            <a href="/contacts/user/${manager.id}" class="list-group-item" style="min-height: 20px">
+                    ${manager.englishName} (${manager.chineseName})
+            </a>
+        </c:forEach>
     </div>
 
     <div class="form-group list-group-item">
@@ -63,14 +68,18 @@
     </div>
 
     <div class="list-group" id="customer">
+        <c:forEach items="${customers}" var="customer">
+            <a href="/customer/${customer.id}" class="list-group-item" style="min-height: 20px">
+                    ${customer.englishName} (${customer.chineseName})
+            </a>
+        </c:forEach>
     </div>
 
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">创建时间</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static pull-right"><fmt:formatDate pattern="yyyy-MM-dd"
-                                                                      value="${current}"/></p>
+            <p class="form-control-static pull-right">${module.createTime}</p>
         </div>
     </div>
 
@@ -78,7 +87,7 @@
         <label class="col-xs-4 control-label">创建者</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static pull-right">${user.englishName} (${user.chineseName})</p>
+            <p class="form-control-static pull-right">${module.createrEnglishName} (${module.createrChineseName})</p>
         </div>
     </div>
 

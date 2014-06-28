@@ -58,7 +58,7 @@ public class MessageHandlerEvent extends MessageHandlerHelper {
             itemArticle.setTitle(project.getName());
             itemArticle.setDescription(project.getInfo());
             itemArticle.setPicUrl("http://p0.img.imtuan.com/wechatmsg/article/20130918/91991d9e7a1943e99d98ee588cd94c4f.jpg");
-            itemArticle.setUrl("http://wiwork.yunnex.cn/project/comment/" + project.getId());
+            itemArticle.setUrl("http://wiwork.yunnex.cn/project/detail/" + project.getId());
             items.add(itemArticle);
         }
         return items;

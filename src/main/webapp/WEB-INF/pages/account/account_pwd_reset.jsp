@@ -6,9 +6,10 @@
 </head>
 <body onload="document.form1.password.focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>修改密码</h4>
@@ -21,7 +22,7 @@
         <label class="col-xs-4 control-label">账号</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static">${user.email}</p>
+            <p class="form-control-static">${email}</p>
         </div>
     </div>
     <div class="form-group list-group-item">
@@ -41,8 +42,7 @@
 </form>
 
 <div class="container">
-    <a href="javascript:onPasswordReset()" class="btn btn-primary btn-lg btn-block" role="button"
-       style="margin-top: 5px; margin-bottom: 10px">
+    <a href="javascript:onPasswordReset()" class="btn btn-primary btn-lg btn-block btn-block-bottom" role="button">
         保存</a>
 </div>
 
@@ -63,7 +63,7 @@
 
         $.ajax({
             type: "POST",
-            url: encodeURI(encodeURI("/account/password/change")),
+            url: encodeURI(encodeURI(window.location)),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             data: {newPwd: newPwd},
             success: function () {

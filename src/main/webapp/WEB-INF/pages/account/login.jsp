@@ -6,7 +6,7 @@
 </head>
 <body onload="document.getElementById('email').focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
+    <div class="row-fluid title-bar">
         <div class="col-xs-2"></div>
         <div class="col-xs-8 title-bar-text">
             <h4>登陆账号</h4>
@@ -29,18 +29,20 @@
 </div>
 
 <div class="container">
-    <a href="javascript:onLogin()" class="btn btn-success btn-lg btn-block" role="button"
-       style="margin-bottom: 5px">
-        登陆</a>
+    <a href="javascript:onLogin()" class="btn btn-success btn-lg btn-block" role="button">登陆</a>
     <a href="/register" class="btn btn-primary btn-lg btn-block" role="button"
-       style="margin-top: 15px; margin-bottom: 5px">
-        注册企业账号</a>
+       style="margin-top: 15px; margin-bottom: 5px">注册企业账号</a>
 </div>
 
 <script>
     function onLogin() {
         var email = $("#email").val();
         var password = $("#password").val();
+        if (email == "" || password == "") {
+            toastr.warning("请输入邮箱或密码");
+            return;
+        }
+        toastr.info("正在登陆");
         $.ajax({
             type: "POST",
             url: encodeURI(encodeURI(window.location)),

@@ -9,9 +9,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>动态</h4>
@@ -21,7 +22,10 @@
 
 <div class="media well">
     <h4 class="media-heading">${project.name}</h4>
-    <p></p><p>${project.info}</p>
+
+    <p></p>
+
+    <p>${project.info}</p>
 </div>
 
 <div class="container">

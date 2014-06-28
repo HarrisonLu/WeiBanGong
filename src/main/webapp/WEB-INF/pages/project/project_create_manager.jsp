@@ -7,10 +7,10 @@
 </head>
 <body onload="document.getElementById('input_search').focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript: history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40"
-                                                      height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript: history.go(-1)"><img class="title-bar-image"
+                                                      src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>添加项目负责人</h4>
@@ -31,8 +31,7 @@
 </div>
 
 <div class="container">
-    <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="onSave(STORAGE_MANAGER)"
-            style="margin-top: 5px; margin-bottom: 5px">确定
+    <button class="btn btn-primary btn-lg btn-block btn-block-bottom" onclick="onSave(STORAGE_MANAGER)">确定
     </button>
 </div>
 

@@ -5,7 +5,6 @@ import com.springapp.mvc.domain.contacts.Group;
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.service.contacts.ContactsService;
 import com.springapp.mvc.web.BaseController;
-import com.springapp.mvc.web.contacts.command.UserCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,9 +24,11 @@ public class ContactsController extends BaseController {
     public String showContactsIndex(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
+        if (isAdminRole(request))
+            return adminDirectedUrl;
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
-        int companyId = (Integer) request.getSession().getAttribute("company_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         List<User> groupUsers = contactsService.searchGroupUserBaseInfoListByUserId(userId);
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo(companyId);
         model.addAttribute("groupUsers", groupUsers);
@@ -39,7 +40,7 @@ public class ContactsController extends BaseController {
     public
     @ResponseBody
     Object showContactsCollection(HttpServletRequest request) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         return contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
     }
 
@@ -49,7 +50,7 @@ public class ContactsController extends BaseController {
             return sessionExpiredDirectedUrl;
 
         User user = contactsService.selectUserDetailsById(userId);
-        boolean isCollected = contactsService.isCollectedContacts((Integer) request.getSession().getAttribute("user_id"), userId);
+        boolean isCollected = contactsService.isCollectedContacts((Integer) request.getSession().getAttribute(ACCOUNT_ID), userId);
         model.addAttribute("user", user);
         model.addAttribute("isCollected", isCollected);
         return "contacts/contacts_detail";
@@ -60,7 +61,7 @@ public class ContactsController extends BaseController {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        User user = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute("user_id"));
+        User user = contactsService.selectUserDetailsById((Integer) request.getSession().getAttribute(ACCOUNT_ID));
         model.addAttribute("user", user);
         return "contacts/contacts_edit";
     }
@@ -91,7 +92,7 @@ public class ContactsController extends BaseController {
     public
     @ResponseBody
     boolean changeCollectedContacts(HttpServletRequest request, @PathVariable int collectedId) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         boolean isCollected = contactsService.isCollectedContacts(userId, collectedId);
         if (isCollected) {
             contactsService.deleteCollectedContacts(userId, collectedId);
@@ -101,24 +102,11 @@ public class ContactsController extends BaseController {
         return true;
     }
 
-    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public String saveContacts(HttpServletRequest request, UserCommand userCommand) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute("user_id");
-        User user = new User();
-        user.setId(userId);
-        user.setTelephoneNum(userCommand.getTelephoneNum());
-        user.setMobilePhoneNum(userCommand.getMobilePhoneNum());
-        user.setQqNum(userCommand.getQqNum());
-        user.setEmail(userCommand.getEmail());
-        contactsService.updateUserInfo(user);
-        return "redirect:/contacts";
-    }
-
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public
     @ResponseBody
     Object searchContacts(HttpServletRequest request, @RequestParam String query) throws Exception {
-        int companyId = (Integer) request.getSession().getAttribute("company_id");
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         return contactsService.fuzzySelectUserBaseInfoListByString(query, companyId);
     }
 

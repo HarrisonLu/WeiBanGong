@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="../template/header.jsp"/>
+<jsp:include page="../../template/header.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,59 +10,42 @@
 <div class="container-fluid">
     <div class="row-fluid title-bar">
         <div class="col-xs-2 title-bar-btn">
-            <a href="javascript:history.go(-1)"><img class="title-bar-image"
-                                                     src="/static_resources/images/btn_back.png"></a>
+            <a href="javascript: history.go(-1)"><img class="title-bar-image"
+                                                      src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
-            <h4>微办公项目</h4>
+            <h4>${module.name}</h4>
         </div>
         <div class="col-xs-2">
-            <div class="btn-group navbar-btn pull-right">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">选项<b
-                        class="caret" style="margin-left: 5px;"></b>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="/project/${project.id}">模块列表</a></li>
-                    <li class="divider"></li>
-                    <li><a href="/project/comment/${project.id}">评论</a></li>
-                </ul>
-            </div>
+            <a href="/project/module/${module.id}" class="btn btn-primary navbar-btn pull-right" role="button">任务列表</a>
         </div>
     </div>
 </div>
 
 <div class="well">
     <ul class="list-group">
-        <li class="list-group-item"><strong>项目名称</strong>
+        <li class="list-group-item"><strong>模块名称</strong>
 
-            <p class="pull-right">${project.name}</p></li>
-        <li class="list-group-item"><strong>项目描述</strong>
-
-            <p></p>
-
-            <p>${project.info}</p></li>
-        <li class="list-group-item"><strong>项目阶段</strong>
-
-            <p class="pull-right">${project.stageName}</p></li>
+            <p class="pull-right">${module.name}</p></li>
 
         <li class="list-group-item"><strong>创建时间</strong>
 
-            <p class="pull-right">${project.displayCreateTime}</p></li>
+            <p class="pull-right">${module.displayCreateTime}</p></li>
         <li class="list-group-item"><strong>创建者</strong>
 
-            <p class="pull-right">${project.createrEnglishName} (${project.createrChineseName})</p></li>
+            <p class="pull-right">${module.createrEnglishName} (${module.createrChineseName})</p></li>
     </ul>
 </div>
 
-<c:if test="${not empty modules}">
+<c:if test="${not empty tasks}">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h4 class="panel-title">子模块</h4>
+            <h4 class="panel-title">子任务</h4>
         </div>
         <div class="list-group">
-            <c:forEach items="${modules}" var="module">
-                <a href="/project/module/detail/${module.id}" class="list-group-item">
-                        ${module.name}
+            <c:forEach items="${tasks}" var="task">
+                <a href="/project/task/detail/${task.id}" class="list-group-item">
+                        ${task.name}
                 </a>
             </c:forEach>
         </div>
@@ -72,7 +55,7 @@
 <c:if test="${not empty managers}">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h4 class="panel-title">项目负责人</h4>
+            <h4 class="panel-title">模块负责人</h4>
         </div>
         <div class="list-group">
             <c:forEach items="${managers}" var="manager">
@@ -87,7 +70,7 @@
 <c:if test="${not empty customers}">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h4 class="panel-title">项目关联客户</h4>
+            <h4 class="panel-title">模块关联客户</h4>
         </div>
         <div class="list-group">
             <c:forEach items="${customers}" var="customer">

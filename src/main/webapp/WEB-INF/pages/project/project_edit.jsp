@@ -1,16 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
     <title>项目管理</title>
 </head>
-<body>
+<body onload="document.getElementById('project_name').focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:onBack()"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:onBack()"><img class="title-bar-image" src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>微办公项目</h4>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal" style="padding-right: 15px">
+<form class="form-horizontal" style="padding-right: 15px">
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">项目名称</label>
 
@@ -96,25 +96,24 @@
     </div>
 
     <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">项目创建时间</label>
+        <label class="col-xs-4 control-label">创建时间</label>
 
         <div class="col-xs-8">
-            <p class="form-control">${project.createTime}</p>
+            <p class="form-control-static pull-right">${project.displayCreateTime}</p>
         </div>
     </div>
 
     <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">项目创建者</label>
+        <label class="col-xs-4 control-label">创建者</label>
 
         <div class="col-xs-8">
-            <p class="form-control">${project.createrChineseName}</p>
+            <p class="form-control-static pull-right">${project.createrEnglishName} (${project.createrChineseName})</p>
         </div>
     </div>
 </form>
 
 <div class="container">
-    <button class="btn btn-primary btn-lg btn-block" onclick="onCreate(CREATE_PROJECT)"
-            style="margin-top: 5px; margin-bottom: 5px">保存项目
+    <button class="btn btn-primary btn-lg btn-block btn-block-bottom" onclick="onCreate(CREATE_PROJECT)">保存项目
     </button>
 </div>
 
