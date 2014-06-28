@@ -198,7 +198,7 @@ public class ApprovalServiceTest {
 
     @Test
     public void testGetApprovalDetailByApprovalId() throws Exception {
-        Approval approval = approvalService.getApprovalDetailByApprovalId(1, 1);
+        Approval approval = approvalService.getApprovalDetailByApprovalId(3, 1);
         Assert.assertEquals(approval.getReasons(), "休假");
     }
 

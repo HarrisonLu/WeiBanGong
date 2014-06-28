@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/28/2014 17:03:30 PM
+ Date: 06/29/2014 03:14:11 AM
 */
 
 SET NAMES utf8;
@@ -231,13 +231,13 @@ CREATE TABLE `t_comment_approval` (
   CONSTRAINT `t_comment_approval_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_comment_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_comment_approval_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_comment_approval`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_comment_approval` VALUES ('1', '卢煌加班 评论1', '2', '6', '2014-06-27 18:04:00', '1', '1'), ('2', '卢煌加班 评论2', '3', '6', '2014-06-27 18:05:22', '1', '1'), ('3', '卢煌其他 评论1', '2', '7', '2014-06-27 18:07:26', '1', '1'), ('4', '卢煌费用报销 被驳回', '2', '3', '2014-06-27 18:08:30', '0', '1');
+INSERT INTO `t_comment_approval` VALUES ('1', '卢煌加班 评论1', '2', '6', '2014-06-27 18:04:00', '1', '1'), ('2', '卢煌加班 评论2', '3', '6', '2014-06-27 18:05:22', '1', '1'), ('3', '卢煌其他 评论1', '2', '7', '2014-06-27 18:07:26', '1', '1'), ('4', '卢煌费用报销 被驳回', '2', '3', '2014-06-27 18:08:30', '0', '1'), ('5', '卢煌东莞费用报销 通过', '3', '3', '2014-06-29 03:01:07', '1', '1'), ('6', '卢煌休假2秒 被驳回', '2', '1', '2014-06-29 03:02:35', '0', '1'), ('7', '卢煌出差新疆 通过', '2', '2', '2014-06-29 03:04:17', '1', '1');
 COMMIT;
 
 -- ----------------------------

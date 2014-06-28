@@ -4,6 +4,7 @@ import com.springapp.mvc.dao.approval.*;
 import com.springapp.mvc.dao.contacts.DepartmentMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
 import com.springapp.mvc.domain.approval.*;
+import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.User;
 import com.tool.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -265,24 +266,40 @@ public class ApprovalService {
         if (approval.getSubmitTime() != null)
             approval.setDisplaySubmitTime(DateHelper.timestampToStr2(approval.getSubmitTime()));
 
-        String applicantName = userMapper.selectUserDetailsById(approval.getApplicantId()).getChineseName();
-        if (applicantName != null)
-            approval.setApplicantName(applicantName);
-        String departmentName = departmentMapper.selectDepartmentDetailsByDepartmentId(approval.getDepartmentId()).getName();
-        if (departmentName != null)
-            approval.setDepartmentName(departmentName);
-        String firstApprovalUserName = userMapper.selectUserDetailsById(approval.getFirstApprovalUserId()).getChineseName();
-        if (firstApprovalUserName != null)
-            approval.setFirstApprovalUserName(firstApprovalUserName);
-        String secondApprovalUserName = userMapper.selectUserDetailsById(approval.getSecondApprovalUserId()).getChineseName();
-        if (secondApprovalUserName != null)
-            approval.setSecondApprovalUserName(secondApprovalUserName);
-        String beCarbonCopyUserName = userMapper.selectUserDetailsById(approval.getBeCarbonCopyUserId()).getChineseName();
-        if (beCarbonCopyUserName != null)
-            approval.setBeCarbonCopyUserName(beCarbonCopyUserName);
-        String currentApprovalUserName = userMapper.selectUserDetailsById(approval.getCurrentApprovalUserId()).getChineseName();
-        if (currentApprovalUserName != null)
-            approval.setCurrentApprovalUserName(currentApprovalUserName);
+        if (approval.getApplicantId() != null){
+            String applicantName = userMapper.selectUserDetailsById(approval.getApplicantId()).getChineseName();
+            if (applicantName != null)
+                approval.setApplicantName(applicantName);
+        }
+        if (approval.getDepartmentId() != null){
+            String departmentName = departmentMapper.selectDepartmentDetailsByDepartmentId(approval.getDepartmentId()).getName();
+            if (departmentName != null)
+                approval.setDepartmentName(departmentName);
+        }
+
+        if (approval.getFirstApprovalUserId() != null){
+            String firstApprovalUserName = userMapper.selectUserDetailsById(approval.getFirstApprovalUserId()).getChineseName();
+            if (firstApprovalUserName != null)
+                approval.setFirstApprovalUserName(firstApprovalUserName);
+        }
+
+        if (approval.getSecondApprovalUserId() != null){
+            String secondApprovalUserName = userMapper.selectUserDetailsById(approval.getSecondApprovalUserId()).getChineseName();
+            if (secondApprovalUserName != null)
+                approval.setSecondApprovalUserName(secondApprovalUserName);
+        }
+
+        if (approval.getBeCarbonCopyUserId() != null){
+            String beCarbonCopyUserName = userMapper.selectUserDetailsById(approval.getBeCarbonCopyUserId()).getChineseName();
+            if (beCarbonCopyUserName != null)
+                approval.setBeCarbonCopyUserName(beCarbonCopyUserName);
+        }
+
+        if (approval.getCurrentApprovalUserId() != null){
+            String currentApprovalUserName = userMapper.selectUserDetailsById(approval.getCurrentApprovalUserId()).getChineseName();
+            if (currentApprovalUserName != null)
+                approval.setCurrentApprovalUserName(currentApprovalUserName);
+        }
 
         if (approval.getClaimTypeId() != null) {
             String claimTypeName = claimTypeMapper.selectClaimTypeByClaimTypeId(approval.getClaimTypeId()).getName();
@@ -337,5 +354,12 @@ public class ApprovalService {
         }
 
         return commentApprovalList;
+    }
+
+    // 根据 用户id 得到 用户部门
+    public Department selectDepartmentByUserId(int userId){
+        User user = userMapper.selectUserDetailsById(userId);
+        List<Department> departmentList = user.getDepartmentList();
+        return departmentList.get(0);
     }
 }
