@@ -16,9 +16,9 @@ public class ApprovalController extends BaseController {
     public String showApprovalIndex(HttpServletRequest request, ModelMap model) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
+        if (isAdminRole(request))
+            return adminDirectedUrl;
 
-        int userId = (Integer) request.getSession().getAttribute("user_id");
-        int companyId = (Integer) request.getSession().getAttribute("company_id");
         return "approval/approval_index";
     }
 

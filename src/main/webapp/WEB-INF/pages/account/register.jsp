@@ -6,9 +6,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>注册企业账号</h4>
@@ -22,7 +23,7 @@
             <input type="text" class="form-control input-larger-text" id="companyName" placeholder="公司名称">
         </div>
         <div class="form-group list-group-item">
-            <input type="number" class="form-control input-larger-text" id="mobilePhone" placeholder="手机号码">
+            <input type="number" class="form-control input-larger-text" id="phoneNum" placeholder="手机号码">
         </div>
         <div class="form-group list-group-item">
             <input type="email" class="form-control input-larger-text" id="email" placeholder="邮箱，即管理员账号">
@@ -38,35 +39,50 @@
 
 <div class="container">
     <a href="javascript:onRegister()" class="btn btn-primary btn-lg btn-block" role="button"
-       style="margin-top: 10px; margin-bottom: 5px">
+       style="margin-bottom: 5px">
         确认并提交</a>
 </div>
 
 <script>
     function onRegister() {
         var companyName = $("#companyName").val();
-        var mobilePhone = $("#mobilePhone").val();
+        var phoneNum = $("#phoneNum").val();
         var email = $("#email").val();
         var password = $("#password").val();
         var confirmPassword = $("#confirmPassword").val();
 
+        if (companyName == "" || phoneNum == "" || email == "" || password == "") {
+            toastr.warning("输入信息不完整");
+            return;
+        }
+
+        if (password != confirmPassword) {
+            toastr.warning("两次输入密码不一致");
+            return;
+        }
+
+        if (password.length < 6) {
+            toastr.warning("密码长度不够");
+            return;
+        }
+
+        toastr.info("正在注册，请稍候");
         $.ajax({
             type: "POST",
             url: encodeURI(encodeURI(window.location)),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             data: {companyName: companyName,
-                mobilePhone: mobilePhone,
+                phoneNum: phoneNum,
                 email: email,
-                password: password,
-                confirmPassword: confirmPassword
+                password: password
             },
             success: function (data) {
                 if (!data) {
                     toastr.warning("注册失败");
                     return;
                 }
-                toastr.success("恭喜你，您已经成功注册微办公企业管理员账号，3秒钟后自动为您跳转回主页");
-                setTimeout("window.location.href='/login'", 3000);
+                toastr.success("恭喜你，您已经成功注册微办公企业管理员账号，自动为您跳转回主页");
+                setTimeout("window.location.href='/login'", 1500);
             }
         });
     }

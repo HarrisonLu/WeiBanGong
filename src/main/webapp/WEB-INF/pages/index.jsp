@@ -52,7 +52,7 @@
             <p><b>我的账户</b></p>
         </div>
         <div class="col-xs-4 index-icon">
-            <a href="#">
+            <a href="/admin">
                 <img src="/static_resources/images/ic_menu_feedback.png" width="60" height="60">
             </a>
             <p></p>

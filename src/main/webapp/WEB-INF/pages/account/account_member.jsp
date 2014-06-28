@@ -7,9 +7,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>我的账户</h4>
@@ -20,19 +21,19 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal" style="margin-right: 15px">
+<form class="form-horizontal" style="margin-right: 15px">
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">中文名</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static">${user.chineseName}</p>
+            <p class="form-control-static pull-right">${user.chineseName}</p>
         </div>
     </div>
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">英文名</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static">${user.englishName}</p>
+            <p class="form-control-static pull-right">${user.englishName}</p>
         </div>
     </div>
 
@@ -40,39 +41,47 @@
         <label class="col-xs-4 control-label">归属部门</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static"><c:forEach items="${user.departmentList}" var="department">
-                ${department.name}
-            </c:forEach></p>
+            <p class="form-control-static pull-right">
+                <c:choose>
+                    <c:when test="${empty user.departmentList}">
+                        暂无
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${user.departmentList}" var="department">
+                            ${department.name}
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </p>
         </div>
     </div>
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">职位名称</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static">${user.position}</p>
+            <p class="form-control-static pull-right">
+                ${empty user.position ? "暂无" : user.position}
+            </p>
         </div>
     </div>
     <div class="form-group list-group-item">
         <label class="col-xs-4 control-label">账号</label>
 
         <div class="col-xs-8">
-            <p class="form-control-static">${user.email}</p>
+            <p class="form-control-static pull-right">${user.email}</p>
         </div>
     </div>
-</form>
-
-<div class="list-group">
-    <a href="/account/password" class="list-group-item" style="min-height: 49px">
+    <a href="/account/password/change" class="form-group list-group-item" style="min-height: 49px">
         <p class="list-group-item-text" style="text-align: center; margin-top: 5px">修改密码 >></p>
     </a>
-</div>
+</form>
 
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h4 class="panel-title">联系方式</h4>
-    </div>
-    <div class="panel-body">
-        <form name="form2" class="form-horizontal">
+<form class="form-horizontal">
+    <div class="panel panel-primary" style="margin-top: 10px">
+        <div class="panel-heading">
+            <h4 class="panel-title">联系方式</h4>
+        </div>
+        <div class="panel-body">
             <div class="form-group">
                 <label class="col-xs-4 control-label">微信号</label>
 
@@ -112,13 +121,13 @@
                     <input type="email" class="form-control" id="email" placeholder="请输入您的邮箱" value="${user.email}"/>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 
 <div class="container">
-    <a href="javascript:onAccountSave()" class="btn btn-primary btn-lg btn-block" role="button"
-       style="margin-bottom: 10px">
+    <a href="javascript:onAccountSave()" class="btn btn-primary btn-lg btn-block btn-block-bottom-no-top-margin"
+       role="button">
         保存</a>
 </div>
 
@@ -132,7 +141,7 @@
 
         $.ajax({
             type: "POST",
-            url: encodeURI(encodeURI("/account/update")),
+            url: encodeURI(encodeURI("/account/member/update")),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             data: {weChatNum: weChatNum,
                 telephoneNum: telephoneNum,

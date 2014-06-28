@@ -6,9 +6,10 @@
 </head>
 <body onload="document.form1.suffix.focus()">
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>申请后缀</h4>
@@ -21,14 +22,13 @@
         <label class="col-xs-4 control-label">账号后缀</label>
 
         <div class="col-xs-8">
-            <input type="email" class="form-control" id="suffix" placeholder="@_____.com">
+            <input type="email" class="form-control" id="postfix" placeholder="@_____.com" value="${postfix}">
         </div>
     </div>
 </form>
 
 <div class="container">
-    <a href="javascript:onApplySuffix()" class="btn btn-primary btn-lg btn-block" role="button"
-       style="margin-top: 25px; margin-bottom: 10px">
+    <a href="javascript:onApplySuffix()" class="btn btn-primary btn-lg btn-block btn-block-bottom" role="button">
         提交</a>
 
     <p>提示：</p>
@@ -43,19 +43,19 @@
 
 <script>
     function onApplySuffix() {
-        var suffix = $("#suffix").val();
-        if (suffix == "") {
+        var postfix = $("#postfix").val();
+        if (postfix == "") {
             toastr.warning("后缀不能为空");
             return;
         }
         $.ajax({
             type: "POST",
-            url: encodeURI(encodeURI("/account/admin/suffix/apply")),
+            url: encodeURI(encodeURI(window.location)),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
-            data: {suffix: suffix},
+            data: {postfix: postfix},
             success: function (data) {
                 if (!data) {
-                    toastr.error("后缀已被占用");
+                    toastr.error("后缀已确认，不得修改");
                     return;
                 }
                 toastr.success("提交成功！可以开始创建员工账号！");

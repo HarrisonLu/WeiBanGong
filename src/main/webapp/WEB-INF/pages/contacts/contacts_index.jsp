@@ -7,11 +7,11 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
             <a href="/index"><img class="title-bar-image" src="/static_resources/images/bar_item_home.png"></a>
         </div>
-        <div class="col-xs-10" style="margin-top: 9px">
+        <div class="col-xs-10" style="margin-top: 8px">
             <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索"
                    data-provide="typeahead">
         </div>
@@ -29,12 +29,13 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
             <c:forEach items="${groupUsers}" var="user">
-                <a href="/contacts/user/${user.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/head.png" width="40" height="40">
+                <a href="/contacts/user/${user.id}" class="list-group-item list-group-item-higher">
+                    <img class="pull-left head-pic" src="/static_resources/images/head.png">
 
                     <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
                     <c:forEach items="${user.groupList}" var="group">
-                        <p class="list-group-item-text head-pic-text info-detail">${group.departmentName} - ${group.name}</p>
+                        <p class="list-group-item-text head-pic-text info-detail">${group.departmentName}
+                            - ${group.name}</p>
                     </c:forEach>
                     <c:if test="${user.groupList.size() == 0}">
                         <p class="list-group-item-text head-pic-text info-detail">暂无分组</p>
@@ -59,8 +60,8 @@
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
             <c:forEach items="${departments}" var="department">
-                <a href="/contacts/department/${department.id}" class="list-group-item" style="min-height: 64px">
-                    <img class="pull-left" src="/static_resources/images/btn_head.png" width="35" height="35" style="margin-top: 4px">
+                <a href="/contacts/department/${department.id}" class="list-group-item list-group-item-higher">
+                    <img class="pull-left head-pic-small" src="/static_resources/images/btn_head.png">
                     <h4 class="list-group-item-text head-pic-text">${department.name}</h4>
                 </a>
             </c:forEach>
@@ -128,11 +129,11 @@
             url: encodeURI(encodeURI("/contacts/collection")),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             cache: false,
-            success: function(data) {
+            success: function (data) {
                 var html = "";
                 for (var i in data) {
-                    html += "<a href='/contacts/user/" + data[i].id + "' class='list-group-item' style='min-height: 64px'>" +
-                            "<img class='pull-left' src='/static_resources/images/head.png' width='40' height='40'>" +
+                    html += "<a href='/contacts/user/" + data[i].id + "' class='list-group-item list-group-item-higher'>" +
+                            "<img class='pull-left head-pic' src='/static_resources/images/head.png'>" +
                             "<h4 class='list-group-item-heading head-pic-text'>" + data[i].englishName + " (" + data[i].chineseName + ")" + "</h4>";
                     var groups = data[i].groupList;
                     for (var j in groups) {

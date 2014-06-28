@@ -9,9 +9,10 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-2" style="margin-top: 6px">
-            <a href="javascript:history.go(-1)"><img src="/static_resources/images/btn_back.png" width="40" height="40"></a>
+    <div class="row-fluid title-bar">
+        <div class="col-xs-2 title-bar-btn">
+            <a href="javascript:history.go(-1)"><img class="title-bar-image"
+                                                     src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>评论</h4>
@@ -21,10 +22,16 @@
 
 <div class="media well">
     <img class="pull-left" src="/static_resources/images/head.png">
+
     <div class="media-body">
         <h4 class="media-heading">${customer.englishName} (${customer.chineseName})</h4>
-        <p></p><p>${customer.projectName}</p>
+
+        <p></p>
+
+        <p>${customer.projectName}</p>
+
         <p>${customer.moduleName}</p>
+
         <p>${customer.taskName}</p>
     </div>
 </div>
@@ -33,8 +40,7 @@
     <ul class="content-reply-box mg10">
         <c:forEach items="${comments}" var="comment">
             <li class="odd">
-                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png"
-                                              alt="">
+                <a class="user" href="#"><img class="img-responsive avatar_" src="/static_resources/images/head.png">
                     <span class="user-name">${comment.userEnglishName}</span></a>
 
                 <div class="reply-content-box">
@@ -72,7 +78,7 @@
             data: {message: message},
             success: function () {
                 document.getElementById("customer_message").value = "";
-                location.reload(false);
+                window.location.reload(false);
             }
         });
     }
