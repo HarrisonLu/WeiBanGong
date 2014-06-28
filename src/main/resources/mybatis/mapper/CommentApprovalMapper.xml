@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.approval.CommentApprovalMapper">
+    <resultMap id="CommentApprovalResultMap" type="CommentApproval">
+        <id property="id" column="id"/>
+        <result property="details" column="details"/>
+        <result property="createTime" column="create_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="userChineseName" column="user_chinese_name"/>
+        <result property="userEnglishName" column="user_english_name"/>
+        <result property="approvalId" column="approval_id"/>
+        <result property="isPass" column="is_pass"/>
+        <result property="companyId" column="company_id"/>
+    </resultMap>
+
+    <insert id="insertCommentApproval" parameterType="CommentApproval">
+        insert into t_comment_approval (details, user_id, approval_id, is_pass, company_id)
+        values (#{details}, #{userId}, #{approvalId}, #{isPass}, #{companyId})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id() as id
+        </selectKey>
+    </insert>
+
+    <delete id="deleteCommentApproval" parameterType="int">
+        delete from t_comment_approval
+        where id = #{commentApprovalId}
+    </delete>
+
+    <select id="selectCommentApprovalListByApprovalId" parameterType="java.util.Map" resultMap="CommentApprovalResultMap">
+        select ca.*,
+               u.chinese_name as user_chinese_name,
+               u.english_name as user_english_name
+        from t_company c
+        left join t_comment_approval ca on ca.company_id = c.id and ca.company_id = #{companyId}
+        left join t_user u on u.id = ca.user_id
+        where ca.approval_id = #{approvalId}
+    </select>
+
+</mapper>

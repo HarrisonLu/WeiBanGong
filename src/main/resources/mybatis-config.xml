@@ -23,6 +23,19 @@
 
         <typeAlias type="com.springapp.mvc.domain.admin.Administrator" alias="Administrator"/>
         <typeAlias type="com.springapp.mvc.domain.admin.Company" alias="Company"/>
+
+        <typeAlias type="com.springapp.mvc.domain.approval.Approval" alias="Approval"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.ApprovalStage" alias="ApprovalStage"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.ApprovalStatus" alias="ApprovalStatus"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.ApprovalType" alias="ApprovalType"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.ClaimItem" alias="ClaimItem"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.ClaimType" alias="ClaimType"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.CommentApproval" alias="CommentApproval"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.FundsItem" alias="FundsItem"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.FundsType" alias="FundsType"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.GoodsItem" alias="GoodsItem"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.GoodsType" alias="GoodsType"/>
+        <typeAlias type="com.springapp.mvc.domain.approval.LeaveType" alias="LeaveType"/>
     </typeAliases>
 
 </configuration>

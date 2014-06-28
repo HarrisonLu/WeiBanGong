@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.approval.ApprovalTypeMapper">
+    <resultMap id="ApprovalTypeResultMap" type="ApprovalType">
+        <id property="id" column="id"/>
+        <id property="name" column="name"/>
+    </resultMap>
+
+    <select id="getAllApprovalType" resultMap="ApprovalTypeResultMap">
+        select aty.*
+        from t_approval_type aty
+    </select>
+</mapper>

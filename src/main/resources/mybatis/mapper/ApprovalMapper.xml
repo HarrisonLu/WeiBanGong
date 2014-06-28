@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.approval.ApprovalMapper">
+
+    <resultMap id="ApprovalResultMap" type="Approval">
+        <id property="id" column="id"/>
+        <result property="submitTime" column="submit_time"/>
+        <result property="applicantId" column="applicant_id"/>
+        <result property="applicantName" column="applicant_name"/>
+        <result property="departmentId" column="department_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="reasons" column="reasons"/>
+        <result property="firstApprovalUserId" column="first_approval_user_Id"/>
+        <result property="firstApprovalUserName" column="first_approval_user_name"/>
+        <result property="secondApprovalUserId" column="second_approval_user_id"/>
+        <result property="secondApprovalUserName" column="second_approval_user_name"/>
+        <result property="beCarbonCopyUserId" column="be_carbon_copy_user_id"/>
+        <result property="beCarbonCopyUserName" column="be_carbon_copy_user_name"/>
+        <result property="currentApprovalUserId" column="current_approval_user_id"/>
+        <result property="currentApprovalUserName" column="current_approval_user_name"/>
+        <result property="approvalStageId" column="approval_stage_id"/>
+        <result property="approvalStageName" column="approval_stage_name"/>
+        <result property="approvalStatusId" column="approval_status_id"/>
+        <result property="approvalStatusName" column="approval_status_name"/>
+        <result property="approvalTypeId" column="approval_type_id"/>
+        <result property="approvalTypeName" column="approval_type_name"/>
+        <result property="leaveTypeId" column="leave_type_id"/>
+        <result property="leaveTypeName" column="leave_type_name"/>
+        <result property="claimTypeId" column="claim_type_id"/>
+        <result property="claimTypeName" column="claim_type_name"/>
+        <result property="goodsTypeId" column="goods_type_id"/>
+        <result property="goodsTypeName" column="goods_type_name"/>
+        <result property="fundsTypeId" column="funds_type_id"/>
+        <result property="fundsTypeName" column="funds_type_name"/>
+        <result property="startTime" column="start_time"/>
+        <!--<result property="displayStartTime" column="display_start_time"/>-->
+        <result property="endTime" column="end_time"/>
+        <!--<result property="displayEndTime" column="display_end_time"/>-->
+        <result property="travelFrom" column="travel_from"/>
+        <result property="travelTo" column="travel_to"/>
+        <result property="amount" column="amount"/>
+        <result property="companyId" column="company_id"/>
+    </resultMap>
+
+    <select id="getMyApprovalList" parameterType="java.util.Map" resultMap="ApprovalResultMap">
+        select a.id, a.submit_time,
+               a.approval_type_id, aty.name as approval_type_name,
+               a.approval_stage_id, ast.name as approval_stage_name
+        from t_company c
+            left join t_approval a on a.company_id = c.id and a.company_id = #{companyId}
+            left join t_approval_type aty on a.approval_type_id = aty.id
+            left join t_approval_stage ast on a.approval_stage_id = ast.id
+        where a.applicant_id = #{userId} and a.approval_status_id = 2
+    </select>
+
+    <select id="getMyWaitingApprovalList" parameterType="java.util.Map" resultMap="ApprovalResultMap">
+        select a.id, a.submit_time,
+               a.approval_type_id, aty.name as approval_type_name,
+               a.applicant_id, u.chinese_name as applicant_name
+        from t_company c
+            left join t_approval a on a.company_id = c.id and a.company_id = #{companyId}
+            left join t_approval_type aty on a.approval_type_id = aty.id
+            left join t_user u on a.applicant_id = u.id
+        where a.current_approval_user_id = #{userId} and a.approval_status_id = 2
+    </select>
+
+    <select id="selectDraftApprovalListByUserId" parameterType="java.util.Map" resultMap="ApprovalResultMap">
+        select a.id, a.submit_time,
+               a.approval_type_id, aty.name as approval_type_name
+        from t_company c
+            left join t_approval a on a.company_id = c.id and a.company_id = #{companyId}
+            left join t_approval_type aty on a.approval_type_id = aty.id
+        where a.applicant_id = #{userId} and a.approval_status_id = 1
+    </select>
+
+    <select id="selectArchiveApprovalListByUserId" parameterType="java.util.Map" resultMap="ApprovalResultMap">
+        select a.id, a.submit_time,
+               a.approval_type_id, aty.name as approval_type_name
+        from t_company c
+            left join t_approval a on a.company_id = c.id and a.company_id = #{companyId}
+            left join t_approval_type aty on a.approval_type_id = aty.id
+        where a.applicant_id = #{userId} and a.approval_status_id = 3
+    </select>
+
+    <insert id="insertApproval" parameterType="Approval">
+        insert into t_approval (submit_time, applicant_id, department_id, reasons, first_approval_user_id,
+                                second_approval_user_id, be_carbon_copy_user_id, current_approval_user_id,
+                                approval_type_id, approval_stage_id, approval_status_id, leave_type_id,
+                                claim_type_id, goods_type_id, funds_type_id, start_time, end_time,
+                                travel_from, travel_to, amount, company_id)
+        values (#{submitTime}, #{applicantId}, #{departmentId}, #{reasons}, #{firstApprovalUserId},
+                #{secondApprovalUserId}, #{beCarbonCopyUserId}, #{currentApprovalUserId},
+                #{approvalTypeId}, #{approvalStageId}, #{approvalStatusId}, #{leaveTypeId},
+                #{claimTypeId}, #{goodsTypeId}, #{fundsTypeId}, #{startTime}, #{endTime},
+                #{travelFrom}, #{travelTo}, #{amount}, #{companyId})
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id() as id
+        </selectKey>
+    </insert>
+
+    <delete id="deleteApproval" parameterType="int">
+        delete from t_approval
+        where id = #{id}
+    </delete>
+
+    <update id="updateApproval" parameterType="Approval">
+        update t_approval
+        set submit_time = #{submitTime}, reasons = #{reasons}, first_approval_user_id = #{firstApprovalUserId},
+            second_approval_user_id = #{secondApprovalUserId}, be_carbon_copy_user_id = #{beCarbonCopyUserId},
+            current_approval_user_id = #{currentApprovalUserId}, approval_type_id = #{approvalTypeId},
+            approval_stage_id = #{approvalStageId}, approval_status_id = #{approvalStatusId},
+            leave_type_id = #{leaveTypeId}, claim_type_id = #{claimTypeId},
+            goods_type_id = #{goodsTypeId}, funds_type_id = #{fundsTypeId}, start_time = #{startTime},
+            end_time = #{endTime}, travel_from = #{travelFrom}, travel_to = #{travelTo}, amount = #{amount}
+        where id = #{id}
+    </update>
+
+    <select id="getApprovalDetailByApprovalId" parameterType="java.util.Map" resultMap="ApprovalResultMap">
+        select a.*,
+               aty.name as approval_type_name,
+               ast.name as approval_stage_name,
+               asta.name as approval_status_name
+        from t_company c
+            left join t_approval a on a.company_id = c.id and a.company_id = #{companyId}
+            left join t_approval_type aty on a.approval_type_id = aty.id
+            left join t_approval_stage ast on a.approval_stage_id = ast.id
+            left join t_approval_status asta on a.approval_status_id = asta.id
+        where a.id = #{approvalId}
+    </select>
+
+
+</mapper>

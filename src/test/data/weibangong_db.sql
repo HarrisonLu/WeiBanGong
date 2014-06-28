@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/17/2014 19:23:52 PM
+ Date: 06/28/2014 17:03:30 PM
 */
 
 SET NAMES utf8;
@@ -35,6 +35,209 @@ CREATE TABLE `t_admin` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `t_admin` VALUES ('1', 'asdf_1234', 'GLY@yunnex.com', '13999999999', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_approval`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval`;
+CREATE TABLE `t_approval` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `applicant_id` int(10) NOT NULL,
+  `department_id` int(10) NOT NULL,
+  `reasons` varchar(300) DEFAULT NULL,
+  `first_approval_user_id` int(10) DEFAULT NULL,
+  `second_approval_user_id` int(10) DEFAULT NULL,
+  `be_carbon_copy_user_id` int(10) DEFAULT NULL,
+  `current_approval_user_id` int(10) DEFAULT NULL,
+  `approval_type_id` int(10) DEFAULT NULL,
+  `approval_stage_id` int(10) DEFAULT NULL,
+  `approval_status_id` int(10) DEFAULT NULL,
+  `leave_type_id` int(10) DEFAULT NULL,
+  `claim_type_id` int(10) DEFAULT NULL,
+  `goods_type_id` int(10) DEFAULT NULL,
+  `funds_type_id` int(10) DEFAULT NULL,
+  `start_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `end_time` timestamp NULL DEFAULT NULL,
+  `travel_from` varchar(300) DEFAULT NULL,
+  `travel_to` varchar(300) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_approval_applicant_id` (`applicant_id`),
+  KEY `t_approval_department_id` (`department_id`),
+  KEY `t_approval_first_approval_user_id` (`first_approval_user_id`),
+  KEY `t_approval_second_approval_user_id` (`second_approval_user_id`),
+  KEY `t_approval_be_carbon_copy_user_id` (`be_carbon_copy_user_id`),
+  KEY `t_approval_current_approval_user_id` (`current_approval_user_id`),
+  KEY `t_approval_approval_type_id` (`approval_type_id`),
+  KEY `t_approval_approval_stage_id` (`approval_stage_id`),
+  KEY `t_approval_approval_status_id` (`approval_status_id`),
+  KEY `t_approval_type_id` (`leave_type_id`),
+  KEY `t_approval_claim_type_id` (`claim_type_id`),
+  KEY `t_approval_goods_type_id` (`goods_type_id`),
+  KEY `t_approval_funds_type_id` (`funds_type_id`),
+  KEY `t_approval_company_id` (`company_id`),
+  CONSTRAINT `t_approval_applicant_id` FOREIGN KEY (`applicant_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_approval_stage_id` FOREIGN KEY (`approval_stage_id`) REFERENCES `t_approval_stage` (`id`),
+  CONSTRAINT `t_approval_approval_status_id` FOREIGN KEY (`approval_status_id`) REFERENCES `t_approval_status` (`id`),
+  CONSTRAINT `t_approval_approval_type_id` FOREIGN KEY (`approval_type_id`) REFERENCES `t_approval_type` (`id`),
+  CONSTRAINT `t_approval_be_carbon_copy_user_id` FOREIGN KEY (`be_carbon_copy_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_claim_type_id` FOREIGN KEY (`claim_type_id`) REFERENCES `t_claim_type` (`id`),
+  CONSTRAINT `t_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
+  CONSTRAINT `t_approval_current_approval_user_id` FOREIGN KEY (`current_approval_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_department_id` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`),
+  CONSTRAINT `t_approval_first_approval_user_id` FOREIGN KEY (`first_approval_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_funds_type_id` FOREIGN KEY (`funds_type_id`) REFERENCES `t_funds_type` (`id`),
+  CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
+  CONSTRAINT `t_approval_second_approval_user_id` FOREIGN KEY (`second_approval_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_type_id` FOREIGN KEY (`leave_type_id`) REFERENCES `t_leave_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_approval`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_approval` VALUES ('1', '2014-06-28 14:47:26', '1', '1', '休假', '2', '3', '2', '2', '1', '5', '1', '1', null, null, null, '2014-06-28 14:47:26', '2014-06-30 19:40:12', null, null, null, '1'), ('2', '2014-06-27 17:40:34', '1', '1', '出差', '2', '3', '2', '2', '2', '1', '2', '1', null, null, null, '2014-06-27 17:43:24', '2014-06-28 17:43:27', '香港', '东莞', null, '1'), ('3', '2014-06-27 17:55:37', '1', '1', '费用报销', '2', '3', '2', null, '3', '2', '2', null, '1', null, null, '2014-06-27 17:55:35', '2014-06-27 17:48:10', null, null, null, '1'), ('4', '2014-06-27 17:48:36', '1', '1', '物品', '2', '3', '2', null, '4', '4', '2', null, null, '1', null, '2014-06-27 17:52:25', '0000-00-00 00:00:00', null, null, null, '1'), ('5', '2014-06-27 17:53:12', '1', '1', '经费', '2', '3', null, null, '5', '3', '2', null, null, null, '1', null, null, null, null, null, '1'), ('6', '2014-06-27 17:55:48', '1', '1', '加班', '2', null, null, null, '6', '4', '3', null, null, null, null, '2014-06-28 03:26:59', '2014-06-27 20:56:50', null, null, null, '1'), ('7', '2014-06-27 17:57:13', '1', '1', '其他', '2', null, null, null, '7', '4', '3', null, null, null, null, null, null, null, null, '5', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_approval_stage`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval_stage`;
+CREATE TABLE `t_approval_stage` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_approval_stage`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_approval_stage` VALUES ('1', '审批中'), ('2', '被驳回'), ('3', '可报销'), ('4', '已完成'), ('5', '未提交');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_approval_status`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval_status`;
+CREATE TABLE `t_approval_status` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_approval_status`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_approval_status` VALUES ('1', '草稿'), ('2', '提交'), ('3', '归档');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_approval_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval_type`;
+CREATE TABLE `t_approval_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_approval_type`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_approval_type` VALUES ('1', '休假申请'), ('2', '出差申请'), ('3', '费用报销申请'), ('4', '物品申请'), ('5', '经费申请'), ('6', '加班申请'), ('7', '其他申请');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_carbon_copy`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_carbon_copy`;
+CREATE TABLE `t_carbon_copy` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `be_carbon_copy_id` int(10) NOT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_carbon_copy_approval_id` (`approval_id`),
+  KEY `t_carbon_copy_be_carbon_copy_id` (`be_carbon_copy_id`),
+  KEY `t_carbon_copy_company_id` (`company_id`),
+  CONSTRAINT `t_carbon_copy_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_carbon_copy_be_carbon_copy_id` FOREIGN KEY (`be_carbon_copy_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_carbon_copy_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_claim_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_claim_item`;
+CREATE TABLE `t_claim_item` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `info` varchar(100) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_claim_item_approval_id` (`approval_id`),
+  KEY `t_claim_item_company_id` (`company_id`),
+  CONSTRAINT `t_claim_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_claim_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_claim_item`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_claim_item` VALUES ('1', '3', '费用报销1', '5', '1'), ('2', '3', '费用报销2', '500000', '1'), ('3', '3', '费用报销3', '1.1', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_claim_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_claim_type`;
+CREATE TABLE `t_claim_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_claim_type`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_claim_type` VALUES ('1', '奖励金'), ('2', '招待费'), ('3', '采购费'), ('4', '活动费'), ('5', '其他');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_comment_approval`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment_approval`;
+CREATE TABLE `t_comment_approval` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `details` varchar(600) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
+  `approval_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_pass` tinyint(4) DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_comment_approval_user_id` (`user_id`),
+  KEY `approval_id` (`approval_id`),
+  KEY `company_id` (`company_id`),
+  CONSTRAINT `t_comment_approval_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_comment_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
+  CONSTRAINT `t_comment_approval_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_comment_approval`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_comment_approval` VALUES ('1', '卢煌加班 评论1', '2', '6', '2014-06-27 18:04:00', '1', '1'), ('2', '卢煌加班 评论2', '3', '6', '2014-06-27 18:05:22', '1', '1'), ('3', '卢煌其他 评论1', '2', '7', '2014-06-27 18:07:26', '1', '1'), ('4', '卢煌费用报销 被驳回', '2', '3', '2014-06-27 18:08:30', '0', '1');
 COMMIT;
 
 -- ----------------------------
@@ -248,6 +451,89 @@ INSERT INTO `t_discuss_stage` VALUES ('1', '未洽谈', '1'), ('2', '洽谈中',
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `t_funds_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_item`;
+CREATE TABLE `t_funds_item` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `info` varchar(100) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_funds_item_approval_id` (`approval_id`),
+  KEY `t_funds_item_company_id` (`company_id`),
+  CONSTRAINT `t_funds_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_funds_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_funds_item`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_funds_item` VALUES ('1', '5', '经费1', '11', '1'), ('2', '5', '经费2', '999999', '1'), ('3', '5', '经费3', '12.25', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_funds_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_type`;
+CREATE TABLE `t_funds_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_funds_type`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_funds_type` VALUES ('1', '奖励金'), ('2', '招待费'), ('3', '采购费'), ('4', '活动费'), ('5', '其他');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_goods_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_item`;
+CREATE TABLE `t_goods_item` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `num` int(30) NOT NULL,
+  `price` double NOT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_goods_item_approval_id` (`approval_id`),
+  KEY `t_goods_item_company_id` (`company_id`),
+  CONSTRAINT `t_goods_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_goods_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_goods_item`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_goods_item` VALUES ('1', '4', '物品1', '5', '5', '1'), ('2', '4', '物品2', '100', '1.2', '1'), ('3', '4', '物品3', '1', '2.4', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_goods_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_type`;
+CREATE TABLE `t_goods_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_goods_type`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_goods_type` VALUES ('1', '办公用品'), ('2', '礼品赠品'), ('3', '其他');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_group`;
@@ -269,6 +555,23 @@ CREATE TABLE `t_group` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `t_group` VALUES ('1', '技术部', '1', '2014-03-07 02:16:55', '1'), ('2', '运营部', '1', '2014-06-12 15:29:19', '1'), ('3', '产品部', '1', '2014-06-12 15:29:33', '1'), ('4', '保卫部', '1', '2014-06-12 15:29:59', '1'), ('5', '市场部', '1', '2014-06-12 15:30:20', '1');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_leave_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_leave_type`;
+CREATE TABLE `t_leave_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_leave_type`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_leave_type` VALUES ('1', '带薪年假'), ('2', '事假'), ('3', '病假'), ('4', '其他');
 COMMIT;
 
 -- ----------------------------
@@ -466,6 +769,26 @@ INSERT INTO `t_project_member` VALUES ('1', '12'), ('2', '13');
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `t_rights_create_project`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_rights_create_project`;
+CREATE TABLE `t_rights_create_project` (
+  `user_id` int(10) NOT NULL,
+  `company_id` int(10) NOT NULL,
+  KEY `user_id` (`user_id`),
+  KEY `company_id` (`company_id`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_rights_create_project`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_rights_create_project` VALUES ('1', '1');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_stage_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_stage_project`;
@@ -616,7 +939,7 @@ CREATE TABLE `t_user` (
   `status` varchar(30) DEFAULT NULL,
   `position` varchar(30) DEFAULT NULL,
   `position_level` varchar(30) DEFAULT NULL,
-  `wechat_num` varchar(30) NOT NULL,
+  `wechat_num` varchar(30) DEFAULT NULL,
   `qq_num` varchar(20) DEFAULT NULL,
   `telephone_num` varchar(20) DEFAULT NULL,
   `mobile_phone_num` varchar(20) DEFAULT NULL,
@@ -631,7 +954,7 @@ CREATE TABLE `t_user` (
 --  Records of `t_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_user` VALUES ('1', 'mima1', '卢煌', 'luhuang', 'hassion', 'luhuang@qq.com', '技术组组长', '前端工程师', '高级前端工程师', 'luhuanglh', '623360317', '88886666', '13430325317', '0000-00-00 00:00:00', '1'), ('2', 'mima2', '施奋进', 'shifenjin', 'lion', 'shifenjin@qq.com', '技术组副组长', '后台工程师', '高级后台工程师', 'fenjin7009', '170843737', '', '13430347009', '0000-00-00 00:00:00', '1'), ('3', 'mima3', '烧猪', 'shaozhu', 'hotpig', 'shaozhu@qq.com', '技术组服务专员', '酱油', '高级酱油', 'Liangsv', '526262444', '', '15112189421', '0000-00-00 00:00:00', '1'), ('4', 'mima4', '李四', 'lisi', 'four', 'lisi@qq.com', '产品组组长', '产品经理', '高级产品经理', 'fourli', '44444444', '020-44', '13444444444', null, '1'), ('5', 'mima5', '王五', 'wangwu', 'five', 'wangwu@qq.com', '产品组副组长', '产品经理', '产品经理', 'fivewang', '55555555', '020-55', '13555555555', null, '1'), ('6', 'mima6', '赵六', 'zhaoliu', 'six', 'zhaoliu@qq.com', '设计组组长', '平台设计师', '高级平台设计师', 'sixzhao', '66666666', '020-66', '13666666666', null, '1'), ('7', 'mima7', '钱七', 'qianqi', 'seven', 'qianqi@qq.com', '设计组副组长', '界面设计师', '高级界面设计师', 'sevenqian', '77777777', '020-77', '13777777777', null, '1'), ('8', 'mima8', '孙八', 'sunba', 'eight', 'sunba@qq.com', '运营组组长', '运营工程师', '高级运营工程师', 'eightsun', '88888888', '020-88', '13888888888', null, '1'), ('9', 'mima9', '杨九', 'yangjiu', 'nine', 'yangjiu@qq.com', '运营组副组长', '运营工程师', '运营工程师', 'nineyang', '99999999', '020-99', '13999999999', null, '1'), ('10', 'mima10', '吴十', 'wushi', 'ten', 'wushi@qq.com', '微办公部长', '酱油', '高级酱油', 'tenwu', '10101010', '020-10', '13010101010', null, '1'), ('11', 'mima11', '萧十一郎', 'xiaoshiyilang', 'eleven', 'xiaoshiyilang@qq.com', null, null, null, 'elevenxiao', null, null, null, '2014-04-21 10:38:58', '1'), ('12', 'mima12', '成员十二', 'chengyuanshier', 'twelve', null, null, null, null, 'twelve', null, null, null, '2014-04-21 10:55:21', '1'), ('13', 'mima13', '十三姨', 'shisanyi', 'thirteen', null, null, null, null, 'thirteen', null, null, null, '2014-04-21 10:56:22', '1'), ('14', 'mima14', '成员十四', 'chengyuanshisi', 'fourteen', null, null, null, null, 'fourteenWechat', null, null, null, '2014-04-21 11:31:03', '1'), ('15', 'mima15', '成员十五', 'chengyuanshiwu', 'fifteen', null, null, null, null, 'fifteenWechat', null, null, null, '2014-04-21 11:31:41', '1'), ('16', 'mima16', '成员十六', 'chengyuanshiliu', 'sixteen', null, null, null, null, 'sixteenWechat', null, null, null, '2014-04-21 13:14:04', '1'), ('17', 'mima17', '成员十七', 'chengyuanshiqi', 'seventeen', null, null, null, null, 'seventeenWechat', null, null, null, '2014-04-21 13:15:07', '1');
+INSERT INTO `t_user` VALUES ('1', 'mima1', '卢煌', 'luhuang', 'hassion', 'luhuang@qq.com', '技术组组长', '前端工程师', '高级前端工程师', 'luhuanglh', '623360317', '88886666', '13430325317', '0000-00-00 00:00:00', '1'), ('2', 'mima2', '施奋进', 'shifenjin', 'lion', 'shifenjin@qq.com', '技术组副组长', '后台工程师', '高级后台工程师', 'fenjin7009', '170843737', '', '13430347009', '0000-00-00 00:00:00', '1'), ('3', 'mima3', '烧猪', 'shaozhu', 'hotpig', 'shaozhu@qq.com', '技术组服务专员', '酱油', '高级酱油', 'Liangsv', '526262444', '', '15112189421', '0000-00-00 00:00:00', '1'), ('4', 'mima4', '李四', 'lisi', 'four', 'lisi@qq.com', '产品组组长', '产品经理', '高级产品经理', 'fourli', '44444444', '020-44', '13444444444', null, '1'), ('5', 'mima5', '王五', 'wangwu', 'five', 'wangwu@qq.com', '产品组副组长', '产品经理', '产品经理', 'fivewang', '55555555', '020-55', '13555555555', null, '1'), ('6', 'mima6', '赵六', 'zhaoliu', 'six', 'zhaoliu@qq.com', '设计组组长', '平台设计师', '高级平台设计师', 'sixzhao', '66666666', '020-66', '13666666666', null, '1'), ('7', 'mima7', '钱七', 'qianqi', 'seven', 'qianqi@qq.com', '设计组副组长', '界面设计师', '高级界面设计师', 'sevenqian', '77777777', '020-77', '13777777777', null, '1'), ('8', 'mima8', '孙八', 'sunba', 'eight', 'sunba@qq.com', '运营组组长', '运营工程师', '高级运营工程师', 'eightsun', '88888888', '020-88', '13888888888', null, '1'), ('9', 'mima9', '杨九', 'yangjiu', 'nine', 'yangjiu@qq.com', '运营组副组长', '运营工程师', '运营工程师', 'nineyang', '99999999', '020-99', '13999999999', null, '1'), ('10', 'mima10', '吴十', 'wushi', 'ten', 'wushi@qq.com', '微办公部长', '酱油', '高级酱油', 'tenwu', '10101010', '020-10', '13010101010', null, '1'), ('11', 'mima11', '萧十一郎', 'xiaoshiyilang', 'eleven', 'xiaoshiyilang@qq.com', null, null, null, 'elevenxiao', null, null, null, '2014-04-21 10:38:58', '1'), ('12', 'mima12', '成员十二', 'chengyuanshier', 'twelve', 'shier@yunnex.com', null, null, null, 'twelve', null, null, null, '2014-04-21 10:55:21', '1'), ('13', 'mima13', '十三姨', 'shisanyi', 'thirteen', 'shisanyi@yunnex.com', null, null, null, 'thirteen', null, null, null, '2014-04-21 10:56:22', '1'), ('14', 'mima14', '成员十四', 'chengyuanshisi', 'fourteen', 'shisi@yunnex.com', null, null, null, 'fourteenWechat', null, null, null, '2014-04-21 11:31:03', '1'), ('15', 'mima15', '成员十五', 'chengyuanshiwu', 'fifteen', 'shiwu@yunnex.com', null, null, null, 'fifteenWechat', null, null, null, '2014-04-21 11:31:41', '1'), ('16', 'mima16', '成员十六', 'chengyuanshiliu', 'sixteen', 'shiliu@yunnex.com', null, null, null, 'sixteenWechat', null, null, null, '2014-04-21 13:14:04', '1'), ('17', 'mima17', '成员十七', 'chengyuanshiqi', 'seventeen', 'shiqi@yunnex.com', null, null, null, 'seventeenWechat', null, null, null, '2014-04-21 13:15:07', '1');
 COMMIT;
 
 -- ----------------------------

@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/17/2014 19:24:12 PM
+ Date: 06/28/2014 17:03:46 PM
 */
 
 SET NAMES utf8;
@@ -29,6 +29,160 @@ CREATE TABLE `t_admin` (
   KEY `t_admin_ibfk_1` (`company_id`) USING BTREE,
   CONSTRAINT `t_admin_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_approval`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval`;
+CREATE TABLE `t_approval` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `applicant_id` int(10) NOT NULL,
+  `department_id` int(10) NOT NULL,
+  `reasons` varchar(300) DEFAULT NULL,
+  `first_approval_user_id` int(10) DEFAULT NULL,
+  `second_approval_user_id` int(10) DEFAULT NULL,
+  `be_carbon_copy_user_id` int(10) DEFAULT NULL,
+  `current_approval_user_id` int(10) DEFAULT NULL,
+  `approval_type_id` int(10) DEFAULT NULL,
+  `approval_stage_id` int(10) DEFAULT NULL,
+  `approval_status_id` int(10) DEFAULT NULL,
+  `leave_type_id` int(10) DEFAULT NULL,
+  `claim_type_id` int(10) DEFAULT NULL,
+  `goods_type_id` int(10) DEFAULT NULL,
+  `funds_type_id` int(10) DEFAULT NULL,
+  `start_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `end_time` timestamp NULL DEFAULT NULL,
+  `travel_from` varchar(300) DEFAULT NULL,
+  `travel_to` varchar(300) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_approval_applicant_id` (`applicant_id`),
+  KEY `t_approval_department_id` (`department_id`),
+  KEY `t_approval_first_approval_user_id` (`first_approval_user_id`),
+  KEY `t_approval_second_approval_user_id` (`second_approval_user_id`),
+  KEY `t_approval_be_carbon_copy_user_id` (`be_carbon_copy_user_id`),
+  KEY `t_approval_current_approval_user_id` (`current_approval_user_id`),
+  KEY `t_approval_approval_type_id` (`approval_type_id`),
+  KEY `t_approval_approval_stage_id` (`approval_stage_id`),
+  KEY `t_approval_approval_status_id` (`approval_status_id`),
+  KEY `t_approval_type_id` (`leave_type_id`),
+  KEY `t_approval_claim_type_id` (`claim_type_id`),
+  KEY `t_approval_goods_type_id` (`goods_type_id`),
+  KEY `t_approval_funds_type_id` (`funds_type_id`),
+  KEY `t_approval_company_id` (`company_id`),
+  CONSTRAINT `t_approval_applicant_id` FOREIGN KEY (`applicant_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_approval_stage_id` FOREIGN KEY (`approval_stage_id`) REFERENCES `t_approval_stage` (`id`),
+  CONSTRAINT `t_approval_approval_status_id` FOREIGN KEY (`approval_status_id`) REFERENCES `t_approval_status` (`id`),
+  CONSTRAINT `t_approval_approval_type_id` FOREIGN KEY (`approval_type_id`) REFERENCES `t_approval_type` (`id`),
+  CONSTRAINT `t_approval_be_carbon_copy_user_id` FOREIGN KEY (`be_carbon_copy_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_claim_type_id` FOREIGN KEY (`claim_type_id`) REFERENCES `t_claim_type` (`id`),
+  CONSTRAINT `t_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
+  CONSTRAINT `t_approval_current_approval_user_id` FOREIGN KEY (`current_approval_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_department_id` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`),
+  CONSTRAINT `t_approval_first_approval_user_id` FOREIGN KEY (`first_approval_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_funds_type_id` FOREIGN KEY (`funds_type_id`) REFERENCES `t_funds_type` (`id`),
+  CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
+  CONSTRAINT `t_approval_second_approval_user_id` FOREIGN KEY (`second_approval_user_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_approval_type_id` FOREIGN KEY (`leave_type_id`) REFERENCES `t_leave_type` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_approval_stage`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval_stage`;
+CREATE TABLE `t_approval_stage` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_approval_status`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval_status`;
+CREATE TABLE `t_approval_status` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_approval_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_approval_type`;
+CREATE TABLE `t_approval_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_carbon_copy`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_carbon_copy`;
+CREATE TABLE `t_carbon_copy` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `be_carbon_copy_id` int(10) NOT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_carbon_copy_approval_id` (`approval_id`),
+  KEY `t_carbon_copy_be_carbon_copy_id` (`be_carbon_copy_id`),
+  KEY `t_carbon_copy_company_id` (`company_id`),
+  CONSTRAINT `t_carbon_copy_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_carbon_copy_be_carbon_copy_id` FOREIGN KEY (`be_carbon_copy_id`) REFERENCES `t_user` (`id`),
+  CONSTRAINT `t_carbon_copy_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_claim_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_claim_item`;
+CREATE TABLE `t_claim_item` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `info` varchar(100) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_claim_item_approval_id` (`approval_id`),
+  KEY `t_claim_item_company_id` (`company_id`),
+  CONSTRAINT `t_claim_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_claim_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_claim_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_claim_type`;
+CREATE TABLE `t_claim_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_comment_approval`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment_approval`;
+CREATE TABLE `t_comment_approval` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `details` varchar(600) DEFAULT NULL,
+  `user_id` int(10) NOT NULL,
+  `approval_id` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `is_pass` tinyint(4) DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_comment_approval_user_id` (`user_id`),
+  KEY `approval_id` (`approval_id`),
+  KEY `company_id` (`company_id`),
+  CONSTRAINT `t_comment_approval_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_comment_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
+  CONSTRAINT `t_comment_approval_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_comment_customer`
@@ -185,6 +339,61 @@ CREATE TABLE `t_discuss_stage` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `t_funds_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_item`;
+CREATE TABLE `t_funds_item` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `info` varchar(100) NOT NULL,
+  `amount` double DEFAULT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_funds_item_approval_id` (`approval_id`),
+  KEY `t_funds_item_company_id` (`company_id`),
+  CONSTRAINT `t_funds_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_funds_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_funds_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_funds_type`;
+CREATE TABLE `t_funds_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_goods_item`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_item`;
+CREATE TABLE `t_goods_item` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `approval_id` int(10) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `num` int(30) NOT NULL,
+  `price` double NOT NULL,
+  `company_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `t_goods_item_approval_id` (`approval_id`),
+  KEY `t_goods_item_company_id` (`company_id`),
+  CONSTRAINT `t_goods_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
+  CONSTRAINT `t_goods_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_goods_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_type`;
+CREATE TABLE `t_goods_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `t_group`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_group`;
@@ -200,6 +409,16 @@ CREATE TABLE `t_group` (
   CONSTRAINT `t_group_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_group_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `t_leave_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_leave_type`;
+CREATE TABLE `t_leave_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_module`
@@ -333,6 +552,19 @@ CREATE TABLE `t_project_member` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `t_rights_create_project`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_rights_create_project`;
+CREATE TABLE `t_rights_create_project` (
+  `user_id` int(10) NOT NULL,
+  `company_id` int(10) NOT NULL,
+  KEY `user_id` (`user_id`),
+  KEY `company_id` (`company_id`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `t_stage_project`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_stage_project`;
@@ -441,7 +673,7 @@ CREATE TABLE `t_user` (
   `status` varchar(30) DEFAULT NULL,
   `position` varchar(30) DEFAULT NULL,
   `position_level` varchar(30) DEFAULT NULL,
-  `wechat_num` varchar(30) NOT NULL,
+  `wechat_num` varchar(30) DEFAULT NULL,
   `qq_num` varchar(20) DEFAULT NULL,
   `telephone_num` varchar(20) DEFAULT NULL,
   `mobile_phone_num` varchar(20) DEFAULT NULL,

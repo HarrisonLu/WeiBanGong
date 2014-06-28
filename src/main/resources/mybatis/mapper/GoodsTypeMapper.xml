@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.approval.GoodsTypeMapper">
+    <resultMap id="GoodsTypeResultMap" type="GoodsType">
+        <id property="id" column="id"/>
+        <id property="name" column="name"/>
+    </resultMap>
+
+    <select id="getAllGoodsType" resultMap="GoodsTypeResultMap">
+        select gt.*
+        from t_goods_type gt
+    </select>
+
+    <select id="selectGoodsTypeByGoodsTypeId" parameterType="int" resultMap="GoodsTypeResultMap">
+        select gt.*
+        from t_goods_type gt
+        where gt.id = #{goodsTypeId}
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.approval.FundsTypeMapper">
+    <resultMap id="FundsTypeResultMap" type="FundsType">
+        <id property="id" column="id"/>
+        <id property="name" column="name"/>
+    </resultMap>
+
+    <select id="getAllFundsType" resultMap="FundsTypeResultMap">
+        select ft.*
+        from t_funds_type ft
+    </select>
+
+    <select id="selectFundsTypeByFundsTypeId" parameterType="int" resultMap="FundsTypeResultMap">
+        select ft.*
+        from t_funds_type ft
+        where ft.id = #{fundsTypeId}
+    </select>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springapp.mvc.dao.approval.ClaimTypeMapper">
+    <resultMap id="ClaimTypeResultMap" type="ClaimType">
+        <id property="id" column="id"/>
+        <id property="name" column="name"/>
+    </resultMap>
+
+    <select id="getAllClaimType" resultMap="ClaimTypeResultMap">
+        select ct.*
+        from t_claim_type ct
+    </select>
+
+    <select id="selectClaimTypeByClaimTypeId" parameterType="int" resultMap="ClaimTypeResultMap">
+        select ct.*
+        from t_claim_type ct
+        where ct.id = #{claimTypeId}
+    </select>
+</mapper>
