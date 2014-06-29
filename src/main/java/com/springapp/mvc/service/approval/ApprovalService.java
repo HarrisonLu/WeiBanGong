@@ -362,4 +362,30 @@ public class ApprovalService {
         List<Department> departmentList = user.getDepartmentList();
         return departmentList.get(0);
     }
+
+    // 插入 抄送审批
+    public boolean insertCarbonCopyApproval(int approvalId, int beCarbonCopyId, int companyId){
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("approvalId", approvalId);
+        map.put("beCarbonCopyId", beCarbonCopyId);
+        map.put("companyId", companyId);
+        return approvalMapper.insertCarbonCopyApproval(map).equals(1);
+    }
+    // 删除 抄送审批
+    public boolean deleteCarbonCopyApproval(int carbonCopyApprovalId){
+        return approvalMapper.deleteCarbonCopyApproval(carbonCopyApprovalId).equals(1);
+    }
+    // 根据 用户id 得到 抄送审批列表
+    public List<Approval> selectCarbonCopyApprovalListByUserId(int userId, int companyId){
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("companyId", companyId);
+        List<Approval> approvalList = approvalMapper.selectCarbonCopyApprovalListByUserId(map);
+        for (Approval approval : approvalList){
+            String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
+            if (displaySubmitTime != null)
+                approval.setDisplaySubmitTime(displaySubmitTime);
+        }
+        return approvalList;
+    }
 }

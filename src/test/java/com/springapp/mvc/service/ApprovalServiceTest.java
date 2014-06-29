@@ -198,7 +198,7 @@ public class ApprovalServiceTest {
 
     @Test
     public void testGetApprovalDetailByApprovalId() throws Exception {
-        Approval approval = approvalService.getApprovalDetailByApprovalId(3, 1);
+        Approval approval = approvalService.getApprovalDetailByApprovalId(1, 1);
         Assert.assertEquals(approval.getReasons(), "休假");
     }
 
@@ -224,5 +224,21 @@ public class ApprovalServiceTest {
     public void testSelectCommentApprovalListByApprovalId() throws Exception {
         List<CommentApproval> commentApprovalList = approvalService.selectCommentApprovalListByApprovalId(6, 1);
         Assert.assertEquals(commentApprovalList.size(), 2);
+    }
+
+    @Test
+    public void testInsertCarbonCopyApproval() throws Exception {
+//        approvalService.insertCarbonCopyApproval(4, 2, 1);
+    }
+
+    @Test
+    public void testDeleteCarbonCopyApproval() throws Exception {
+//        approvalService.deleteCarbonCopyApproval(1);
+    }
+
+    @Test
+    public void testSelectCarbonCopyApprovalListByUserId() throws Exception {
+        List<Approval> approvalList = approvalService.selectCarbonCopyApprovalListByUserId(2, 1);
+        Assert.assertEquals(approvalList.size(), 1);
     }
 }

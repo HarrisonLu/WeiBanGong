@@ -129,5 +129,26 @@
         where a.id = #{approvalId}
     </select>
 
+    <insert id="insertCarbonCopyApproval" parameterType="java.util.Map">
+        insert into t_carbon_copy (approval_id, be_carbon_copy_id, company_id)
+        values (#{approvalId}, #{beCarbonCopyId}, #{companyId})
+    </insert>
+
+    <delete id="deleteCarbonCopyApproval" parameterType="int">
+        delete from t_carbon_copy
+        where id = #{carbonCopyApprovalId}
+    </delete>
+
+    <select id="selectCarbonCopyApprovalListByUserId" parameterType="java.util.Map" resultMap="ApprovalResultMap">
+        select a.id, a.submit_time,
+               a.approval_type_id, aty.name as approval_type_name,
+               a.applicant_id, u.chinese_name as applicant_name
+        from t_company c
+        left join t_carbon_copy cc on cc.company_id = c.id and cc.company_id = #{companyId}
+        left join t_approval a on a.id = cc.approval_id
+        left join t_approval_type aty on a.approval_type_id = aty.id
+        left join t_user u on a.applicant_id = u.id
+        where cc.be_carbon_copy_id = #{userId}
+    </select>
 
 </mapper>
