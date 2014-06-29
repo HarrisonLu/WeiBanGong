@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/29/2014 03:14:11 AM
+ Date: 06/29/2014 18:07:21 PM
 */
 
 SET NAMES utf8;
@@ -99,7 +99,7 @@ CREATE TABLE `t_approval` (
 --  Records of `t_approval`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_approval` VALUES ('1', '2014-06-28 14:47:26', '1', '1', '休假', '2', '3', '2', '2', '1', '5', '1', '1', null, null, null, '2014-06-28 14:47:26', '2014-06-30 19:40:12', null, null, null, '1'), ('2', '2014-06-27 17:40:34', '1', '1', '出差', '2', '3', '2', '2', '2', '1', '2', '1', null, null, null, '2014-06-27 17:43:24', '2014-06-28 17:43:27', '香港', '东莞', null, '1'), ('3', '2014-06-27 17:55:37', '1', '1', '费用报销', '2', '3', '2', null, '3', '2', '2', null, '1', null, null, '2014-06-27 17:55:35', '2014-06-27 17:48:10', null, null, null, '1'), ('4', '2014-06-27 17:48:36', '1', '1', '物品', '2', '3', '2', null, '4', '4', '2', null, null, '1', null, '2014-06-27 17:52:25', '0000-00-00 00:00:00', null, null, null, '1'), ('5', '2014-06-27 17:53:12', '1', '1', '经费', '2', '3', null, null, '5', '3', '2', null, null, null, '1', null, null, null, null, null, '1'), ('6', '2014-06-27 17:55:48', '1', '1', '加班', '2', null, null, null, '6', '4', '3', null, null, null, null, '2014-06-28 03:26:59', '2014-06-27 20:56:50', null, null, null, '1'), ('7', '2014-06-27 17:57:13', '1', '1', '其他', '2', null, null, null, '7', '4', '3', null, null, null, null, null, null, null, null, '5', '1');
+INSERT INTO `t_approval` VALUES ('1', '2014-06-28 14:47:26', '1', '1', '休假', '2', '3', '2', '2', '1', '5', '1', '1', null, null, null, '2014-06-28 14:47:26', '2014-06-30 19:40:12', null, null, null, '1'), ('2', '2014-06-27 17:40:34', '1', '1', '出差', '2', '3', '2', '2', '2', '1', '2', '1', null, null, null, '2014-06-27 17:43:24', '2014-06-28 17:43:27', '香港', '东莞', null, '1'), ('3', '2014-06-27 17:55:37', '1', '1', '费用报销', '2', '3', '2', null, '3', '2', '2', null, '1', null, null, '2014-06-27 17:55:35', '2014-06-27 17:48:10', null, null, null, '1'), ('4', '2014-06-29 10:58:53', '1', '1', '物品', '2', '3', '2', null, '4', '4', '2', null, null, '1', null, '2014-06-29 10:58:53', '2014-06-30 10:58:46', null, null, null, '1'), ('5', '2014-06-27 17:53:12', '1', '1', '经费', '2', '3', null, null, '5', '3', '2', null, null, null, '1', null, null, null, null, null, '1'), ('6', '2014-06-27 17:55:48', '1', '1', '加班', '2', null, null, null, '6', '4', '3', null, null, null, null, '2014-06-28 03:26:59', '2014-06-27 20:56:50', null, null, null, '1'), ('7', '2014-06-27 17:57:13', '1', '1', '其他', '2', null, null, null, '7', '4', '3', null, null, null, null, null, null, null, null, '5', '1');
 COMMIT;
 
 -- ----------------------------
@@ -169,7 +169,14 @@ CREATE TABLE `t_carbon_copy` (
   CONSTRAINT `t_carbon_copy_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_carbon_copy_be_carbon_copy_id` FOREIGN KEY (`be_carbon_copy_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_carbon_copy_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_carbon_copy`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_carbon_copy` VALUES ('1', '4', '2', '1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `t_claim_item`
