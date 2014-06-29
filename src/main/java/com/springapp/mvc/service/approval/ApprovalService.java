@@ -237,8 +237,8 @@ public class ApprovalService {
 //    public List<String> getRecentMonthsString(){
 //
 //    }
-    // 根据 用户id 和 月份时间 找 归档审批列表
-    public List<Approval> selectArchiveApprovalListByUserIdAndMonth(int userId, int month, int companyId){
+    // 根据 用户id 和 月份时间 和 审批类型id 找 归档审批列表
+    public List<Approval> selectArchiveApprovalListByUserIdAndMonth(int userId, int month, int approvalTypeId, int companyId){
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("companyId", companyId);
@@ -246,7 +246,8 @@ public class ApprovalService {
         List<Approval> approvalWithMonthList = new LinkedList<Approval>();
         for (Approval approval : approvalList){
             if (approval.getSubmitTime().getMonth() + 1 == month){
-                approvalWithMonthList.add(approval);
+                if (approval.getApprovalTypeId() == approvalTypeId)
+                    approvalWithMonthList.add(approval);
             }
         }
         for (Approval approval : approvalWithMonthList){
