@@ -313,6 +313,14 @@ public class ProjectService {
         return customerMapper.selectModuleCustomerListByModuleId(map);
     }
 
+    // 根据 模块id 找 模块关联成员基本资料 列表
+    public List<User> getModuleMemberList(int moduleId, Integer companyId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("moduleId", moduleId);
+        map.put("companyId", companyId);
+        return userMapper.selectModuleMemberListByProjectId(map);
+    }
+
     // 更新 模块详细资料
     public void updateModuleDetail(Module module) {
         moduleMapper.updateModuleDetail(module);
@@ -441,6 +449,14 @@ public class ProjectService {
         map.put("taskId", taskId);
         map.put("companyId", companyId);
         return customerMapper.selectTaskCustomerListByTaskId(map);
+    }
+
+    // 根据 任务id 找 任务关联成员基本资料 列表
+    public List<User> getTaskMemberList(int taskId, Integer companyId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("taskId", taskId);
+        map.put("companyId", companyId);
+        return userMapper.selectTaskMemberListByProjectId(map);
     }
 
     // 根据 任务id 找 拆分任务 列表

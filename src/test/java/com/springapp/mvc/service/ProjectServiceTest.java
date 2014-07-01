@@ -192,6 +192,11 @@ public class ProjectServiceTest extends BaseTest {
     }
 
     @Test
+    public void testGetModuleMemberList() throws Exception {
+        List<User> userList = projectService.getModuleMemberList(1, 1);
+    }
+
+    @Test
     public void testUpdateModuleDetail() throws Exception {
         Module module = projectService.getModuleDetail(1);
         String oldName = module.getName();
@@ -289,6 +294,11 @@ public class ProjectServiceTest extends BaseTest {
     @Test
     public void testGetTaskCustomerList() throws Exception {
         List<Customer> customerList = projectService.getTaskCustomerList(1, 1);
+    }
+
+    @Test
+    public void testGetTaskMemberList() throws Exception {
+        List<User> userList = projectService.getTaskMemberList(1, 1);
     }
 
     @Test
