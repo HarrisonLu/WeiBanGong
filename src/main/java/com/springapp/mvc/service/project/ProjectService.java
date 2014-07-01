@@ -181,6 +181,14 @@ public class ProjectService {
         return customerMapper.selectProjectCustomerListByProjectId(map);
     }
 
+    // 根据 项目id 找 项目关联成员基本资料 列表
+    public List<User> getProjectMemberList(int projectId, Integer companyId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("projectId", projectId);
+        map.put("companyId", companyId);
+        return userMapper.selectProjectMemberListByProjectId(map);
+    }
+
     // 更新 项目详细资料
     public void updateProjectDetail(Project project) {
         projectMapper.updateProjectDetail(project);

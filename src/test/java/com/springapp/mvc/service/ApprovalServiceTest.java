@@ -192,8 +192,8 @@ public class ApprovalServiceTest {
 
     @Test
     public void testSelectArchiveApprovalListByUserIdAndMonth() throws Exception {
-        List<Approval> approvalList = approvalService.selectArchiveApprovalListByUserIdAndMonth(1, 6, 1);
-        Assert.assertEquals(approvalList.size(), 2);
+        List<Approval> approvalList = approvalService.selectArchiveApprovalListByUserIdAndMonth(1, 6, 6, 1);
+        Assert.assertEquals(approvalList.size(), 1);
     }
 
     @Test

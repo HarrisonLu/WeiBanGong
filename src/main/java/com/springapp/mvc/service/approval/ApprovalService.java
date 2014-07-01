@@ -361,7 +361,10 @@ public class ApprovalService {
     public Department selectDepartmentByUserId(int userId){
         User user = userMapper.selectUserDetailsById(userId);
         List<Department> departmentList = user.getDepartmentList();
-        return departmentList.get(0);
+        if (departmentList.get(0) != null)
+            return departmentList.get(0);
+        else
+            return null;
     }
 
     // 插入 抄送审批

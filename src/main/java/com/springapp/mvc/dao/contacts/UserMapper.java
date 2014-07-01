@@ -42,6 +42,9 @@ public interface UserMapper {
     // 根据 任务id 找 任务负责人基本资料 列表
     public List<User> selectTaskManagerListByTaskId(Map<String, Integer> map);
 
+    // 根据 项目id 找 项目成员基本资料 列表
+    public List<User> selectProjectMemberListByProjectId(Map<String, Integer> map);
+
     // 根据 账号和密码 判断 成员是否存在
     public Integer hasAccountWithUser(Map<String, String> map);
 

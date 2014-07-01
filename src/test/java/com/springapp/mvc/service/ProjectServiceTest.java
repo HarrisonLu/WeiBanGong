@@ -103,6 +103,11 @@ public class ProjectServiceTest extends BaseTest {
     }
 
     @Test
+    public void testGetProjectMemberList() throws Exception {
+        List<User> userList = projectService.getProjectMemberList(1, 1);
+    }
+
+    @Test
     public void testUpdateProjectDetail() throws Exception {
         Project project = projectService.getProjectDetail(1);
         String oldName = project.getName();

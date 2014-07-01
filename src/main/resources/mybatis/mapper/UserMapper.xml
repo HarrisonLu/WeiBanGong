@@ -126,6 +126,15 @@
         where t_ma.task_id = #{taskId}
     </select>
 
+    <select id="selectProjectMemberListByProjectId" parameterType="java.util.Map" resultMap="UserResultMap">
+        select u.id, u.chinese_name, u.english_name
+        from t_company c
+        left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
+        left join t_project_member m_me on m_me.member_id = u.id
+        where m_me.project_id = #{projectId}
+    </select>
+
+
     <select id="hasAccountWithUser" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(*)
         from t_user u
