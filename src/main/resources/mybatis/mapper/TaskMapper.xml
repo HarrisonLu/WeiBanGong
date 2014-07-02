@@ -74,9 +74,9 @@
     <update id="updateTaskDetail" parameterType="Task">
         update t_task
         set name = #{name},
-            <if test = "deadline != null">
-            deadline = #{deadline}
-            </if>
+
+            deadline = #{deadline},
+
             priority_id = #{priorityId},
             stage_id = #{stageId}
         where id = #{id}
