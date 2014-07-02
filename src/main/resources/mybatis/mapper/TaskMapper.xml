@@ -77,6 +77,8 @@
             <if test = "deadline != null">
             deadline = #{deadline}
             </if>
+            priority_id = #{priorityId}
+            stage_id = #{stageId}
         where id = #{id}
     </update>
 
