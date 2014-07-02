@@ -46,10 +46,10 @@ public interface UserMapper {
     public List<User> selectProjectMemberListByProjectId(Map<String, Integer> map);
 
     // 根据 模块id 找 模块关联成员基本资料 列表
-    public List<User> selectModuleMemberListByProjectId(Map<String, Integer> map);
+    public List<User> selectModuleMemberListByModuleId(Map<String, Integer> map);
 
     // 根据 任务id 找 任务关联成员基本资料 列表
-    public List<User> selectTaskMemberListByProjectId(Map<String, Integer> map);
+    public List<User> selectTaskMemberListByTaskId(Map<String, Integer> map);
 
     // 根据 账号和密码 判断 成员是否存在
     public Integer hasAccountWithUser(Map<String, String> map);

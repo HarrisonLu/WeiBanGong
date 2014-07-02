@@ -318,7 +318,7 @@ public class ProjectService {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("companyId", companyId);
-        return userMapper.selectModuleMemberListByProjectId(map);
+        return userMapper.selectModuleMemberListByModuleId(map);
     }
 
     // 更新 模块详细资料
@@ -456,7 +456,7 @@ public class ProjectService {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("companyId", companyId);
-        return userMapper.selectTaskMemberListByProjectId(map);
+        return userMapper.selectTaskMemberListByTaskId(map);
     }
 
     // 根据 任务id 找 拆分任务 列表

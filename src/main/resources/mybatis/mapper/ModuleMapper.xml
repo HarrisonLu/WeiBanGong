@@ -30,6 +30,7 @@
         from t_company c
         left join t_module m on c.id = m.company_id and m.company_id = #{companyId}
         where m.project_id = #{projectId}
+        order by m.create_time DESC
     </select>
 
     <select id="getModuleListByUserIdAndProjectId" parameterType="java.util.Map" resultMap="ModuleResultMap">

@@ -134,7 +134,7 @@
         where p_me.project_id = #{projectId}
     </select>
 
-    <select id="selectModuleMemberListByProjectId" parameterType="java.util.Map" resultMap="UserResultMap">
+    <select id="selectModuleMemberListByModuleId" parameterType="java.util.Map" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name
         from t_company c
         left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
@@ -142,7 +142,7 @@
         where m_me.module_id = #{moduleId}
     </select>
 
-    <select id="selectTaskMemberListByProjectId" parameterType="java.util.Map" resultMap="UserResultMap">
+    <select id="selectTaskMemberListByTaskId" parameterType="java.util.Map" resultMap="UserResultMap">
         select u.id, u.chinese_name, u.english_name
         from t_company c
         left join t_user u on c.id = u.company_id and u.company_id = #{companyId}
