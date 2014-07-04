@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/29/2014 18:07:21 PM
+ Date: 07/04/2014 23:24:12 PM
 */
 
 SET NAMES utf8;
@@ -93,7 +93,7 @@ CREATE TABLE `t_approval` (
   CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
   CONSTRAINT `t_approval_second_approval_user_id` FOREIGN KEY (`second_approval_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_approval_type_id` FOREIGN KEY (`leave_type_id`) REFERENCES `t_leave_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_approval`
@@ -150,7 +150,7 @@ CREATE TABLE `t_approval_type` (
 --  Records of `t_approval_type`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_approval_type` VALUES ('1', '休假申请'), ('2', '出差申请'), ('3', '费用报销申请'), ('4', '物品申请'), ('5', '经费申请'), ('6', '加班申请'), ('7', '其他申请');
+INSERT INTO `t_approval_type` VALUES ('1', '休假申请'), ('2', '出差申请'), ('3', '费用报销'), ('4', '物品申请'), ('5', '经费申请'), ('6', '加班申请'), ('7', '其他申请');
 COMMIT;
 
 -- ----------------------------
@@ -193,7 +193,7 @@ CREATE TABLE `t_claim_item` (
   KEY `t_claim_item_company_id` (`company_id`),
   CONSTRAINT `t_claim_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_claim_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_claim_item`
@@ -472,7 +472,7 @@ CREATE TABLE `t_funds_item` (
   KEY `t_funds_item_company_id` (`company_id`),
   CONSTRAINT `t_funds_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_funds_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_funds_item`
@@ -514,7 +514,7 @@ CREATE TABLE `t_goods_item` (
   KEY `t_goods_item_company_id` (`company_id`),
   CONSTRAINT `t_goods_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_goods_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_goods_item`
@@ -600,13 +600,13 @@ CREATE TABLE `t_module` (
   CONSTRAINT `t_module_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_module_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `t_module_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_module`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_module` VALUES ('1', '1号床模块', '1', '2014-03-06 01:38:59', '2014-06-17 19:20:25', '1', '1'), ('2', '2号床模块', '1', '2014-03-06 01:39:54', '2014-06-04 14:30:51', '1', '1'), ('3', '3号床模块', '1', '2014-03-06 01:40:15', '2014-06-04 14:30:55', '1', '1'), ('4', '4号床模块', '1', '2014-03-07 17:23:38', '2014-06-04 14:30:57', '1', '1'), ('5', '1号床模块', '2', '2014-03-07 17:23:49', '2014-06-04 14:30:58', '2', '1'), ('6', '2号床模块', '2', '2014-03-07 17:23:57', '2014-06-04 14:31:00', '2', '1'), ('7', '3号床模块', '2', '2014-03-07 17:24:10', '2014-06-04 14:31:03', '2', '1'), ('8', '4号床模块', '2', '2014-03-07 17:24:20', '2014-06-04 14:31:05', '2', '1');
+INSERT INTO `t_module` VALUES ('1', '1号床模块', '1', '2014-03-06 01:38:59', '2014-07-03 00:04:57', '1', '1'), ('2', '2号床模块', '1', '2014-03-06 01:39:54', '2014-06-04 14:30:51', '1', '1'), ('3', '3号床模块', '1', '2014-03-06 01:40:15', '2014-06-04 14:30:55', '1', '1'), ('4', '4号床模块', '1', '2014-03-07 17:23:38', '2014-06-04 14:30:57', '1', '1'), ('5', '1号床模块', '2', '2014-03-07 17:23:49', '2014-06-04 14:30:58', '2', '1'), ('6', '2号床模块', '2', '2014-03-07 17:23:57', '2014-06-04 14:31:00', '2', '1'), ('7', '3号床模块', '2', '2014-03-07 17:24:10', '2014-06-04 14:31:03', '2', '1'), ('8', '4号床模块', '2', '2014-03-07 17:24:20', '2014-06-04 14:31:05', '2', '1');
 COMMIT;
 
 -- ----------------------------
@@ -706,13 +706,13 @@ CREATE TABLE `t_project` (
   CONSTRAINT `t_project_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_project_ibfk_1` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_project_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_project`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_project` VALUES ('1', '至善园6号616项目', '2014-03-06 01:38:28', '2014-06-17 19:20:25', '1', '该项目由卢煌创建', '1', '1'), ('2', '至善园6号618项目', '2014-03-27 01:39:31', '2014-06-04 14:46:14', '1', '该项目由卢煌创建', '2', '1');
+INSERT INTO `t_project` VALUES ('1', '微办公项目', '2014-03-06 01:38:28', '2014-07-04 22:11:49', '1', '该项目用于移动办公', '1', '1'), ('2', '微招聘项目', '2014-03-27 01:39:31', '2014-07-04 22:12:03', '1', '该项目用于移动招聘', '2', '1'), ('3', '掌贝项目', '2014-07-04 22:12:41', '2014-07-04 22:12:44', '2', '该项目用于移动商务', '1', '1'), ('4', '旅游众筹网项目', '2014-07-04 22:20:35', '2014-07-04 22:20:37', '1', '该项目用于移动资助式旅游平台业务', '1', '1'), ('5', '面包旅游app项目', '2014-07-04 22:25:56', '2014-07-04 22:25:59', '3', '该项目用于移动旅游记录', '1', '1'), ('6', '酷米客公交app项目', '2014-07-04 22:40:07', '2014-07-04 22:40:09', '4', '该项目用于移动公车查询', '1', '1');
 COMMIT;
 
 -- ----------------------------
@@ -784,8 +784,8 @@ CREATE TABLE `t_rights_create_project` (
   `company_id` int(10) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `company_id` (`company_id`),
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -869,7 +869,7 @@ CREATE TABLE `t_task` (
 --  Records of `t_task`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_task` VALUES ('1', '1号床 叠被子任务', '1', '2014-03-06 01:38:59', '2014-06-17 19:20:25', null, '1', '1', '1', '1'), ('2', '2号床 装蚊帐任务', '2', '2014-03-06 01:39:54', '2014-06-04 14:52:59', null, '1', '2', '2', '1'), ('3', '3号床 睡觉任务', '3', '2014-03-06 01:40:15', '2014-06-04 14:53:01', null, '1', '3', '3', '1'), ('4', '4号床 看电影任务', '4', '2014-03-07 17:23:38', '2014-06-04 14:53:02', null, '1', '3', '4', '1'), ('5', '1号床 倒垃圾任务', '5', '2014-03-07 17:23:49', '2014-06-04 14:53:04', null, '2', '1', '1', '1'), ('6', '2号床 洗厕所任务', '6', '2014-03-07 17:23:57', '2014-06-04 14:53:06', null, '2', '2', '2', '1'), ('7', '3号床 写作业任务', '7', '2014-03-07 17:24:10', '2014-06-04 14:53:09', null, '2', '3', '3', '1'), ('8', '4号床 起床任务', '8', '2014-03-07 17:24:20', '2014-06-04 14:53:11', null, '2', '3', '4', '1');
+INSERT INTO `t_task` VALUES ('1', '1号床 叠被子任务', '1', '2014-03-06 01:38:59', '2014-07-03 01:15:06', null, '1', '1', '1', '1'), ('2', '2号床 装蚊帐任务', '2', '2014-03-06 01:39:54', '2014-06-04 14:52:59', null, '1', '2', '2', '1'), ('3', '3号床 睡觉任务', '3', '2014-03-06 01:40:15', '2014-06-04 14:53:01', null, '1', '3', '3', '1'), ('4', '4号床 看电影任务', '4', '2014-03-07 17:23:38', '2014-06-04 14:53:02', null, '1', '3', '4', '1'), ('5', '1号床 倒垃圾任务', '5', '2014-03-07 17:23:49', '2014-06-04 14:53:04', null, '2', '1', '1', '1'), ('6', '2号床 洗厕所任务', '6', '2014-03-07 17:23:57', '2014-06-04 14:53:06', null, '2', '2', '2', '1'), ('7', '3号床 写作业任务', '7', '2014-03-07 17:24:10', '2014-06-04 14:53:09', null, '2', '3', '3', '1'), ('8', '4号床 起床任务', '8', '2014-03-07 17:24:20', '2014-06-04 14:53:11', null, '2', '3', '4', '1');
 COMMIT;
 
 -- ----------------------------
@@ -955,7 +955,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_user`
