@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by luhuanglh on 14-4-4.
@@ -45,7 +48,7 @@ public class ProjectService {
     private LinkMapper linkMapper;
 
     // 模糊搜索 项目
-    public List<Project> fuzzySelectProject(int userId, String str, Integer companyId) {
+    public List<Project> fuzzySelectProject(int userId, String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", Integer.toString(userId));
         map.put("str", str);
@@ -54,7 +57,7 @@ public class ProjectService {
     }
 
     // 根据 成员id 得到 项目基本信息列表
-    public List<Project> selectProjectListByUserId(int userId, Integer companyId) {
+    public List<Project> selectProjectListByUserId(int userId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("companyId", companyId);
@@ -90,7 +93,7 @@ public class ProjectService {
     }
 
     // 模糊搜索 成员基本资料 列表
-    public List<User> fuzzySelectUserList(String str, Integer companyId) {
+    public List<User> fuzzySelectUserList(String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
@@ -98,7 +101,7 @@ public class ProjectService {
     }
 
     // 模糊搜索 未关联项目/模块/任务 客户 列表
-    public List<Customer> fuzzySelectCustomerNotLink(String str, Integer companyId) {
+    public List<Customer> fuzzySelectCustomerNotLink(String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
@@ -166,7 +169,7 @@ public class ProjectService {
     }
 
     // 根据 项目id 找 项目负责人基本资料 列表
-    public List<User> getProjectManagerList(int projectId, Integer companyId) {
+    public List<User> getProjectManagerList(int projectId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("companyId", companyId);
@@ -174,7 +177,7 @@ public class ProjectService {
     }
 
     // 根据 项目id 找 项目关联客户基本资料 列表
-    public List<Customer> getProjectCustomerList(int projectId, Integer companyId) {
+    public List<Customer> getProjectCustomerList(int projectId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("companyId", companyId);
@@ -182,7 +185,7 @@ public class ProjectService {
     }
 
     // 根据 项目id 找 项目关联成员基本资料 列表
-    public List<User> getProjectMemberList(int projectId, Integer companyId) {
+    public List<User> getProjectMemberList(int projectId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("projectId", projectId);
         map.put("companyId", companyId);
@@ -266,7 +269,7 @@ public class ProjectService {
 //    }
 
     // 根据 成员id 和 项目id 找 模块列表
-    public List<Module> getModuleListByUserIdAndProjectId(int userId, int projectId, Integer companyId) {
+    public List<Module> getModuleListByUserIdAndProjectId(int userId, int projectId, int companyId) {
         if (isProjectCreater(userId, projectId) ||
                 isProjectManager(userId, projectId) ||
                 isProjectMember(userId, projectId)) {
@@ -298,7 +301,7 @@ public class ProjectService {
     }
 
     // 根据 模块id 找 模块负责人基本资料 列表
-    public List<User> getModuleManagerList(int moduleId, Integer companyId) {
+    public List<User> getModuleManagerList(int moduleId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("companyId", companyId);
@@ -306,7 +309,7 @@ public class ProjectService {
     }
 
     // 根据 模块id 找 模块关联客户基本资料 列表
-    public List<Customer> getModuleCustomerList(int moduleId, Integer companyId) {
+    public List<Customer> getModuleCustomerList(int moduleId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("companyId", companyId);
@@ -314,7 +317,7 @@ public class ProjectService {
     }
 
     // 根据 模块id 找 模块关联成员基本资料 列表
-    public List<User> getModuleMemberList(int moduleId, Integer companyId) {
+    public List<User> getModuleMemberList(int moduleId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("moduleId", moduleId);
         map.put("companyId", companyId);
@@ -390,7 +393,7 @@ public class ProjectService {
 //    }
 
     // 根据 成员id 和 模块id 找 任务列表
-    public List<Task> getTaskListByUserIdAndModuleId(int userId, int moduleId, Integer companyId) {
+    public List<Task> getTaskListByUserIdAndModuleId(int userId, int moduleId, int companyId) {
         if (isModuleCreater(userId, moduleId) ||
                 isModuleManager(userId, moduleId) ||
                 isModuleMember(userId, moduleId)) {
@@ -436,7 +439,7 @@ public class ProjectService {
     }
 
     // 根据 任务id 找 任务负责人基本资料 列表
-    public List<User> getTaskManagerList(int taskId, Integer companyId) {
+    public List<User> getTaskManagerList(int taskId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("companyId", companyId);
@@ -444,7 +447,7 @@ public class ProjectService {
     }
 
     // 根据 任务id 找 任务关联客户基本资料 列表
-    public List<Customer> getTaskCustomerList(int taskId, Integer companyId) {
+    public List<Customer> getTaskCustomerList(int taskId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("companyId", companyId);
@@ -452,7 +455,7 @@ public class ProjectService {
     }
 
     // 根据 任务id 找 任务关联成员基本资料 列表
-    public List<User> getTaskMemberList(int taskId, Integer companyId) {
+    public List<User> getTaskMemberList(int taskId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("companyId", companyId);
@@ -540,7 +543,7 @@ public class ProjectService {
     }
 
     // 根据 任务id 找 任务评论列表
-    public List<CommentTask> getTaskCommentList(int taskId, Integer companyId) {
+    public List<CommentTask> getTaskCommentList(int taskId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("taskId", taskId);
         map.put("companyId", companyId);

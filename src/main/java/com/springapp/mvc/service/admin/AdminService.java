@@ -50,14 +50,14 @@ public class AdminService {
         int accountId = 0;
 
         // 登录成功
-            // 为管理员账户
+        // 为管理员账户
         if (administratorMapper.hasAccountWithAdmin(map).equals(1)) {
             Administrator administrator = administratorMapper.selectAdminDetailByAccountNumAndPassword(map);
             accountType = 1;
             companyId = administrator.getCompanyId();
             accountId = administrator.getId();
         }
-            // 为用户账户
+        // 为用户账户
         else if (userMapper.hasAccountWithUser(map).equals(1)) {
             User user = userMapper.selectUserDetailByAccountNumAndPassword(map);
             accountType = 2;
@@ -179,7 +179,7 @@ public class AdminService {
     }
 
     // 设置 员工账号后缀
-    public boolean setUserAccountPostfix(Integer companyId, String userAccountPostfix) {
+    public boolean setUserAccountPostfix(int companyId, String userAccountPostfix) {
         if (hasUserAccountPostfix(companyId) == false) {
             Company company = new Company();
             company.setId(companyId);
@@ -196,7 +196,7 @@ public class AdminService {
     }
 
     // 根据 字符串 模糊搜索 成员基本信息列表
-    public List<User> fuzzySelectUserBaseInfoListByString(String str, Integer companyId) {
+    public List<User> fuzzySelectUserBaseInfoListByString(String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
@@ -214,7 +214,7 @@ public class AdminService {
     }
 
     // 插入 新建项目权限
-    public boolean insertRightsForCreateProject(Integer userId, Integer companyId) {
+    public boolean insertRightsForCreateProject(int userId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("userId", userId);
         map.put("companyId", companyId);
@@ -222,12 +222,12 @@ public class AdminService {
     }
 
     // 删除 新建项目权限
-    public boolean deleteRightsForCreateProject(Integer userId) {
+    public boolean deleteRightsForCreateProject(int userId) {
         return administratorMapper.deleteRightsForCreateProject(userId).equals(1);
     }
 
     // 判断 是否 拥有新建项目权限
-    public boolean hasRightsForCreateProject(Integer userId) {
+    public boolean hasRightsForCreateProject(int userId) {
         return administratorMapper.hasRightsForCreateProject(userId).equals(1);
     }
 }

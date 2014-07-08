@@ -12,6 +12,7 @@ import java.util.List;
 public interface GoodsTypeMapper {
     // 得到所有物品类型
     public List<GoodsType> getAllGoodsType();
+
     // 根据 物品类型id 找 物品类型
     public GoodsType selectGoodsTypeByGoodsTypeId(int goodsTypeId);
 }

@@ -12,6 +12,7 @@ import java.util.List;
 public interface FundsTypeMapper {
     // 得到所有经费类型
     public List<FundsType> getAllFundsType();
+
     // 根据 经费类型id 找 经费类型
     public FundsType selectFundsTypeByFundsTypeId(int fundsTypeId);
 }

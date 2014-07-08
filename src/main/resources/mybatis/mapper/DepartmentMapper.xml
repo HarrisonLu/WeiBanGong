@@ -40,9 +40,9 @@
     </select>
 
     <!--<update id="updateDepartment" parameterType="Department">-->
-        <!--update t_department set-->
-        <!--name = #{name}-->
-        <!--where id = #{id}-->
+    <!--update t_department set-->
+    <!--name = #{name}-->
+    <!--where id = #{id}-->
     <!--</update>-->
 
     <delete id="deleteDepartmentById" parameterType="java.lang.Integer">

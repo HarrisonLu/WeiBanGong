@@ -13,10 +13,13 @@ import java.util.Map;
 public interface GoodsItemMapper {
     // 插入 物品清单
     public Integer insertGoodsItem(GoodsItem goodsItem);
+
     // 删除 物品清单
     public Integer deleteGoodsItem(int goodsItemId);
+
     // 根据 审批id 删除 所有物品清单
     public Integer deleteAllGoodsItemByApprovalId(int approvalId);
+
     // 根据 审批id 找 物品清单列表
     public List<GoodsItem> selectGoodsItemByApprovalId(Map<String, Integer> map);
 }

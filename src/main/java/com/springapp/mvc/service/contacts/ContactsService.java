@@ -35,7 +35,7 @@ public class ContactsService {
 
     // 根据 字符串 模糊搜索 成员基本信息列表
     @Cacheable(value = "contactsSearchCache")
-    public List<User> fuzzySelectUserBaseInfoListByString(String str, Integer companyId) {
+    public List<User> fuzzySelectUserBaseInfoListByString(String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
@@ -91,7 +91,7 @@ public class ContactsService {
 
     // 得到 所有部门基本信息
     @Cacheable(value = "contactsDepartmentListCache")
-    public List<Department> selectAllDepartmentBaseInfo(Integer companyId) {
+    public List<Department> selectAllDepartmentBaseInfo(int companyId) {
         return departmentMapper.selectAllDepartmentBaseInfo(companyId);
     }
 

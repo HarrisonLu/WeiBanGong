@@ -27,7 +27,8 @@
         where id = #{commentApprovalId}
     </delete>
 
-    <select id="selectCommentApprovalListByApprovalId" parameterType="java.util.Map" resultMap="CommentApprovalResultMap">
+    <select id="selectCommentApprovalListByApprovalId" parameterType="java.util.Map"
+            resultMap="CommentApprovalResultMap">
         select ca.*,
                u.chinese_name as user_chinese_name,
                u.english_name as user_english_name

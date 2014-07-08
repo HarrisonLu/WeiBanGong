@@ -1,7 +1,6 @@
 package com.springapp.mvc.dao;
 
 import com.springapp.mvc.domain.contacts.User;
-import com.springapp.mvc.domain.customer.CommentCustomer;
 import com.springapp.mvc.domain.project.Task;
 import org.springframework.stereotype.Repository;
 

@@ -12,6 +12,7 @@ import java.util.List;
 public interface ClaimTypeMapper {
     // 得到所有费用类型
     public List<ClaimType> getAllClaimType();
+
     // 根据 费用类型id 找 费用类型
     public ClaimType selectClaimTypeByClaimTypeId(int claimTypeId);
 }

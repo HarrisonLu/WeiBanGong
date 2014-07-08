@@ -65,7 +65,7 @@
 
     <insert id="insertTask" parameterType="Task" useGeneratedKeys="true" keyProperty="id">
         insert into t_task (name, module_id, deadline, creater_id, priority_id, stage_id, company_id)
-                values (#{name}, #{moduleId}, #{deadline}, #{createrId}, #{priorityId}, #{stageId}, #{companyId})
+        values (#{name}, #{moduleId}, #{deadline}, #{createrId}, #{priorityId}, #{stageId}, #{companyId})
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             select last_insert_id() as id
         </selectKey>

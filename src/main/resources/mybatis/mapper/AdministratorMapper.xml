@@ -17,7 +17,8 @@
         where a.email = #{accountNum} and a.password = #{password}
     </select>
 
-    <select id="selectAdminDetailByAccountNumAndPassword" parameterType="java.util.Map" resultMap="AdministratorResultMap">
+    <select id="selectAdminDetailByAccountNumAndPassword" parameterType="java.util.Map"
+            resultMap="AdministratorResultMap">
         select a.*
         from t_admin a
         where a.email = #{accountNum} and a.password = #{password}
@@ -57,12 +58,12 @@
                 values (#{userId}, #{companyId})
     </insert>
 
-    <delete id="deleteRightsForCreateProject" parameterType="java.lang.Integer">
+    <delete id="deleteRightsForCreateProject" parameterType="int">
         delete from t_rights_create_project
                 where user_id = #{userId}
     </delete>
 
-    <select id="hasRightsForCreateProject" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="hasRightsForCreateProject" parameterType="int" resultType="java.lang.Integer">
         select count(*)
         from t_rights_create_project
         where user_id = #{userId}

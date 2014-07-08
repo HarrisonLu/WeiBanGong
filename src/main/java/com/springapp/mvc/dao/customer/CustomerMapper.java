@@ -1,6 +1,5 @@
 package com.springapp.mvc.dao.customer;
 
-import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.domain.customer.Customer;
 import org.springframework.stereotype.Repository;
 

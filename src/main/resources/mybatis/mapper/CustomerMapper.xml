@@ -78,7 +78,7 @@
               left join t_task t on c.task_id = t.id
         where c.id = #{customerId}
     </select>
-    
+
     <select id="selectMyCustomerList" parameterType="java.util.Map" resultMap="CustomerResultMap">
         select c.id, c.chinese_name, c.english_name, c.discuss_stage_id,
                p.name as project_name, m.name as module_name, t.name as task_name

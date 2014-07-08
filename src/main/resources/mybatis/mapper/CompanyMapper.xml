@@ -10,7 +10,7 @@
 
     <insert id="insertCompany" parameterType="Company">
         insert into t_company (name, user_account_postfix, is_set_user_account_postfix)
-            values (#{name}, #{userAccountPostfix}, #{isSetUserAccountPostfix})
+        values (#{name}, #{userAccountPostfix}, #{isSetUserAccountPostfix})
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             select last_insert_id() as id
         </selectKey>

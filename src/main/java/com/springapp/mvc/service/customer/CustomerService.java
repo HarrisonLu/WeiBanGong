@@ -16,7 +16,6 @@ import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
 import com.tool.ChineseToPinyin;
 import com.tool.DateHelper;
-import com.weixin.sdk.message.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -123,7 +122,7 @@ public class CustomerService {
     }
 
     // 根据 字符串 模糊搜索 成员基本资料列表
-    public List<User> fuzzySelectUserList(String str, Integer companyId) {
+    public List<User> fuzzySelectUserList(String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
@@ -148,7 +147,7 @@ public class CustomerService {
     }
 
     // 根据 字符串 模糊搜索 项目基本资料列表
-    public List<Project> fuzzySelectProjectBaseInfoList(String str, Integer companyId) {
+    public List<Project> fuzzySelectProjectBaseInfoList(String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("str", str);
         map.put("companyId", Integer.toString(companyId));
@@ -156,7 +155,7 @@ public class CustomerService {
     }
 
     // 根据 字符串 和 模块id 模糊搜索 任务基本资料列表
-    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str, Integer companyId) {
+    public List<Task> fuzzySelectTaskBaseInfoList(int moduleId, String str, int companyId) {
         Map<String, String> map = new HashMap<String, String>();
         map.put("moduleId", Integer.toString(moduleId));
         map.put("str", str);
@@ -202,7 +201,7 @@ public class CustomerService {
 
     // 根据 客户id 找 评论列表
     @Cacheable(value = "customerCommentCache")
-    public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId, Integer companyId) {
+    public List<CommentCustomer> selectCommentCustomerListByCustomerId(int customerId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("customerId", customerId);
         map.put("companyId", companyId);

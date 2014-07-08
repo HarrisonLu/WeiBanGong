@@ -22,23 +22,31 @@ public interface ProjectMapper {
     public List<Project> fuzzySelectProjectBaseInfoListByUserId(Map<String, String> map);
 
     // 根据 成员id 得到 项目基本信息列表
-        // 根据 成员id（为项目创建人） 得到 项目基本信息列表
+    // 根据 成员id（为项目创建人） 得到 项目基本信息列表
     public List<Project> selectProjectListWithProjectCreatorByUserId(Map<String, Integer> map);
-        // 根据 成员id（为项目负责人） 得到 项目基本信息列表
+
+    // 根据 成员id（为项目负责人） 得到 项目基本信息列表
     public List<Project> selectProjectListWithProjectManagerByUserId(Map<String, Integer> map);
-        // 根据 成员id（为项目成员） 得到 项目基本信息列表
+
+    // 根据 成员id（为项目成员） 得到 项目基本信息列表
     public List<Project> selectProjectListWithProjectMemberByUserId(Map<String, Integer> map);
-        // 根据 成员id（为模块创建人） 得到 项目基本信息列表
+
+    // 根据 成员id（为模块创建人） 得到 项目基本信息列表
     public List<Project> selectProjectListWithModuleCreatorByUserId(Map<String, Integer> map);
-        // 根据 成员id（为模块负责人） 得到 项目基本信息列表
+
+    // 根据 成员id（为模块负责人） 得到 项目基本信息列表
     public List<Project> selectProjectListWithModuleManagerByUserId(Map<String, Integer> map);
-        // 根据 成员id（为模块成员） 得到 项目基本信息列表
+
+    // 根据 成员id（为模块成员） 得到 项目基本信息列表
     public List<Project> selectProjectListWithModuleMemberByUserId(Map<String, Integer> map);
-        // 根据 成员id（为任务创建人） 得到 项目基本信息列表
+
+    // 根据 成员id（为任务创建人） 得到 项目基本信息列表
     public List<Project> selectProjectListWithTaskCreatorByUserId(Map<String, Integer> map);
-        // 根据 成员id（为任务负责人） 得到 项目基本信息列表
+
+    // 根据 成员id（为任务负责人） 得到 项目基本信息列表
     public List<Project> selectProjectListWithTaskManagerByUserId(Map<String, Integer> map);
-        // 根据 成员id（为任务成员） 得到 项目基本信息列表
+
+    // 根据 成员id（为任务成员） 得到 项目基本信息列表
     public List<Project> selectProjectListWithTaskMemberByUserId(Map<String, Integer> map);
 
     // 插入 项目

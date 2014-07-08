@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/04/2014 23:24:12 PM
+ Date: 07/09/2014 00:55:17 AM
 */
 
 SET NAMES utf8;
@@ -51,9 +51,9 @@ CREATE TABLE `t_approval` (
   `second_approval_user_id` int(10) DEFAULT NULL,
   `be_carbon_copy_user_id` int(10) DEFAULT NULL,
   `current_approval_user_id` int(10) DEFAULT NULL,
-  `approval_type_id` int(10) DEFAULT NULL,
-  `approval_stage_id` int(10) DEFAULT NULL,
-  `approval_status_id` int(10) DEFAULT NULL,
+  `approval_type_id` int(10) NOT NULL DEFAULT '1',
+  `approval_stage_id` int(10) NOT NULL DEFAULT '1',
+  `approval_status_id` int(10) NOT NULL DEFAULT '1',
   `leave_type_id` int(10) DEFAULT NULL,
   `claim_type_id` int(10) DEFAULT NULL,
   `goods_type_id` int(10) DEFAULT NULL,

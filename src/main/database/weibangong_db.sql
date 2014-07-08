@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 06/28/2014 17:03:46 PM
+ Date: 07/09/2014 00:55:07 AM
 */
 
 SET NAMES utf8;
@@ -44,9 +44,9 @@ CREATE TABLE `t_approval` (
   `second_approval_user_id` int(10) DEFAULT NULL,
   `be_carbon_copy_user_id` int(10) DEFAULT NULL,
   `current_approval_user_id` int(10) DEFAULT NULL,
-  `approval_type_id` int(10) DEFAULT NULL,
-  `approval_stage_id` int(10) DEFAULT NULL,
-  `approval_status_id` int(10) DEFAULT NULL,
+  `approval_type_id` int(10) NOT NULL DEFAULT '1',
+  `approval_stage_id` int(10) NOT NULL DEFAULT '1',
+  `approval_status_id` int(10) NOT NULL DEFAULT '1',
   `leave_type_id` int(10) DEFAULT NULL,
   `claim_type_id` int(10) DEFAULT NULL,
   `goods_type_id` int(10) DEFAULT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `t_approval` (
   CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
   CONSTRAINT `t_approval_second_approval_user_id` FOREIGN KEY (`second_approval_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_approval_type_id` FOREIGN KEY (`leave_type_id`) REFERENCES `t_leave_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_approval_stage`
@@ -134,7 +134,7 @@ CREATE TABLE `t_carbon_copy` (
   CONSTRAINT `t_carbon_copy_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_carbon_copy_be_carbon_copy_id` FOREIGN KEY (`be_carbon_copy_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_carbon_copy_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_claim_item`
@@ -151,7 +151,7 @@ CREATE TABLE `t_claim_item` (
   KEY `t_claim_item_company_id` (`company_id`),
   CONSTRAINT `t_claim_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_claim_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_claim_type`
@@ -182,7 +182,7 @@ CREATE TABLE `t_comment_approval` (
   CONSTRAINT `t_comment_approval_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_comment_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_comment_approval_user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_comment_customer`
@@ -353,7 +353,7 @@ CREATE TABLE `t_funds_item` (
   KEY `t_funds_item_company_id` (`company_id`),
   CONSTRAINT `t_funds_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_funds_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_funds_type`
@@ -381,7 +381,7 @@ CREATE TABLE `t_goods_item` (
   KEY `t_goods_item_company_id` (`company_id`),
   CONSTRAINT `t_goods_item_approval_id` FOREIGN KEY (`approval_id`) REFERENCES `t_approval` (`id`),
   CONSTRAINT `t_goods_item_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_goods_type`
@@ -439,7 +439,7 @@ CREATE TABLE `t_module` (
   CONSTRAINT `t_module_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_module_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `t_project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `t_module_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_module_customer`
@@ -510,7 +510,7 @@ CREATE TABLE `t_project` (
   CONSTRAINT `t_project_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_project_ibfk_1` FOREIGN KEY (`stage_id`) REFERENCES `t_stage_project` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `t_project_ibfk_2` FOREIGN KEY (`creater_id`) REFERENCES `t_user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_project_customer`
@@ -560,8 +560,8 @@ CREATE TABLE `t_rights_create_project` (
   `company_id` int(10) NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `company_id` (`company_id`),
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -682,7 +682,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_user_collectedcontacts`

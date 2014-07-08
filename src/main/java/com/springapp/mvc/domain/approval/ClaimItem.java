@@ -1,7 +1,5 @@
 package com.springapp.mvc.domain.approval;
 
-import com.springapp.mvc.domain.contacts.Department;
-
 /**
  * Created by lion on 14-6-25.
  */

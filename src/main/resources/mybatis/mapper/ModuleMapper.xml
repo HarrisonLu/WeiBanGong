@@ -55,7 +55,7 @@
 
     <insert id="insertModule" parameterType="Module" useGeneratedKeys="true" keyProperty="id">
         insert into t_module (name, project_id, creater_id, company_id)
-                values (#{name}, #{projectId}, #{createrId}, #{companyId})
+        values (#{name}, #{projectId}, #{createrId}, #{companyId})
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             select last_insert_id() as id
         </selectKey>
