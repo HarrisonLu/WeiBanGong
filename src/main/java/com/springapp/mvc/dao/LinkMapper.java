@@ -23,16 +23,16 @@ public interface LinkMapper {
     // 根据 成员id 找 收藏联系人基本资料列表
     public List<User> selectCollectedContactsBaseInfoListByUserId(Map<String, Integer> map);
 
-    /// 插入 成员id 和 部门id 关联
+    // 插入 成员id 和 部门id 关联
     public Integer insertUserIdDepartmentIdLink(Map<String, Integer> map);
 
-    /// 删除 成员id 和 部门id 关联
+    // 删除 成员id 和 部门id 关联
     public Integer deleteUserIdDepartmentIdLink(Map<String, Integer> map);
 
-    /// 插入 成员id 和 组id 关联
+    // 插入 成员id 和 组id 关联
     public Integer insertUserIdGroupIdLink(Map<String, Integer> map);
 
-    /// 删除 成员id 和 组id 关联
+    // 删除 成员id 和 组id 关联
     public Integer deleteUserIdGroupIdLink(Map<String, Integer> map);
 
     // 根据 成员id 找 所在组成员基本信息列表

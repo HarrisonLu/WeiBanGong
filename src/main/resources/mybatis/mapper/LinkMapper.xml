@@ -73,6 +73,26 @@
 --         order by collectedcontacts.english_name
     </select>
 
+    <insert id="insertUserIdDepartmentIdLink" parameterType="java.util.Map">
+        insert into t_user_department
+        values (#{userId}, #{departmentId})
+    </insert>
+
+    <delete id="deleteUserIdDepartmentIdLink" parameterType="java.util.Map">
+        delete from t_user_department
+        where user_id = #{userId} and department_id = #{departmentId}
+    </delete>
+
+    <insert id="insertUserIdGroupIdLink" parameterType="java.util.Map">
+        insert into t_user_group
+        values (#{userId}, #{groupId})
+    </insert>
+
+    <delete id="deleteUserIdGroupIdLink" parameterType="java.util.Map">
+        delete from t_user_group
+        where user_id = #{userId} and group_id = #{groupId}
+    </delete>
+
     <select id="searchGroupUserBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
         select group_u.id, group_u.chinese_name, group_u.english_name,
                 g.id as groupId, g.name as groupName, d_of_g.name as departmentNameOfGroup

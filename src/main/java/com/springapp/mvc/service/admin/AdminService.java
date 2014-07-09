@@ -1,5 +1,6 @@
 package com.springapp.mvc.service.admin;
 
+import com.springapp.mvc.dao.LinkMapper;
 import com.springapp.mvc.dao.admin.AdministratorMapper;
 import com.springapp.mvc.dao.admin.CompanyMapper;
 import com.springapp.mvc.dao.contacts.DepartmentMapper;
@@ -36,6 +37,8 @@ public class AdminService {
     AdministratorMapper administratorMapper;
     @Autowired
     CompanyMapper companyMapper;
+    @Autowired
+    LinkMapper linkMapper;
 
     /* 账号登录
        返回：账户类型（0为登录失败，1为管理员账户，2为用户账户），公司id，账户id
@@ -229,5 +232,37 @@ public class AdminService {
     // 判断 是否 拥有新建项目权限
     public boolean hasRightsForCreateProject(int userId) {
         return administratorMapper.hasRightsForCreateProject(userId).equals(1);
+    }
+
+    // 插入 成员id 和 部门id 关联
+    public Integer insertUserIdDepartmentIdLink(int userId, int departmentId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("departmentId", departmentId);
+        return linkMapper.insertUserIdDepartmentIdLink(map);
+    }
+
+    // 删除 成员id 和 部门id 关联
+    public Integer deleteUserIdDepartmentIdLink(int userId, int departmentId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("departmentId", departmentId);
+        return linkMapper.deleteUserIdDepartmentIdLink(map);
+    }
+
+    // 插入 成员id 和 组id 关联
+    public Integer insertUserIdGroupIdLink(int userId, int groupId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("groupId", groupId);
+        return linkMapper.insertUserIdGroupIdLink(map);
+    }
+
+    // 删除 成员id 和 组id 关联
+    public Integer deleteUserIdGroupIdLink(int userId, int groupId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("userId", userId);
+        map.put("groupId", groupId);
+        return linkMapper.deleteUserIdGroupIdLink(map);
     }
 }
