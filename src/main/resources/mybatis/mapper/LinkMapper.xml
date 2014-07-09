@@ -29,14 +29,33 @@
     </resultMap>
     <resultMap id="ProjectResultMap" type="Project">
         <id property="id" column="id"/>
-        <result property="name" column="project_name"/>
-        <result property="createTime" column="project_create_time"/>
+        <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="info" column="info"/>
+        <result property="createrId" column="creater_id"/>
+        <result property="createrChineseName" column="creater_chinese_name"/>
+        <result property="createrEnglishName" column="creater_english_name"/>
+        <result property="companyId" column="company_id"/>
     </resultMap>
     <resultMap id="TaskResultMap" type="Task">
         <id property="id" column="id"/>
-        <result property="name" column="task_name"/>
-        <result property="projectName" column="project_name_of_task"/>
-        <result property="createTime" column="task_create_time"/>
+        <result property="name" column="name"/>
+        <result property="moduleId" column="module_id"/>
+        <result property="moduleName" column="module_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deadline" column="deadline"/>
+        <result property="createrId" column="creater_id"/>
+        <result property="createrChineseName" column="creater_chinese_name"/>
+        <result property="createrEnglishName" column="creater_english_name"/>
+        <result property="priorityId" column="priority_id"/>
+        <result property="priorityName" column="priority_name"/>
+        <result property="stageId" column="stage_id"/>
+        <result property="stageName" column="stage_name"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="companyId" column="company_id"/>
     </resultMap>
     <resultMap id="CommentCustomerResultMap" type="CommentCustomer">
         <id property="id" column="id"/>

@@ -220,4 +220,24 @@ public class AdminServiceTest {
     public void testHasRightsForCreateProject() throws Exception {
         Assert.assertEquals(adminService.hasRightsForCreateProject(1), true);
     }
+
+    @Test
+    public void testInsertUserIdDepartmentIdLink() throws Exception {
+        adminService.insertUserIdDepartmentIdLink(3, 2);
+    }
+
+    @Test
+    public void testDeleteUserIdDepartmentIdLink() throws Exception {
+        adminService.deleteUserIdDepartmentIdLink(3, 2);
+    }
+
+    @Test
+    public void testInsertUserIdGroupIdLink() throws Exception {
+        adminService.insertUserIdGroupIdLink(3, 3);
+    }
+
+    @Test
+    public void testDeleteUserIdGroupIdLink() throws Exception {
+        adminService.deleteUserIdGroupIdLink(3, 3);
+    }
 }

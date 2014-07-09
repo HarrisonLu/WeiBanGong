@@ -52,6 +52,7 @@
             left join t_approval_type aty on a.approval_type_id = aty.id
             left join t_approval_stage ast on a.approval_stage_id = ast.id
         where a.applicant_id = #{userId} and a.approval_status_id = 2
+            order by submit_time DESC
     </select>
 
     <select id="getMyWaitingApprovalList" parameterType="java.util.Map" resultMap="ApprovalResultMap">
@@ -63,6 +64,7 @@
             left join t_approval_type aty on a.approval_type_id = aty.id
             left join t_user u on a.applicant_id = u.id
         where a.current_approval_user_id = #{userId} and a.approval_status_id = 2
+            order by submit_time DESC
     </select>
 
     <select id="selectDraftApprovalListByUserId" parameterType="java.util.Map" resultMap="ApprovalResultMap">
