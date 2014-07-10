@@ -38,11 +38,13 @@ public class ApprovalServiceTest {
         Approval approval = new Approval();
         approval.setId(99);
         approval.setApplicantId(2);
-        approval.setDepartmentId(1);
+        approval.setApprovalTypeId(1);
+        approval.setApprovalStageId(1);
+        approval.setApprovalStatusId(1);
         approval.setReasons("insertTest");
         approval.setCompanyId(1);
 
-//        approvalService.insertApproval(approval);
+        approvalService.insertApproval(approval);
     }
 
     @Test
