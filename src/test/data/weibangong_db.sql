@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/09/2014 00:55:17 AM
+ Date: 07/10/2014 13:28:59 PM
 */
 
 SET NAMES utf8;
@@ -45,7 +45,6 @@ CREATE TABLE `t_approval` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `applicant_id` int(10) NOT NULL,
-  `department_id` int(10) NOT NULL,
   `reasons` varchar(300) DEFAULT NULL,
   `first_approval_user_id` int(10) DEFAULT NULL,
   `second_approval_user_id` int(10) DEFAULT NULL,
@@ -66,7 +65,6 @@ CREATE TABLE `t_approval` (
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `t_approval_applicant_id` (`applicant_id`),
-  KEY `t_approval_department_id` (`department_id`),
   KEY `t_approval_first_approval_user_id` (`first_approval_user_id`),
   KEY `t_approval_second_approval_user_id` (`second_approval_user_id`),
   KEY `t_approval_be_carbon_copy_user_id` (`be_carbon_copy_user_id`),
@@ -87,7 +85,6 @@ CREATE TABLE `t_approval` (
   CONSTRAINT `t_approval_claim_type_id` FOREIGN KEY (`claim_type_id`) REFERENCES `t_claim_type` (`id`),
   CONSTRAINT `t_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_approval_current_approval_user_id` FOREIGN KEY (`current_approval_user_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_approval_department_id` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`),
   CONSTRAINT `t_approval_first_approval_user_id` FOREIGN KEY (`first_approval_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_approval_funds_type_id` FOREIGN KEY (`funds_type_id`) REFERENCES `t_funds_type` (`id`),
   CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
@@ -99,7 +96,7 @@ CREATE TABLE `t_approval` (
 --  Records of `t_approval`
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_approval` VALUES ('1', '2014-06-28 14:47:26', '1', '1', '休假', '2', '3', '2', '2', '1', '5', '1', '1', null, null, null, '2014-06-28 14:47:26', '2014-06-30 19:40:12', null, null, null, '1'), ('2', '2014-06-27 17:40:34', '1', '1', '出差', '2', '3', '2', '2', '2', '1', '2', '1', null, null, null, '2014-06-27 17:43:24', '2014-06-28 17:43:27', '香港', '东莞', null, '1'), ('3', '2014-06-27 17:55:37', '1', '1', '费用报销', '2', '3', '2', null, '3', '2', '2', null, '1', null, null, '2014-06-27 17:55:35', '2014-06-27 17:48:10', null, null, null, '1'), ('4', '2014-06-29 10:58:53', '1', '1', '物品', '2', '3', '2', null, '4', '4', '2', null, null, '1', null, '2014-06-29 10:58:53', '2014-06-30 10:58:46', null, null, null, '1'), ('5', '2014-06-27 17:53:12', '1', '1', '经费', '2', '3', null, null, '5', '3', '2', null, null, null, '1', null, null, null, null, null, '1'), ('6', '2014-06-27 17:55:48', '1', '1', '加班', '2', null, null, null, '6', '4', '3', null, null, null, null, '2014-06-28 03:26:59', '2014-06-27 20:56:50', null, null, null, '1'), ('7', '2014-06-27 17:57:13', '1', '1', '其他', '2', null, null, null, '7', '4', '3', null, null, null, null, null, null, null, null, '5', '1');
+INSERT INTO `t_approval` VALUES ('1', '2014-06-28 14:47:26', '1', '休假', '2', '3', '2', '2', '1', '5', '1', '1', null, null, null, '2014-06-28 14:47:26', '2014-06-30 19:40:12', null, null, null, '1'), ('2', '2014-06-27 17:40:34', '1', '出差', '2', '3', '2', '2', '2', '1', '2', '1', null, null, null, '2014-06-27 17:43:24', '2014-06-28 17:43:27', '香港', '东莞', null, '1'), ('3', '2014-06-27 17:55:37', '1', '费用报销', '2', '3', '2', null, '3', '2', '2', null, '1', null, null, '2014-06-27 17:55:35', '2014-06-27 17:48:10', null, null, null, '1'), ('4', '2014-06-29 10:58:53', '1', '物品', '2', '3', '2', null, '4', '4', '2', null, null, '1', null, '2014-06-29 10:58:53', '2014-06-30 10:58:46', null, null, null, '1'), ('5', '2014-06-27 17:53:12', '1', '经费', '2', '3', null, null, '5', '3', '2', null, null, null, '1', null, null, null, null, null, '1'), ('6', '2014-06-27 17:55:48', '1', '加班', '2', null, null, null, '6', '4', '3', null, null, null, null, '2014-06-28 03:26:59', '2014-06-27 20:56:50', null, null, null, '1'), ('7', '2014-06-27 17:57:13', '1', '其他', '2', null, null, null, '7', '4', '3', null, null, null, null, null, null, null, null, '5', '1');
 COMMIT;
 
 -- ----------------------------
@@ -555,7 +552,7 @@ CREATE TABLE `t_group` (
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_group_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_group_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_group`
@@ -955,7 +952,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `t_user`

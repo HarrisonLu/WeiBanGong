@@ -383,16 +383,6 @@ public class ApprovalService {
         return commentApprovalList;
     }
 
-    // 根据 用户id 得到 用户部门
-    public Department selectDepartmentByUserId(int userId) {
-        User user = userMapper.selectUserDetailsById(userId);
-        List<Department> departmentList = user.getDepartmentList();
-        if (departmentList.get(0) != null)
-            return departmentList.get(0);
-        else
-            return null;
-    }
-
     // 插入 抄送审批
     public boolean insertCarbonCopyApproval(int approvalId, int beCarbonCopyId, int companyId) {
         Map<String, Integer> map = new HashMap<String, Integer>();

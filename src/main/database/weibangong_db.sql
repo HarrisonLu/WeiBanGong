@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/09/2014 00:55:07 AM
+ Date: 07/10/2014 13:28:48 PM
 */
 
 SET NAMES utf8;
@@ -38,7 +38,6 @@ CREATE TABLE `t_approval` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `applicant_id` int(10) NOT NULL,
-  `department_id` int(10) NOT NULL,
   `reasons` varchar(300) DEFAULT NULL,
   `first_approval_user_id` int(10) DEFAULT NULL,
   `second_approval_user_id` int(10) DEFAULT NULL,
@@ -59,7 +58,6 @@ CREATE TABLE `t_approval` (
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `t_approval_applicant_id` (`applicant_id`),
-  KEY `t_approval_department_id` (`department_id`),
   KEY `t_approval_first_approval_user_id` (`first_approval_user_id`),
   KEY `t_approval_second_approval_user_id` (`second_approval_user_id`),
   KEY `t_approval_be_carbon_copy_user_id` (`be_carbon_copy_user_id`),
@@ -80,7 +78,6 @@ CREATE TABLE `t_approval` (
   CONSTRAINT `t_approval_claim_type_id` FOREIGN KEY (`claim_type_id`) REFERENCES `t_claim_type` (`id`),
   CONSTRAINT `t_approval_company_id` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_approval_current_approval_user_id` FOREIGN KEY (`current_approval_user_id`) REFERENCES `t_user` (`id`),
-  CONSTRAINT `t_approval_department_id` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`),
   CONSTRAINT `t_approval_first_approval_user_id` FOREIGN KEY (`first_approval_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_approval_funds_type_id` FOREIGN KEY (`funds_type_id`) REFERENCES `t_funds_type` (`id`),
   CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
@@ -408,7 +405,7 @@ CREATE TABLE `t_group` (
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_group_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`),
   CONSTRAINT `t_group_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `t_department` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_leave_type`
@@ -682,7 +679,7 @@ CREATE TABLE `t_user` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_user_collectedcontacts`
