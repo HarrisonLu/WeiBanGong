@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/10/2014 13:28:48 PM
+ Date: 07/11/2014 17:01:45 PM
 */
 
 SET NAMES utf8;
@@ -83,7 +83,7 @@ CREATE TABLE `t_approval` (
   CONSTRAINT `t_approval_goods_type_id` FOREIGN KEY (`goods_type_id`) REFERENCES `t_goods_type` (`id`),
   CONSTRAINT `t_approval_second_approval_user_id` FOREIGN KEY (`second_approval_user_id`) REFERENCES `t_user` (`id`),
   CONSTRAINT `t_approval_type_id` FOREIGN KEY (`leave_type_id`) REFERENCES `t_leave_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_approval_stage`
@@ -329,10 +329,7 @@ DROP TABLE IF EXISTS `t_discuss_stage`;
 CREATE TABLE `t_discuss_stage` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
-  `company_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `t_discuss_stage_ibfk` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
