@@ -13,7 +13,7 @@ public interface UserMapper {
     public Integer insertUser(User user);
 
     // 修改 成员信息
-    public void updateUserInfo(User user);
+    public Integer updateUserInfo(User user);
 
     // 修改 成员密码
     public void updateUserPassword(User user);

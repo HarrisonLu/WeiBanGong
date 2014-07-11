@@ -185,7 +185,7 @@ public class AdminServiceTest {
 
     @Test
     public void testSetUserAccountPostfix() throws Exception {
-        Assert.assertEquals(adminService.setUserAccountPostfix(1, "lalala"), false);
+        Assert.assertEquals(adminService.setUserAccountPostfix(1, "lalala"), true);
     }
 
     @Test

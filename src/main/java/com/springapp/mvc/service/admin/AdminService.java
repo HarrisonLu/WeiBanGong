@@ -111,8 +111,8 @@ public class AdminService {
     }
 
     // 更新 成员 详细信息
-    public void updateUserDetail(User user) {
-        userMapper.updateUserInfo(user);
+    public boolean updateUserDetail(User user) {
+        return userMapper.updateUserInfo(user).equals(1);
     }
 
     // 修改 成员 密码
