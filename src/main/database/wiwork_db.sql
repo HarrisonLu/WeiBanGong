@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/11/2014 17:01:45 PM
+ Date: 07/13/2014 13:53:10 PM
 */
 
 SET NAMES utf8;
@@ -36,7 +36,7 @@ CREATE TABLE `t_admin` (
 DROP TABLE IF EXISTS `t_approval`;
 CREATE TABLE `t_approval` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `submit_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `applicant_id` int(10) NOT NULL,
   `reasons` varchar(300) DEFAULT NULL,
   `first_approval_user_id` int(10) DEFAULT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `t_approval` (
   `claim_type_id` int(10) DEFAULT NULL,
   `goods_type_id` int(10) DEFAULT NULL,
   `funds_type_id` int(10) DEFAULT NULL,
-  `start_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `start_time` timestamp NULL DEFAULT NULL,
   `end_time` timestamp NULL DEFAULT NULL,
   `travel_from` varchar(300) DEFAULT NULL,
   `travel_to` varchar(300) DEFAULT NULL,
@@ -423,7 +423,7 @@ CREATE TABLE `t_module` (
   `name` varchar(30) NOT NULL,
   `project_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `creater_id` int(10) NOT NULL,
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
@@ -492,7 +492,7 @@ CREATE TABLE `t_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `stage_id` int(10) NOT NULL,
   `info` varchar(600) DEFAULT NULL,
   `creater_id` int(10) NOT NULL,
@@ -595,7 +595,7 @@ CREATE TABLE `t_task` (
   `name` varchar(30) NOT NULL,
   `module_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deadline` timestamp NULL DEFAULT NULL,
   `creater_id` int(10) NOT NULL,
   `priority_id` int(10) NOT NULL,
