@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../../template/header.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -22,20 +22,18 @@
     </div>
 </div>
 
-<div class="well">
-    <ul class="list-group">
-        <li class="list-group-item"><strong>模块名称</strong>
+<ul class="list-group">
+    <li class="list-group-item"><strong>模块名称</strong>
 
-            <p class="pull-right">${module.name}</p></li>
+        <p class="pull-right">${module.name}</p></li>
 
-        <li class="list-group-item"><strong>创建时间</strong>
+    <li class="list-group-item"><strong>创建时间</strong>
 
-            <p class="pull-right">${module.displayCreateTime}</p></li>
-        <li class="list-group-item"><strong>创建者</strong>
+        <p class="pull-right">${module.displayCreateTime}</p></li>
+    <li class="list-group-item"><strong>创建者</strong>
 
-            <p class="pull-right">${module.createrEnglishName} (${module.createrChineseName})</p></li>
-    </ul>
-</div>
+        <p class="pull-right">${module.createrEnglishName} (${module.createrChineseName})</p></li>
+</ul>
 
 <c:if test="${not empty tasks}">
     <div class="panel panel-primary">
@@ -44,7 +42,7 @@
         </div>
         <div class="list-group">
             <c:forEach items="${tasks}" var="task">
-                <a href="/project/task/detail/${task.id}" class="list-group-item">
+                <a href="/project/${module.id}/task/edit/${task.id}" class="list-group-item">
                         ${task.name}
                 </a>
             </c:forEach>
@@ -61,6 +59,21 @@
             <c:forEach items="${managers}" var="manager">
                 <a href="/contacts/user/${manager.id}" class="list-group-item">
                         ${manager.englishName} (${manager.chineseName})
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+</c:if>
+
+<c:if test="${not empty members}">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">模块成员</h4>
+        </div>
+        <div class="list-group">
+            <c:forEach items="${members}" var="member">
+                <a href="/contacts/user/${member.id}" class="list-group-item">
+                        ${member.englishName} (${member.chineseName})
                 </a>
             </c:forEach>
         </div>

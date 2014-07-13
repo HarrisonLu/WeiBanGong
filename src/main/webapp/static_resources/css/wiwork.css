@@ -7,13 +7,13 @@
 }
 
 .title-bar {
-    min-height: 50px;
+    min-height: 55px;
     background-color: #E3E3E3;
 }
 
 .title-bar-text {
     text-align: center;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 .title-bar-image {
@@ -23,12 +23,12 @@
 
 .title-bar-btn {
     text-align: center;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .title-bar-col {
     text-align: center;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .list-group-item-higher {

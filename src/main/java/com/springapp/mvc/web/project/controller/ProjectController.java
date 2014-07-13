@@ -6,9 +6,11 @@ import com.springapp.mvc.domain.project.CommentProject;
 import com.springapp.mvc.domain.project.Module;
 import com.springapp.mvc.domain.project.Project;
 import com.springapp.mvc.domain.project.Task;
+import com.springapp.mvc.service.admin.AdminService;
 import com.springapp.mvc.service.contacts.ContactsService;
 import com.springapp.mvc.service.project.ProjectService;
 import com.springapp.mvc.web.BaseController;
+import com.tool.DateHelper;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/project")
@@ -29,9 +29,10 @@ public class ProjectController extends BaseController {
 
     @Autowired
     private ProjectService projectService;
-
     @Autowired
     private ContactsService contactsService;
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showProjectIndex(HttpServletRequest request, ModelMap model) throws Exception {
@@ -57,10 +58,12 @@ public class ProjectController extends BaseController {
         Project project = projectService.getProjectDetail(projectId);
         List<Module> modules = projectService.getModuleListByUserIdAndProjectId(userId, projectId, companyId);
         List<User> managers = projectService.getProjectManagerList(projectId, companyId);
+        List<User> members = projectService.getProjectMemberList(projectId, companyId);
         List<Customer> customers = projectService.getProjectCustomerList(projectId, companyId);
         model.addAttribute("project", project);
         model.addAttribute("modules", modules);
         model.addAttribute("managers", managers);
+        model.addAttribute("members", members);
         model.addAttribute("customers", customers);
         return "project/project_detail";
     }
@@ -74,8 +77,12 @@ public class ProjectController extends BaseController {
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         List<Module> modules = projectService.getModuleListByUserIdAndProjectId(userId, projectId, companyId);
         Project project = projectService.getProjectDetail(projectId);
+        boolean isProjectCreater = projectService.isProjectCreater(userId, projectId);
+        boolean isProjectManager = projectService.isProjectManager(userId, projectId);
+        boolean canCreateModule = isProjectCreater || isProjectManager;
         model.addAttribute("modules", modules);
         model.addAttribute("project", project);
+        model.addAttribute("canCreateModule", canCreateModule);
         return "project/module/module_index";
     }
 
@@ -89,10 +96,12 @@ public class ProjectController extends BaseController {
         Module module = projectService.getModuleDetail(moduleId);
         List<Task> tasks = projectService.getTaskListByUserIdAndModuleId(userId, moduleId, companyId);
         List<User> managers = projectService.getModuleManagerList(moduleId, companyId);
+        List<User> members = projectService.getModuleMemberList(moduleId, companyId);
         List<Customer> customers = projectService.getModuleCustomerList(moduleId, companyId);
         model.addAttribute("module", module);
         model.addAttribute("tasks", tasks);
         model.addAttribute("managers", managers);
+        model.addAttribute("members", members);
         model.addAttribute("customers", customers);
         return "project/module/module_detail";
     }
@@ -106,9 +115,38 @@ public class ProjectController extends BaseController {
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         Module module = projectService.getModuleDetail(moduleId);
         List<Task> tasks = projectService.getTaskListByUserIdAndModuleId(userId, moduleId, companyId);
+        boolean isModuleCreater = projectService.isModuleCreater(userId, moduleId);
+        boolean isModuleManager = projectService.isModuleManager(userId, moduleId);
+        boolean canCreateTask = isModuleCreater || isModuleManager;
         model.addAttribute("module", module);
         model.addAttribute("tasks", tasks);
+        model.addAttribute("canCreateTask", canCreateTask);
         return "project/task/task_index";
+    }
+
+    @RequestMapping(value = "/task/detail/{taskId}", method = RequestMethod.GET)
+    public String showTaskDetail(HttpServletRequest request, ModelMap model, @PathVariable int taskId) throws Exception {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+        Task task = projectService.getTaskDetail(taskId);
+        List<User> managers = projectService.getTaskManagerList(taskId, companyId);
+        List<User> members = projectService.getTaskMemberList(taskId, companyId);
+        List<Customer> customers = projectService.getTaskCustomerList(taskId, companyId);
+        model.addAttribute("task", task);
+        model.addAttribute("managers", managers);
+        model.addAttribute("members", members);
+        model.addAttribute("customers", customers);
+        return "project/task/task_detail";
+    }
+
+    @RequestMapping(value = "/privilege/error", method = RequestMethod.GET)
+    public String showProjectPrivilegeError(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        return "project/project_privilege_error";
     }
 
     // 新建 项目
@@ -118,6 +156,10 @@ public class ProjectController extends BaseController {
             return sessionExpiredDirectedUrl;
 
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        boolean hasRightCreateProject = adminService.hasRightsForCreateProject(userId);
+        if (!hasRightCreateProject) {
+            return "redirect:/project/privilege/error";
+        }
         User user = contactsService.selectUserDetailsById(userId);
         model.addAttribute("user", user);
         model.addAttribute("current", new Date());
@@ -153,13 +195,23 @@ public class ProjectController extends BaseController {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        boolean isProjectCreater = projectService.isProjectCreater(userId, projectId);
+        boolean isProjectManager = projectService.isProjectManager(userId, projectId);
+        if (!isProjectCreater && !isProjectManager) {
+            return "redirect:/project/detail/" + projectId;
+        }
+
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         Project project = projectService.getProjectDetail(projectId);
         List<User> managers = projectService.getProjectManagerList(projectId, companyId);
+        List<User> members = projectService.getProjectMemberList(projectId, companyId);
         List<Customer> customers = projectService.getProjectCustomerList(projectId, companyId);
         model.addAttribute("project", project);
         model.addAttribute("managers", managers);
+        model.addAttribute("members", members);
         model.addAttribute("customers", customers);
+        model.addAttribute("isProjectCreater", isProjectCreater);
         return "project/project_edit";
     }
 
@@ -170,10 +222,15 @@ public class ProjectController extends BaseController {
             return sessionExpiredDirectedUrl;
 
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        boolean isProjectCreater = projectService.isProjectCreater(userId, projectId);
+        boolean isProjectManager = projectService.isProjectManager(userId, projectId);
+        if (!isProjectCreater && !isProjectManager) {
+            throw new Exception();
+        }
+
         User user = contactsService.selectUserDetailsById(userId);
         model.addAttribute("user", user);
         model.addAttribute("current", new Date());
-        model.addAttribute("projectId", projectId);
         return "project/module/module_create";
     }
 
@@ -202,21 +259,29 @@ public class ProjectController extends BaseController {
     }
 
     @RequestMapping(value = "/{projectId}/module/edit/{moduleId}", method = RequestMethod.GET)
-    public String showModuleEdit(HttpServletRequest request, ModelMap model, @PathVariable int projectId, @PathVariable int moduleId) throws Exception {
+    public String showModuleEdit(HttpServletRequest request, ModelMap model, @PathVariable int moduleId) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        boolean isModuleCreater = projectService.isModuleCreater(userId, moduleId);
+        boolean isModuleManager = projectService.isModuleManager(userId, moduleId);
+        if (!isModuleCreater && !isModuleManager) {
+            return "redirect:/project/module/detail/" + moduleId;
+        }
+
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         Module module = projectService.getModuleDetail(moduleId);
         List<Task> tasks = projectService.getTaskListByUserIdAndModuleId(userId, moduleId, companyId);
         List<User> managers = projectService.getModuleManagerList(moduleId, companyId);
+        List<User> members = projectService.getModuleMemberList(moduleId, companyId);
         List<Customer> customers = projectService.getModuleCustomerList(moduleId, companyId);
         model.addAttribute("module", module);
         model.addAttribute("tasks", tasks);
         model.addAttribute("managers", managers);
+        model.addAttribute("members", members);
         model.addAttribute("customers", customers);
-        model.addAttribute("projectId", projectId);
+        model.addAttribute("isModuleCreater", isModuleCreater);
         return "project/module/module_edit";
     }
 
@@ -227,12 +292,26 @@ public class ProjectController extends BaseController {
             return sessionExpiredDirectedUrl;
 
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        boolean isModuleCreater = projectService.isModuleCreater(userId, moduleId);
+        boolean isModuleManager = projectService.isModuleManager(userId, moduleId);
+        if (!isModuleCreater && !isModuleManager) {
+            throw new Exception();
+        }
+
         User user = contactsService.selectUserDetailsById(userId);
         Module module = projectService.getModuleDetail(moduleId);
         model.addAttribute("user", user);
         model.addAttribute("current", new Date());
         model.addAttribute("module", module);
         return "project/task/task_create";
+    }
+
+    @RequestMapping(value = "/task/create/manager", method = RequestMethod.GET)
+    public String showTaskCreateManager(HttpServletRequest request) throws Exception {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        return "project/task/task_create_manager";
     }
 
     @RequestMapping(value = "/task/create/member", method = RequestMethod.GET)
@@ -251,14 +330,29 @@ public class ProjectController extends BaseController {
         return "project/task/task_create_customer";
     }
 
-    @RequestMapping(value = "/task/detail/{taskId}", method = RequestMethod.GET)
-    public String showTaskDetail(HttpServletRequest request, ModelMap model, @PathVariable int taskId) throws Exception {
+    @RequestMapping(value = "/{moduleId}/task/edit/{taskId}", method = RequestMethod.GET)
+    public String showTaskEdit(HttpServletRequest request, ModelMap model, @PathVariable int moduleId, @PathVariable int taskId) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        boolean isTaskCreater = projectService.isTaskCreater(userId, taskId);
+        boolean isTaskManager = projectService.isTaskManager(userId, taskId);
+        if (!isTaskCreater && !isTaskManager) {
+            return "redirect:/project/task/detail/" + taskId;
+        }
+
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         Task task = projectService.getTaskDetail(taskId);
+        List<User> managers = projectService.getTaskManagerList(taskId, companyId);
+        List<User> members = projectService.getTaskMemberList(taskId, companyId);
+        List<Customer> customers = projectService.getTaskCustomerList(taskId, companyId);
         model.addAttribute("task", task);
-        return "project/task/task_detail";
+        model.addAttribute("managers", managers);
+        model.addAttribute("members", members);
+        model.addAttribute("customers", customers);
+        model.addAttribute("isTaskCreater", isTaskCreater);
+        return "project/task/task_edit";
     }
 
     @RequestMapping(value = "/comment/{projectId}", method = RequestMethod.GET)
@@ -286,7 +380,6 @@ public class ProjectController extends BaseController {
         return "project/project_manager";
     }
 
-
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String showProjectSearch(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
@@ -311,38 +404,33 @@ public class ProjectController extends BaseController {
         return projectService.fuzzySelectCustomerNotLink(query, companyId);
     }
 
+    // 新建 项目
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createProject(HttpServletRequest request,
-                                @RequestParam String name,
-                                @RequestParam String info,
-                                @RequestParam Integer stage,
-                                @RequestParam String managerIds,
-                                @RequestParam String memberIds,
-                                @RequestParam String customerIds) throws Exception {
+    public String createProject(HttpServletRequest request) throws Exception {
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         Project project = new Project();
-        project.setName(name);
-        project.setInfo(info);
-        project.setStageId(stage);
+        project.setName(request.getParameter("name"));
+        project.setInfo(request.getParameter("info"));
+        project.setStageId(Integer.parseInt(request.getParameter("stageId")));
         project.setCreaterId(userId);
         project.setCompanyId(companyId);
         projectService.insertProject(project);
 
         int pid = project.getId();
-        JSONArray managerArray = new JSONArray(managerIds);
+        JSONArray managerArray = new JSONArray(request.getParameter("managerIds"));
         for (int i = 0; i < managerArray.length(); ++i) {
             int uid = Integer.valueOf(managerArray.get(i).toString());
             projectService.insertProjectManagerLink(pid, uid);
         }
 
-        JSONArray memberArray = new JSONArray(memberIds);
+        JSONArray memberArray = new JSONArray(request.getParameter("memberIds"));
         for (int i = 0; i < memberArray.length(); ++i) {
             int uid = Integer.valueOf(memberArray.get(i).toString());
             projectService.insertProjectMemberLink(pid, uid);
         }
 
-        JSONArray customerArray = new JSONArray(customerIds);
+        JSONArray customerArray = new JSONArray(request.getParameter("customerIds"));
         for (int i = 0; i < customerArray.length(); ++i) {
             int uid = Integer.valueOf(customerArray.get(i).toString());
             projectService.insertProjectCustomerLink(pid, uid);
@@ -351,36 +439,67 @@ public class ProjectController extends BaseController {
         return "redirect:/project";
     }
 
+    // 编辑 项目
+    @RequestMapping(value = "/edit/{projectId}", method = RequestMethod.POST)
+    public String editProject(HttpServletRequest request, @PathVariable int projectId) throws Exception {
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        Project project = new Project();
+        project.setId(projectId);
+        project.setName(request.getParameter("name"));
+        project.setInfo(request.getParameter("info"));
+        project.setStageId(Integer.parseInt(request.getParameter("stageId")));
+        project.setCreaterId(userId);
+        projectService.updateProjectDetail(project);
+
+        JSONArray managerArray = new JSONArray(request.getParameter("managerIds"));
+        for (int i = 0; i < managerArray.length(); ++i) {
+            int uid = Integer.valueOf(managerArray.get(i).toString());
+            projectService.insertProjectManagerLink(projectId, uid);
+        }
+
+        JSONArray memberArray = new JSONArray(request.getParameter("memberIds"));
+        for (int i = 0; i < memberArray.length(); ++i) {
+            int uid = Integer.valueOf(memberArray.get(i).toString());
+            projectService.insertProjectMemberLink(projectId, uid);
+        }
+
+        JSONArray customerArray = new JSONArray(request.getParameter("customerIds"));
+        for (int i = 0; i < customerArray.length(); ++i) {
+            int uid = Integer.valueOf(customerArray.get(i).toString());
+            projectService.insertProjectCustomerLink(projectId, uid);
+        }
+
+        return "redirect:/project";
+    }
+
+    // 新建 模块
     @RequestMapping(value = "/{projectId}/module/create", method = RequestMethod.POST)
-    public String createModule(HttpServletRequest request, @PathVariable int projectId,
-                               @RequestParam String name,
-                               @RequestParam String managerIds,
-                               @RequestParam String memberIds,
-                               @RequestParam String customerIds) throws Exception {
+    public String createModule(HttpServletRequest request, @PathVariable int projectId) throws Exception {
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+
         Module module = new Module();
-        module.setName(name);
         module.setProjectId(projectId);
+        module.setName(request.getParameter("name"));
         module.setCreaterId(userId);
         module.setCompanyId(companyId);
         projectService.insertModule(module);
 
         int mid = module.getId();
 
-        JSONArray managerArray = new JSONArray(managerIds);
+        JSONArray managerArray = new JSONArray(request.getParameter("managerIds"));
         for (int i = 0; i < managerArray.length(); ++i) {
             int uid = Integer.valueOf(managerArray.get(i).toString());
             projectService.insertModuleManagerLink(mid, uid);
         }
 
-        JSONArray memberArray = new JSONArray(memberIds);
+        JSONArray memberArray = new JSONArray(request.getParameter("memberIds"));
         for (int i = 0; i < memberArray.length(); ++i) {
             int uid = Integer.valueOf(memberArray.get(i).toString());
             projectService.insertModuleMemberLink(mid, uid);
         }
 
-        JSONArray customerArray = new JSONArray(customerIds);
+        JSONArray customerArray = new JSONArray(request.getParameter("customerIds"));
         for (int i = 0; i < customerArray.length(); ++i) {
             int uid = Integer.valueOf(customerArray.get(i).toString());
             projectService.insertModuleCustomerLink(mid, uid);
@@ -389,109 +508,27 @@ public class ProjectController extends BaseController {
         return "redirect:/project/" + projectId;
     }
 
-    @RequestMapping(value = "/{moduleId}/task/create", method = RequestMethod.POST)
-    public String createTask(HttpServletRequest request, @PathVariable int moduleId,
-                             @RequestParam String name,
-                             @RequestParam String priorityId,
-                             @RequestParam String stageId,
-                             @RequestParam String deadline,
-                             @RequestParam String memberIds,
-                             @RequestParam String customerIds) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
-        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-
-        Task task = new Task();
-        task.setName(name);
-        task.setModuleId(moduleId);
-        if (deadline != "")
-            task.setDeadline(new Timestamp(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(deadline).getTime()));
-        task.setPriorityId(Integer.parseInt(priorityId));
-        task.setStageId(Integer.parseInt(stageId));
-        task.setCreaterId(userId);
-        task.setCompanyId(companyId);
-        projectService.insertTask(task);
-
-        int tid = task.getId();
-
-        JSONArray memberArray = new JSONArray(memberIds);
-        for (int i = 0; i < memberArray.length(); ++i) {
-            int uid = Integer.valueOf(memberArray.get(i).toString());
-            projectService.insertTaskMemberLink(tid, uid);
-        }
-
-        JSONArray customerArray = new JSONArray(customerIds);
-        for (int i = 0; i < customerArray.length(); ++i) {
-            int uid = Integer.valueOf(customerArray.get(i).toString());
-            projectService.insertTaskCustomerLink(tid, uid);
-        }
-
-        return "redirect:/project/module/" + moduleId;
-    }
-
-    @RequestMapping(value = "/edit/{projectId}", method = RequestMethod.POST)
-    public String editProject(HttpServletRequest request, @PathVariable int projectId,
-                              @RequestParam String name,
-                              @RequestParam String info,
-                              @RequestParam Integer stage,
-                              @RequestParam String managerIds,
-                              @RequestParam String memberIds,
-                              @RequestParam String customerIds) throws Exception {
-        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
-        Project project = new Project();
-        project.setId(projectId);
-        project.setName(name);
-        project.setInfo(info);
-        project.setStageId(stage);
-        project.setCreaterId(userId);
-        projectService.updateProjectDetail(project);
-
-        int pid = project.getId();
-        JSONArray managerArray = new JSONArray(managerIds);
-        for (int i = 0; i < managerArray.length(); ++i) {
-            int uid = Integer.valueOf(managerArray.get(i).toString());
-            projectService.insertProjectManagerLink(pid, uid);
-        }
-
-        JSONArray memberArray = new JSONArray(memberIds);
-        for (int i = 0; i < memberArray.length(); ++i) {
-            int uid = Integer.valueOf(memberArray.get(i).toString());
-            projectService.insertProjectMemberLink(pid, uid);
-        }
-
-        JSONArray customerArray = new JSONArray(customerIds);
-        for (int i = 0; i < customerArray.length(); ++i) {
-            int uid = Integer.valueOf(customerArray.get(i).toString());
-            projectService.insertProjectCustomerLink(pid, uid);
-        }
-
-        return "redirect:/project";
-    }
-
+    // 编辑 模块
     @RequestMapping(value = "/{projectId}/module/edit/{moduleId}", method = RequestMethod.POST)
-    public String editProjectModule(HttpServletRequest request, @PathVariable int projectId,
-                                    @PathVariable int moduleId,
-                                    @RequestParam String name,
-                                    @RequestParam String managerIds,
-                                    @RequestParam String memberIds,
-                                    @RequestParam String customerIds) throws Exception {
+    public String editModule(HttpServletRequest request, @PathVariable int projectId, @PathVariable int moduleId) throws Exception {
         Module module = new Module();
         module.setId(moduleId);
-        module.setName(name);
+        module.setName(request.getParameter("name"));
         projectService.updateModuleDetail(module);
 
-        JSONArray managerArray = new JSONArray(managerIds);
+        JSONArray managerArray = new JSONArray(request.getParameter("managerIds"));
         for (int i = 0; i < managerArray.length(); ++i) {
             int uid = Integer.valueOf(managerArray.get(i).toString());
             projectService.insertModuleManagerLink(moduleId, uid);
         }
 
-        JSONArray memberArray = new JSONArray(memberIds);
+        JSONArray memberArray = new JSONArray(request.getParameter("memberIds"));
         for (int i = 0; i < memberArray.length(); ++i) {
             int uid = Integer.valueOf(memberArray.get(i).toString());
             projectService.insertModuleMemberLink(moduleId, uid);
         }
 
-        JSONArray customerArray = new JSONArray(customerIds);
+        JSONArray customerArray = new JSONArray(request.getParameter("customerIds"));
         for (int i = 0; i < customerArray.length(); ++i) {
             int uid = Integer.valueOf(customerArray.get(i).toString());
             projectService.insertModuleCustomerLink(moduleId, uid);
@@ -500,12 +537,100 @@ public class ProjectController extends BaseController {
         return "redirect:/project/" + projectId;
     }
 
+    // 新建 任务
+    @RequestMapping(value = "/{moduleId}/task/create", method = RequestMethod.POST)
+    public String createTask(HttpServletRequest request, @PathVariable int moduleId) throws Exception {
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+
+        Task task = new Task();
+        task.setModuleId(moduleId);
+        task.setName(request.getParameter("name"));
+        task.setPriorityId(Integer.parseInt(request.getParameter("priorityId")));
+        task.setStageId(Integer.parseInt(request.getParameter("stageId")));
+        String deadline = request.getParameter("deadline");
+        if (!deadline.equals(""))
+            task.setDeadline(new Timestamp(DateHelper.getShortDateByString(deadline).getTime()));
+        task.setCreaterId(userId);
+        task.setCompanyId(companyId);
+        projectService.insertTask(task);
+
+        int tid = task.getId();
+
+        JSONArray managerArray = new JSONArray(request.getParameter("managerIds"));
+        for (int i = 0; i < managerArray.length(); ++i) {
+            int uid = Integer.valueOf(managerArray.get(i).toString());
+            projectService.insertTaskManagerLink(tid, uid);
+        }
+
+        JSONArray memberArray = new JSONArray(request.getParameter("memberIds"));
+        for (int i = 0; i < memberArray.length(); ++i) {
+            int uid = Integer.valueOf(memberArray.get(i).toString());
+            projectService.insertTaskMemberLink(tid, uid);
+        }
+
+        JSONArray customerArray = new JSONArray(request.getParameter("customerIds"));
+        for (int i = 0; i < customerArray.length(); ++i) {
+            int uid = Integer.valueOf(customerArray.get(i).toString());
+            projectService.insertTaskCustomerLink(tid, uid);
+        }
+
+        return "redirect:/project/module/" + moduleId;
+    }
+
+    // 编辑 任务
+    @RequestMapping(value = "/{moduleId}/task/edit/{taskId}", method = RequestMethod.POST)
+    public String editTask(HttpServletRequest request, @PathVariable int moduleId, @PathVariable int taskId) throws Exception {
+        Task task = new Task();
+        task.setId(taskId);
+        task.setName(request.getParameter("name"));
+        task.setPriorityId(Integer.parseInt(request.getParameter("priorityId")));
+        task.setStageId(Integer.parseInt(request.getParameter("stageId")));
+        String deadline = request.getParameter("deadline");
+        if (!deadline.equals(""))
+            task.setDeadline(new Timestamp(DateHelper.getShortDateByString(deadline).getTime()));
+        projectService.updateTaskDetail(task);
+
+        JSONArray managerArray = new JSONArray(request.getParameter("managerIds"));
+        for (int i = 0; i < managerArray.length(); ++i) {
+            int uid = Integer.valueOf(managerArray.get(i).toString());
+            projectService.insertTaskManagerLink(taskId, uid);
+        }
+
+        JSONArray memberArray = new JSONArray(request.getParameter("memberIds"));
+        for (int i = 0; i < memberArray.length(); ++i) {
+            int uid = Integer.valueOf(memberArray.get(i).toString());
+            projectService.insertTaskMemberLink(taskId, uid);
+        }
+
+        JSONArray customerArray = new JSONArray(request.getParameter("customerIds"));
+        for (int i = 0; i < customerArray.length(); ++i) {
+            int uid = Integer.valueOf(customerArray.get(i).toString());
+            projectService.insertTaskCustomerLink(taskId, uid);
+        }
+
+        return "redirect:/project/module/" + moduleId;
+    }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public
     @ResponseBody
     Integer deleteProject(@RequestParam int projectId) throws Exception {
         return projectService.deleteProjectByProjectId(projectId);
+    }
+
+    @RequestMapping(value = "/module/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Integer deleteModule(@RequestParam int moduleId) throws Exception {
+        return projectService.deleteModuleByModuleId(moduleId);
+    }
+
+    @RequestMapping(value = "/task/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Integer deleteTask(@RequestParam int taskId) throws Exception {
+        return projectService.deleteTaskByTaskId(taskId);
     }
 
     @RequestMapping(value = "/comment/{projectId}", method = RequestMethod.POST)

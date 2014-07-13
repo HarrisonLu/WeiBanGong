@@ -51,7 +51,7 @@
                 password: password},
             success: function (data) {
                 if (!data) {
-                    toastr.error("登陆失败");
+                    toastr.error("登陆失败，请检查邮箱密码");
                     return;
                 }
                 toastr.success("登陆成功，正在跳转");

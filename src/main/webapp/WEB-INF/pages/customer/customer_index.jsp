@@ -34,6 +34,12 @@
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
+            <c:if test="${empty myCustomerList}">
+                <div class="list-group-item" style="min-height: 100px">
+                    <p style="text-align: center; color: #8E8E8E; margin-top: 30px">轻触上面加号按钮新建您的第一位客户吧</p>
+                </div>
+            </c:if>
+
             <c:forEach items="${myCustomerList}" var="customer">
                 <a href="/customer/${customer.id}" class="list-group-item list-group-item-higher">
                     <c:if test="${customer.discussStageId == 1}">
@@ -66,6 +72,11 @@
             </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse in">
+            <c:if test="${empty myCustomerList}">
+                <div class="list-group-item" style="min-height: 100px">
+                    <p style="text-align: center; color: #8E8E8E; margin-top: 30px">暂无共享客户</p>
+                </div>
+            </c:if>
             <c:forEach items="${sharedCustomerList}" var="customer">
                 <a href="/customer/${customer.id}" class="list-group-item list-group-item-higher">
                     <c:if test="${customer.discussStageId == 1}">
@@ -87,5 +98,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_CUSTOMER] == 1) {
+            localStorage[REFRESH_CUSTOMER] = 0;
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

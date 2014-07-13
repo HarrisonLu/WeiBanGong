@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../template/header.jsp"/>
 <html>
 <head>
@@ -17,50 +18,55 @@
     </div>
 </div>
 
-<form class="form-horizontal" style="margin-right: 15px">
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">中文名</label>
+<div class="panel-body">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-xs-4 control-label">中文名</label>
 
-        <div class="col-xs-8">
-            <input type="text" class="form-control" id="chineseName" placeholder="请输入员工中文名字"/>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="chineseName" placeholder="请输入员工中文名字"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">英文名</label>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">英文名</label>
 
-        <div class="col-xs-8">
-            <input type="text" class="form-control" id="englishName" placeholder="请输入员工英文名字"/>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="englishName" placeholder="请输入员工英文名字"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">主管部门</label>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">主管部门</label>
 
-        <div class="col-xs-8">
-            <select class="form-control" id="department">
-                <option class="form-control" value="1">未洽谈</option>
-                <option class="form-control" value="2">洽谈中</option>
-                <option class="form-control" value="3">合作期</option>
-                <option class="form-control" value="4">其他</option>
-            </select>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" value="${department.name}" readonly/>
+            </div>
         </div>
-    </div>
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">职位名称</label>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">组</label>
 
-        <div class="col-xs-8">
-            <input type="text" class="form-control" id="position" placeholder="请输入员工职位名字"/>
+            <div class="col-xs-8">
+                <select class="form-control" id="groupId">
+                    <c:forEach items="${department.groupList}" var="group">
+                        <option class="form-control" value="${group.id}">${group.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">申请账号</label>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">职位名称</label>
 
-        <div class="col-xs-8">
-            <input type="text" class="form-control" id="email" placeholder="请输入员工账号"/>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="position" placeholder="请输入员工职位名字"/>
+            </div>
         </div>
-    </div>
-</form>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">申请账号</label>
 
-<div class="container">
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="email" placeholder="请输入员工账号" value="@${postfix}.com"/>
+            </div>
+        </div>
+    </form>
     <a href="javascript:onUserCreate()" class="btn btn-primary btn-lg btn-block btn-block-bottom" role="button">
         提交</a>
 </div>
@@ -71,17 +77,25 @@
         var englishName = $("#englishName").val();
         var position = $("#position").val();
         var email = $("#email").val();
+        var groupId = $("#groupId").val();
+
+        if (chineseName == "" || englishName == "" || position == "" || email == "") {
+            toastr.warning("输入信息不完整");
+            return;
+        }
 
         $.ajax({
             type: "POST",
-            url: encodeURI(encodeURI(window.location)),
+            url: encodeURI(encodeURI("/admin/structure/user/create")),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             data: {chineseName: chineseName,
                 englishName: englishName,
                 position: position,
-                email: email},
+                email: email,
+                groupId: groupId},
             success: function () {
                 toastr.success("创建成功");
+                localStorage[REFRESH_CONTACTS] = 1;
                 setTimeout("window.history.back()", 1000);
             }
         });

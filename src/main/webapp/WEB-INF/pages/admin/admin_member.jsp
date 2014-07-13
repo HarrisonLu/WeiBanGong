@@ -19,18 +19,13 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row-fluid title-bar" style="min-height: 50px">
-        <div class="col-xs-4 title-bar-text">
-            <a href="#"><img class="title-bar-image" src="/static_resources/images/bar_item_create.png"></a>
-        </div>
-        <div class="col-xs-4 title-bar-text">
-            <a href="#"><img class="title-bar-image" src="/static_resources/images/bar_item_create.png"></a>
-        </div>
-        <div class="col-xs-4 title-bar-text">
-            <a href="#"><img class="title-bar-image" src="/static_resources/images/bar_item_search.png"></a>
-        </div>
-    </div>
+<div class="list-group">
+    <c:forEach items="${departments}" var="department">
+        <a href="/admin/member/department/${department.id}" class="list-group-item list-group-item-higher">
+            <img class="pull-left head-pic-small" src="/static_resources/images/btn_head.png">
+            <h4 class="list-group-item-text head-pic-text">${department.name}</h4>
+        </a>
+    </c:forEach>
 </div>
 
 </body>

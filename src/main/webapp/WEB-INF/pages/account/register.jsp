@@ -38,7 +38,7 @@
 </div>
 
 <div class="container">
-    <a href="javascript:onRegister()" class="btn btn-primary btn-lg btn-block" role="button"
+    <a href="javascript:onRegister()" class="btn btn-success btn-lg btn-block" role="button"
        style="margin-bottom: 5px">
         确认并提交</a>
 </div>
@@ -81,7 +81,7 @@
                     toastr.warning("注册失败");
                     return;
                 }
-                toastr.success("恭喜你，您已经成功注册微办公企业管理员账号，自动为您跳转回主页");
+                toastr.success("恭喜你，您已经成功注册微办公企业管理员账号，自动为您跳转回登陆页");
                 setTimeout("window.location.href='/login'", 1500);
             }
         });

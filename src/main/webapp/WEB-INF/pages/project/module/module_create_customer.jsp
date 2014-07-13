@@ -5,7 +5,7 @@
 <head>
     <title>项目管理</title>
 </head>
-<body>
+<body onload="document.getElementById('input_search').focus()">
 <div class="container-fluid">
     <div class="row-fluid title-bar">
         <div class="col-xs-2 title-bar-btn">
@@ -31,7 +31,8 @@
 </div>
 
 <div class="container">
-    <button class="btn btn-primary btn-lg btn-block btn-block-bottom" onclick="onSave(STORAGE_CUSTOMER)">确定
+    <button class="btn btn-primary btn-lg btn-block btn-block-bottom-no-top-margin" onclick="onSave(STORAGE_CUSTOMER)">
+        确定
     </button>
 </div>
 

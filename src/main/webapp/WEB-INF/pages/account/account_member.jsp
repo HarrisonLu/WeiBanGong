@@ -13,10 +13,7 @@
                                                      src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
-            <h4>我的账户</h4>
-        </div>
-        <div class="col-xs-2">
-            <a href="javascript:onAccountSave()" class="btn btn-primary navbar-btn pull-right" role="button">保存</a>
+            <h4>我的账号</h4>
         </div>
     </div>
 </div>
@@ -42,16 +39,9 @@
 
         <div class="col-xs-8">
             <p class="form-control-static pull-right">
-                <c:choose>
-                    <c:when test="${empty user.departmentList}">
-                        暂无
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach items="${user.departmentList}" var="department">
-                            ${department.name}
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
+                <c:forEach items="${user.groupList}" var="group">
+                    ${group.departmentName} - ${group.name}
+                </c:forEach>
             </p>
         </div>
     </div>
@@ -76,12 +66,13 @@
     </a>
 </form>
 
-<form class="form-horizontal">
-    <div class="panel panel-primary" style="margin-top: 10px">
-        <div class="panel-heading">
-            <h4 class="panel-title">联系方式</h4>
-        </div>
-        <div class="panel-body">
+
+<div class="panel panel-primary" style="margin-top: 20px">
+    <div class="panel-heading">
+        <h4 class="panel-title">联系方式</h4>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal">
             <div class="form-group">
                 <label class="col-xs-4 control-label">微信号</label>
 
@@ -121,18 +112,36 @@
                     <input type="email" class="form-control" id="email" placeholder="请输入您的邮箱" value="${user.email}"/>
                 </div>
             </div>
+        </form>
+        <a href="javascript:onAccountUpdate()" class="btn btn-success btn-lg btn-block btn-block-bottom"
+           role="button">保存</a>
+        <a href="javascript:$('#logoutModal').modal('show')"
+           class="btn btn-danger btn-lg btn-block btn-block-bottom-no-top-margin"
+           role="button">退出账户</a>
+    </div>
+</div>
+
+<div class="modal" id="logoutModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: center">
+                <h4>确认退出账号吗？</h4>
+
+                <p>退出后不会删除任何数据，下次登录依然可以使用本账号</p>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-danger btn-block btn-block-bottom-no-top-margin"
+                        onclick="onAccountLogout()">退出账号
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-block-bottom" data-dismiss="modal">取消
+                </button>
+            </div>
         </div>
     </div>
-</form>
-
-<div class="container">
-    <a href="javascript:onAccountSave()" class="btn btn-primary btn-lg btn-block btn-block-bottom-no-top-margin"
-       role="button">
-        保存</a>
 </div>
 
 <script>
-    function onAccountSave() {
+    function onAccountUpdate() {
         var weChatNum = $("#weChatNum").val();
         var telephoneNum = $("#telephoneNum").val();
         var mobilePhoneNum = $("#mobilePhoneNum").val();
@@ -148,9 +157,11 @@
                 mobilePhoneNum: mobilePhoneNum,
                 qqNum: qqNum,
                 email: email},
-            success: function () {
-                toastr.success("保存成功");
-                setTimeout("window.history.back()", 1000);
+            success: function (data) {
+                if (data) {
+                    toastr.success("保存成功");
+                    setTimeout("window.history.back()", 1000);
+                }
             }
         });
     }

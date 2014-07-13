@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,20 +37,20 @@ public class AccountController extends BaseController {
         return "account/register";
     }
 
-    @RequestMapping(value = "/admin_404", method = RequestMethod.GET)
+    @RequestMapping(value = "/account/admin/access/denied", method = RequestMethod.GET)
     public String showAdmin404(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        return "account/admin_404";
+        return "account/account_admin_access_denied";
     }
 
-    @RequestMapping(value = "/member_404", method = RequestMethod.GET)
+    @RequestMapping(value = "/account/member/access/denied", method = RequestMethod.GET)
     public String showMember404(HttpServletRequest request) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
-        return "account/member_404";
+        return "account/account_member_access_denied";
     }
 
     @RequestMapping(value = "/account", method = RequestMethod.GET)
@@ -86,7 +85,7 @@ public class AccountController extends BaseController {
             User user = contactsService.selectUserDetailsById(userId);
             model.addAttribute("email", user.getEmail());
         }
-        return "account/account_pwd_reset";
+        return "account/account_password_change";
     }
 
     @RequestMapping(value = "/account/admin/postfix", method = RequestMethod.GET)
@@ -103,8 +102,8 @@ public class AccountController extends BaseController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doLogin(HttpServletRequest request, @RequestParam String email, @RequestParam String password) throws Exception {
-        Map<String, Integer> map = adminService.login(email, password);
+    Boolean doLogin(HttpServletRequest request) throws Exception {
+        Map<String, Integer> map = adminService.login(request.getParameter("email"), request.getParameter("password"));
         int accountType = map.get("accountType");
         int accountId = map.get("accountId");
         int companyId = map.get("companyId");
@@ -112,7 +111,6 @@ public class AccountController extends BaseController {
         if (accountType == 0) {
             return false;
         }
-
         if (accountType == 1) {
             request.getSession().setAttribute(SESSION_KEY, ROLE_ADMIN);
         } else if (accountType == 2) {
@@ -121,98 +119,81 @@ public class AccountController extends BaseController {
 
         request.getSession().setAttribute(ACCOUNT_ID, accountId);
         request.getSession().setAttribute(COMPANY_ID, companyId);
-
         return true;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doRegister(@RequestParam String companyName,
-                       @RequestParam String phoneNum,
-                       @RequestParam String email,
-                       @RequestParam String password) throws Exception {
-
+    Boolean doRegister(HttpServletRequest request) throws Exception {
         Company company = new Company();
-        company.setName(companyName);
+        company.setName(request.getParameter("companyName"));
         if (!adminService.insertCompany(company)) {
             return false;
         }
 
         Administrator admin = new Administrator();
-        admin.setEmail(email);
-        admin.setPhoneNum(phoneNum);
         admin.setCompanyId(company.getId());
-        admin.setPassword(password);
+        admin.setEmail(request.getParameter("email"));
+        admin.setPhoneNum(request.getParameter("phoneNum"));
+        admin.setPassword(request.getParameter("password"));
         return adminService.insertAdmin(admin);
     }
 
     @RequestMapping(value = "/account/password/change", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doChangePassword(HttpServletRequest request,
-                             @RequestParam String newPwd) {
+    Boolean doChangePassword(HttpServletRequest request) {
         if (isAdminRole(request)) {
             int adminId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
             Administrator admin = new Administrator();
             admin.setId(adminId);
-            admin.setPassword(newPwd);
+            admin.setPassword(request.getParameter("newPwd"));
             adminService.updateAdminPassword(admin);
         } else {
             int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
             User user = new User();
             user.setId(userId);
-            user.setPassword(newPwd);
+            user.setPassword(request.getParameter("newPwd"));
             adminService.updateUserPassword(user);
         }
-        return true;
-    }
-
-    @RequestMapping(value = "/account/member/update", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Boolean doUpdateAccount(HttpServletRequest request,
-                            @RequestParam String weChatNum,
-                            @RequestParam String telephoneNum,
-                            @RequestParam String mobilePhoneNum,
-                            @RequestParam String qqNum,
-                            @RequestParam String email) {
-        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
-        User user = new User();
-        user.setId(userId);
-        user.setWechatNum(weChatNum);
-        user.setTelephoneNum(telephoneNum);
-        user.setMobilePhoneNum(mobilePhoneNum);
-        user.setQqNum(qqNum);
-        user.setEmail(email);
-        adminService.updateUserDetail(user);
         return true;
     }
 
     @RequestMapping(value = "/account/admin/update", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doUpdateAccount(HttpServletRequest request,
-                            @RequestParam String phoneNum,
-                            @RequestParam String email) {
+    Boolean doUpdateAccountAdmin(HttpServletRequest request) {
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         Administrator admin = new Administrator();
         admin.setId(userId);
-        admin.setPhoneNum(phoneNum);
-        admin.setEmail(email);
-        adminService.updateAdminDetail(admin);
-        return true;
+        admin.setPhoneNum(request.getParameter("phoneNum"));
+        admin.setEmail(request.getParameter("email"));
+        return adminService.updateAdminDetail(admin);
+    }
+
+    @RequestMapping(value = "/account/member/update", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doUpdateAccountMember(HttpServletRequest request) {
+        int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
+        User user = new User();
+        user.setId(userId);
+        user.setWechatNum(request.getParameter("weChatNum"));
+        user.setTelephoneNum(request.getParameter("telephoneNum"));
+        user.setMobilePhoneNum(request.getParameter("mobilePhoneNum"));
+        user.setQqNum(request.getParameter("qqNum"));
+        user.setEmail(request.getParameter("email"));
+        return adminService.updateUserDetail(user);
     }
 
     @RequestMapping(value = "/account/admin/postfix", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doApplySuffix(HttpServletRequest request,
-                          @RequestParam String postfix) {
+    Boolean doApplySuffix(HttpServletRequest request) {
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-        return adminService.setUserAccountPostfix(companyId, postfix);
+        return adminService.setUserAccountPostfix(companyId, request.getParameter("postfix"));
     }
-
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public

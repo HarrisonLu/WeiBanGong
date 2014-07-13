@@ -15,7 +15,7 @@
             <h4>新建客户</h4>
         </div>
         <div class="col-xs-2">
-            <button type="submit" class="btn btn-primary navbar-btn pull-right" onclick="onCreate(CREATE_CUSTOMER)">保存
+            <button type="submit" class="btn btn-success navbar-btn pull-right" onclick="onCreate(CREATE_CUSTOMER)">保存
             </button>
         </div>
     </div>
@@ -32,30 +32,32 @@
                 </h4>
             </div>
             <div id="collapseMain" class="panel-collapse collapse in">
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">中文姓名</label>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">中文姓名</label>
 
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" id="chineseName">
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="chineseName">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">英文姓名</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">英文姓名</label>
 
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" id="englishName">
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="englishName">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">性别</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">性别</label>
 
-                    <div class="col-xs-4" style="margin-top: 6px">
-                        <input type="radio" name="gender" id="optionsRadios1" value="男" checked>
-                        <label for="optionsRadios1">男</label>
-                    </div>
-                    <div class="col-xs-4" style="margin-top: 6px">
-                        <input type="radio" name="gender" id="optionsRadios2" value="女">
-                        <label for="optionsRadios2">女</label>
+                        <div class="col-xs-4" style="margin-top: 6px">
+                            <input type="radio" name="gender" id="optionsRadios1" value="男" checked>
+                            <label for="optionsRadios1">男</label>
+                        </div>
+                        <div class="col-xs-4" style="margin-top: 6px">
+                            <input type="radio" name="gender" id="optionsRadios2" value="女">
+                            <label for="optionsRadios2">女</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,34 +74,39 @@
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">关联</label>
+                <div class="panel-body">
+                    <div class="well">
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label">关联</label>
 
-                    <div class="col-xs-8" style="text-align: left">
-                        <a href="/customer/create/project"><img src="/static_resources/images/ic_input_add.png"/></a>
+                            <div class="col-xs-8" style="text-align: left">
+                                <a href="/customer/create/project"><img
+                                        src="/static_resources/images/ic_input_add.png"/></a>
+                            </div>
+                        </div>
+
+                        <div class="list-group" id="project">
+                        </div>
                     </div>
-                </div>
 
-                <div class="list-group" id="project">
-                </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">所处阶段</label>
 
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">所处阶段</label>
-
-                    <div class="col-xs-8">
-                        <select class="form-control" id="stage">
-                            <option class="form-control" value="1">未洽谈</option>
-                            <option class="form-control" value="2">洽谈中</option>
-                            <option class="form-control" value="3">合作期</option>
-                            <option class="form-control" value="4">其他</option>
-                        </select>
+                        <div class="col-xs-8">
+                            <select class="form-control" id="stage">
+                                <option class="form-control" value="1">未洽谈</option>
+                                <option class="form-control" value="2">洽谈中</option>
+                                <option class="form-control" value="3">合作期</option>
+                                <option class="form-control" value="4">其他</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">客户价值</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">客户价值</label>
 
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" id="customerValue">
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="customerValue">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,40 +122,42 @@
                     </a>
                 </h4>
             </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">手机号码</label>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">手机号码</label>
 
-                    <div class="col-xs-8">
-                        <input type="number" class="form-control" id="mobilePhoneNum">
+                        <div class="col-xs-8">
+                            <input type="number" class="form-control" id="mobilePhoneNum">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">微信号</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">微信号</label>
 
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" id="wechatNum">
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="wechatNum">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">座机号码</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">座机号码</label>
 
-                    <div class="col-xs-8">
-                        <input type="number" class="form-control" id="telephoneNum">
+                        <div class="col-xs-8">
+                            <input type="number" class="form-control" id="telephoneNum">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">QQ号码</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">QQ号码</label>
 
-                    <div class="col-xs-8">
-                        <input type="number" class="form-control" id="qqNum">
+                        <div class="col-xs-8">
+                            <input type="number" class="form-control" id="qqNum">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">电子邮箱</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">电子邮箱</label>
 
-                    <div class="col-xs-8">
-                        <input type="email" class="form-control" id="email">
+                        <div class="col-xs-8">
+                            <input type="email" class="form-control" id="email">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,19 +173,21 @@
                     </a>
                 </h4>
             </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">生日</label>
+            <div id="collapseThree" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">生日</label>
 
-                    <div class="col-xs-8">
-                        <input type="text" id="birthday" class="form-control form_datetime" value="" readonly>
+                        <div class="col-xs-8">
+                            <input type="text" id="birthday" class="form-control form_datetime" value="" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group list-group-item">
-                    <label class="col-xs-4 control-label">爱好</label>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">爱好</label>
 
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" id="hobby">
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="hobby">
+                        </div>
                     </div>
                 </div>
             </div>

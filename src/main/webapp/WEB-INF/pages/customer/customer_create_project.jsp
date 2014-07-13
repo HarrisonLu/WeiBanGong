@@ -16,10 +16,6 @@
         <div class="col-xs-8 title-bar-text">
             <h4>选择项目</h4>
         </div>
-        <div class="col-xs-2">
-            <a href="javascript:onSave(STORAGE_PROJECT)" class="btn btn-primary navbar-btn pull-right"
-               role="button">保存</a>
-        </div>
     </div>
 </div>
 
@@ -33,6 +29,12 @@
 </div>
 
 <div id="search_result" class="list-group" style="margin-top: 10px">
+</div>
+
+<div class="container">
+    <button class="btn btn-primary btn-lg btn-block btn-block-bottom-no-top-margin" onclick="onSave(STORAGE_PROJECT)">
+        确定
+    </button>
 </div>
 
 </body>

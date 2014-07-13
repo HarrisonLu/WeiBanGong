@@ -56,7 +56,30 @@
 </div>
 
 <ul class="list-group">
-    <li class="list-group-item">所处阶段<p class="pull-right">${customer.discussStageName}</p></li>
+    <li class="list-group-item">所处阶段
+        <c:choose>
+            <c:when test="${customer.discussStageId == 1}">
+                <p class="pull-right" style="color: #75ba81">
+                        ${customer.discussStageName}
+                </p>
+            </c:when>
+            <c:when test="${customer.discussStageId == 2}">
+                <p class="pull-right" style="color: #fbc584">
+                        ${customer.discussStageName}
+                </p>
+            </c:when>
+            <c:when test="${customer.discussStageId == 3}">
+                <p class="pull-right" style="color: #fd797c">
+                        ${customer.discussStageName}
+                </p>
+            </c:when>
+            <c:otherwise>
+                <p class="pull-right">
+                        ${customer.discussStageName}
+                </p>
+            </c:otherwise>
+        </c:choose>
+    </li>
     <li class="list-group-item">客户价值<p></p>
 
         <p>${empty customer.customerValue ? "无" : customer.customerValue}</p></li>
@@ -92,5 +115,14 @@
         <li class="list-group-item">爱好<p class="pull-right">${customer.hobby}</p></li>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_CUSTOMER] == 1) {
+            localStorage[REFRESH_CUSTOMER] = 0;
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

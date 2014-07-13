@@ -24,8 +24,14 @@
 </div>
 
 <div class="list-group">
+    <c:if test="${empty projects}">
+        <div class="list-group-item" style="min-height: 100px">
+            <p style="text-align: center; color: #8E8E8E; margin-top: 30px">轻触上面加号按钮新建您的第一个项目吧，别忘了联系管理员开通权限哦~</p>
+        </div>
+    </c:if>
+
     <c:forEach items="${projects}" var="project">
-        <a href="/project/detail/${project.id}" class="list-group-item list-group-item-higher">
+        <a href="/project/edit/${project.id}" class="list-group-item list-group-item-higher">
             <h4 class="list-group-item-heading">${project.name}
                 <img class="pull-right" src="/static_resources/images/btn_comment_2.png" width="25" height="25">
             </h4>
@@ -39,5 +45,13 @@
     </c:forEach>
 </div>
 
+<script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_PROJECT] == 1) {
+            localStorage[REFRESH_PROJECT] = 0;
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

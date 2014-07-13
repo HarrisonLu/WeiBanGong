@@ -31,7 +31,7 @@
 </div>
 
 <div class="container">
-    <button class="btn btn-primary btn-lg btn-block btn-block-bottom" onclick="onSave(STORAGE_MEMBER)">确定
+    <button class="btn btn-primary btn-lg btn-block btn-block-bottom-no-top-margin" onclick="onSave(STORAGE_MEMBER)">确定
     </button>
 </div>
 

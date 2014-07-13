@@ -20,23 +20,33 @@
 </div>
 
 <div class="list-group">
-    <a href="/approval/create/leave" class="list-group-item list-group-item-higher">
-        <h4 class="list-group-item-text">休假申请</h4>
+    <a href="/approval/create/1" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">休假申请</h4>
     </a>
-    <a href="/approval/create/travel" class="list-group-item list-group-item-higher">
-        <h4 class="list-group-item-text">出差申请</h4>
+    <a href="/approval/create/2" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">出差申请</h4>
     </a>
-    <a href="/approval/create/goods" class="list-group-item list-group-item-higher">
-        <h4 class="list-group-item-text">物品申请</h4>
+    <a href="/approval/create/3" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">费用报销</h4>
     </a>
-    <a href="/approval/create/funds" class="list-group-item list-group-item-higher">
-        <h4 class="list-group-item-text">经费申请</h4>
+    <a href="/approval/create/4" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">物品申请</h4>
     </a>
-    <a href="/approval/create/overtime" class="list-group-item list-group-item-higher">
-        <h4 class="list-group-item-text">加班申请</h4>
+    <a href="/approval/create/5" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">经费申请</h4>
     </a>
-    <a href="/approval/create/others" class="list-group-item list-group-item-higher">
-        <h4 class="list-group-item-text">其它申请</h4>
+    <a href="/approval/create/6" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">加班申请</h4>
+    </a>
+    <a href="/approval/create/7" class="list-group-item list-group-item-higher">
+        <img class="pull-left head-pic" src="/static_resources/images/ic_menu_approve.png">
+        <h4 class="list-group-item-text head-pic-text">其它申请</h4>
     </a>
 </div>
 </body>

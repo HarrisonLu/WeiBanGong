@@ -20,22 +20,25 @@
 </div>
 
 <div class="list-group">
-    <a href="/approval/archive/1" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/1" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">休假申请</h4>
     </a>
-    <a href="/approval/archive/2" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/2" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">出差申请</h4>
     </a>
-    <a href="/approval/archive/3" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/3" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">物品申请</h4>
     </a>
-    <a href="/approval/archive/4" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/4" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">经费申请</h4>
     </a>
-    <a href="/approval/archive/5" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/5" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">加班申请</h4>
     </a>
-    <a href="/approval/archive/6" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/6" class="list-group-item list-group-item-higher">
+        <h4 class="list-group-item-text">费用报销</h4>
+    </a>
+    <a href="/approval/archive/7" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">其它申请</h4>
     </a>
 </div>

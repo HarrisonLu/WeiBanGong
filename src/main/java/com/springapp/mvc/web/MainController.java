@@ -17,4 +17,16 @@ public class MainController extends BaseController {
         return "index";
     }
 
+    @RequestMapping(value = "/index/coming", method = RequestMethod.GET)
+    public String showComingSoon(HttpServletRequest request) {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        return "index_coming";
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String showErrorPage() throws Exception {
+        return "error/error_page";
+    }
 }

@@ -4,7 +4,6 @@ import com.springapp.mvc.dao.approval.*;
 import com.springapp.mvc.dao.contacts.DepartmentMapper;
 import com.springapp.mvc.dao.contacts.UserMapper;
 import com.springapp.mvc.domain.approval.*;
-import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.User;
 import com.tool.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;

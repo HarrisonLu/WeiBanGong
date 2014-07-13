@@ -17,18 +17,20 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal" style="margin-right: 15px">
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">账号后缀</label>
+<div class="panel-body">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-xs-4 control-label">账号后缀</label>
 
-        <div class="col-xs-8">
-            <input type="email" class="form-control" id="postfix" placeholder="@_____.com" value="${postfix}">
+            <label class="col-xs-2 control-label">@</label>
+
+            <div class="col-xs-4">
+                <input type="email" class="form-control" id="postfix" value="${postfix}">
+            </div>
+            <label class="col-xs-2 control-label">.com</label>
         </div>
-    </div>
-</form>
-
-<div class="container">
-    <a href="javascript:onApplySuffix()" class="btn btn-primary btn-lg btn-block btn-block-bottom" role="button">
+    </form>
+    <a href="javascript:onPostfixApply()" class="btn btn-success btn-lg btn-block btn-block-bottom" role="button">
         提交</a>
 
     <p>提示：</p>
@@ -40,9 +42,8 @@
     <p>3、后缀一经确认后不可修改</p>
 </div>
 
-
 <script>
-    function onApplySuffix() {
+    function onPostfixApply() {
         var postfix = $("#postfix").val();
         if (postfix == "") {
             toastr.warning("后缀不能为空");
@@ -59,7 +60,7 @@
                     return;
                 }
                 toastr.success("提交成功！可以开始创建员工账号！");
-                setTimeout("window.history.back()", 1500);
+                setTimeout("window.history.back()", 1000);
             }
         });
     }

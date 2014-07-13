@@ -11,7 +11,7 @@
         <div class="col-xs-2 title-bar-btn">
             <a href="/index"><img class="title-bar-image" src="/static_resources/images/bar_item_home.png"></a>
         </div>
-        <div class="col-xs-10" style="margin-top: 8px">
+        <div class="col-xs-10" style="margin-top: 10px">
             <input id="contacts_search" type="text" class="form-control" placeholder="输入中英文名搜索"
                    data-provide="typeahead">
         </div>
@@ -23,27 +23,40 @@
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" href="#collapseOne">
-                    常用联系人
+                    收藏联系人
                 </a>
             </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in">
-            <c:forEach items="${groupUsers}" var="user">
-                <a href="/contacts/user/${user.id}" class="list-group-item list-group-item-higher">
-                    <img class="pull-left head-pic" src="/static_resources/images/head.png">
+            <a href="/contacts/user/${user.id}" class="list-group-item list-group-item-higher">
+                <img class="pull-left head-pic" src="/static_resources/images/head.png">
 
-                    <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
-                    <c:forEach items="${user.groupList}" var="group">
-                        <p class="list-group-item-text head-pic-text info-detail">${group.departmentName}
-                            - ${group.name}</p>
-                    </c:forEach>
-                    <c:if test="${user.groupList.size() == 0}">
-                        <p class="list-group-item-text head-pic-text info-detail">暂无分组</p>
-                    </c:if>
-                </a>
-            </c:forEach>
+                <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
+                <c:forEach items="${user.groupList}" var="group">
+                    <p class="list-group-item-text head-pic-text info-detail">${group.departmentName}
+                        - ${group.name}</p>
+                </c:forEach>
+                <c:if test="${user.groupList.size() == 0}">
+                    <p class="list-group-item-text head-pic-text info-detail">暂无分组</p>
+                </c:if>
+            </a>
 
-            <div id="coll_users"></div>
+            <div id="coll_users">
+                <c:forEach items="${collUsers}" var="user">
+                    <a href="/contacts/user/${user.id}" class="list-group-item list-group-item-higher">
+                        <img class="pull-left head-pic" src="/static_resources/images/head.png">
+
+                        <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
+                        <c:forEach items="${user.groupList}" var="group">
+                            <p class="list-group-item-text head-pic-text info-detail">${group.departmentName}
+                                - ${group.name}</p>
+                        </c:forEach>
+                        <c:if test="${user.groupList.size() == 0}">
+                            <p class="list-group-item-text head-pic-text info-detail">暂无分组</p>
+                        </c:if>
+                    </a>
+                </c:forEach>
+            </div>
 
         </div>
     </div>
@@ -71,7 +84,10 @@
 
 <script>
     $(document).ready(function () {
-        onCollectionUpdate();
+        if (localStorage[REFRESH_CONTACTS] == 1) {
+            localStorage[REFRESH_CONTACTS] = 0;
+            window.location.reload();
+        }
 
         var users;
         $("#contacts_search").typeahead({

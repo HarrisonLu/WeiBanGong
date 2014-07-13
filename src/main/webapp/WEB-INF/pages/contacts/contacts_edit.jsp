@@ -16,7 +16,7 @@
             <h4>编辑信息</h4>
         </div>
         <div class="col-xs-2">
-            <button type="submit" class="btn btn-primary navbar-btn pull-right" onclick="onUserUpdate()">保存
+            <button type="submit" class="btn btn-success navbar-btn pull-right" onclick="onUserUpdate()">保存
             </button>
         </div>
     </div>
@@ -36,7 +36,6 @@
         </c:forEach>
         <p>职位：${user.position}</p>
 
-        <p>职级：${user.positionLevel}</p>
     </div>
 </div>
 
@@ -50,7 +49,7 @@
                 <label class="col-xs-4 control-label">微信号</label>
 
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" id="weChatNum" value="${user.wechatNum}" disabled>
+                    <input type="text" class="form-control" id="weChatNum" value="${user.wechatNum}" readonly>
                 </div>
             </div>
             <div class="form-group">
@@ -104,7 +103,8 @@
                 email: email},
             success: function () {
                 toastr.success("保存成功");
-                setTimeout("window.location.href='/contacts'", 1000);
+                localStorage[REFRESH_USER] = 1;
+                window.history.back();
             }
         });
     }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../template/header.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="container">
-    <button class="btn btn-primary btn-lg btn-block btn-block-bottom" onclick="onSave(STORAGE_CUSTOMER)">
+    <button class="btn btn-primary btn-lg btn-block btn-block-bottom-no-top-margin" onclick="onSave(STORAGE_CUSTOMER)">
         确定
     </button>
 </div>

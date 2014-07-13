@@ -30,6 +30,9 @@
                 <h4>加班申请</h4>
             </c:if>
             <c:if test="${archiveId == 6}">
+                <h4>费用报销</h4>
+            </c:if>
+            <c:if test="${archiveId == 7}">
                 <h4>其它申请</h4>
             </c:if>
         </div>
@@ -37,22 +40,22 @@
 </div>
 
 <div class="list-group">
-    <a href="#" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/${archiveId}/1" class="list-group-item" style="min-height: 64px">
         <h4 class="list-group-item-text">2014年1月</h4>
     </a>
-    <a href="#" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/${archiveId}/2" class="list-group-item" style="min-height: 64px">
         <h4 class="list-group-item-text">2014年2月</h4>
     </a>
-    <a href="#" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/${archiveId}/3" class="list-group-item" style="min-height: 64px">
         <h4 class="list-group-item-text">2014年3月</h4>
     </a>
-    <a href="#" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/${archiveId}/4" class="list-group-item" style="min-height: 64px">
         <h4 class="list-group-item-text">2014年4月</h4>
     </a>
-    <a href="#" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/${archiveId}/5" class="list-group-item" style="min-height: 64px">
         <h4 class="list-group-item-text">2014年5月</h4>
     </a>
-    <a href="#" class="list-group-item" style="min-height: 64px">
+    <a href="/approval/archive/${archiveId}/6" class="list-group-item" style="min-height: 64px">
         <h4 class="list-group-item-text">2014年6月</h4>
     </a>
 </div>

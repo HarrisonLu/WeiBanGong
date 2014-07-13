@@ -24,35 +24,33 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="/project/${project.id}">模块列表</a></li>
                     <li class="divider"></li>
-                    <li><a href="/project/comment/${project.id}">评论</a></li>
+                    <li><a href="/project/comment/${project.id}">动态</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 
-<div class="well">
-    <ul class="list-group">
-        <li class="list-group-item"><strong>项目名称</strong>
+<ul class="list-group">
+    <li class="list-group-item"><strong>项目名称</strong>
 
-            <p class="pull-right">${project.name}</p></li>
-        <li class="list-group-item"><strong>项目描述</strong>
+        <p class="pull-right">${project.name}</p></li>
+    <li class="list-group-item"><strong>项目描述</strong>
 
-            <p></p>
+        <p></p>
 
-            <p>${project.info}</p></li>
-        <li class="list-group-item"><strong>项目阶段</strong>
+        <p>${project.info}</p></li>
+    <li class="list-group-item"><strong>项目阶段</strong>
 
-            <p class="pull-right">${project.stageName}</p></li>
+        <p class="pull-right">${project.stageName}</p></li>
 
-        <li class="list-group-item"><strong>创建时间</strong>
+    <li class="list-group-item"><strong>创建时间</strong>
 
-            <p class="pull-right">${project.displayCreateTime}</p></li>
-        <li class="list-group-item"><strong>创建者</strong>
+        <p class="pull-right">${project.displayCreateTime}</p></li>
+    <li class="list-group-item"><strong>创建者</strong>
 
-            <p class="pull-right">${project.createrEnglishName} (${project.createrChineseName})</p></li>
-    </ul>
-</div>
+        <p class="pull-right">${project.createrEnglishName} (${project.createrChineseName})</p></li>
+</ul>
 
 <c:if test="${not empty modules}">
     <div class="panel panel-primary">
@@ -61,7 +59,7 @@
         </div>
         <div class="list-group">
             <c:forEach items="${modules}" var="module">
-                <a href="/project/module/detail/${module.id}" class="list-group-item">
+                <a href="/project/${project.id}/module/edit/${module.id}" class="list-group-item">
                         ${module.name}
                 </a>
             </c:forEach>
@@ -84,6 +82,21 @@
     </div>
 </c:if>
 
+<c:if test="${not empty members}">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">项目成员</h4>
+        </div>
+        <div class="list-group">
+            <c:forEach items="${members}" var="member">
+                <a href="/contacts/user/${member.id}" class="list-group-item">
+                        ${member.englishName} (${member.chineseName})
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+</c:if>
+
 <c:if test="${not empty customers}">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -99,5 +112,13 @@
     </div>
 </c:if>
 
+<script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_MODULE] == 1) {
+            localStorage[REFRESH_MODULE] = 0;
+            window.location.reload();
+        }
+    });
+</script>
 </body>
 </html>

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static_resources/css/toastr.min.css">
     <link rel="stylesheet" href="/static_resources/css/icheck.css">
     <link rel="stylesheet" href="/static_resources/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/static_resources/css/bootstrap-switch.min.css">
 </head>
 
 <body>
@@ -19,6 +20,7 @@
 <script src="/static_resources/js/underscore-min.js"></script>
 <script src="/static_resources/js/icheck.min.js"></script>
 <script src="/static_resources/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static_resources/js/bootstrap-switch.min.js"></script>
 <script src="/static_resources/js/common.js"></script>
 </body>
 </html>

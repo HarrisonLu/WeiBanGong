@@ -10,12 +10,8 @@ import com.weixin.sdk.message.IMessage;
 import com.weixin.sdk.message.ItemArticle;
 import com.weixin.sdk.message.Message;
 import com.weixin.sdk.message.MessageEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.w3c.dom.Element;
 
-import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +33,9 @@ public class MessageHandlerEvent extends MessageHandlerHelper {
             return buildMessageResultText(ResourceManager.getValue("greeting"));
         } else if (messageEvent.getEvent().equalsIgnoreCase(EVENT_CLICK)) {
             if (messageEvent.getEventKey().equalsIgnoreCase(IMessage.MENU_SUB_KEY11)) {
-                return buildMessageResultNews(getProjectList());
+                return buildMessageResultNews(getArticleList());
             } else if (messageEvent.getEventKey().equalsIgnoreCase(IMessage.MENU_SUB_KEY12)) {
-                return buildMessageResultNews(getCustomerList());
+                return buildMessageResultNews(getArticleList());
             } else if (messageEvent.getEventKey().equalsIgnoreCase(IMessage.MENU_SUB_KEY21)) {
                 return buildMessageResultNews(getArticleList());
             } else if (messageEvent.getEventKey().equalsIgnoreCase(IMessage.MENU_SUB_KEY22)) {

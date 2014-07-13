@@ -4,7 +4,7 @@
 <head>
     <title>微办公</title>
 </head>
-<body onload="document.form1.password.focus()">
+<body onload="document.getElementById('password').focus()">
 <div class="container-fluid">
     <div class="row-fluid title-bar">
         <div class="col-xs-2 title-bar-btn">
@@ -17,34 +17,34 @@
     </div>
 </div>
 
-<form name="form1" class="form-horizontal" style="margin-right: 15px">
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">账号</label>
+<div class="panel-body">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-xs-4 control-label">账号</label>
 
-        <div class="col-xs-8">
-            <p class="form-control-static">${email}</p>
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="email" value="${email}" readonly/>
+            </div>
         </div>
-    </div>
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">新密码</label>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">新密码</label>
 
-        <div class="col-xs-8">
-            <input type="password" class="form-control" id="password" placeholder="请输入6位以上密码"/>
+            <div class="col-xs-8">
+                <input type="password" class="form-control" id="password" placeholder="请输入6位以上密码"/>
+            </div>
         </div>
-    </div>
-    <div class="form-group list-group-item">
-        <label class="col-xs-4 control-label">确认密码</label>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">确认密码</label>
 
-        <div class="col-xs-8">
-            <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入新密码"/>
+            <div class="col-xs-8">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="请再次输入新密码"/>
+            </div>
         </div>
-    </div>
-</form>
-
-<div class="container">
-    <a href="javascript:onPasswordReset()" class="btn btn-primary btn-lg btn-block btn-block-bottom" role="button">
-        保存</a>
+    </form>
+    <a href="javascript:onPasswordReset()" class="btn btn-success btn-lg btn-block btn-block-bottom"
+       role="button">保存</a>
 </div>
+
 
 <script>
     function onPasswordReset() {

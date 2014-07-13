@@ -44,7 +44,7 @@
         </c:forEach>
         <p>职位：${user.position}</p>
 
-        <p>职级：${user.positionLevel}</p>
+        <%--<p>职级：${user.positionLevel}</p>--%>
     </div>
 </div>
 
@@ -78,11 +78,19 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_USER] == 1) {
+            localStorage[REFRESH_USER] = 0;
+            window.location.reload();
+        }
+    });
+
     function onLinkChange() {
         $.ajax({
             type: "GET",
             url: "/contacts/user/link/${user.id}",
             success: function (data) {
+                localStorage[REFRESH_CONTACTS] = 1;
                 if (data) {
                     document.getElementById("img_star").src = "/static_resources/images/rate_star_big_on_holo_dark.png";
                     toastr.success("该员工已收藏至常用联系人列表");

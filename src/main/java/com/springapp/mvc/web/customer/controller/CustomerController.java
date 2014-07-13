@@ -6,16 +6,18 @@ import com.springapp.mvc.domain.customer.Customer;
 import com.springapp.mvc.service.contacts.ContactsService;
 import com.springapp.mvc.service.customer.CustomerService;
 import com.springapp.mvc.web.BaseController;
+import com.tool.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/customer")
@@ -134,42 +136,29 @@ public class CustomerController extends BaseController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createCustomer(HttpServletRequest request,
-                                 @RequestParam String chineseName,
-                                 @RequestParam String englishName,
-                                 @RequestParam String gender,
-                                 @RequestParam String stage,
-                                 @RequestParam String customerValue,
-                                 @RequestParam String mobilePhoneNum,
-                                 @RequestParam String wechatNum,
-                                 @RequestParam String telephoneNum,
-                                 @RequestParam String qqNum,
-                                 @RequestParam String email,
-                                 @RequestParam String birthday,
-                                 @RequestParam String hobby,
-                                 @RequestParam String projectId) throws Exception {
-
+    public String createCustomer(HttpServletRequest request) throws Exception {
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
-        User user = contactsService.selectUserDetailsById(userId);
-        int cid = user.getCompanyId();
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
 
         Customer customer = new Customer();
-        customer.setChineseName(chineseName);
-        customer.setEnglishName(englishName);
-        customer.setGender(gender);
-        customer.setDiscussStageId(Integer.parseInt(stage));
-        customer.setCustomerValue(customerValue);
-        customer.setMobilePhoneNum(mobilePhoneNum);
-        customer.setWechatNum(wechatNum);
-        customer.setTelephoneNum(telephoneNum);
-        customer.setQqNum(qqNum);
-        customer.setEmail(email);
-        if (birthday != "")
-            customer.setBirthday(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(birthday));
-        customer.setHobby(hobby);
+        customer.setChineseName(request.getParameter("chineseName"));
+        customer.setEnglishName(request.getParameter("englishName"));
+        customer.setGender(request.getParameter("gender"));
+        customer.setDiscussStageId(Integer.parseInt(request.getParameter("stage")));
+        customer.setCustomerValue(request.getParameter("customerValue"));
+        customer.setMobilePhoneNum(request.getParameter("mobilePhoneNum"));
+        customer.setWechatNum(request.getParameter("wechatNum"));
+        customer.setTelephoneNum(request.getParameter("telephoneNum"));
+        customer.setQqNum(request.getParameter("qqNum"));
+        customer.setEmail(request.getParameter("email"));
+        String birthday = request.getParameter("birthday");
+        if (!birthday.equals(""))
+            customer.setBirthday(DateHelper.getShortDateByString(birthday));
+        customer.setHobby(request.getParameter("hobby"));
         customer.setCreatedUserId(userId);
-        customer.setCompanyId(cid);
-        if (projectId != "")
+        customer.setCompanyId(companyId);
+        String projectId = request.getParameter("projectId");
+        if (!projectId.equals(""))
             customer.setProjectId(Integer.parseInt(projectId));
         customerService.insertCustomer(customer);
 
@@ -177,43 +166,31 @@ public class CustomerController extends BaseController {
     }
 
     @RequestMapping(value = "/edit/{customerId}", method = RequestMethod.POST)
-    public String editCustomer(HttpServletRequest request, @PathVariable int customerId,
-                               @RequestParam String chineseName,
-                               @RequestParam String englishName,
-                               @RequestParam String gender,
-                               @RequestParam String stage,
-                               @RequestParam String customerValue,
-                               @RequestParam String mobilePhoneNum,
-                               @RequestParam String wechatNum,
-                               @RequestParam String telephoneNum,
-                               @RequestParam String qqNum,
-                               @RequestParam String email,
-                               @RequestParam String birthday,
-                               @RequestParam String hobby,
-                               @RequestParam String projectId) throws Exception {
+    public String editCustomer(HttpServletRequest request, @PathVariable int customerId) throws Exception {
 
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
-        User user = contactsService.selectUserDetailsById(userId);
-        int cid = user.getCompanyId();
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
 
         Customer customer = new Customer();
         customer.setId(customerId);
-        customer.setChineseName(chineseName);
-        customer.setEnglishName(englishName);
-        customer.setGender(gender);
-        customer.setDiscussStageId(Integer.parseInt(stage));
-        customer.setCustomerValue(customerValue);
-        customer.setMobilePhoneNum(mobilePhoneNum);
-        customer.setWechatNum(wechatNum);
-        customer.setTelephoneNum(telephoneNum);
-        customer.setQqNum(qqNum);
-        customer.setEmail(email);
-        if (birthday != "")
-            customer.setBirthday(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(birthday));
-        customer.setHobby(hobby);
+        customer.setChineseName(request.getParameter("chineseName"));
+        customer.setEnglishName(request.getParameter("englishName"));
+        customer.setGender(request.getParameter("gender"));
+        customer.setDiscussStageId(Integer.parseInt(request.getParameter("stage")));
+        customer.setCustomerValue(request.getParameter("customerValue"));
+        customer.setMobilePhoneNum(request.getParameter("mobilePhoneNum"));
+        customer.setWechatNum(request.getParameter("wechatNum"));
+        customer.setTelephoneNum(request.getParameter("telephoneNum"));
+        customer.setQqNum(request.getParameter("qqNum"));
+        customer.setEmail(request.getParameter("email"));
+        String birthday = request.getParameter("birthday");
+        if (!birthday.equals(""))
+            customer.setBirthday(DateHelper.getShortDateByString(birthday));
+        customer.setHobby(request.getParameter("hobby"));
         customer.setCreatedUserId(userId);
-        customer.setCompanyId(cid);
-        if (projectId != "")
+        customer.setCompanyId(companyId);
+        String projectId = request.getParameter("projectId");
+        if (!projectId.equals(""))
             customer.setProjectId(Integer.parseInt(projectId));
         customerService.updateCustomer(customer);
 
@@ -223,16 +200,16 @@ public class CustomerController extends BaseController {
     @RequestMapping(value = "/create/project", method = RequestMethod.POST)
     public
     @ResponseBody
-    Object searchCustomerProject(HttpServletRequest request, @RequestParam String query) throws Exception {
+    Object searchCustomerProject(HttpServletRequest request) throws Exception {
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-        return customerService.fuzzySelectProjectBaseInfoList(query, companyId);
+        return customerService.fuzzySelectProjectBaseInfoList(request.getParameter("query"), companyId);
     }
 
     @RequestMapping(value = "/comment/{customerId}", method = RequestMethod.POST)
-    public String commitComment(HttpServletRequest request, @PathVariable int customerId, @RequestParam String message) throws Exception {
+    public String commitComment(HttpServletRequest request, @PathVariable int customerId) throws Exception {
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         CommentCustomer comment = new CommentCustomer();
-        comment.setDetails(URLDecoder.decode(message, "UTF-8"));
+        comment.setDetails(URLDecoder.decode(request.getParameter("message"), "UTF-8"));
         comment.setUserId(userId);
         comment.setCustomerId(customerId);
         User user = contactsService.selectUserDetailsById(userId);
@@ -245,9 +222,9 @@ public class CustomerController extends BaseController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public
     @ResponseBody
-    Object searchCustomer(HttpServletRequest request, @RequestParam String query) throws Exception {
+    Object searchCustomer(HttpServletRequest request) throws Exception {
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
-        return customerService.fuzzySelectCustomer(userId, query);
+        return customerService.fuzzySelectCustomer(userId, request.getParameter("query"));
     }
 
 }

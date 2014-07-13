@@ -8,7 +8,10 @@ import com.springapp.mvc.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,9 +32,11 @@ public class ContactsController extends BaseController {
 
         int userId = (Integer) request.getSession().getAttribute(ACCOUNT_ID);
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-        List<User> groupUsers = contactsService.searchGroupUserBaseInfoListByUserId(userId);
+        User user = contactsService.selectUserDetailsById(userId);
+        List<User> collUsers = contactsService.selectCollectedContactsBaseInfoListByUserId(userId);
         List<Department> departments = contactsService.selectAllDepartmentBaseInfo(companyId);
-        model.addAttribute("groupUsers", groupUsers);
+        model.addAttribute("user", user);
+        model.addAttribute("collUsers", collUsers);
         model.addAttribute("departments", departments);
         return "contacts/contacts_index";
     }
@@ -105,9 +110,9 @@ public class ContactsController extends BaseController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public
     @ResponseBody
-    Object searchContacts(HttpServletRequest request, @RequestParam String query) throws Exception {
+    Object searchContacts(HttpServletRequest request) throws Exception {
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-        return contactsService.fuzzySelectUserBaseInfoListByString(query, companyId);
+        return contactsService.fuzzySelectUserBaseInfoListByString(request.getParameter("query"), companyId);
     }
 
 }

@@ -20,13 +20,13 @@
 </div>
 
 <div class="list-group">
-    <a href="/admin/structure" class="list-group-item" style="min-height: 64px">
+    <a href="/admin/structure" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">组织架构管理</h4>
     </a>
-    <a href="/admin/approval" class="list-group-item" style="min-height: 64px">
-        <h4 class="list-group-item-text">审批流管理</h4>
-    </a>
-    <a href="/admin/member" class="list-group-item" style="min-height: 64px">
+    <%--<a href="/admin/approval" class="list-group-item" style="min-height: 64px">--%>
+    <%--<h4 class="list-group-item-text">审批流管理</h4>--%>
+    <%--</a>--%>
+    <a href="/admin/member" class="list-group-item list-group-item-higher">
         <h4 class="list-group-item-text">员工权限管理</h4>
     </a>
 </div>
