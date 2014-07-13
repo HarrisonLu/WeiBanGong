@@ -17,9 +17,10 @@
         <result property="companyId" column="company_id"/>
     </resultMap>
 
-    <select id="fuzzySelectProjectBaseInfoList" parameterType="java.lang.String" resultMap="ProjectResultMap">
+    <select id="fuzzySelectProjectBaseInfoList" parameterType="java.util.Map" resultMap="ProjectResultMap">
         select p.id, p.name, p.create_time
-        from t_project p
+        from t_company c
+        left join t_project p on c.id = p.company_id and p.company_id = #{companyId}
         where p.name like "%"#{str}"%"
     </select>
 

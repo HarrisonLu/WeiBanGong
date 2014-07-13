@@ -19,7 +19,7 @@
                 values (#{details}, #{userId}, #{customerId}, #{companyId})
     </insert>
 
-    <select id="selectCommentCustomerListByCustomerId" parameterType="int" resultMap="CommentCustomerResultMap">
+    <select id="selectCommentCustomerListByCustomerId" parameterType="java.util.Map" resultMap="CommentCustomerResultMap">
         select c.id, c.create_time as time, c.details as details,
                 u.chinese_name as user_chinese_name, u.english_name as user_english_name
         from t_company co

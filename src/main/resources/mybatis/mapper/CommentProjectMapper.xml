@@ -20,10 +20,11 @@
                 values (#{details}, #{userId}, #{projectId}, #{companyId})
     </insert>
 
-    <select id="selectProjectCommentListByProjectId" parameterType="int" resultMap="CommentProjectResultMap">
+    <select id="selectProjectCommentListByProjectId" parameterType="map" resultMap="CommentProjectResultMap">
         select cp.*,
                u.id as user_id, u.chinese_name as user_chinese_name, u.english_name as user_english_name
-        from t_comment_project cp
+        from t_company co
+        left join t_comment_project cp on co.id = cp.company_id and cp.company_id = #{companyId}
         left join t_user u on u.id = cp.user_id
         where cp.project_id = #{projectId}
              order by create_time DESC
