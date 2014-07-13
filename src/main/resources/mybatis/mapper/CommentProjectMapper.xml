@@ -20,7 +20,7 @@
                 values (#{details}, #{userId}, #{projectId}, #{companyId})
     </insert>
 
-    <select id="selectProjectCommentListByProjectId" parameterType="map" resultMap="CommentProjectResultMap">
+    <select id="selectProjectCommentListByProjectId" parameterType="java.util.Map" resultMap="CommentProjectResultMap">
         select cp.*,
                u.id as user_id, u.chinese_name as user_chinese_name, u.english_name as user_english_name
         from t_company co
