@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/13/2014 13:52:57 PM
+ Date: 07/13/2014 14:22:31 PM
 */
 
 SET NAMES utf8;
@@ -584,7 +584,7 @@ CREATE TABLE `t_module` (
   `name` varchar(30) NOT NULL,
   `project_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   `creater_id` int(10) NOT NULL,
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
@@ -688,7 +688,7 @@ CREATE TABLE `t_project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   `stage_id` int(10) NOT NULL,
   `info` varchar(600) DEFAULT NULL,
   `creater_id` int(10) NOT NULL,
@@ -840,7 +840,7 @@ CREATE TABLE `t_task` (
   `name` varchar(30) NOT NULL,
   `module_id` int(10) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `update_time` timestamp NULL DEFAULT NULL,
   `deadline` timestamp NULL DEFAULT NULL,
   `creater_id` int(10) NOT NULL,
   `priority_id` int(10) NOT NULL,
