@@ -142,9 +142,11 @@ public class AdminService {
 
     // 插入 成员
     public boolean insertUser(User user) {
-        String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
-        if (chineseNamePinYin != null) {
-            user.setChineseNamePinyin(chineseNamePinYin);
+        if (user.getChineseName() != null) {
+            String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
+            if (chineseNamePinYin != null) {
+                user.setChineseNamePinyin(chineseNamePinYin);
+            }
         }
         boolean bool = userMapper.insertUser(user).equals(1);
 

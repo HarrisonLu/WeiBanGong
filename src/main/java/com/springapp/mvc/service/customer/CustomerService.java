@@ -114,10 +114,13 @@ public class CustomerService {
 //    @CacheEvict(value = {"customerMyListCache", "customerSharedListCache", "customerMyFilterListCache", "customerSharedFilterListCache"})
     public Integer insertCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
-        String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
-        if (chineseNamePinyin != null) {
-            customer.setChineseNamePinyin(chineseNamePinyin);
+        if (chineseName != null) {
+            String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
+            if (chineseNamePinyin != null) {
+                customer.setChineseNamePinyin(chineseNamePinyin);
+            }
         }
+
         return customerMapper.insertCustomer(customer);
     }
 
@@ -187,10 +190,13 @@ public class CustomerService {
     // 更新 客户
     public void updateCustomer(Customer customer) {
         String chineseName = customer.getChineseName();
-        String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
-        if (chineseNamePinyin != null) {
-            customer.setChineseNamePinyin(chineseNamePinyin);
+        if (chineseName != null) {
+            String chineseNamePinyin = ChineseToPinyin.getStringPinYin(chineseName);
+            if (chineseNamePinyin != null) {
+                customer.setChineseNamePinyin(chineseNamePinyin);
+            }
         }
+
         customerMapper.updateCustomerInfo(customer);
     }
 
@@ -207,9 +213,11 @@ public class CustomerService {
         map.put("companyId", companyId);
         List<CommentCustomer> commentCustomerList = commentCustomerMapper.selectCommentCustomerListByCustomerId(map);
         for (CommentCustomer commentCustomer : commentCustomerList) {
-            String displayString = DateHelper.getShortTime(commentCustomer.getTime());
-            if (displayString != null) {
-                commentCustomer.setDisplayTime(displayString);
+            if (commentCustomer.getTime() != null) {
+                String displayString = DateHelper.getShortTime(commentCustomer.getTime());
+                if (displayString != null) {
+                    commentCustomer.setDisplayTime(displayString);
+                }
             }
         }
         return commentCustomerList;

@@ -55,9 +55,11 @@ public class ApprovalService {
         map.put("companyId", companyId);
         List<Approval> approvalList = approvalMapper.getMyApprovalList(map);
         for (Approval approval : approvalList) {
-            String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
-            if (displaySubmitTime != null)
-                approval.setDisplaySubmitTime(displaySubmitTime);
+            if (approval.getSubmitTime() != null) {
+                String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
+                if (displaySubmitTime != null)
+                    approval.setDisplaySubmitTime(displaySubmitTime);
+            }
         }
         return approvalList;
     }
@@ -69,9 +71,11 @@ public class ApprovalService {
         map.put("companyId", companyId);
         List<Approval> approvalList = approvalMapper.getMyWaitingApprovalList(map);
         for (Approval approval : approvalList) {
-            String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
-            if (displaySubmitTime != null)
-                approval.setDisplaySubmitTime(displaySubmitTime);
+            if (approval.getSubmitTime() != null) {
+                String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
+                if (displaySubmitTime != null)
+                    approval.setDisplaySubmitTime(displaySubmitTime);
+            }
         }
         return approvalList;
     }
@@ -122,9 +126,9 @@ public class ApprovalService {
         List<FundsItem> fundsItemList = fundsItemMapper.selectFundsItemByApprovalId(map);
         double sum = 0;
         for (FundsItem fundsItem : fundsItemList) {
-            Double amount = fundsItem.getAmount();
-            if (amount != null)
-                sum += amount;
+                Double amount = fundsItem.getAmount();
+                if (amount != null)
+                    sum += amount;
         }
         return sum;
     }
@@ -226,9 +230,11 @@ public class ApprovalService {
         map.put("companyId", companyId);
         List<Approval> approvalList = approvalMapper.selectDraftApprovalListByUserId(map);
         for (Approval approval : approvalList) {
-            String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
-            if (displaySubmitTime != null)
-                approval.setDisplaySubmitTime(displaySubmitTime);
+            if (approval.getSubmitTime() != null) {
+                String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
+                if (displaySubmitTime != null)
+                    approval.setDisplaySubmitTime(displaySubmitTime);
+            }
         }
         return approvalList;
     }
@@ -269,15 +275,19 @@ public class ApprovalService {
         List<Approval> approvalList = approvalMapper.selectArchiveApprovalListByUserId(map);
         List<Approval> approvalWithMonthList = new LinkedList<Approval>();
         for (Approval approval : approvalList) {
-            if (approval.getSubmitTime().getMonth() + 1 == month) {
-                if (approval.getApprovalTypeId() == approvalTypeId)
-                    approvalWithMonthList.add(approval);
+            if (approval.getSubmitTime() != null) {
+                if (approval.getSubmitTime().getMonth() + 1 == month) {
+                    if (approval.getApprovalTypeId() == approvalTypeId)
+                        approvalWithMonthList.add(approval);
+                }
             }
         }
         for (Approval approval : approvalWithMonthList) {
-            String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
-            if (displaySubmitTime != null)
-                approval.setDisplaySubmitTime(displaySubmitTime);
+            if (approval.getSubmitTime() != null) {
+                String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
+                if (displaySubmitTime != null)
+                    approval.setDisplaySubmitTime(displaySubmitTime);
+            }
         }
         return approvalWithMonthList;
     }
@@ -403,9 +413,11 @@ public class ApprovalService {
         map.put("companyId", companyId);
         List<Approval> approvalList = approvalMapper.selectCarbonCopyApprovalListByUserId(map);
         for (Approval approval : approvalList) {
-            String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
-            if (displaySubmitTime != null)
-                approval.setDisplaySubmitTime(displaySubmitTime);
+            if (approval.getSubmitTime() != null) {
+                String displaySubmitTime = DateHelper.timestampToStr2(approval.getSubmitTime());
+                if (displaySubmitTime != null)
+                    approval.setDisplaySubmitTime(displaySubmitTime);
+            }
         }
         return approvalList;
     }
