@@ -27,18 +27,17 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-xs-4 control-label">邮箱</label>
+
+            <div class="col-xs-8">
+                <input type="email" class="form-control" value="${admin.email}" readonly/>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-4 control-label">手机号码</label>
 
             <div class="col-xs-8">
                 <input type="number" class="form-control" id="phoneNum" value="${admin.phoneNum}"/>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-xs-4 control-label">邮箱</label>
-
-            <div class="col-xs-8">
-                <input type="email" class="form-control" id="email" value="${admin.email}"/>
             </div>
         </div>
         <a href="/account/password/change" class="form-group list-group-item" style="min-height: 49px">
@@ -77,21 +76,15 @@
 <script>
     function onAccountUpdate() {
         var phoneNum = $("#phoneNum").val();
-        var email = $("#email").val();
         if (phoneNum == "") {
             toastr.warning("手机号码不能为空")
-            return;
-        }
-        if (email == "") {
-            toastr.warning("邮箱不能为空")
             return;
         }
         $.ajax({
             type: "POST",
             url: encodeURI(encodeURI("/account/admin/update")),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
-            data: {phoneNum: phoneNum,
-                email: email},
+            data: {phoneNum: phoneNum},
             success: function (data) {
                 if (data) {
                     toastr.success("保存成功");

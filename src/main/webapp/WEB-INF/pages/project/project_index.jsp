@@ -38,7 +38,7 @@
 
             <p></p>
 
-            <p class="list-group-item-text info-detail pull-right">${project.displayUpdateTime}</p>
+            <p class="list-group-item-text info-detail pull-right">${project.displayCreateTime}</p>
 
             <p class="list-group-item-text info-detail">${project.info}</p>
         </a>

@@ -1,9 +1,18 @@
 .index-icon-row {
-    margin-top: 22px;
+    margin-top: 50px;
 }
 
 .index-icon {
     text-align: center;
+}
+
+.index-icon-font {
+    font-size: 18px;
+}
+
+.index-img {
+    width: 80px;
+    height: 80px;
 }
 
 .title-bar {
