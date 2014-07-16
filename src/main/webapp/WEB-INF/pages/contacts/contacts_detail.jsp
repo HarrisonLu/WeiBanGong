@@ -15,11 +15,11 @@
         <div class="col-xs-8 title-bar-text">
             <h4>${user.id == sessionScope.account_id ? "个人信息" : "名片详情"}</h4>
         </div>
-        <c:if test="${user.id == sessionScope.account_id}">
-            <div class="col-xs-2">
-                <a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>
-            </div>
-        </c:if>
+        <%--<c:if test="${user.id == sessionScope.account_id}">--%>
+        <%--<div class="col-xs-2">--%>
+        <%--<a href="/contacts/user/edit" class="btn btn-primary navbar-btn pull-right" role="button">编辑</a>--%>
+        <%--</div>--%>
+        <%--</c:if>--%>
     </div>
 </div>
 
@@ -38,13 +38,16 @@
 
         <p></p>
 
-        <p>${user.status}</p>
+        <c:forEach items="${user.departmentList}" var="department">
+            <p>部门：${department.name}</p>
+        </c:forEach>
+
         <c:forEach items="${user.groupList}" var="group">
             <p>部门：${group.departmentName} - ${group.name}</p>
         </c:forEach>
+
         <p>职位：${user.position}</p>
 
-        <%--<p>职级：${user.positionLevel}</p>--%>
     </div>
 </div>
 

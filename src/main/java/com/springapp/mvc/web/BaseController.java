@@ -17,6 +17,7 @@ public class BaseController {
 
     @ExceptionHandler(Exception.class)
     public String handleException(Exception ex) {
+        ex.printStackTrace();
         return "redirect:/error";
     }
 

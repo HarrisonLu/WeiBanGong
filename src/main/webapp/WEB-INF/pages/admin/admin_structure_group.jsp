@@ -20,6 +20,12 @@
 </div>
 
 <div class="list-group">
+    <div class="row-fluid title-bar">
+        <div class="col-xs-12 title-bar-text">
+            <a href="javascript:onUserCreate()" class="btn btn-primary" role="button">新建组成员</a>
+        </div>
+    </div>
+
     <c:forEach items="${group.userList}" var="user">
         <a href="/admin/structure/detail/${user.id}" class="list-group-item">
             <img class="pull-left" src="/static_resources/images/head.png">
@@ -35,5 +41,21 @@
     </c:if>
 </div>
 
+<script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_USER] == 1) {
+            localStorage[REFRESH_USER] = 0;
+            window.location.reload();
+        }
+    });
+
+    function onUserCreate() {
+        if (${!postfixCreated}) {
+            toastr.warning("请先前往我的账号设置员工后缀");
+            return;
+        }
+        window.location.href = "/admin/structure/department/" + ${department.id} +"/group/" + ${group.id}+"/user/create/";
+    }
+</script>
 </body>
 </html>

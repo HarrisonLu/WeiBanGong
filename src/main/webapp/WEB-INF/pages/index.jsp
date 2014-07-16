@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="template/header.jsp"/>
 <!DOCTYPE html>
 <html>
@@ -14,95 +15,111 @@
 </ul>
 
 <div class="container">
-    <div class="row index-icon-row">
-        <div class="col-xs-4 index-icon">
-            <a href="/project">
-                <img src="/static_resources/images/ic_menu_project.png" width="60" height="60">
-            </a>
+    <c:if test="${isAdmin}">
+        <div class="row index-icon-row">
+            <div class="col-xs-6 index-icon">
+                <a href="/account">
+                    <img class="index-img" src="/static_resources/images/ic_menu_account.png">
+                </a>
 
-            <p></p>
+                <p></p>
 
-            <p><b>项目管理</b></p>
+                <p class="index-icon-font"><b>我的账号</b></p>
+            </div>
+            <div class="col-xs-6 index-icon">
+                <a href="/admin">
+                    <img class="index-img" src="/static_resources/images/ic_menu_admin.png">
+                </a>
+
+                <p></p>
+
+                <p class="index-icon-font"><b>管理权限</b></p>
+            </div>
         </div>
-        <div class="col-xs-4 index-icon">
-            <a href="/customer">
-                <img src="/static_resources/images/ic_menu_customer.png" width="60" height="60">
-            </a>
+    </c:if>
 
-            <p></p>
+    <c:if test="${!isAdmin}">
+        <div class="row index-icon-row">
+            <div class="col-xs-6 index-icon">
+                <a href="/project">
+                    <img class="index-img" src="/static_resources/images/ic_menu_project.png">
+                </a>
 
-            <p><b>客户管理</b></p>
+                <p></p>
+
+                <p class="index-icon-font"><b>项目管理</b></p>
+            </div>
+            <div class="col-xs-6 index-icon">
+                <a href="/customer">
+                    <img class="index-img" src="/static_resources/images/ic_menu_customer.png">
+                </a>
+
+                <p></p>
+
+                <p class="index-icon-font"><b>客户管理</b></p>
+            </div>
+                <%--<div class="col-xs-4 index-icon">--%>
+                <%--<a href="/approval">--%>
+                <%--<img src="/static_resources/images/ic_menu_approve.png" width="60" height="60">--%>
+                <%--</a>--%>
+
+                <%--<p></p>--%>
+
+                <%--<p><b>审批流</b></p>--%>
+                <%--</div>--%>
         </div>
-        <div class="col-xs-4 index-icon">
-            <a href="/approval">
-                <img src="/static_resources/images/ic_menu_approve.png" width="60" height="60">
-            </a>
 
-            <p></p>
+        <div class="row index-icon-row">
+            <div class="col-xs-6 index-icon">
+                <a href="/contacts">
+                    <img class="index-img" src="/static_resources/images/ic_menu_contacts.png">
+                </a>
 
-            <p><b>审批流</b></p>
+                <p></p>
+
+                <p class="index-icon-font"><b>通讯录</b></p>
+            </div>
+            <div class="col-xs-6 index-icon">
+                <a href="/account">
+                    <img class="index-img" src="/static_resources/images/ic_menu_account.png">
+                </a>
+
+                <p></p>
+
+                <p class="index-icon-font"><b>我的账号</b></p>
+            </div>
         </div>
-    </div>
+    </c:if>
 
-    <div class="row index-icon-row">
-        <div class="col-xs-4 index-icon">
-            <a href="/contacts">
-                <img src="/static_resources/images/ic_menu_contacts.png" width="60" height="60">
-            </a>
+    <%--<div class="row index-icon-row">--%>
+    <%--<div class="col-xs-4 index-icon">--%>
+    <%--<a href="/index/coming">--%>
+    <%--<img src="/static_resources/images/ic_menu_share.png" width="60" height="60">--%>
+    <%--</a>--%>
 
-            <p></p>
+    <%--<p></p>--%>
 
-            <p><b>通讯录</b></p>
-        </div>
-        <div class="col-xs-4 index-icon">
-            <a href="/account">
-                <img src="/static_resources/images/ic_menu_account.png" width="60" height="60">
-            </a>
+    <%--<p><b>共享平台</b></p>--%>
+    <%--</div>--%>
+    <%--<div class="col-xs-4 index-icon">--%>
+    <%--<a href="/index/coming">--%>
+    <%--<img src="/static_resources/images/ic_menu_help.png" width="60" height="60">--%>
+    <%--</a>--%>
 
-            <p></p>
+    <%--<p></p>--%>
 
-            <p><b>我的账号</b></p>
-        </div>
-        <div class="col-xs-4 index-icon">
-            <a href="/admin">
-                <img src="/static_resources/images/ic_menu_admin.png" width="60" height="60">
-            </a>
+    <%--<p><b>帮助</b></p>--%>
+    <%--</div>--%>
+    <%--<div class="col-xs-4 index-icon">--%>
+    <%--<a href="/index/coming">--%>
+    <%--<img src="/static_resources/images/ic_menu_feedback.png" width="60" height="60">--%>
+    <%--</a>--%>
 
-            <p></p>
+    <%--<p></p>--%>
 
-            <p><b>管理权限</b></p>
-        </div>
-    </div>
-
-    <div class="row index-icon-row">
-        <div class="col-xs-4 index-icon">
-            <a href="/index/coming">
-                <img src="/static_resources/images/ic_menu_share.png" width="60" height="60">
-            </a>
-
-            <p></p>
-
-            <p><b>共享平台</b></p>
-        </div>
-        <div class="col-xs-4 index-icon">
-            <a href="/index/coming">
-                <img src="/static_resources/images/ic_menu_help.png" width="60" height="60">
-            </a>
-
-            <p></p>
-
-            <p><b>帮助</b></p>
-        </div>
-        <div class="col-xs-4 index-icon">
-            <a href="/index/coming">
-                <img src="/static_resources/images/ic_menu_feedback.png" width="60" height="60">
-            </a>
-
-            <p></p>
-
-            <p><b>反馈</b></p>
-        </div>
-    </div>
+    <%--<p><b>反馈</b></p>--%>
+    <%--</div>--%>
+    <%--</div>--%>
 </div>
 </body>
 </html>

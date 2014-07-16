@@ -168,7 +168,6 @@ public class AccountController extends BaseController {
         Administrator admin = new Administrator();
         admin.setId(userId);
         admin.setPhoneNum(request.getParameter("phoneNum"));
-        admin.setEmail(request.getParameter("email"));
         return adminService.updateAdminDetail(admin);
     }
 
@@ -183,7 +182,6 @@ public class AccountController extends BaseController {
         user.setTelephoneNum(request.getParameter("telephoneNum"));
         user.setMobilePhoneNum(request.getParameter("mobilePhoneNum"));
         user.setQqNum(request.getParameter("qqNum"));
-        user.setEmail(request.getParameter("email"));
         return adminService.updateUserDetail(user);
     }
 

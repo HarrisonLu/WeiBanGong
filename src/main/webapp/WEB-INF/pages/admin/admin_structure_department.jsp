@@ -26,12 +26,12 @@
             <a href="javascript:$('#groupModal').modal('show')" class="btn btn-primary" role="button">新建组</a>
         </div>
         <div class="col-xs-6 title-bar-text">
-            <a href="javascript:onUserCreate()" class="btn btn-primary" role="button">新建成员</a>
+            <a href="javascript:onUserCreate()" class="btn btn-primary" role="button">新建部门成员</a>
         </div>
     </div>
 
     <c:forEach items="${department.userList}" var="user">
-        <a href="#" class="list-group-item">
+        <a href="/admin/structure/detail/${user.id}" class="list-group-item">
             <img class="pull-left head-pic" src="/static_resources/images/head.png">
             <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
 
@@ -39,7 +39,8 @@
         </a>
     </c:forEach>
     <c:forEach items="${department.groupList}" var="group">
-        <a href="/admin/structure/group/${group.id}" class="list-group-item list-group-item-higher">
+        <a href="/admin/structure/department/${department.id}/group/${group.id}"
+           class="list-group-item list-group-item-higher">
             <img class="pull-left head-pic-small" src="/static_resources/images/btn_head.png">
             <h4 class="list-group-item-text head-pic-text">${group.name}</h4>
         </a>
@@ -71,8 +72,8 @@
 
 <script>
     $(document).ready(function () {
-        if (localStorage[REFRESH_CONTACTS] == 1) {
-            localStorage[REFRESH_CONTACTS] = 0;
+        if (localStorage[REFRESH_USER] == 1) {
+            localStorage[REFRESH_USER] = 0;
             window.location.reload();
         }
     });
@@ -98,15 +99,11 @@
     }
 
     function onUserCreate() {
-        if (${empty department.groupList}) {
-            toastr.warning("请先创建组");
-            return;
-        }
         if (${!postfixCreated}) {
             toastr.warning("请先前往我的账号设置员工后缀");
             return;
         }
-        window.location.href = "/admin/structure/user/create/" + ${department.id};
+        window.location.href = "/admin/structure/department/" + ${department.id} +"/user/create/";
     }
 </script>
 

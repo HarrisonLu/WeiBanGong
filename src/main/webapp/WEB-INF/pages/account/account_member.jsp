@@ -105,13 +105,6 @@
                            value="${user.qqNum}"/>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-xs-4 control-label">邮箱</label>
-
-                <div class="col-xs-8">
-                    <input type="email" class="form-control" id="email" placeholder="请输入您的邮箱" value="${user.email}"/>
-                </div>
-            </div>
         </form>
         <a href="javascript:onAccountUpdate()" class="btn btn-success btn-lg btn-block btn-block-bottom"
            role="button">保存</a>
@@ -146,7 +139,6 @@
         var telephoneNum = $("#telephoneNum").val();
         var mobilePhoneNum = $("#mobilePhoneNum").val();
         var qqNum = $("#qqNum").val();
-        var email = $("#email").val();
 
         $.ajax({
             type: "POST",
@@ -155,8 +147,7 @@
             data: {weChatNum: weChatNum,
                 telephoneNum: telephoneNum,
                 mobilePhoneNum: mobilePhoneNum,
-                qqNum: qqNum,
-                email: email},
+                qqNum: qqNum},
             success: function (data) {
                 if (data) {
                     toastr.success("保存成功");

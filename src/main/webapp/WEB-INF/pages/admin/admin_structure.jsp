@@ -17,13 +17,18 @@
             <h4>组织架构管理</h4>
         </div>
         <div class="col-xs-2">
-            <a href="javascript:$('#depModal').modal('show')" class="btn btn-primary navbar-btn pull-right"
-               role="button">新建部门</a>
+
         </div>
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="list-group">
+    <div class="row-fluid title-bar">
+        <div class="col-xs-12 title-bar-text">
+            <a href="javascript:$('#depModal').modal('show')" class="btn btn-primary" role="button">新建部门</a>
+        </div>
+    </div>
+
     <c:forEach items="${departments}" var="department">
         <a href="/admin/structure/department/${department.id}" class="list-group-item list-group-item-higher">
             <img class="pull-left head-pic-small" src="/static_resources/images/btn_head.png">

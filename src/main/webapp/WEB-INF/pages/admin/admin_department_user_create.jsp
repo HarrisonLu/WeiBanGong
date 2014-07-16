@@ -42,17 +42,6 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-4 control-label">组</label>
-
-            <div class="col-xs-8">
-                <select class="form-control" id="groupId">
-                    <c:forEach items="${department.groupList}" var="group">
-                        <option class="form-control" value="${group.id}">${group.name}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-xs-4 control-label">职位名称</label>
 
             <div class="col-xs-8">
@@ -77,7 +66,6 @@
         var englishName = $("#englishName").val();
         var position = $("#position").val();
         var email = $("#email").val();
-        var groupId = $("#groupId").val();
 
         if (chineseName == "" || englishName == "" || position == "" || email == "") {
             toastr.warning("输入信息不完整");
@@ -86,16 +74,15 @@
 
         $.ajax({
             type: "POST",
-            url: encodeURI(encodeURI("/admin/structure/user/create")),
+            url: encodeURI(encodeURI(window.location)),
             contentType: "application/x-www-form-urlencoded;charset=utf-8",
             data: {chineseName: chineseName,
                 englishName: englishName,
                 position: position,
-                email: email,
-                groupId: groupId},
+                email: email},
             success: function () {
                 toastr.success("创建成功");
-                localStorage[REFRESH_CONTACTS] = 1;
+                localStorage[REFRESH_USER] = 1;
                 setTimeout("window.history.back()", 1000);
             }
         });

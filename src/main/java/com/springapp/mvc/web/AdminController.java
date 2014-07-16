@@ -60,13 +60,18 @@ public class AdminController extends BaseController {
         return "admin/admin_structure_department";
     }
 
-    @RequestMapping(value = "/structure/group/{groupId}", method = RequestMethod.GET)
-    public String showAdminStructureGroupList(HttpServletRequest request, ModelMap model, @PathVariable int groupId) throws Exception {
+    @RequestMapping(value = "/structure/department/{departmentId}/group/{groupId}", method = RequestMethod.GET)
+    public String showAdminStructureGroupList(HttpServletRequest request, ModelMap model, @PathVariable int departmentId, @PathVariable int groupId) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+        Department department = contactsService.selectDepartmentDetailsByDepartmentId(departmentId);
         Group group = contactsService.selectGroupDetailsByGroupId(groupId);
+        boolean postfixCreated = adminService.hasUserAccountPostfix(companyId);
+        model.addAttribute("department", department);
         model.addAttribute("group", group);
+        model.addAttribute("postfixCreated", postfixCreated);
         return "admin/admin_structure_group";
     }
 
@@ -80,8 +85,8 @@ public class AdminController extends BaseController {
         return "admin/admin_structure_detail";
     }
 
-    @RequestMapping(value = "/structure/user/create/{departmentId}", method = RequestMethod.GET)
-    public String showAdminStructureCreateUser(HttpServletRequest request, ModelMap model, @PathVariable int departmentId) throws Exception {
+    @RequestMapping(value = "/structure/department/{departmentId}/user/create", method = RequestMethod.GET)
+    public String showAdminStructureDepartmentCreateUser(HttpServletRequest request, ModelMap model, @PathVariable int departmentId) throws Exception {
         if (isSessionExpired(request))
             return sessionExpiredDirectedUrl;
 
@@ -90,7 +95,20 @@ public class AdminController extends BaseController {
         Company company = adminService.selectCompanyDetailsByCompanyId(companyId);
         model.addAttribute("department", department);
         model.addAttribute("postfix", company.getUserAccountPostfix());
-        return "admin/admin_user_create";
+        return "admin/admin_department_user_create";
+    }
+
+    @RequestMapping(value = "/structure/department/{departmentId}/group/{groupId}/user/create", method = RequestMethod.GET)
+    public String showAdminStructureGroupCreateUser(HttpServletRequest request, ModelMap model, @PathVariable int departmentId, @PathVariable int groupId) throws Exception {
+        if (isSessionExpired(request))
+            return sessionExpiredDirectedUrl;
+
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+        Group group = contactsService.selectGroupDetailsByGroupId(groupId);
+        Company company = adminService.selectCompanyDetailsByCompanyId(companyId);
+        model.addAttribute("group", group);
+        model.addAttribute("postfix", company.getUserAccountPostfix());
+        return "admin/admin_group_user_create";
     }
 
     @RequestMapping(value = "/approval", method = RequestMethod.GET)
@@ -167,10 +185,10 @@ public class AdminController extends BaseController {
         return adminService.insertGroup(group);
     }
 
-    @RequestMapping(value = "/structure/user/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/structure/department/{departmentId}/user/create", method = RequestMethod.POST)
     public
     @ResponseBody
-    Boolean doCreateUser(HttpServletRequest request) {
+    Boolean doCreateDepartmentUser(HttpServletRequest request, @PathVariable int departmentId) {
         int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
         User user = new User();
         user.setChineseName(request.getParameter("chineseName"));
@@ -180,10 +198,24 @@ public class AdminController extends BaseController {
         user.setPosition(request.getParameter("position"));
         user.setCompanyId(companyId);
         adminService.insertUser(user);
-        String groupId = request.getParameter("groupId");
-        if (groupId != null && !groupId.equals("")) {
-            adminService.insertUserIdGroupIdLink(user.getId(), Integer.parseInt(groupId));
-        }
+        adminService.insertUserIdDepartmentIdLink(user.getId(), departmentId);
+        return true;
+    }
+
+    @RequestMapping(value = "/structure/department/{departmentId}/group/{groupId}/user/create", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doCreateGroupUser(HttpServletRequest request, @PathVariable int departmentId, @PathVariable int groupId) {
+        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+        User user = new User();
+        user.setChineseName(request.getParameter("chineseName"));
+        user.setEnglishName(request.getParameter("englishName"));
+        user.setEmail(request.getParameter("email"));
+        user.setPassword(request.getParameter("email"));
+        user.setPosition(request.getParameter("position"));
+        user.setCompanyId(companyId);
+        adminService.insertUser(user);
+        adminService.insertUserIdGroupIdLink(user.getId(), groupId);
         return true;
     }
 

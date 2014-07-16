@@ -26,10 +26,14 @@
 
         <p></p>
 
-        <p>${user.status}</p>
+        <c:forEach items="${user.departmentList}" var="department">
+            <p>部门：${department.name}</p>
+        </c:forEach>
+
         <c:forEach items="${user.groupList}" var="group">
             <p>部门：${group.departmentName} - ${group.name}</p>
         </c:forEach>
+
         <p>职位：${user.position}</p>
     </div>
 </div>
