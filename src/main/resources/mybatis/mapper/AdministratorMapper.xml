@@ -34,7 +34,8 @@
 
     <update id="updateAdminDetail" parameterType="Administrator">
         update t_admin
-        set  phone_num = #{phoneNum}
+        set  email = #{email},
+             phone_num = #{phoneNum}
         where id = #{id}
     </update>
 

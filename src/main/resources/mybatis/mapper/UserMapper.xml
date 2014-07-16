@@ -40,7 +40,8 @@
 
     <update id="updateUserInfo" parameterType="User">
         update t_user
-        set  qq_num = #{qqNum},
+        set  email = #{email},
+             qq_num = #{qqNum},
              telephone_num = #{telephoneNum},
              mobile_phone_num = #{mobilePhoneNum},
              wechat_num = #{wechatNum}
