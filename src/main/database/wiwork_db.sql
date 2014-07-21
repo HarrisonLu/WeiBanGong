@@ -317,7 +317,6 @@ CREATE TABLE `t_department` (
   `created_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_department_ibfk` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
