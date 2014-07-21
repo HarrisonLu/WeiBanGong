@@ -9,7 +9,7 @@
  Target Server Version : 50617
  File Encoding         : utf-8
 
- Date: 07/16/2014 00:39:21 AM
+ Date: 07/21/2014 19:09:28 PM
 */
 
 SET NAMES utf8;
@@ -26,6 +26,7 @@ CREATE TABLE `t_admin` (
   `phone_num` varchar(30) DEFAULT NULL,
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `t_admin_email` (`email`) USING BTREE,
   KEY `t_admin_ibfk_1` (`company_id`) USING BTREE,
   CONSTRAINT `t_admin_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -251,7 +252,7 @@ CREATE TABLE `t_company` (
   `user_account_postfix` varchar(30) DEFAULT NULL,
   `is_set_user_account_postfix` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_customer`
@@ -319,7 +320,7 @@ CREATE TABLE `t_department` (
   PRIMARY KEY (`id`),
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_department_ibfk` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_discuss_stage`
@@ -661,8 +662,8 @@ CREATE TABLE `t_user` (
   `password` varchar(30) NOT NULL,
   `chinese_name` varchar(30) NOT NULL,
   `chinese_name_pinyin` varchar(30) NOT NULL,
-  `english_name` varchar(30) NOT NULL,
-  `email` varchar(30) NOT NULL DEFAULT '' UNIQUE,
+  `english_name` varchar(30) DEFAULT NULL,
+  `email` varchar(30) NOT NULL DEFAULT '',
   `status` varchar(30) DEFAULT NULL,
   `position` varchar(30) DEFAULT NULL,
   `position_level` varchar(30) DEFAULT NULL,
@@ -673,6 +674,7 @@ CREATE TABLE `t_user` (
   `created_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `company_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `t_user_email` (`email`) USING BTREE,
   KEY `company_id` (`company_id`),
   CONSTRAINT `t_user_ibfk_0` FOREIGN KEY (`company_id`) REFERENCES `t_company` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
