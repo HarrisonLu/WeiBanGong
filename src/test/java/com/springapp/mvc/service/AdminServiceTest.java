@@ -133,7 +133,7 @@ public class AdminServiceTest {
         Department department = new Department();
         department.setId(99);
         department.setName("微生物");
-        department.setCompanyId(1);
+        department.setCompanyId(2);
 
         Assert.assertEquals(adminService.insertDepartment(department), true);
     }
@@ -146,7 +146,7 @@ public class AdminServiceTest {
         group.setDepartmentId(1);
         group.setCompanyId(1);
 
-        Assert.assertEquals(adminService.insertGroup(group), true);
+//        Assert.assertEquals(adminService.insertGroup(group), true);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class AdminServiceTest {
         user.setWechatNum("eighteenWechat");
         user.setCompanyId(1);
 
-        Assert.assertEquals(adminService.insertUser(user), true);
+//        Assert.assertEquals(adminService.insertUser(user), true);
     }
 
     @Test
@@ -175,7 +175,7 @@ public class AdminServiceTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-//        Assert.assertEquals(adminService.deleteUser(18), true);
+        Assert.assertEquals(adminService.deleteUser(18), true);
     }
 
     @Test

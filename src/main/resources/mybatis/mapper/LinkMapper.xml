@@ -66,12 +66,17 @@
         <result property="userEnglishName" column="comment_user_english_name"/>
         <result property="customerId" column="comment_customer_id"/>
     </resultMap>
+
     <insert id="insertUserIdCollectedContactsIdLink" parameterType="java.util.Map">
         insert into t_user_collectedcontacts values (#{user_id}, #{collectedcontacts_id})
     </insert>
 
     <delete id="deleteUserIdCollectedContactsIdLink" parameterType="java.util.Map">
         delete from t_user_collectedcontacts where user_id = #{user_id} and collectedcontacts_id = #{collectedcontacts_id}
+    </delete>
+
+    <delete id="deleteAllUserIdCollectedContactsIdLinkByUserId" parameterType="int">
+        delete from t_user_collectedcontacts where user_id = #{userId} or collectedcontacts_id = #{userId}
     </delete>
 
     <select id="selectCollectedContactsBaseInfoListByUserId" parameterType="java.util.Map" resultMap="UserResultMap">
@@ -102,6 +107,10 @@
         where user_id = #{userId} and department_id = #{departmentId}
     </delete>
 
+    <delete id="deleteAllUserIdDepartmentIdLinkByUserId" parameterType="int">
+        delete from t_user_department where user_id = #{userId}
+    </delete>
+
     <insert id="insertUserIdGroupIdLink" parameterType="java.util.Map">
         insert into t_user_group
         values (#{userId}, #{groupId})
@@ -110,6 +119,10 @@
     <delete id="deleteUserIdGroupIdLink" parameterType="java.util.Map">
         delete from t_user_group
         where user_id = #{userId} and group_id = #{groupId}
+    </delete>
+
+    <delete id="deleteAllUserIdGroupIdLinkByUserId" parameterType="int">
+        delete from t_user_group where user_id = #{userId}
     </delete>
 
     <select id="searchGroupUserBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">
@@ -135,6 +148,10 @@
     <delete id="deleteUserSharedCustomerLink" parameterType="java.util.Map">
         delete from t_customer_user
                 where customer_id = #{customerId} and user_id = #{userId}
+    </delete>
+
+    <delete id="deleteAllUserSharedCustomerLinkByUserId" parameterType="int">
+        delete from t_customer_user where user_id = #{userId}
     </delete>
 
     <insert id="insertProjectCustomerLink" parameterType="java.util.Map">
@@ -198,6 +215,10 @@
                 where project_id = #{projectId} and manager_id = #{managerId}
     </delete>
 
+    <delete id="deleteAllProjectManagerLinkByUserId" parameterType="int">
+        delete from t_project_manager where manager_id = #{userId}
+    </delete>
+
     <insert id="insertProjectMemberLink" parameterType="java.util.Map">
         insert into t_project_member (project_id, member_id)
                 values (#{projectId}, #{memberId})
@@ -206,6 +227,10 @@
     <delete id="deleteProjectMemberLink" parameterType="java.util.Map">
         delete from t_project_member
                 where project_id = #{projectId} and member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteAllProjectMemberLinkByUserId" parameterType="int">
+        delete from t_project_member where member_id = #{userId}
     </delete>
 
     <select id="isProjectManager" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -242,6 +267,10 @@
                 where module_id = #{moduleId} and manager_id = #{managerId}
     </delete>
 
+    <delete id="deleteAllModuleManagerLinkByUserId" parameterType="int">
+        delete from t_module_manager where manager_id = #{userId}
+    </delete>
+
     <insert id="insertModuleMemberLink" parameterType="java.util.Map">
         insert into t_module_member (module_id, member_id)
                 values (#{moduleId}, #{memberId})
@@ -250,6 +279,10 @@
     <delete id="deleteModuleMemberLink" parameterType="java.util.Map">
         delete from t_module_member
                 where module_id = #{moduleId} and member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteAllModuleMemberLinkByUserId" parameterType="int">
+        delete from t_module_member where member_id = #{userId}
     </delete>
 
     <select id="isModuleManager" parameterType="java.util.Map" resultType="java.lang.Integer">
@@ -286,6 +319,10 @@
                 where task_id = #{taskId} and manager_id = #{managerId}
     </delete>
 
+    <delete id="deleteAllTaskManagerLinkByUserId" parameterType="int">
+        delete from t_task_manager where manager_id = #{userId}
+    </delete>
+
     <insert id="insertTaskMemberLink" parameterType="java.util.Map">
         insert into t_task_member (task_id, member_id)
                 values (#{taskId}, #{memberId})
@@ -294,6 +331,10 @@
     <delete id="deleteTaskMemberLink" parameterType="java.util.Map">
         delete from t_task_member
                 where task_id = #{taskId} and member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteAllTaskMemberLinkByUserId" parameterType="int">
+        delete from t_task_member where member_id = #{userId}
     </delete>
 
     <select id="isTaskManager" parameterType="java.util.Map" resultType="java.lang.Integer">

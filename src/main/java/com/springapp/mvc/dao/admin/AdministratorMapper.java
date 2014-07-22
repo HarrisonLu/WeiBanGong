@@ -3,6 +3,7 @@ package com.springapp.mvc.dao.admin;
 import com.springapp.mvc.domain.admin.Administrator;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,4 +40,7 @@ public interface AdministratorMapper {
 
     // 判断 是否 拥有新建项目权限
     public Integer hasRightsForCreateProject(int userId);
+
+    // 得到 所有管理员email信息
+    public List<Administrator> getAllAdminEmail();
 }

@@ -67,4 +67,10 @@
         from t_rights_create_project
         where user_id = #{userId}
     </select>
+
+    <select id="getAllAdminEmail" resultMap="AdministratorResultMap">
+        select a.email
+        from t_admin a
+    </select>
+
 </mapper>

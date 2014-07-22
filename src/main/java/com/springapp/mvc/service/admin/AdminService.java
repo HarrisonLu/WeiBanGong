@@ -148,6 +148,14 @@ public class AdminService {
                 user.setChineseNamePinyin(chineseNamePinYin);
             }
         }
+
+        List<Administrator> administratorList = administratorMapper.getAllAdminEmail();
+        for (Administrator administrator : administratorList) {
+            String adminEmail = administrator.getEmail();
+            if (user.getEmail().equals(adminEmail)) {
+                return false;
+            }
+        }
         boolean bool = userMapper.insertUser(user).equals(1);
 
         return bool;
@@ -175,6 +183,16 @@ public class AdminService {
 
     // 删除 成员
     public boolean deleteUser(int userId) {
+        linkMapper.deleteAllUserIdCollectedContactsIdLinkByUserId(userId);
+        linkMapper.deleteAllUserIdDepartmentIdLinkByUserId(userId);
+        linkMapper.deleteAllUserIdGroupIdLinkByUserId(userId);
+        linkMapper.deleteAllUserSharedCustomerLinkByUserId(userId);
+        linkMapper.deleteAllProjectManagerLinkByUserId(userId);
+        linkMapper.deleteAllProjectMemberLinkByUserId(userId);
+        linkMapper.deleteAllModuleManagerLinkByUserId(userId);
+        linkMapper.deleteAllModuleMemberLinkByUserId(userId);
+        linkMapper.deleteAllTaskManagerLinkByUserId(userId);
+        linkMapper.deleteAllTaskMemberLinkByUserId(userId);
         return userMapper.deleteUserById(userId).equals(1);
     }
 

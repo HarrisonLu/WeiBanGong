@@ -20,6 +20,9 @@ public interface LinkMapper {
     // 删除 成员id 和 收藏联系人id 关联
     public Integer deleteUserIdCollectedContactsIdLink(Map<String, Integer> map);
 
+    // 删除 指定成员id 的所有 收藏联系人 关联
+    public Integer deleteAllUserIdCollectedContactsIdLinkByUserId(int userId);
+
     // 根据 成员id 找 收藏联系人基本资料列表
     public List<User> selectCollectedContactsBaseInfoListByUserId(Map<String, Integer> map);
 
@@ -29,11 +32,17 @@ public interface LinkMapper {
     // 删除 成员id 和 部门id 关联
     public Integer deleteUserIdDepartmentIdLink(Map<String, Integer> map);
 
+    // 删除 指定成员id 和所有部门 关联
+    public Integer deleteAllUserIdDepartmentIdLinkByUserId(int userId);
+
     // 插入 成员id 和 组id 关联
     public Integer insertUserIdGroupIdLink(Map<String, Integer> map);
 
     // 删除 成员id 和 组id 关联
     public Integer deleteUserIdGroupIdLink(Map<String, Integer> map);
+
+    // 删除 指定成员id 和所有组 关联
+    public Integer deleteAllUserIdGroupIdLinkByUserId(int userId);
 
     // 根据 成员id 找 所在组成员基本信息列表
     public List<User> searchGroupUserBaseInfoListByUserId(int userId);
@@ -43,6 +52,9 @@ public interface LinkMapper {
 
     // 删除 成员-客户共享关系
     public Integer deleteUserSharedCustomerLink(Map<String, Integer> map);
+
+    // 删除 指定 成员id 的所有成员-客户共享关系
+    public Integer deleteAllUserSharedCustomerLinkByUserId(int userId);
 
     // 插入 项目关联客户
     public Integer insertProjectCustomerLink(Map<String, Integer> map);
@@ -82,11 +94,17 @@ public interface LinkMapper {
     // 删除 项目与负责人 关联
     public Integer deleteProjectManagerLink(Map<String, Integer> map);
 
+    // 删除 指定成员id 的所有 项目与负责人 关联
+    public Integer deleteAllProjectManagerLinkByUserId(int userId);
+
     // 插入 项目与成员 关联
     public Integer insertProjectMemberLink(Map<String, Integer> map);
 
     // 删除 项目与成员 关联
     public Integer deleteProjectMemberLink(Map<String, Integer> map);
+
+    // 删除 指定成员id 的所有 项目与成员 关联
+    public Integer deleteAllProjectMemberLinkByUserId(int userId);
 
     // 判断 是否为 项目负责人
     public Integer isProjectManager(Map<String, Integer> map);
@@ -108,11 +126,17 @@ public interface LinkMapper {
     // 删除 模块与负责人 关联
     public Integer deleteModuleManagerLink(Map<String, Integer> map);
 
+    // 删除 指定成员id 的所有 模块与负责人 关联
+    public Integer deleteAllModuleManagerLinkByUserId(int userId);
+
     // 插入 模块与成员 关联
     public Integer insertModuleMemberLink(Map<String, Integer> map);
 
     // 删除 模块与成员 关联
     public Integer deleteModuleMemberLink(Map<String, Integer> map);
+
+    // 删除 指定成员id 的所有 模块与成员 关联
+    public Integer deleteAllModuleMemberLinkByUserId(int userId);
 
     // 判断 是否为 模块负责人
     public Integer isModuleManager(Map<String, Integer> map);
@@ -134,11 +158,17 @@ public interface LinkMapper {
     // 删除 任务与负责人 关联
     public Integer deleteTaskManagerLink(Map<String, Integer> map);
 
+    // 删除 指定成员id 的所有 任务与负责人 关联
+    public Integer deleteAllTaskManagerLinkByUserId(int userId);
+
     // 插入 任务与成员 关联
     public Integer insertTaskMemberLink(Map<String, Integer> map);
 
     // 删除 任务与成员 关联
     public Integer deleteTaskMemberLink(Map<String, Integer> map);
+
+    // 删除 指定成员id 的所有 任务与成员 关联
+    public Integer deleteAllTaskMemberLinkByUserId(int userId);
 
     // 判断 是否为 任务负责人
     public Integer isTaskManager(Map<String, Integer> map);
