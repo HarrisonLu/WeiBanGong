@@ -39,6 +39,8 @@ var REFRESH_CUSTOMER = 33
 var REFRESH_USER = 34;
 var REFRESH_CONTACTS = 35;
 var REFRESH_APPROVAL = 36;
+var REFRESH_DEPARTMENT = 37;
+var REFRESH_GROUP = 38;
 
 function iCheckUpdate() {
     $('input').iCheck({
@@ -86,12 +88,13 @@ function ajaxSearchUser(query) {
                     "<img class='pull-left' src='/static_resources/images/head.png' alt='' style='margin-left: 4px'>" +
                     "<h4 class='list-group-item-heading head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" +
                     "<input type='checkbox' id=" + data[i].id + " value='" + data[i].englishName + " (" + data[i].chineseName + ")'></h4>";
+                var departments = data[i].departmentList;
+                for (var j in departments) {
+                    html += "<p class='list-group-item-text head-pic-text_ info-detail'>" + departments[j].name + "</p>"
+                }
                 var groups = data[i].groupList;
                 for (var j in groups) {
                     html += "<p class='list-group-item-text head-pic-text_ info-detail'>" + groups[j].departmentName + " - " + groups[j].name + "</p>";
-                }
-                if (groups.length == 0) {
-                    html += "<p class='list-group-item-text head-pic-text_ info-detail'>暂无分组</p>";
                 }
                 html += "</li>";
             }
@@ -169,12 +172,13 @@ function ajaxSearchApprover(query) {
                     "<img class='pull-left' src='/static_resources/images/head.png' alt='' style='margin-left: 4px'>" +
                     "<h4 class='list-group-item-heading head-pic-text_'>" + data[i].englishName + " (" + data[i].chineseName + ")" +
                     "<input type='radio' name='approver_info' id=" + data[i].id + " value='" + data[i].englishName + " (" + data[i].chineseName + ")'></h4>";
+                var departments = data[i].departmentList;
+                for (var j in departments) {
+                    html += "<p class='list-group-item-text head-pic-text_ info-detail'>" + departments[j].name + "</p>"
+                }
                 var groups = data[i].groupList;
                 for (var j in groups) {
                     html += "<p class='list-group-item-text head-pic-text_ info-detail'>" + groups[j].departmentName + " - " + groups[j].name + "</p>";
-                }
-                if (groups.length == 0) {
-                    html += "<p class='list-group-item-text head-pic-text_ info-detail'>暂无分组</p>";
                 }
                 html += "</li>";
             }

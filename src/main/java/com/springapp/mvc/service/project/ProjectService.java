@@ -84,10 +84,18 @@ public class ProjectService {
         }
 
         for (Project project : returnProjectList) {
-            if (project.getUpdateTime() != null){
+            if (project.getUpdateTime() != null) {
                 String displayString = DateHelper.dateToString(project.getUpdateTime());
                 if (displayString != null) {
                     project.setDisplayUpdateTime(displayString);
+                }
+            }
+        }
+        for (Project project : returnProjectList) {
+            if (project.getCreateTime() != null) {
+                String displayString = DateHelper.dateToString(project.getCreateTime());
+                if (displayString != null) {
+                    project.setDisplayCreateTime(displayString);
                 }
             }
         }
@@ -133,7 +141,7 @@ public class ProjectService {
 
         List<CommentProject> commentProjectList = commentProjectMapper.selectProjectCommentListByProjectId(map);
         for (CommentProject commentProject : commentProjectList) {
-            if (commentProject.getTime() != null){
+            if (commentProject.getTime() != null) {
                 String displayTime = DateHelper.getShortTime(commentProject.getTime());
                 if (displayTime != null) {
                     commentProject.setDisplayTime(displayTime);

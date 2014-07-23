@@ -69,14 +69,16 @@
         <h4 class="panel-title">组织架构</h4>
     </div>
     <div class="list-group">
+        <c:forEach items="${user.departmentList}" var="department">
+            <a href="/contacts/department/${department.id}" class="list-group-item">
+                    ${department.name}
+            </a>
+        </c:forEach>
         <c:forEach items="${user.groupList}" var="group">
             <a href="/contacts/group/${group.id}" class="list-group-item">
                     ${group.departmentName} - ${group.name}
             </a>
         </c:forEach>
-        <c:if test="${user.groupList.size() == 0}">
-            <p class="list-group-item">暂无分组</p>
-        </c:if>
     </div>
 </div>
 

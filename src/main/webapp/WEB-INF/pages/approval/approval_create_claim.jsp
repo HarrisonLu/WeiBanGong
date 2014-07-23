@@ -11,7 +11,7 @@
     <div class="row-fluid title-bar">
         <div class="col-xs-2 title-bar-btn">
             <a href="javascript:onBack()"><img class="title-bar-image"
-                                                     src="/static_resources/images/btn_back.png"></a>
+                                               src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
             <h4>费用报销</h4>
@@ -34,7 +34,8 @@
 
             <div class="col-xs-8">
                 <input type="text" class="form-control"
-                       value="${user.groupList[0].departmentName} - ${user.groupList[0].name}"
+                       value="<c:if test="${not empty user.departmentList}">${user.departmentList[0].name}</c:if>
+                       <c:if test="${not empty user.groupList}">${user.groupList[0].departmentName} - ${user.groupList[0].name}</c:if>"
                        readonly>
             </div>
         </div>

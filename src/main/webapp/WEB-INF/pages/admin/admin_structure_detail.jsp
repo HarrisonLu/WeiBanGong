@@ -15,6 +15,16 @@
         <div class="col-xs-8 title-bar-text">
             <h4>组织架构管理</h4>
         </div>
+        <div class="col-xs-2">
+            <div class="btn-group navbar-btn pull-right">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><b
+                        class="caret"></b>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:$('#deleteUserModal').modal('show')">删除该成员</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -50,6 +60,41 @@
         <li class="list-group-item">邮箱<p class="pull-right">${user.email}</p></li>
     </ul>
 </div>
+
+<div class="modal" id="deleteUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: center">
+                <h4>确认删除"${user.chineseName}"吗？</h4>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-danger btn-block btn-block-bottom-no-top-margin"
+                        onclick="onUserDelete()">删除成员
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-block-bottom" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function onUserDelete() {
+        $.ajax({
+            type: "POST",
+            url: encodeURI(encodeURI("/admin/structure/user/delete")),
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            data: {userId: ${user.id}},
+            success: function (data) {
+                if (data) {
+                    toastr.success("删除成功");
+                    localStorage[REFRESH_USER] = 1;
+                    window.history.back();
+                }
+            }
+        })
+    }
+</script>
 
 </body>
 </html>

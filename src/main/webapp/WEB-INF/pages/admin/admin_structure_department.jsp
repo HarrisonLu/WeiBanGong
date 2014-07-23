@@ -14,9 +14,18 @@
                                                      src="/static_resources/images/btn_back.png"></a>
         </div>
         <div class="col-xs-8 title-bar-text">
-            <h4>组织架构管理</h4>
+            <h4>${department.name}</h4>
         </div>
-
+        <div class="col-xs-2">
+            <div class="btn-group navbar-btn pull-right">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><b
+                        class="caret"></b>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:$('#deleteDepModal').modal('show')">删除该部门</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -45,10 +54,12 @@
             <h4 class="list-group-item-text head-pic-text">${group.name}</h4>
         </a>
     </c:forEach>
-    <c:if test="${empty department.groupList}">
-        <li class="list-group-item list-group-item-higher">
-            <h4 class="list-group-item-text">暂无部门</h4>
-        </li>
+    <c:if test="${empty department.userList && empty department.groupList}">
+        <div class="list-group-item" style="min-height: 130px">
+            <p style="text-align: center; color: #8E8E8E; margin-top: 30px">轻触上面按钮新建部门分组和成员</p>
+
+            <p style="text-align: center; color: #8E8E8E">部门成员负责统筹各小组</p>
+        </div>
     </c:if>
 </div>
 
@@ -70,10 +81,31 @@
     </div>
 </div>
 
+<div class="modal" id="deleteDepModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: center">
+                <h4>确认删除"${department.name}"吗？</h4>
+            </div>
+            <div class="modal-footer" style="text-align: center">
+                <button type="button" class="btn btn-danger btn-block btn-block-bottom-no-top-margin"
+                        onclick="onDepDelete()">删除部门
+                </button>
+                <button type="button" class="btn btn-default btn-block btn-block-bottom" data-dismiss="modal">取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         if (localStorage[REFRESH_USER] == 1) {
             localStorage[REFRESH_USER] = 0;
+            window.location.reload();
+        }
+        if (localStorage[REFRESH_GROUP] == 1) {
+            localStorage[REFRESH_GROUP] = 0;
             window.location.reload();
         }
     });
@@ -104,6 +136,22 @@
             return;
         }
         window.location.href = "/admin/structure/department/" + ${department.id} +"/user/create/";
+    }
+
+    function onDepDelete() {
+        $.ajax({
+            type: "POST",
+            url: encodeURI(encodeURI("/admin/structure/department/delete")),
+            contentType: "application/x-www-form-urlencoded;charset=utf-8",
+            data: {departmentId: ${department.id}},
+            success: function (data) {
+                if (data) {
+                    toastr.success("删除成功");
+                    localStorage[REFRESH_DEPARTMENT] = 1;
+                    window.history.back();
+                }
+            }
+        })
     }
 </script>
 

@@ -31,7 +31,14 @@
 
         <p>申请人：${approval.applicantName}</p>
 
-        <p>申请人部门：${group.departmentName} - ${group.name}</p>
+        <p>申请人部门：
+            <c:if test="${not empty user.departmentList}">
+                ${user.departmentList[0].name}
+            </c:if>
+            <c:if test="${not empty user.groupList}">
+                ${user.groupList[0].departmentName - user.groupList[0].name}
+            </c:if>
+        </p>
 
         <c:if test="${not empty approval.leaveTypeId}">
             <p>休假类型：${approval.leaveTypeName}</p>

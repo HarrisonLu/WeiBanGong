@@ -34,7 +34,8 @@
 
             <div class="col-xs-8">
                 <input type="text" class="form-control"
-                       value="${user.groupList[0].departmentName} - ${user.groupList[0].name}"
+                       value="<c:if test="${not empty user.departmentList}">${user.departmentList[0].name}</c:if>
+                       <c:if test="${not empty user.groupList}">${user.groupList[0].departmentName} - ${user.groupList[0].name}</c:if>"
                        readonly>
             </div>
         </div>

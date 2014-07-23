@@ -4,7 +4,7 @@
 <head>
     <title>微办公</title>
 </head>
-<body onload="document.form1.suffix.focus()">
+<body onload="document.getElementById('postfix').focus()">
 <div class="container-fluid">
     <div class="row-fluid title-bar">
         <div class="col-xs-2 title-bar-btn">
@@ -49,6 +49,12 @@
             toastr.warning("后缀不能为空");
             return;
         }
+        var c = new RegExp();
+        c = /^[A-Za-z0-9]+$/;
+        if (!c.test(postfix)) {
+            toastr.warning("后缀只支持英文或数字，请正确填写");
+            return;
+        }
         $.ajax({
             type: "POST",
             url: encodeURI(encodeURI(window.location)),
@@ -61,6 +67,9 @@
                 }
                 toastr.success("提交成功！可以开始创建员工账号！");
                 setTimeout("window.history.back()", 1000);
+            },
+            error: function () {
+                toastr.error("后缀已被占用，请使用其它后缀");
             }
         });
     }

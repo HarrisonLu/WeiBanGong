@@ -54,11 +54,9 @@ public class ApprovalController extends BaseController {
         Approval approval = approvalService.getApprovalDetailByApprovalId(approvalId, companyId);
         List<CommentApproval> commentApprovals = approvalService.selectCommentApprovalListByApprovalId(approvalId, companyId);
         User user = contactsService.selectUserDetailsById(approval.getApplicantId());
-        List<Group> groups = user.getGroupList();
-        Group group = groups.get(0);
         model.addAttribute("approval", approval);
         model.addAttribute("commentApprovals", commentApprovals);
-        model.addAttribute("group", group);
+        model.addAttribute("user", user);
         return "approval/approval_info";
     }
 
@@ -71,12 +69,10 @@ public class ApprovalController extends BaseController {
         Approval approval = approvalService.getApprovalDetailByApprovalId(approvalId, companyId);
         List<CommentApproval> commentApprovals = approvalService.selectCommentApprovalListByApprovalId(approvalId, companyId);
         User user = contactsService.selectUserDetailsById(approval.getApplicantId());
-        List<Group> groups = user.getGroupList();
-        Group group = groups.get(0);
         model.addAttribute("approval", approval);
         model.addAttribute("commentApprovals", commentApprovals);
-        model.addAttribute("group", group);
-        return "approval/approval_info";
+        model.addAttribute("user", user);
+        return "approval/approval_info_add";
     }
 
 
@@ -270,6 +266,22 @@ public class ApprovalController extends BaseController {
         }
 
         return approvalService.insertApproval(approval);
+    }
+
+    @RequestMapping(value = "/agree", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doAgreeApproval(HttpServletRequest request) {
+//        return approvalService.
+        return true;
+    }
+
+    @RequestMapping(value = "/disagree", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doDisagreeApproval(HttpServletRequest request, @PathVariable int approvalTypeId) {
+
+        return true;
     }
 
 }

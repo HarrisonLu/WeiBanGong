@@ -1,4 +1,4 @@
-package com.springapp.mvc.web.project.controller;
+package com.springapp.mvc.web;
 
 import com.springapp.mvc.domain.contacts.User;
 import com.springapp.mvc.domain.customer.Customer;

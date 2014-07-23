@@ -15,7 +15,7 @@ public class BaseController {
     public String adminDirectedUrl = "redirect:/account/admin/access/denied";
     public String memberDirectedUrl = "redirect:/account/member/access/denied";
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(NullPointerException.class)
     public String handleException(Exception ex) {
         ex.printStackTrace();
         return "redirect:/error";

@@ -39,6 +39,9 @@
 
         <div class="col-xs-8">
             <p class="form-control-static pull-right">
+                <c:forEach items="${user.departmentList}" var="department">
+                    ${department.name}
+                </c:forEach>
                 <c:forEach items="${user.groupList}" var="group">
                     ${group.departmentName} - ${group.name}
                 </c:forEach>

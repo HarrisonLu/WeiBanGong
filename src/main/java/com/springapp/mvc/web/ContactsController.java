@@ -1,4 +1,4 @@
-package com.springapp.mvc.web.contacts.controller;
+package com.springapp.mvc.web;
 
 import com.springapp.mvc.domain.contacts.Department;
 import com.springapp.mvc.domain.contacts.Group;

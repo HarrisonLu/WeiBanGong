@@ -54,7 +54,7 @@
         </c:forEach>
     </ul>
 
-    <div class="navbar navbar-fixed-bottom" style="margin-bottom: -4px">
+    <div class="navbar navbar-fixed-bottom" style="margin-bottom: -15px">
         <div class="input-group">
             <input type="text" class="form-control" id="customer_message" placeholder="输入需要发送的信息…">
             <span class="input-group-btn">

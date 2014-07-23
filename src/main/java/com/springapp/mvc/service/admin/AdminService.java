@@ -51,19 +51,12 @@ public class AdminService {
             }
         }
 
-        boolean bool = true;
         if (companyMapper.insertCompany(company).equals(1)) {
             Integer companyId = company.getId();
             administrator.setCompanyId(companyId);
-            if (administratorMapper.insertAdmin(administrator).equals(1))
-                ;
-            else
-                bool = false;
+            return administratorMapper.insertAdmin(administrator).equals(1);
         }
-        else {
-            bool = false;
-        }
-        return bool;
+        return false;
     }
 
     /* 账号登录
@@ -190,10 +183,7 @@ public class AdminService {
                 return false;
             }
         }
-
-        boolean bool = userMapper.insertUser(user).equals(1);
-
-        return bool;
+        return userMapper.insertUser(user).equals(1);
     }
 
     // 删除 部门
@@ -324,7 +314,7 @@ public class AdminService {
     }
 
     // 得到 所有成员email信息
-    public List<User> getAllUserEmail(){
+    public List<User> getAllUserEmail() {
         return userMapper.getAllUserEmail();
     }
 }

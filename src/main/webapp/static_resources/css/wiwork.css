@@ -7,12 +7,12 @@
 }
 
 .index-icon-font {
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .index-img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
 }
 
 .title-bar {
@@ -42,10 +42,6 @@
 
 .list-group-item-higher {
     min-height: 64px;
-}
-
-.input-group {
-    margin-top: 10px;
 }
 
 .panel-group {

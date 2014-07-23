@@ -77,7 +77,7 @@
     function onAccountUpdate() {
         var phoneNum = $("#phoneNum").val();
         if (phoneNum == "") {
-            toastr.warning("手机号码不能为空")
+            toastr.warning("请输入合法的手机号码");
             return;
         }
         $.ajax({

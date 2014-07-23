@@ -173,6 +173,13 @@ public class AdminController extends BaseController {
         return adminService.insertDepartment(department);
     }
 
+    @RequestMapping(value = "/structure/department/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doDeleteDepartment(HttpServletRequest request) {
+        return adminService.deleteDepartment(Integer.parseInt(request.getParameter("departmentId")));
+    }
+
     @RequestMapping(value = "/structure/group/create", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -185,6 +192,13 @@ public class AdminController extends BaseController {
         return adminService.insertGroup(group);
     }
 
+    @RequestMapping(value = "/structure/group/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doDeleteGroup(HttpServletRequest request) {
+        return adminService.deleteGroup(Integer.parseInt(request.getParameter("groupId")));
+    }
+
     @RequestMapping(value = "/structure/department/{departmentId}/user/create", method = RequestMethod.POST)
     public
     @ResponseBody
@@ -194,12 +208,14 @@ public class AdminController extends BaseController {
         user.setChineseName(request.getParameter("chineseName"));
         user.setEnglishName(request.getParameter("englishName"));
         user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("email"));
+        user.setPassword(request.getParameter("password"));
         user.setPosition(request.getParameter("position"));
         user.setCompanyId(companyId);
-        adminService.insertUser(user);
-        adminService.insertUserIdDepartmentIdLink(user.getId(), departmentId);
-        return true;
+        if (adminService.insertUser(user)) {
+            adminService.insertUserIdDepartmentIdLink(user.getId(), departmentId);
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping(value = "/structure/department/{departmentId}/group/{groupId}/user/create", method = RequestMethod.POST)
@@ -211,12 +227,21 @@ public class AdminController extends BaseController {
         user.setChineseName(request.getParameter("chineseName"));
         user.setEnglishName(request.getParameter("englishName"));
         user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("email"));
+        user.setPassword(request.getParameter("password"));
         user.setPosition(request.getParameter("position"));
         user.setCompanyId(companyId);
-        adminService.insertUser(user);
-        adminService.insertUserIdGroupIdLink(user.getId(), groupId);
-        return true;
+        if (adminService.insertUser(user)) {
+            adminService.insertUserIdGroupIdLink(user.getId(), groupId);
+            return true;
+        }
+        return false;
+    }
+
+    @RequestMapping(value = "/structure/user/delete", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Boolean doDeleteUser(HttpServletRequest request) {
+        return adminService.deleteUser(Integer.parseInt(request.getParameter("userId")));
     }
 
     @RequestMapping(value = "/member/privilege/project/add/{userId}", method = RequestMethod.POST)

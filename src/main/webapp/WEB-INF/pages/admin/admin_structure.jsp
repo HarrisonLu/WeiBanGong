@@ -16,9 +16,6 @@
         <div class="col-xs-8 title-bar-text">
             <h4>组织架构管理</h4>
         </div>
-        <div class="col-xs-2">
-
-        </div>
     </div>
 </div>
 
@@ -35,6 +32,11 @@
             <h4 class="list-group-item-text head-pic-text">${department.name}</h4>
         </a>
     </c:forEach>
+    <c:if test="${empty departments}">
+        <div class="list-group-item" style="min-height: 100px">
+            <p style="text-align: center; color: #8E8E8E; margin-top: 30px">轻触上面按钮新建您的第一个部门吧</p>
+        </div>
+    </c:if>
 </div>
 
 
@@ -57,6 +59,13 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        if (localStorage[REFRESH_DEPARTMENT] == 1) {
+            localStorage[REFRESH_DEPARTMENT] = 0;
+            window.location.reload();
+        }
+    });
+
     function onDepartmentCreate() {
         var departmentName = $('#departmentName').val();
         if (departmentName == "") {

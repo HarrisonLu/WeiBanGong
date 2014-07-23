@@ -31,7 +31,14 @@
 
         <p>申请人：${approval.applicantName}</p>
 
-        <p>申请人部门：${group.departmentName} - ${group.name}</p>
+        <p>申请人部门：
+            <c:if test="${not empty user.departmentList}">
+                ${user.departmentList[0].name}
+            </c:if>
+            <c:if test="${not empty user.groupList}">
+                ${user.groupList[0].departmentName - user.groupList[0].name}
+            </c:if>
+        </p>
 
         <c:if test="${not empty approval.leaveTypeId}">
             <p>休假类型：${approval.leaveTypeName}</p>
@@ -92,13 +99,26 @@
     </ul>
 
     <div class="navbar navbar-fixed-bottom" style="margin-bottom: -4px">
-        <div class="input-group">
-            <input type="text" class="form-control" id="project_message" placeholder="输入需要发送的信息…">
-            <span class="input-group-btn">
-                <button class="btn btn-default" onclick="onSend()">发送</button>
-            </span>
+        <div class="row">
+            <div class="col-xs-6" style="text-align: center">
+                <input type="radio" name="stage" id="agree" ${approval.approvalStageId == 4 ? 'checked' : ''}>
+                <label for="agree">通过</label>
+            </div>
+            <div class="col-xs-6" style="text-align: center">
+                <input type="radio" name="stage" id="disagree" ${approval.approvalStageId == 2 ? 'checked' : ''}>
+                <label for="disagree">驳回</label>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        iCheckUpdate();
+        $('#agree').click(function () {
+            alert("aa");
+        });
+    });
+</script>
 </body>
 </html>

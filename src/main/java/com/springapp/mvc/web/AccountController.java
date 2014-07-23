@@ -128,16 +128,12 @@ public class AccountController extends BaseController {
     Boolean doRegister(HttpServletRequest request) throws Exception {
         Company company = new Company();
         company.setName(request.getParameter("companyName"));
-        if (!adminService.insertCompany(company)) {
-            return false;
-        }
-
         Administrator admin = new Administrator();
         admin.setCompanyId(company.getId());
         admin.setEmail(request.getParameter("email"));
         admin.setPhoneNum(request.getParameter("phoneNum"));
         admin.setPassword(request.getParameter("password"));
-        return adminService.insertAdmin(admin);
+        return adminService.register(admin, company);
     }
 
     @RequestMapping(value = "/account/password/change", method = RequestMethod.POST)

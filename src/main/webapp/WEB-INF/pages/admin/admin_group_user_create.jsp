@@ -59,7 +59,17 @@
             <label class="col-xs-4 control-label">申请账号</label>
 
             <div class="col-xs-8">
-                <input type="text" class="form-control" id="email" placeholder="请输入员工账号" value="@${postfix}.com"/>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="email" placeholder="账号">
+                    <span class="input-group-addon">@${postfix}.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-4 control-label">初始密码</label>
+
+            <div class="col-xs-8">
+                <input type="text" class="form-control" id="password" placeholder="请输入6位或以上初始密码"/>
             </div>
         </div>
     </form>
@@ -72,10 +82,15 @@
         var chineseName = $("#chineseName").val();
         var englishName = $("#englishName").val();
         var position = $("#position").val();
-        var email = $("#email").val();
+        var email = $("#email").val() + "@${postfix}.com";
+        var password = $("#password").val();
 
-        if (chineseName == "" || englishName == "" || position == "" || email == "") {
+        if (chineseName == "" || englishName == "" || position == "" || email == "" || password == "") {
             toastr.warning("输入信息不完整");
+            return;
+        }
+        if (password.length < 6) {
+            toastr.warning("密码长度不够");
             return;
         }
 
@@ -86,7 +101,8 @@
             data: {chineseName: chineseName,
                 englishName: englishName,
                 position: position,
-                email: email},
+                email: email,
+                password: password},
             success: function () {
                 toastr.success("创建成功");
                 localStorage[REFRESH_USER] = 1;

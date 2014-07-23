@@ -51,16 +51,18 @@
         var password = $("#password").val();
         var confirmPassword = $("#confirmPassword").val();
 
-        if (companyName == "" || phoneNum == "" || email == "" || password == "") {
+        if (companyName == "" || email == "" || password == "") {
             toastr.warning("输入信息不完整");
             return;
         }
-
+        if (phoneNum == "") {
+            toastr.warning("请输入合法的手机号码");
+            return;
+        }
         if (password != confirmPassword) {
             toastr.warning("两次输入密码不一致");
             return;
         }
-
         if (password.length < 6) {
             toastr.warning("密码长度不够");
             return;
@@ -76,13 +78,12 @@
                 email: email,
                 password: password
             },
-            success: function (data) {
-                if (!data) {
-                    toastr.warning("注册失败");
-                    return;
-                }
+            success: function () {
                 toastr.success("恭喜你，您已经成功注册微办公企业管理员账号，自动为您跳转回登陆页");
                 setTimeout("window.location.href='/login'", 1500);
+            },
+            error: function () {
+                toastr.error("注册失败，公司名称或邮箱已被注册");
             }
         });
     }

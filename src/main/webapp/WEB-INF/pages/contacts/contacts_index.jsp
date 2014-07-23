@@ -32,13 +32,13 @@
                 <img class="pull-left head-pic" src="/static_resources/images/head.png">
 
                 <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
+                <c:forEach items="${user.departmentList}" var="department">
+                    <p class="list-group-item-text head-pic-text info-detail">${department.name}</p>
+                </c:forEach>
                 <c:forEach items="${user.groupList}" var="group">
                     <p class="list-group-item-text head-pic-text info-detail">${group.departmentName}
                         - ${group.name}</p>
                 </c:forEach>
-                <c:if test="${user.groupList.size() == 0}">
-                    <p class="list-group-item-text head-pic-text info-detail">暂无分组</p>
-                </c:if>
             </a>
 
             <div id="coll_users">
@@ -47,13 +47,13 @@
                         <img class="pull-left head-pic" src="/static_resources/images/head.png">
 
                         <h4 class="list-group-item-heading head-pic-text">${user.englishName} (${user.chineseName})</h4>
+                        <c:forEach items="${user.departmentList}" var="department">
+                            <p class="list-group-item-text head-pic-text info-detail">${department.name}</p>
+                        </c:forEach>
                         <c:forEach items="${user.groupList}" var="group">
                             <p class="list-group-item-text head-pic-text info-detail">${group.departmentName}
                                 - ${group.name}</p>
                         </c:forEach>
-                        <c:if test="${user.groupList.size() == 0}">
-                            <p class="list-group-item-text head-pic-text info-detail">暂无分组</p>
-                        </c:if>
                     </a>
                 </c:forEach>
             </div>
@@ -116,13 +116,13 @@
                 })
                 var item = '<img style="margin-right: 8px; margin-top: 8px" class="pull-left" src="/static_resources/images/head.png">'
                 item += '<div style="margin-top: 8px; min-width: 200px">' + itemEnglishName + '（' + user.chineseName + ')'
-                var groups = user.groupList
-                if (groups != null && groups.length > 0) {
-                    for (var i = 0; i < groups.length; ++i) {
-                        item += '<p>' + groups[i].departmentName + ' - ' + groups[i].name + '</p>'
-                    }
-                } else {
-                    item += '<p>暂无分组<p/>'
+                var departments = user.departmentList;
+                for (var i in departments) {
+                    item += '<p>' + departments[i].name + '</p>';
+                }
+                var groups = user.groupList;
+                for (var i in groups) {
+                    item += '<p>' + groups[i].departmentName + ' - ' + groups[i].name + '</p>'
                 }
                 item += '</div>'
                 return item;
@@ -151,12 +151,13 @@
                     html += "<a href='/contacts/user/" + data[i].id + "' class='list-group-item list-group-item-higher'>" +
                             "<img class='pull-left head-pic' src='/static_resources/images/head.png'>" +
                             "<h4 class='list-group-item-heading head-pic-text'>" + data[i].englishName + " (" + data[i].chineseName + ")" + "</h4>";
+                    var departments = data[i].departmentList;
+                    for (var j in departments) {
+                        html += "<p class='list-group-item-text head-pic-text_ info-detail'>" + departments[j].name + "</p>"
+                    }
                     var groups = data[i].groupList;
                     for (var j in groups) {
                         html += "<p class='list-group-item-text head-pic-text info-detail'>" + groups[j].departmentName + " - " + groups[j].name + "</p>";
-                    }
-                    if (groups.length == 0) {
-                        html += "<p class='list-group-item-text head-pic-text info-detail'>暂无分组</p>";
                     }
                     html += "</a>";
                 }
