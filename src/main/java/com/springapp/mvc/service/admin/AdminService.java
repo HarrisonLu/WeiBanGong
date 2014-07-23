@@ -174,27 +174,27 @@ public class AdminService {
         return groupMapper.insertGroup(group).equals(1);
     }
 
-//    // 插入 成员
-//    public boolean insertUser(User user) {
-//        if (user.getChineseName() != null) {
-//            String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
-//            if (chineseNamePinYin != null) {
-//                user.setChineseNamePinyin(chineseNamePinYin);
-//            }
-//        }
-//
-//        List<Administrator> administratorList = administratorMapper.getAllAdminEmail();
-//        for (Administrator administrator : administratorList) {
-//            String adminEmail = administrator.getEmail();
-//            if (user.getEmail().equals(adminEmail)) {
-//                return false;
-//            }
-//        }
-//
-//        boolean bool = userMapper.insertUser(user).equals(1);
-//
-//        return bool;
-//    }
+    // 插入 成员
+    public boolean insertUser(User user) {
+        if (user.getChineseName() != null) {
+            String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
+            if (chineseNamePinYin != null) {
+                user.setChineseNamePinyin(chineseNamePinYin);
+            }
+        }
+
+        List<Administrator> administratorList = administratorMapper.getAllAdminEmail();
+        for (Administrator administrator : administratorList) {
+            String adminEmail = administrator.getEmail();
+            if (user.getEmail().equals(adminEmail)) {
+                return false;
+            }
+        }
+
+        boolean bool = userMapper.insertUser(user).equals(1);
+
+        return bool;
+    }
 
     // 删除 部门
     public boolean deleteDepartment(int departmentId) {
