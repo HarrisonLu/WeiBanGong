@@ -167,7 +167,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getAllUserEmail" resultMap="User">
+    <select id="getAllUserEmail" resultMap="UserResultMap">
         select u.email
         from t_user u
     </select>

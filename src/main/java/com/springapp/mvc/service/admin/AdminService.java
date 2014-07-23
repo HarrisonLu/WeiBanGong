@@ -40,6 +40,26 @@ public class AdminService {
     @Autowired
     LinkMapper linkMapper;
 
+    // 注册
+    public boolean register(Administrator administrator, Company company) {
+
+        List<User> userList = userMapper.getAllUserEmail();
+        for (User user : userList) {
+            String userEmail = user.getEmail();
+            if (administrator.getEmail().equals(userEmail)) {
+                return false;
+            }
+        }
+
+        boolean bool = true;
+        if (administratorMapper.insertAdmin(administrator).equals(1) != true)
+            bool = false;
+        if (companyMapper.insertCompany(company).equals(1) != true)
+            bool = false;
+
+        return bool;
+    }
+
     /* 账号登录
        返回：账户类型（0为登录失败，1为管理员账户，2为用户账户），公司id，账户id
     */
@@ -100,23 +120,23 @@ public class AdminService {
 //        return userMapper.selectUserDetailByAccountNumAndPassword(map);
 //    }
 
-    // 插入 公司
-    public boolean insertCompany(Company company) {
-        return companyMapper.insertCompany(company).equals(1);
-    }
+//    // 插入 公司
+//    public boolean insertCompany(Company company) {
+//        return companyMapper.insertCompany(company).equals(1);
+//    }
 
-    // 插入 管理员
-    public boolean insertAdmin(Administrator administrator) {
-
-        List<User> userList = userMapper.getAllUserEmail();
-        for (User user : userList) {
-            String userEmail = user.getEmail();
-            if (administrator.getEmail().equals(userEmail)) {
-                return false;
-            }
-        }
-        return administratorMapper.insertAdmin(administrator).equals(1);
-    }
+//    // 插入 管理员
+//    public boolean insertAdmin(Administrator administrator) {
+//
+//        List<User> userList = userMapper.getAllUserEmail();
+//        for (User user : userList) {
+//            String userEmail = user.getEmail();
+//            if (administrator.getEmail().equals(userEmail)) {
+//                return false;
+//            }
+//        }
+//        return administratorMapper.insertAdmin(administrator).equals(1);
+//    }
 
     // 更新 成员 详细信息
     public boolean updateUserDetail(User user) {
@@ -148,27 +168,27 @@ public class AdminService {
         return groupMapper.insertGroup(group).equals(1);
     }
 
-    // 插入 成员
-    public boolean insertUser(User user) {
-        if (user.getChineseName() != null) {
-            String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
-            if (chineseNamePinYin != null) {
-                user.setChineseNamePinyin(chineseNamePinYin);
-            }
-        }
-
-        List<Administrator> administratorList = administratorMapper.getAllAdminEmail();
-        for (Administrator administrator : administratorList) {
-            String adminEmail = administrator.getEmail();
-            if (user.getEmail().equals(adminEmail)) {
-                return false;
-            }
-        }
-
-        boolean bool = userMapper.insertUser(user).equals(1);
-
-        return bool;
-    }
+//    // 插入 成员
+//    public boolean insertUser(User user) {
+//        if (user.getChineseName() != null) {
+//            String chineseNamePinYin = ChineseToPinyin.getStringPinYin(user.getChineseName());
+//            if (chineseNamePinYin != null) {
+//                user.setChineseNamePinyin(chineseNamePinYin);
+//            }
+//        }
+//
+//        List<Administrator> administratorList = administratorMapper.getAllAdminEmail();
+//        for (Administrator administrator : administratorList) {
+//            String adminEmail = administrator.getEmail();
+//            if (user.getEmail().equals(adminEmail)) {
+//                return false;
+//            }
+//        }
+//
+//        boolean bool = userMapper.insertUser(user).equals(1);
+//
+//        return bool;
+//    }
 
     // 删除 部门
     public boolean deleteDepartment(int departmentId) {
