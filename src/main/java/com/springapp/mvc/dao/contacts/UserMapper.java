@@ -56,4 +56,7 @@ public interface UserMapper {
 
     // 根据 账号和密码 找 成员详细资料
     public User selectUserDetailByAccountNumAndPassword(Map<String, String> map);
+
+    // 得到 所有成员email信息
+    public List<User> getAllUserEmail();
 }

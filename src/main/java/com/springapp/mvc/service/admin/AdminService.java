@@ -107,6 +107,14 @@ public class AdminService {
 
     // 插入 管理员
     public boolean insertAdmin(Administrator administrator) {
+
+        List<User> userList = userMapper.getAllUserEmail();
+        for (User user : userList) {
+            String userEmail = user.getEmail();
+            if (administrator.getEmail().equals(userEmail)) {
+                return false;
+            }
+        }
         return administratorMapper.insertAdmin(administrator).equals(1);
     }
 
@@ -156,6 +164,7 @@ public class AdminService {
                 return false;
             }
         }
+
         boolean bool = userMapper.insertUser(user).equals(1);
 
         return bool;
@@ -285,4 +294,10 @@ public class AdminService {
         map.put("groupId", groupId);
         return linkMapper.deleteUserIdGroupIdLink(map);
     }
+
+    // 得到 所有成员email信息
+    public List<User> getAllUserEmail(){
+        return userMapper.getAllUserEmail();
+    }
 }
+
