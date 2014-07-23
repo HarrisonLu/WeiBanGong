@@ -198,6 +198,7 @@ public class AdminService {
 
     // 删除 部门
     public boolean deleteDepartment(int departmentId) {
+        linkMapper.deleteAllUserIdDepartmentIdLinkByDepartmentId(departmentId);
         Department department = departmentMapper.selectDepartmentDetailsByDepartmentId(departmentId);
         List<Group> groupList = department.getGroupList();
         for (Group group : groupList) {
@@ -208,6 +209,7 @@ public class AdminService {
 
     // 删除 组
     public boolean deleteGroup(int groupId) {
+        linkMapper.deleteAllUserIdDepartmentIdLinkByGroupId(groupId);
         Group group = groupMapper.selectGroupDetailsByGroupId(groupId);
         List<User> userList = group.getUserList();
         for (User user : userList) {

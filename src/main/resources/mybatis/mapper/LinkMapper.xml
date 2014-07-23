@@ -111,6 +111,10 @@
         delete from t_user_department where user_id = #{userId}
     </delete>
 
+    <delete id="deleteAllUserIdDepartmentIdLinkByDepartmentId" parameterType="int">
+        delete from t_user_department where department_id = #{departmentId}
+    </delete>
+
     <insert id="insertUserIdGroupIdLink" parameterType="java.util.Map">
         insert into t_user_group
         values (#{userId}, #{groupId})
@@ -123,6 +127,10 @@
 
     <delete id="deleteAllUserIdGroupIdLinkByUserId" parameterType="int">
         delete from t_user_group where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteAllUserIdDepartmentIdLinkByGroupId" parameterType="int">
+        delete from t_user_group where group_id = #{groupId}
     </delete>
 
     <select id="searchGroupUserBaseInfoListByUserId" parameterType="int" resultMap="UserResultMap">

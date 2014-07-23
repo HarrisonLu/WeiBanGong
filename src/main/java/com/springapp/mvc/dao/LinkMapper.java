@@ -35,6 +35,9 @@ public interface LinkMapper {
     // 删除 指定成员id 和所有部门 关联
     public Integer deleteAllUserIdDepartmentIdLinkByUserId(int userId);
 
+    // 删除 指定部门id 和所有成员 关联
+    public Integer deleteAllUserIdDepartmentIdLinkByDepartmentId(int departmentId);
+
     // 插入 成员id 和 组id 关联
     public Integer insertUserIdGroupIdLink(Map<String, Integer> map);
 
@@ -43,6 +46,9 @@ public interface LinkMapper {
 
     // 删除 指定成员id 和所有组 关联
     public Integer deleteAllUserIdGroupIdLinkByUserId(int userId);
+
+    // 删除 指定组id 和所有成员 关联
+    public Integer deleteAllUserIdDepartmentIdLinkByGroupId(int groupId);
 
     // 根据 成员id 找 所在组成员基本信息列表
     public List<User> searchGroupUserBaseInfoListByUserId(int userId);

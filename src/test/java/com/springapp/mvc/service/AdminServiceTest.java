@@ -180,17 +180,17 @@ public class AdminServiceTest {
 
     @Test
     public void testDeleteDepartment() throws Exception {
-//        Assert.assertEquals(adminService.deleteDepartment(99), true);
+//        Assert.assertEquals(adminService.deleteDepartment(6), true);
     }
 
     @Test
     public void testDeleteGroup() throws Exception {
-//        Assert.assertEquals(adminService.deleteGroup(99), true);
+//        Assert.assertEquals(adminService.deleteGroup(8), true);
     }
 
     @Test
     public void testDeleteUser() throws Exception {
-        Assert.assertEquals(adminService.deleteUser(18), true);
+//        Assert.assertEquals(adminService.deleteUser(18), true);
     }
 
     @Test
