@@ -263,6 +263,14 @@ public class ApprovalService {
         approvalMapper.updateApproval(approval);
     }
 
+    // 更新 审批stage
+    public void updateApprovalStage(int approvalId, int stageId) {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("approvalId", approvalId);
+        map.put("stageId", stageId);
+        approvalMapper.updateApprovalStage(map);
+    }
+
     //    // 得到 近六个月的时间字符串列表
 //    public List<String> getRecentMonthsString(){
 //

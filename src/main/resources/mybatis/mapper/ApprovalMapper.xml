@@ -118,6 +118,12 @@
         where id = #{id}
     </update>
 
+    <update id="updateApprovalStage" parameterType="java.util.Map">
+        update t_approval
+        set approval_stage_id = #{stageId}
+        where id = #{approvalId}
+    </update>
+
     <select id="getApprovalDetailByApprovalId" parameterType="java.util.Map" resultMap="ApprovalResultMap">
         select a.*,
                aty.name as approval_type_name,

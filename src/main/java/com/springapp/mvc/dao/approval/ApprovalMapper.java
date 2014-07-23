@@ -32,6 +32,9 @@ public interface ApprovalMapper {
     // 更新 审批
     public void updateApproval(Approval approval);
 
+    // 更新 审批stage
+    public void updateApprovalStage(Map<String, Integer> map);
+
     // 根据 审批id 找 审批详细资料
     public Approval getApprovalDetailByApprovalId(Map<String, Integer> map);
 
