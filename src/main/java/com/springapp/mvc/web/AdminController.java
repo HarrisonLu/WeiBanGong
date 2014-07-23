@@ -185,39 +185,39 @@ public class AdminController extends BaseController {
         return adminService.insertGroup(group);
     }
 
-    @RequestMapping(value = "/structure/department/{departmentId}/user/create", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Boolean doCreateDepartmentUser(HttpServletRequest request, @PathVariable int departmentId) {
-        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-        User user = new User();
-        user.setChineseName(request.getParameter("chineseName"));
-        user.setEnglishName(request.getParameter("englishName"));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("email"));
-        user.setPosition(request.getParameter("position"));
-        user.setCompanyId(companyId);
-        adminService.insertUser(user);
-        adminService.insertUserIdDepartmentIdLink(user.getId(), departmentId);
-        return true;
-    }
+//    @RequestMapping(value = "/structure/department/{departmentId}/user/create", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    Boolean doCreateDepartmentUser(HttpServletRequest request, @PathVariable int departmentId) {
+//        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+//        User user = new User();
+//        user.setChineseName(request.getParameter("chineseName"));
+//        user.setEnglishName(request.getParameter("englishName"));
+//        user.setEmail(request.getParameter("email"));
+//        user.setPassword(request.getParameter("email"));
+//        user.setPosition(request.getParameter("position"));
+//        user.setCompanyId(companyId);
+//        adminService.insertUser(user);
+//        adminService.insertUserIdDepartmentIdLink(user.getId(), departmentId);
+//        return true;
+//    }
 
-    @RequestMapping(value = "/structure/department/{departmentId}/group/{groupId}/user/create", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Boolean doCreateGroupUser(HttpServletRequest request, @PathVariable int departmentId, @PathVariable int groupId) {
-        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
-        User user = new User();
-        user.setChineseName(request.getParameter("chineseName"));
-        user.setEnglishName(request.getParameter("englishName"));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("email"));
-        user.setPosition(request.getParameter("position"));
-        user.setCompanyId(companyId);
-        adminService.insertUser(user);
-        adminService.insertUserIdGroupIdLink(user.getId(), groupId);
-        return true;
-    }
+//    @RequestMapping(value = "/structure/department/{departmentId}/group/{groupId}/user/create", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    Boolean doCreateGroupUser(HttpServletRequest request, @PathVariable int departmentId, @PathVariable int groupId) {
+//        int companyId = (Integer) request.getSession().getAttribute(COMPANY_ID);
+//        User user = new User();
+//        user.setChineseName(request.getParameter("chineseName"));
+//        user.setEnglishName(request.getParameter("englishName"));
+//        user.setEmail(request.getParameter("email"));
+//        user.setPassword(request.getParameter("email"));
+//        user.setPosition(request.getParameter("position"));
+//        user.setCompanyId(companyId);
+//        adminService.insertUser(user);
+//        adminService.insertUserIdGroupIdLink(user.getId(), groupId);
+//        return true;
+//    }
 
     @RequestMapping(value = "/member/privilege/project/add/{userId}", method = RequestMethod.POST)
     public

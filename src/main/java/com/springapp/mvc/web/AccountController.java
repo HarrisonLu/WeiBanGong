@@ -122,23 +122,23 @@ public class AccountController extends BaseController {
         return true;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Boolean doRegister(HttpServletRequest request) throws Exception {
-        Company company = new Company();
-        company.setName(request.getParameter("companyName"));
-        if (!adminService.insertCompany(company)) {
-            return false;
-        }
-
-        Administrator admin = new Administrator();
-        admin.setCompanyId(company.getId());
-        admin.setEmail(request.getParameter("email"));
-        admin.setPhoneNum(request.getParameter("phoneNum"));
-        admin.setPassword(request.getParameter("password"));
-        return adminService.insertAdmin(admin);
-    }
+//    @RequestMapping(value = "/register", method = RequestMethod.POST)
+//    public
+//    @ResponseBody
+//    Boolean doRegister(HttpServletRequest request) throws Exception {
+//        Company company = new Company();
+//        company.setName(request.getParameter("companyName"));
+//        if (!adminService.insertCompany(company)) {
+//            return false;
+//        }
+//
+//        Administrator admin = new Administrator();
+//        admin.setCompanyId(company.getId());
+//        admin.setEmail(request.getParameter("email"));
+//        admin.setPhoneNum(request.getParameter("phoneNum"));
+//        admin.setPassword(request.getParameter("password"));
+//        return adminService.insertAdmin(admin);
+//    }
 
     @RequestMapping(value = "/account/password/change", method = RequestMethod.POST)
     public

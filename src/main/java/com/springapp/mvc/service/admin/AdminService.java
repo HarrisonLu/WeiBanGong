@@ -52,11 +52,17 @@ public class AdminService {
         }
 
         boolean bool = true;
-        if (administratorMapper.insertAdmin(administrator).equals(1) != true)
+        if (companyMapper.insertCompany(company).equals(1)) {
+            Integer companyId = company.getId();
+            administrator.setCompanyId(companyId);
+            if (administratorMapper.insertAdmin(administrator).equals(1))
+                ;
+            else
+                bool = false;
+        }
+        else {
             bool = false;
-        if (companyMapper.insertCompany(company).equals(1) != true)
-            bool = false;
-
+        }
         return bool;
     }
 

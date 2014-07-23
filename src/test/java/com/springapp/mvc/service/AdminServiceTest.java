@@ -57,6 +57,21 @@ public class AdminServiceTest {
 //    }
 
     @Test
+    public void testRegister() throws Exception {
+
+        Company company = new Company();
+        company.setName("金钱有限公司");
+        company.setUserAccountPostfix("money.com");
+
+        Administrator administrator = new Administrator();
+        administrator.setEmail("moneyMan@money.com");
+        administrator.setPassword("qwer_1234");
+        administrator.setPhoneNum("13900000000");
+
+//        Assert.assertEquals(adminService.register(administrator, company), true);
+    }
+
+    @Test
     public void testLogin() throws Exception {
         Map<String, Integer> map = new HashMap<String, Integer>();
 
@@ -70,26 +85,26 @@ public class AdminServiceTest {
         Assert.assertEquals(map.get("accountType") == 0, true);
     }
 
-    @Test
-    public void testInsertCompany() throws Exception {
-        Company company = new Company();
-        company.setName("能力有限公司");
-        company.setUserAccountPostfix("ability.com");
+//    @Test
+//    public void testInsertCompany() throws Exception {
+//        Company company = new Company();
+//        company.setName("能力有限公司");
+//        company.setUserAccountPostfix("ability.com");
+//
+////        Assert.assertEquals(adminService.insertCompany(company), true);
+//    }
 
-//        Assert.assertEquals(adminService.insertCompany(company), true);
-    }
-
-    @Test
-    public void testInsertAdmin() throws Exception {
-        Administrator administrator = new Administrator();
-        administrator.setId(99);
-        administrator.setEmail("AbilityMan@ability.com");
-        administrator.setPassword("qwer_1234");
-        administrator.setPhoneNum("13900000000");
-        administrator.setCompanyId(2);
-
-//        Assert.assertEquals(adminService.insertAdmin(admin), true);
-    }
+//    @Test
+//    public void testInsertAdmin() throws Exception {
+//        Administrator administrator = new Administrator();
+//        administrator.setId(99);
+//        administrator.setEmail("AbilityMan@ability.com");
+//        administrator.setPassword("qwer_1234");
+//        administrator.setPhoneNum("13900000000");
+//        administrator.setCompanyId(2);
+//
+////        Assert.assertEquals(adminService.insertAdmin(admin), true);
+//    }
 
     @Test
     public void testUpdateUserDetail() throws Exception {
