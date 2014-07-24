@@ -107,15 +107,17 @@ public class AdminServiceTest {
 //    }
 
     @Test
-    public void testUpdateUserDetail() throws Exception {
+    public void testUpdateUserAllDetail() throws Exception {
         User user = new User();
         user.setId(1);
+        user.setPassword("mima1");
         user.setTelephoneNum("88886666");
         user.setMobilePhoneNum("13430325317");
         user.setQqNum("623360317");
-        user.setEmail("luhuang@qq.com");
+        user.setEnglishName("luhuang");
         user.setWechatNum("luhuanglh");
-        adminService.updateUserDetail(user);
+        user.setPosition("前端工程师");
+//        adminService.updateUserAllDetail(user);
     }
 
     @Test

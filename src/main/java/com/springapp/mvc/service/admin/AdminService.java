@@ -137,9 +137,9 @@ public class AdminService {
 //        return administratorMapper.insertAdmin(administrator).equals(1);
 //    }
 
-    // 更新 成员 详细信息
-    public boolean updateUserDetail(User user) {
-        return userMapper.updateUserInfo(user).equals(1);
+    // 更新 成员所有详细信息
+    public boolean updateUserAllDetail(User user) {
+        return userMapper.updateUserAllInfo(user).equals(1);
     }
 
     // 修改 成员 密码

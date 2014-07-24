@@ -18,6 +18,9 @@ public interface UserMapper {
     // 修改 成员密码
     public void updateUserPassword(User user);
 
+    // 修改 成员所有信息
+    public Integer updateUserAllInfo(User user);
+
     // 删除 成员
     public Integer deleteUserById(int id);
 

@@ -44,12 +44,25 @@
              telephone_num = #{telephoneNum},
              mobile_phone_num = #{mobilePhoneNum},
              wechat_num = #{wechatNum}
+--              ,english_name = #{englishName}
         where id = #{id}
     </update>
 
     <update id="updateUserPassword" parameterType="User">
         update t_user
         set  password = #{password}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserAllInfo" parameterType="User">
+        update t_user
+        set  qq_num = #{qqNum},
+             telephone_num = #{telephoneNum},
+             mobile_phone_num = #{mobilePhoneNum},
+             wechat_num = #{wechatNum},
+             password = #{password},
+             english_name = #{englishName},
+             position = #{position}
         where id = #{id}
     </update>
 
